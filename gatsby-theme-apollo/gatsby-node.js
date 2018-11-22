@@ -1,4 +1,5 @@
 const withThemePath = require('./with-theme-path');
+const path = require('path');
 
 exports.createPages = ({actions, graphql}) => {
   const {createPage} = actions;
@@ -28,4 +29,18 @@ exports.createPages = ({actions, graphql}) => {
       })
     })
   })
+}
+
+exports.onCreateWebpackConfig = ({ actions, loaders, getConfig }) => {
+  actions.setWebpackConfig({
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          include: path.dirname(require.resolve("gatsby-theme-apollo")),
+          use: [loaders.js()]
+        }
+      ]
+    }
+  });
 }
