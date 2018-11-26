@@ -12,6 +12,14 @@ module.exports = {
         name: 'markdown-pages'
       }
     },
-    'gatsby-transformer-remark'
+    'gatsby-transformer-remark',
+    {
+      resolve: 'gatsby-mdx',
+      options: {
+        defaultLayouts: {
+          default: require.resolve('./src/templates/docs.js')
+        }
+      }
+    }
   ]
 };
