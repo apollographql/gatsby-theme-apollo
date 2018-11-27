@@ -1,18 +1,10 @@
-const path = require('path');
-
 module.exports = {
   siteMetadata: {
-    title: 'Themes work!'
+    title: 'Apollo Documentation'
   },
   plugins: [
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        path: path.resolve('./docs'),
-        name: 'markdown-pages'
-      }
-    },
-    'gatsby-transformer-remark',
+    'gatsby-plugin-emotion',
+    'gatsby-plugin-typography',
     {
       resolve: 'gatsby-mdx',
       options: {

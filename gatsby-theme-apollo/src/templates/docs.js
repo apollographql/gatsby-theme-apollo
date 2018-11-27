@@ -1,8 +1,9 @@
-import React from 'react';
-import Layout from '../components/layout';
 import Helmet from 'react-helmet';
+import Layout from '../components/layout';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-export default props => {
+export default function Docs(props) {
   return (
     <Layout>
       <Helmet>
@@ -10,5 +11,10 @@ export default props => {
       </Helmet>
       {props.children}
     </Layout>
-  )
+  );
 }
+
+Docs.propTypes = {
+  children: PropTypes.node.isRequired,
+  pageContext: PropTypes.object.isRequired
+};

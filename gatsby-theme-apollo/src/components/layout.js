@@ -1,13 +1,40 @@
-import React from 'react';
 import Helmet from 'react-helmet';
+import PropTypes from 'prop-types';
+import React, {Fragment} from 'react';
+import styled from 'react-emotion';
+import {StaticQuery, graphql} from 'gatsby';
 
-const title = 'Apollo Documentation';
+const Header = styled.header({
+  padding: 24,
+  backgroundColor: 'blue'
+});
+
 export default function Layout(props) {
   return (
-    <div>
-      <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`} />
-      <header>Apollo</header>
-      {props.children}
-    </div>
-  )
+    <StaticQuery
+      query={graphql`
+        {
+          site {
+            siteMetadata {
+              title
+            }
+          }
+        }
+      `}
+      render={data => {
+        const {title} = data.site.siteMetadata;
+        return (
+          <Fragment>
+            <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`} />
+            <Header>Apollo</Header>
+            {props.children}
+          </Fragment>
+        );
+      }}
+    />
+  );
 }
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired
+};

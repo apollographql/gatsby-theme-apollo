@@ -1,0 +1,3 @@
+{
+  "extends": "@trevorblades/eslint-config/react"
+}

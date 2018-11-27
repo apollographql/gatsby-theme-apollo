@@ -4,11 +4,22 @@
   "dependencies": {
     "@mdx-js/mdx": "^0.16.5",
     "@mdx-js/tag": "^0.16.1",
+    "emotion": "^9.2.12",
+    "emotion-server": "^9.2.12",
+    "gatsby": "^2.0.55",
     "gatsby-mdx": "^0.2.0",
+    "gatsby-plugin-emotion": "^2.0.6",
     "gatsby-plugin-react-helmet": "^3.0.2",
-    "gatsby-source-filesystem": "^2.0.8",
-    "gatsby-transformer-remark": "^2.1.12",
-    "react-helmet": "^5.2.0"
+    "gatsby-plugin-typography": "^2.2.1",
+    "prop-types": "^15.6.2",
+    "react-emotion": "^9.2.12",
+    "react-helmet": "^5.2.0",
+    "react-typography": "^0.16.13",
+    "typography": "^0.16.17"
   },
-  "main": "index.js"
+  "main": "index.js",
+  "devDependencies": {
+    "@trevorblades/eslint-config": "^6.19.2",
+    "eslint": "^5.9.0"
+  }
 }
