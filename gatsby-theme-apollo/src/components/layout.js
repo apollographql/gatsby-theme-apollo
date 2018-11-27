@@ -2,8 +2,8 @@ import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import styled from 'react-emotion';
+import {Link, StaticQuery, graphql} from 'gatsby';
 import {ReactComponent as Logo} from '../assets/logo.svg';
-import {StaticQuery, graphql} from 'gatsby';
 
 const Header = styled.header({
   padding: 16,
@@ -17,6 +17,11 @@ const StyledLogo = styled(Logo)({
   fill: 'currentColor'
 });
 
+const StyledLink = styled(Link)(props => ({
+  display: 'block',
+  paddingLeft: props.inset ? 8 : 0
+}));
+
 export default function Layout(props) {
   return (
     <StaticQuery
@@ -27,10 +32,29 @@ export default function Layout(props) {
               title
             }
           }
+          allMdx {
+            edges {
+              node {
+                id
+                parent {
+                  ... on File {
+                    name
+                    absolutePath
+                    relativePath
+                  }
+                }
+                headings {
+                  depth
+                  value
+                }
+              }
+            }
+          }
         }
       `}
       render={data => {
         const {title} = data.site.siteMetadata;
+        console.log(data);
         return (
           <Fragment>
             <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`}>
@@ -39,6 +63,21 @@ export default function Layout(props) {
             <Header>
               <StyledLogo />
             </Header>
+            <div>
+              {data.allMdx.edges.flatMap(edge =>
+                edge.node.headings
+                  .filter(heading => heading.depth < 3)
+                  .map((heading, index) => (
+                    <StyledLink
+                      to={edge.node.parent.name}
+                      key={`${edge.node.id}-${index}`}
+                      inset={heading.depth > 1}
+                    >
+                      {heading.value}
+                    </StyledLink>
+                  ))
+              )}
+            </div>
             {props.children}
           </Fragment>
         );

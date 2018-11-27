@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   siteMetadata: {
     title: 'Apollo Documentation'
@@ -12,6 +14,13 @@ module.exports = {
         defaultLayouts: {
           default: require.resolve('./src/templates/docs.js')
         }
+      }
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'pages',
+        path: path.resolve('./src/pages/')
       }
     }
   ]
