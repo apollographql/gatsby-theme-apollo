@@ -25,7 +25,9 @@ export default function Layout(props) {
         const {title} = data.site.siteMetadata;
         return (
           <Fragment>
-            <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`} />
+            <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`}>
+              <link rel="shortcut icon" src="/favicon.ico" />
+            </Helmet>
             <Header>Apollo</Header>
             {props.children}
           </Fragment>
