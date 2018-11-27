@@ -2,11 +2,19 @@ import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import styled from 'react-emotion';
+import {ReactComponent as Logo} from '../assets/logo.svg';
 import {StaticQuery, graphql} from 'gatsby';
 
 const Header = styled.header({
-  padding: 24,
+  padding: 16,
+  color: 'white',
   backgroundColor: 'blue'
+});
+
+const StyledLogo = styled(Logo)({
+  display: 'block',
+  height: 40,
+  fill: 'currentColor'
 });
 
 export default function Layout(props) {
@@ -28,7 +36,9 @@ export default function Layout(props) {
             <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`}>
               <link rel="shortcut icon" src="/favicon.ico" />
             </Helmet>
-            <Header>Apollo</Header>
+            <Header>
+              <StyledLogo />
+            </Header>
             {props.children}
           </Fragment>
         );

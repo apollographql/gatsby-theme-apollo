@@ -3,6 +3,7 @@ module.exports = {
     title: 'Apollo Documentation'
   },
   plugins: [
+    'gatsby-plugin-svgr',
     'gatsby-plugin-emotion',
     'gatsby-plugin-typography',
     {
