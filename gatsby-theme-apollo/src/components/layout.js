@@ -1,7 +1,7 @@
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
-import styled, {css} from 'react-emotion';
+import styled from 'react-emotion';
 import {Link, StaticQuery, graphql} from 'gatsby';
 import {ReactComponent as Logo} from '../assets/logo.svg';
 
