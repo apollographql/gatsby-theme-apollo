@@ -1,7 +1,7 @@
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
-import styled from 'react-emotion';
+import styled, {css} from 'react-emotion';
 import {Link, StaticQuery, graphql} from 'gatsby';
 import {ReactComponent as Logo} from '../assets/logo.svg';
 
@@ -22,11 +22,6 @@ const Sidebar = styled.aside({
   backgroundColor: 'lightgrey',
   float: 'left'
 });
-
-const SidebarLink = styled(Link)(props => ({
-  display: 'block',
-  paddingLeft: props.inset ? 8 : 0
-}));
 
 export default function Layout(props) {
   return (
@@ -60,7 +55,6 @@ export default function Layout(props) {
       `}
       render={data => {
         const {title} = data.site.siteMetadata;
-        console.log(data);
         return (
           <Fragment>
             <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`}>
@@ -70,19 +64,19 @@ export default function Layout(props) {
               <StyledLogo />
             </Header>
             <Sidebar>
-              {data.allMdx.edges.flatMap(edge =>
-                edge.node.headings
-                  .filter(heading => heading.depth < 3)
-                  .map((heading, index) => (
-                    <SidebarLink
-                      to={edge.node.parent.name}
-                      key={`${edge.node.id}-${index}`}
-                      inset={heading.depth > 1}
-                    >
-                      {heading.value}
-                    </SidebarLink>
-                  ))
-              )}
+              <ul>
+                {data.allMdx.edges.flatMap(edge =>
+                  edge.node.headings
+                    .filter(heading => heading.depth < 3)
+                    .map(({depth, value}, index) => (
+                      <li key={`${edge.node.id}-${index}`}>
+                        <Link to={edge.node.parent.name}>
+                          {depth === 1 ? <strong>{value}</strong> : value}
+                        </Link>
+                      </li>
+                    ))
+                )}
+              </ul>
             </Sidebar>
             <main>{props.children}</main>
           </Fragment>
