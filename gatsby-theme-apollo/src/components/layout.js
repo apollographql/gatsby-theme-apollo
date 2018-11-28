@@ -17,7 +17,13 @@ const StyledLogo = styled(Logo)({
   fill: 'currentColor'
 });
 
-const StyledLink = styled(Link)(props => ({
+const Sidebar = styled.aside({
+  width: 240,
+  backgroundColor: 'lightgrey',
+  float: 'left'
+});
+
+const SidebarLink = styled(Link)(props => ({
   display: 'block',
   paddingLeft: props.inset ? 8 : 0
 }));
@@ -63,22 +69,22 @@ export default function Layout(props) {
             <Header>
               <StyledLogo />
             </Header>
-            <div>
+            <Sidebar>
               {data.allMdx.edges.flatMap(edge =>
                 edge.node.headings
                   .filter(heading => heading.depth < 3)
                   .map((heading, index) => (
-                    <StyledLink
+                    <SidebarLink
                       to={edge.node.parent.name}
                       key={`${edge.node.id}-${index}`}
                       inset={heading.depth > 1}
                     >
                       {heading.value}
-                    </StyledLink>
+                    </SidebarLink>
                   ))
               )}
-            </div>
-            {props.children}
+            </Sidebar>
+            <main>{props.children}</main>
           </Fragment>
         );
       }}
