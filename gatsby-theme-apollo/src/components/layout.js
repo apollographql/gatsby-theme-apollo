@@ -1,6 +1,7 @@
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
+import Slugger from 'github-slugger';
 import styled from 'react-emotion';
 import {Link, StaticQuery, graphql} from 'gatsby';
 import {ReactComponent as Logo} from '../assets/logo.svg';
@@ -54,6 +55,7 @@ export default function Layout(props) {
         }
       `}
       render={data => {
+        const slugger = new Slugger();
         const {title} = data.site.siteMetadata;
         return (
           <Fragment>
@@ -68,13 +70,16 @@ export default function Layout(props) {
                 {data.allMdx.edges.flatMap(edge =>
                   edge.node.headings
                     .filter(heading => heading.depth < 3)
-                    .map(({depth, value}, index) => (
-                      <li key={`${edge.node.id}-${index}`}>
-                        <Link to={edge.node.parent.name}>
-                          {depth === 1 ? <strong>{value}</strong> : value}
-                        </Link>
-                      </li>
-                    ))
+                    .map(({depth, value}, index) => {
+                      const slug = slugger.slug(value);
+                      return (
+                        <li key={`${edge.node.id}-${index}`}>
+                          <Link to={`${edge.node.parent.name}#${slug}`}>
+                            {depth === 1 ? <strong>{value}</strong> : value}
+                          </Link>
+                        </li>
+                      );
+                    })
                 )}
               </ul>
             </Sidebar>

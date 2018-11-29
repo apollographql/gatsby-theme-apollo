@@ -1,4 +1,5 @@
 const path = require('path');
+const slug = require('remark-slug');
 
 module.exports = {
   siteMetadata: {
@@ -11,6 +12,7 @@ module.exports = {
     {
       resolve: 'gatsby-mdx',
       options: {
+        mdPlugins: [slug],
         defaultLayouts: {
           default: require.resolve('./src/templates/docs.js')
         }

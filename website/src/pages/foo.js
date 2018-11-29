@@ -30,6 +30,9 @@ export default function Foo(props) {
           }
         }
       `}
-    render={data => data.site.siteMetadata.title}
+    render={data => {
+      console.log(data);
+      return data.site.siteMetadata.title;
+    }}
   />
 }
