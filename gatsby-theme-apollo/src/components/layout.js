@@ -68,18 +68,22 @@ export default function Layout(props) {
             <Sidebar>
               <ul>
                 {data.allMdx.edges.flatMap(edge =>
-                  edge.node.headings
-                    .filter(heading => heading.depth < 3)
-                    .map(({depth, value}, index) => {
-                      const slug = slugger.slug(value);
-                      return (
-                        <li key={`${edge.node.id}-${index}`}>
-                          <Link to={`${edge.node.parent.name}#${slug}`}>
-                            {depth === 1 ? <strong>{value}</strong> : value}
-                          </Link>
-                        </li>
-                      );
-                    })
+                  edge.node.headings.map(({depth, value}, index) => {
+                    const slug = slugger.slug(value);
+                    if (depth > 3) {
+                      // return null here instead of using array.filter
+                      // we want the slug results to match those from remark-slug
+                      return null;
+                    }
+
+                    return (
+                      <li key={`${edge.node.id}-${index}`}>
+                        <Link to={`${edge.node.parent.name}#${slug}`}>
+                          {depth === 1 ? <strong>{value}</strong> : value}
+                        </Link>
+                      </li>
+                    );
+                  })
                 )}
               </ul>
             </Sidebar>
