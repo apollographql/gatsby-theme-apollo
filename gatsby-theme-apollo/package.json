@@ -12,15 +12,11 @@
     "gatsby-plugin-emotion": "^2.0.6",
     "gatsby-plugin-react-helmet": "^3.0.2",
     "gatsby-plugin-svgr": "^2.0.1",
-    "gatsby-plugin-typography": "^2.2.1",
-    "gatsby-source-filesystem": "^2.0.9",
-    "github-slugger": "^1.2.0",
+    "gatsby-source-filesystem": "^2.0.10",
     "prop-types": "^15.6.2",
     "react-emotion": "^9.2.12",
     "react-helmet": "^5.2.0",
-    "react-typography": "^0.16.13",
-    "remark-slug": "^5.1.1",
-    "typography": "^0.16.17"
+    "remark-slug": "^5.1.1"
   },
   "main": "index.js",
   "devDependencies": {

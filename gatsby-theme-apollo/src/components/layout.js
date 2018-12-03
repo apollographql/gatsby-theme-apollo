@@ -6,6 +6,16 @@ import styled from 'react-emotion';
 import {Link, StaticQuery, graphql} from 'gatsby';
 import {ReactComponent as Logo} from '../assets/logo.svg';
 
+const Container = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0
+});
+
 const Header = styled.header({
   padding: 16,
   color: 'white',
@@ -18,10 +28,19 @@ const StyledLogo = styled(Logo)({
   fill: 'currentColor'
 });
 
+const Content = styled.div({
+  display: 'flex',
+  flexGrow: 1
+});
+
 const Sidebar = styled.aside({
+  flexShrink: 0,
   width: 240,
-  backgroundColor: 'lightgrey',
-  float: 'left'
+  backgroundColor: 'lightgrey'
+});
+
+const Main = styled.main({
+  overflow: 'auto'
 });
 
 export default function Layout(props) {
@@ -41,13 +60,14 @@ export default function Layout(props) {
                 parent {
                   ... on File {
                     name
-                    absolutePath
-                    relativePath
                   }
                 }
                 headings {
                   depth
                   value
+                }
+                frontmatter {
+                  title
                 }
               }
             }
@@ -58,37 +78,46 @@ export default function Layout(props) {
         const slugger = new Slugger();
         const {title} = data.site.siteMetadata;
         return (
-          <Fragment>
+          <Container>
             <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`}>
               <link rel="shortcut icon" src="/favicon.ico" />
             </Helmet>
             <Header>
               <StyledLogo />
             </Header>
-            <Sidebar>
-              <ul>
-                {data.allMdx.edges.flatMap(edge =>
-                  edge.node.headings.map(({depth, value}, index) => {
-                    const slug = slugger.slug(value);
-                    if (depth > 3) {
-                      // return null here instead of using array.filter
-                      // we want the slug results to match those from remark-slug
-                      return null;
-                    }
-
-                    return (
-                      <li key={`${edge.node.id}-${index}`}>
-                        <Link to={`${edge.node.parent.name}#${slug}`}>
-                          {depth === 1 ? <strong>{value}</strong> : value}
+            <Content>
+              <Sidebar>
+                <ul>
+                  {data.allMdx.edges.flatMap(({node}) => (
+                    <Fragment key={node.id}>
+                      <li>
+                        <Link to={node.parent.name}>
+                          <strong>{node.frontmatter.title}</strong>
                         </Link>
                       </li>
-                    );
-                  })
-                )}
-              </ul>
-            </Sidebar>
-            <main>{props.children}</main>
-          </Fragment>
+                      {node.headings.map(({depth, value}, index) => {
+                        const slug = slugger.slug(value);
+                        if (depth > 3) {
+                          // return null here instead of using array.filter
+                          // we want the slug results to match those from remark-slug
+                          return null;
+                        }
+
+                        return (
+                          <li key={`${node.id}-${index}`}>
+                            <Link to={`${node.parent.name}#${slug}`}>
+                              {value}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </Fragment>
+                  ))}
+                </ul>
+              </Sidebar>
+              <Main>{props.children}</Main>
+            </Content>
+          </Container>
         );
       }}
     />

@@ -8,7 +8,6 @@ module.exports = {
   plugins: [
     'gatsby-plugin-svgr',
     'gatsby-plugin-emotion',
-    'gatsby-plugin-typography',
     {
       resolve: 'gatsby-mdx',
       options: {

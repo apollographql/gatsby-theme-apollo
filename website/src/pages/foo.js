@@ -1,9 +1,10 @@
 import React from 'react';
 import {StaticQuery, graphql} from 'gatsby';
 
-export default function Foo(props) {
-  return <StaticQuery
-    query={graphql`
+export default function Foo() {
+  return (
+    <StaticQuery
+      query={graphql`
         {
           site {
             siteMetadata {
@@ -17,22 +18,24 @@ export default function Foo(props) {
                 parent {
                   ... on File {
                     name
-                    absolutePath
-                    relativePath
                   }
                 }
                 headings {
                   depth
                   value
                 }
+                frontmatter {
+                  title
+                }
               }
             }
           }
         }
       `}
-    render={data => {
-      console.log(data);
-      return data.site.siteMetadata.title;
-    }}
-  />
+      render={data => {
+        console.log(data);
+        return <div>his</div>;
+      }}
+    />
+  );
 }
