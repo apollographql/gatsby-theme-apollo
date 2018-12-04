@@ -46,7 +46,7 @@ const Main = styled.main({
   overflow: 'auto'
 });
 
-const Headings = styled.ul({
+const Headings = styled.aside({
   flexShrink: 0,
   width: 150,
   position: 'sticky',
@@ -138,20 +138,23 @@ export default function Layout(props) {
                 <div>{props.children}</div>
                 {page && (
                   <Headings>
-                    {page.headings.map(({depth, value}, index) => {
-                      const slug = slugger.slug(value);
-                      if (depth > 3) {
-                        // return null here instead of using array.filter
-                        // we want the slug results to match those from remark-slug
-                        return null;
-                      }
+                    <h6>Contents</h6>
+                    <ul>
+                      {page.headings.map(({depth, value}, index) => {
+                        const slug = slugger.slug(value);
+                        if (depth > 3) {
+                          // return null here instead of using array.filter
+                          // we want the slug results to match those from remark-slug
+                          return null;
+                        }
 
-                      return (
-                        <li key={`${page.id}-${index}`}>
-                          <a href={`#${slug}`}>{value}</a>
-                        </li>
-                      );
-                    })}
+                        return (
+                          <li key={`${page.id}-${index}`}>
+                            <a href={`#${slug}`}>{value}</a>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </Headings>
                 )}
               </Main>
