@@ -43,12 +43,14 @@ const Sidebar = styled.aside({
 
 const Main = styled.main({
   display: 'flex',
+  flexGrow: 1,
   overflow: 'auto'
 });
 
 const Headings = styled.aside({
   flexShrink: 0,
   width: 150,
+  marginLeft: 'auto',
   position: 'sticky',
   top: 0
 });
