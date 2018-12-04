@@ -18,6 +18,7 @@ export default function Foo() {
                 parent {
                   ... on File {
                     name
+                    absolutePath
                   }
                 }
                 headings {
@@ -27,6 +28,14 @@ export default function Foo() {
                 frontmatter {
                   title
                 }
+              }
+            }
+          }
+          allSitePage {
+            edges {
+              node {
+                path
+                component
               }
             }
           }

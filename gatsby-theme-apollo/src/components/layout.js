@@ -2,6 +2,8 @@ import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import Slugger from 'github-slugger';
+import groupBy from 'lodash/groupBy';
+import startCase from 'lodash/startCase';
 import styled from 'react-emotion';
 import {Link, StaticQuery, graphql} from 'gatsby';
 import {ReactComponent as Logo} from '../assets/logo.svg';
@@ -40,7 +42,15 @@ const Sidebar = styled.aside({
 });
 
 const Main = styled.main({
+  display: 'flex',
   overflow: 'auto'
+});
+
+const Headings = styled.ul({
+  flexShrink: 0,
+  width: 150,
+  position: 'sticky',
+  top: 0
 });
 
 export default function Layout(props) {
@@ -60,6 +70,7 @@ export default function Layout(props) {
                 parent {
                   ... on File {
                     name
+                    absolutePath
                   }
                 }
                 headings {
@@ -72,10 +83,33 @@ export default function Layout(props) {
               }
             }
           }
+          allSitePage {
+            edges {
+              node {
+                path
+                component
+              }
+            }
+          }
         }
       `}
       render={data => {
+        const paths = new Map(
+          data.allSitePage.edges.map(({node}) => [node.component, node.path])
+        );
+
+        const pages = data.allMdx.edges.map(({node}) => ({
+          ...node,
+          path: paths.get(node.parent.absolutePath)
+        }));
+
+        const sections = groupBy(pages, page => {
+          const segments = page.path.split('/').filter(Boolean);
+          return segments[segments.length - 2];
+        });
+
         const slugger = new Slugger();
+        const page = pages.find(({path}) => props.path === path);
         const {title} = data.site.siteMetadata;
         return (
           <Container>
@@ -87,35 +121,40 @@ export default function Layout(props) {
             </Header>
             <Content>
               <Sidebar>
-                <ul>
-                  {data.allMdx.edges.flatMap(({node}) => (
-                    <Fragment key={node.id}>
-                      <li>
-                        <Link to={node.parent.name}>
-                          <strong>{node.frontmatter.title}</strong>
-                        </Link>
-                      </li>
-                      {node.headings.map(({depth, value}, index) => {
-                        const slug = slugger.slug(value);
-                        if (depth > 3) {
-                          // return null here instead of using array.filter
-                          // we want the slug results to match those from remark-slug
-                          return null;
-                        }
-
-                        return (
-                          <li key={`${node.id}-${index}`}>
-                            <Link to={`${node.parent.name}#${slug}`}>
-                              {value}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </Fragment>
-                  ))}
-                </ul>
+                {Object.keys(sections).map(key => (
+                  <Fragment key={key}>
+                    {key !== 'undefined' && <h6>{startCase(key)}</h6>}
+                    <ul>
+                      {sections[key].map(page => (
+                        <li key={page.id}>
+                          <Link to={page.path}>{page.frontmatter.title}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </Fragment>
+                ))}
               </Sidebar>
-              <Main>{props.children}</Main>
+              <Main>
+                <div>{props.children}</div>
+                {page && (
+                  <Headings>
+                    {page.headings.map(({depth, value}, index) => {
+                      const slug = slugger.slug(value);
+                      if (depth > 3) {
+                        // return null here instead of using array.filter
+                        // we want the slug results to match those from remark-slug
+                        return null;
+                      }
+
+                      return (
+                        <li key={`${page.id}-${index}`}>
+                          <a href={`#${slug}`}>{value}</a>
+                        </li>
+                      );
+                    })}
+                  </Headings>
+                )}
+              </Main>
             </Content>
           </Container>
         );
@@ -125,5 +164,6 @@ export default function Layout(props) {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  path: PropTypes.string.isRequired
 };
