@@ -14,7 +14,7 @@ exports.onCreateWebpackConfig = ({actions, loaders}) =>
     }
   });
 
-// copy the theme favicon to the build site
+// copy the theme favicon to the built site
 exports.onPostBootstrap = ({store}) => {
   const {program} = store.getState();
   const source = `${__dirname}/static/favicon.ico`;
