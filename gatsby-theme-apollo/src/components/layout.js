@@ -4,7 +4,7 @@ import React, {Fragment} from 'react';
 import Slugger from 'github-slugger';
 import groupBy from 'lodash/groupBy';
 import startCase from 'lodash/startCase';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import {Link, StaticQuery, graphql} from 'gatsby';
 import {ReactComponent as Logo} from '../assets/logo.svg';
 

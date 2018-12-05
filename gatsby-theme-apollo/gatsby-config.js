@@ -23,6 +23,15 @@ module.exports = {
         name: 'pages',
         path: path.resolve('./src/pages/')
       }
+    },
+    {
+      resolve: 'gatsby-plugin-typography',
+      options: {
+        pathToConfigModule: path.relative(
+          process.cwd(),
+          require.resolve('./src/util/typography.js')
+        )
+      }
     }
   ]
 };
