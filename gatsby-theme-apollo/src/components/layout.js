@@ -5,6 +5,7 @@ import Slugger from 'github-slugger';
 import groupBy from 'lodash/groupBy';
 import startCase from 'lodash/startCase';
 import styled from '@emotion/styled';
+import {Hits, InstantSearch, SearchBox} from 'react-instantsearch-dom';
 import {Link, StaticQuery, graphql} from 'gatsby';
 import {ReactComponent as Logo} from '../assets/logo.svg';
 
@@ -117,12 +118,24 @@ export default function Layout(props) {
           <Container>
             <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`}>
               <link rel="shortcut icon" src="/favicon.ico" />
+              <link
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.0.0/themes/reset-min.css"
+              />
             </Helmet>
             <Header>
               <StyledLogo />
             </Header>
             <Content>
               <Sidebar>
+                <InstantSearch
+                  appId="latency"
+                  apiKey="3d9875e51fbd20c7754e65422f7ce5e1"
+                  indexName="bestbuy"
+                >
+                  <SearchBox />
+                  <Hits hitComponent={({hit}) => <div>{hit.name}</div>} />
+                </InstantSearch>
                 {Object.keys(sections).map(key => (
                   <Fragment key={key}>
                     {key !== 'undefined' && <h6>{startCase(key)}</h6>}
