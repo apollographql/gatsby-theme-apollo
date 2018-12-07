@@ -5,7 +5,11 @@ import Slugger from 'github-slugger';
 import groupBy from 'lodash/groupBy';
 import startCase from 'lodash/startCase';
 import styled from '@emotion/styled';
-import {Hits, InstantSearch, SearchBox} from 'react-instantsearch-dom';
+import {
+  InstantSearch,
+  SearchBox,
+  connectStateResults
+} from 'react-instantsearch-dom';
 import {Link, StaticQuery, graphql} from 'gatsby';
 import {ReactComponent as Logo} from '../assets/logo.svg';
 
@@ -39,7 +43,8 @@ const Content = styled.div({
 const Sidebar = styled.aside({
   flexShrink: 0,
   width: 240,
-  backgroundColor: 'lightgrey'
+  backgroundColor: 'lightgrey',
+  overflowY: 'auto'
 });
 
 const Main = styled.main({
@@ -55,6 +60,13 @@ const Headings = styled.aside({
   position: 'sticky',
   top: 0
 });
+
+const SearchResults = connectStateResults(
+  ({searchResults}) =>
+    searchResults &&
+    searchResults.query.trim() &&
+    searchResults.hits.map(hit => <div key={hit.objectID}>{hit.name}</div>)
+);
 
 export default function Layout(props) {
   return (
@@ -134,7 +146,7 @@ export default function Layout(props) {
                   indexName="bestbuy"
                 >
                   <SearchBox />
-                  <Hits hitComponent={({hit}) => <div>{hit.name}</div>} />
+                  <SearchResults />
                 </InstantSearch>
                 {Object.keys(sections).map(key => (
                   <Fragment key={key}>
