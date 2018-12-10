@@ -6,6 +6,7 @@ import {ReactComponent as Logo} from '../../../assets/logo.svg';
 const Container = styled.header({
   display: 'flex',
   alignItems: 'center',
+  flexShrink: 0,
   padding: 16,
   color: 'white',
   backgroundColor: 'blue'
