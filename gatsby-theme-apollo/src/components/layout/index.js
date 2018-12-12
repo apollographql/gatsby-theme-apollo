@@ -66,9 +66,29 @@ export default function Layout(props) {
               }
             }
           }
+          github {
+            repository(owner: "apollographql", name: "apollo-server") {
+              name
+              refs(
+                first: 100
+                refPrefix: "refs/tags/"
+                orderBy: {field: TAG_COMMIT_DATE, direction: DESC}
+              ) {
+                nodes {
+                  id
+                  name
+                }
+              }
+            }
+          }
         }
       `}
       render={data => {
+        const name = 'apollo-server';
+        const tags = data.github.repository.refs.nodes.filter(
+          node => /^v\d/.test(node.name) || node.name.indexOf(name + '@') === 0
+        );
+
         const paths = new Map(
           data.allSitePage.edges.map(({node}) => [node.component, node.path])
         );
@@ -91,7 +111,7 @@ export default function Layout(props) {
             </Helmet>
             <Header />
             <Content>
-              <Sidebar pages={pages} />
+              <Sidebar pages={pages} tags={tags} />
               <Main>
                 <div>{props.children}</div>
                 {page && <Headings page={page} />}

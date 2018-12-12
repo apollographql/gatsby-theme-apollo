@@ -20,6 +20,11 @@ export default function Sidebar(props) {
 
   return (
     <Container>
+      <select>
+        {props.tags.map(tag => (
+          <option key={tag.id}>{tag.name}</option>
+        ))}
+      </select>
       {Object.keys(sections).map(key => (
         <Fragment key={key}>
           {key !== 'undefined' && <h6>{startCase(key)}</h6>}
@@ -37,5 +42,6 @@ export default function Sidebar(props) {
 }
 
 Sidebar.propTypes = {
-  pages: PropTypes.array.isRequired
+  pages: PropTypes.array.isRequired,
+  tags: PropTypes.array.isRequired
 };

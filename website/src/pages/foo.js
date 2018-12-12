@@ -39,6 +39,21 @@ export default function Foo() {
               }
             }
           }
+          github {
+            repository(owner: "apollographql", name: "apollo-server") {
+              name
+              refs(
+                first: 100
+                refPrefix: "refs/tags/"
+                orderBy: {field: TAG_COMMIT_DATE, direction: DESC}
+              ) {
+                nodes {
+                  id
+                  name
+                }
+              }
+            }
+          }
         }
       `}
       render={data => {

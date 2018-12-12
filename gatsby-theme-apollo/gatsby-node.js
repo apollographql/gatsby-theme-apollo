@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const origin = require('git-remote-origin-url');
+// const origin = require('git-remote-origin-url');
 
 exports.onCreateWebpackConfig = ({actions, loaders}) =>
   actions.setWebpackConfig({
@@ -23,33 +23,33 @@ exports.onPostBootstrap = ({store}) => {
   fs.copyFileSync(source, destination);
 };
 
-exports.createPages = async ({graphql}) => {
-  const url = await origin();
-  const match = url.match(/\/([\w-]+)\/([\w-]+)\.git$/);
-  const owner = match[1];
-  const name = 'apollo-server'; // match[2];
-  const result = await graphql(`
-      {
-        github {
-          repository(owner: "${owner}", name: "${name}") {
-            name
-            refs(
-              first: 100
-              refPrefix: "refs/tags/"
-              orderBy: {field: TAG_COMMIT_DATE, direction: DESC}
-            ) {
-              nodes {
-                name
-              }
-            }
-          }
-        }
-      }
-    `);
+// exports.createPages = async ({graphql}) => {
+//   const url = await origin();
+//   const match = url.match(/\/([\w-]+)\/([\w-]+)\.git$/);
+//   const owner = match[1];
+//   const name = 'apollo-server'; // match[2];
+//   const result = await graphql(`
+//       {
+//         github {
+//           repository(owner: "${owner}", name: "${name}") {
+//             name
+//             refs(
+//               first: 100
+//               refPrefix: "refs/tags/"
+//               orderBy: {field: TAG_COMMIT_DATE, direction: DESC}
+//             ) {
+//               nodes {
+//                 name
+//               }
+//             }
+//           }
+//         }
+//       }
+//     `);
 
-  result.data.github.repository.refs.nodes
-    .filter(
-      node => /^v\d/.test(node.name) || node.name.indexOf(name + '@') === 0
-    )
-    .forEach(node => console.log(node.name));
-};
+//   result.data.github.repository.refs.nodes
+//     .filter(
+//       node => /^v\d/.test(node.name) || node.name.indexOf(name + '@') === 0
+//     )
+//     .forEach(node => console.log(node.name));
+// };
