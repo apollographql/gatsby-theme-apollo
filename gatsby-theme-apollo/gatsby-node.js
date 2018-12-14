@@ -1,19 +1,20 @@
 const fs = require('fs');
-const path = require('path');
+// const path = require('path');
+const axios = require('axios');
 const origin = require('git-remote-origin-url');
 
-exports.onCreateWebpackConfig = ({actions, loaders}) =>
-  actions.setWebpackConfig({
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          include: path.dirname(require.resolve('gatsby-theme-apollo')),
-          use: [loaders.js()]
-        }
-      ]
-    }
-  });
+// exports.onCreateWebpackConfig = ({actions, loaders}) =>
+//   actions.setWebpackConfig({
+//     module: {
+//       rules: [
+//         {
+//           test: /\.js$/,
+//           include: path.dirname(require.resolve('gatsby-theme-apollo')),
+//           use: [loaders.js()]
+//         }
+//       ]
+//     }
+//   });
 
 // copy the theme favicon to the built site
 exports.onPostBootstrap = ({store}) => {
@@ -28,7 +29,7 @@ exports.createPages = async ({graphql, actions}) => {
   const url = await origin();
   const match = url.match(/\/([\w-]+)\/([\w-]+)\.git$/);
   const owner = match[1];
-  const name = 'apollo-server'; // match[2];
+  const repo = 'apollo-server'; // match[2];
 
   let cursor = null;
   let hasNextPage = true;
@@ -36,7 +37,7 @@ exports.createPages = async ({graphql, actions}) => {
     const result = await graphql(`
       {
         github {
-          repository(owner: "${owner}", name: "${name}") {
+          repository(owner: "${owner}", name: "${repo}") {
             name
             refs(
               after: ${cursor}
@@ -63,19 +64,44 @@ exports.createPages = async ({graphql, actions}) => {
     hasNextPage = pageInfo.hasNextPage;
     tags.push(
       ...nodes.filter(
-        node => /^v\d/.test(node.name) || node.name.indexOf(name + '@') === 0
+        node => /^v\d/.test(node.name) || node.name.indexOf(repo + '@') === 0
       )
     );
   }
+
+  const api = axios.create({
+    baseURL: `https://api.github.com/repos/${owner}/${repo}/contents`,
+    headers: {
+      Accept: 'application/vnd.github.v3+json',
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`
+    }
+  });
+
+  const response = await api.get('/docs/source', {
+    params: {
+      ref: tags[0].name
+    }
+  });
+
+  const contents = await Promise.all(
+    response.data
+      .filter(content => content.type === 'file')
+      .map(async file => {
+        const {data} = await api.get(file.path);
+        return {
+          ...data,
+          buffer: Buffer.from(data.content, data.encoding)
+        };
+      })
+  );
 
   actions.createPage({
     path: '/tags',
     component: require.resolve('./src/templates/docs'),
     context: {
       tags,
-      frontmatter: {
-        title: 'tags'
-      }
+      contents,
+      title: 'tags'
     }
   });
 };

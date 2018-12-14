@@ -1,22 +1,23 @@
 import React from 'react';
-import {StaticQuery, graphql} from 'gatsby';
+// import {StaticQuery, graphql} from 'gatsby';
 
 export default function Foo() {
-  return (
-    <StaticQuery
-      query={graphql`
-        {
-          site {
-            siteMetadata {
-              title
-            }
-          }
-        }
-      `}
-      render={data => {
-        console.log(data);
-        return <div>his</div>;
-      }}
-    />
-  );
+  return <div>hi</div>;
+  // return (
+  //   <StaticQuery
+  //     query={graphql`
+  //       {
+  //         site {
+  //           siteMetadata {
+  //             title
+  //           }
+  //         }
+  //       }
+  //     `}
+  //     render={data => {
+  //       console.log(data);
+  //       return <div>his</div>;
+  //     }}
+  //   />
+  // );
 }

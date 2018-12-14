@@ -63,12 +63,11 @@ export default function Docs(props) {
   // }));
 
   // const page = pages.find(({ path }) => props.path === path);
-
-  console.log(props);
+  console.log(props.pageContext.contents);
   return (
     <Layout path={props.pageResources.page.path}>
       <Helmet>
-        <title>{props.pageContext.frontmatter.title}</title>
+        <title>{props.pageContext.title}</title>
       </Helmet>
       <Content>
         <Sidebar>
