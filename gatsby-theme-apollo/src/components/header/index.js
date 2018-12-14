@@ -1,7 +1,7 @@
 import React from 'react';
 import Search from './search';
 import styled from '@emotion/styled';
-import {ReactComponent as Logo} from '../../../assets/logo.svg';
+import {ReactComponent as Logo} from '../../assets/logo.svg';
 
 const Container = styled.header({
   display: 'flex',
