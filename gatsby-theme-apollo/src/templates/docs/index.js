@@ -65,7 +65,7 @@ export default function Docs(props) {
   // const page = pages.find(({ path }) => props.path === path);
   console.log(props.pageContext.contents);
   return (
-    <Layout path={props.pageResources.page.path}>
+    <Layout>
       <Helmet>
         <title>{props.pageContext.title}</title>
       </Helmet>
@@ -89,6 +89,5 @@ export default function Docs(props) {
 
 Docs.propTypes = {
   children: PropTypes.node,
-  pageContext: PropTypes.object.isRequired,
-  pageResources: PropTypes.object.isRequired
+  pageContext: PropTypes.object.isRequired
 };

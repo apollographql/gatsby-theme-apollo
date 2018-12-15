@@ -1,4 +1,4 @@
-const fs = require('fs');
+// const fs = require('fs');
 // const path = require('path');
 const axios = require('axios');
 const origin = require('git-remote-origin-url');
@@ -17,12 +17,12 @@ const origin = require('git-remote-origin-url');
 //   });
 
 // copy the theme favicon to the built site
-exports.onPostBootstrap = ({store}) => {
-  const {program} = store.getState();
-  const source = `${__dirname}/static/favicon.ico`;
-  const destination = `${program.directory}/public/favicon.ico`;
-  fs.copyFileSync(source, destination);
-};
+// exports.onPostBootstrap = ({store}) => {
+//   const {program} = store.getState();
+//   const source = `${__dirname}/static/favicon.ico`;
+//   const destination = `${program.directory}/public/favicon.ico`;
+//   fs.copyFileSync(source, destination);
+// };
 
 exports.createPages = async ({graphql, actions}) => {
   const tags = [];
@@ -77,31 +77,41 @@ exports.createPages = async ({graphql, actions}) => {
     }
   });
 
-  const response = await api.get('/docs/source', {
-    params: {
-      ref: tags[0].name
-    }
-  });
+  await Promise.all(
+    tags.map(async tag => {
+      const options = {
+        params: {
+          ref: tag.name
+        }
+      };
 
-  const contents = await Promise.all(
-    response.data
-      .filter(content => content.type === 'file')
-      .map(async file => {
-        const {data} = await api.get(file.path);
-        return {
-          ...data,
-          buffer: Buffer.from(data.content, data.encoding)
-        };
-      })
+      try {
+        const response = await api.get('/docs/source', options);
+        const contents = await Promise.all(
+          response.data
+            .filter(content => content.type === 'file')
+            .map(async file => {
+              const {data} = await api.get(file.path, options);
+              return {
+                ...data,
+                buffer: Buffer.from(data.content, data.encoding)
+              };
+            })
+        );
+
+        actions.createPage({
+          path: `/${tag.name.replace(/\./g, '-')}`,
+          component: require.resolve('./src/templates/docs'),
+          context: {
+            tags,
+            contents,
+            title: tag.name
+          }
+        });
+      } catch (error) {
+        // let errors pass through
+        console.log(error);
+      }
+    })
   );
-
-  actions.createPage({
-    path: '/tags',
-    component: require.resolve('./src/templates/docs'),
-    context: {
-      tags,
-      contents,
-      title: 'tags'
-    }
-  });
 };
