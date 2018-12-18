@@ -1,3 +1,4 @@
 {
-  "extends": "@trevorblades/eslint-config/react"
+  "extends": "@trevorblades/eslint-config/react",
+  "parser": "babel-eslint"
 }
