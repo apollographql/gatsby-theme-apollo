@@ -111,6 +111,7 @@ exports.createPages = async ({graphql, actions}) => {
         const contents = await Promise.all(
           response.data
             .filter(
+              // TODO: recursively loop through directories
               content => content.type === 'file' && /\.mdx?$/.test(content.name)
             )
             .map(async file => {
