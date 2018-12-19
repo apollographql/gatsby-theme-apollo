@@ -30,8 +30,61 @@ const {JSDOM} = require('jsdom');
 // };
 
 const sourceDir = 'docs/source';
+const api = axios.create({
+  headers: {
+    Accept: 'application/vnd.github.v3+json',
+    Authorization: `Bearer ${process.env.GITHUB_TOKEN}`
+  }
+});
+
+async function fetchDirectory(url, basePath, options) {
+  const response = await api.get(url, options);
+  return await Promise.all(
+    response.data
+      .filter(
+        content =>
+          content.type === 'dir' ||
+          (content.type === 'file' && /\.mdx?$/.test(content.name))
+      )
+      .map(content =>
+        content.type === 'file'
+          ? fetchFile(content.url, basePath, options)
+          : fetchDirectory(content.url, basePath, options)
+      )
+  );
+}
+
+async function fetchFile(url, basePath, options) {
+  const {data} = await api.get(url, options);
+  const buffer = Buffer.from(data.content, data.encoding);
+  const {data: frontmatter, content} = matter(buffer.toString('utf8'));
+  return {
+    ...data,
+    frontmatter,
+    content,
+    path:
+      basePath +
+      data.path
+        .slice(0, data.path.lastIndexOf('.'))
+        .replace(sourceDir, '')
+        .replace('/index', '')
+  };
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat#reduce_and_concat
+function flattenDeep(array) {
+  return array.reduce(
+    (flattened, value) =>
+      Array.isArray(value)
+        ? flattened.concat(flattenDeep(value))
+        : flattened.concat(value),
+    []
+  );
+}
+
 const versionSegment = '(\\d+)(\\.\\d+){2}';
 const versionPattern = new RegExp(versionSegment);
+
 exports.createPages = async ({graphql, actions}) => {
   const tags = [];
   const url = await origin();
@@ -88,56 +141,26 @@ exports.createPages = async ({graphql, actions}) => {
     }
   });
 
-  const api = axios.create({
-    baseURL: `https://api.github.com/repos/${owner}/${repo}/contents`,
-    headers: {
-      Accept: 'application/vnd.github.v3+json',
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`
-    }
-  });
-
   versions = await Promise.all(
     Object.keys(versions).map(async key => {
       const {name} = versions[key];
       const basePath = `/v${key}`;
-      const options = {
-        params: {
-          ref: name
-        }
-      };
-
       try {
-        const response = await api.get(`/${sourceDir}`, options);
-        const contents = await Promise.all(
-          response.data
-            .filter(
-              // TODO: recursively loop through directories
-              content => content.type === 'file' && /\.mdx?$/.test(content.name)
-            )
-            .map(async file => {
-              const {data} = await api.get(file.path, options);
-              const {data: frontmatter, content} = matter(
-                Buffer.from(data.content, data.encoding).toString('utf8')
-              );
-              return {
-                ...data,
-                frontmatter,
-                content,
-                path:
-                  basePath +
-                  data.path
-                    .slice(0, data.path.lastIndexOf('.'))
-                    .replace(sourceDir, '')
-                    .replace('/index', '')
-              };
-            })
+        const contents = await fetchDirectory(
+          `https://api.github.com/repos/${owner}/${repo}/contents/${sourceDir}`,
+          basePath,
+          {
+            params: {
+              ref: name
+            }
+          }
         );
 
         return {
           id: key,
           tag: name,
           basePath,
-          contents
+          contents: flattenDeep(contents)
         };
       } catch (error) {
         console.error(error);
