@@ -58,10 +58,18 @@ async function fetchFile(url, basePath, options) {
   const {data} = await api.get(url, options);
   const buffer = Buffer.from(data.content, data.encoding);
   const {data: frontmatter, content} = matter(buffer.toString('utf8'));
+  const processed = remark()
+    .use(html, {
+      sanitize: {
+        allowComments: false
+      }
+    })
+    .use(slug)
+    .processSync(content);
   return {
     ...data,
     frontmatter,
-    content,
+    html: processed.contents,
     path:
       basePath +
       data.path
@@ -158,7 +166,9 @@ exports.createPages = async ({graphql, actions}) => {
           id: key,
           tag: name,
           basePath,
-          contents: flattenDeep(contents)
+          contents: flattenDeep(contents).filter(content =>
+            Boolean(content.html.replace(/\n/g, ''))
+          )
         };
       } catch (error) {
         console.error(error);
@@ -168,24 +178,22 @@ exports.createPages = async ({graphql, actions}) => {
   );
 
   versions.filter(Boolean).forEach((version, index, array) =>
-    version.contents.forEach(({path, frontmatter, content}) => {
-      const processed = remark()
-        .use(html)
-        .use(slug)
-        .processSync(content);
-      const dom = new JSDOM(processed.contents);
+    version.contents.forEach(({path, frontmatter, html}) => {
+      const dom = new JSDOM(html);
+      const headings = Array.from(
+        dom.window.document.querySelectorAll('h1,h2,h3')
+      ).map(heading => ({
+        id: heading.id,
+        text: heading.textContent
+      }));
+
       actions.createPage({
         path,
         component: require.resolve('./src/templates/docs'),
         context: {
           frontmatter,
-          html: processed.contents,
-          headings: Array.from(
-            dom.window.document.querySelectorAll('h1,h2,h3')
-          ).map(heading => ({
-            id: heading.id,
-            text: heading.textContent
-          })),
+          html,
+          headings,
           version,
           versions: array
         }
