@@ -74,10 +74,8 @@ async function fetchFile(url, basePath, options) {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat#reduce_and_concat
 function flattenDeep(array) {
   return array.reduce(
-    (flattened, value) =>
-      Array.isArray(value)
-        ? flattened.concat(flattenDeep(value))
-        : flattened.concat(value),
+    (acc, value) =>
+      Array.isArray(value) ? acc.concat(flattenDeep(value)) : acc.concat(value),
     []
   );
 }
