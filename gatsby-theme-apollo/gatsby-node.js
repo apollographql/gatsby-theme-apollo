@@ -92,6 +92,8 @@ const versionSegment = '(\\d+)(\\.\\d+){2}';
 const versionPattern = new RegExp(versionSegment);
 
 exports.createPages = async ({graphql, actions}) => {
+  const docsTemplate = require.resolve('./src/templates/docs');
+
   const tags = [];
   const url = await origin();
   const match = url.match(/\/([\w-]+)\/([\w-]+)\.git$/);
@@ -189,7 +191,7 @@ exports.createPages = async ({graphql, actions}) => {
 
       actions.createPage({
         path,
-        component: require.resolve('./src/templates/docs'),
+        component: docsTemplate,
         context: {
           frontmatter,
           html,
