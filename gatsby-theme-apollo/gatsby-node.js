@@ -124,17 +124,24 @@ exports.createPages = async ({graphql, actions}) => {
     const contents = await Promise.all(
       Object.keys(versions).map(async key => {
         try {
-          const response = await git.catFile([
-            '-t',
-            `${versions[key]}:${sourceDir}`
-          ]);
-          return response;
+          const version = versions[key];
+          const tree = await git.raw(['ls-tree', '-r', '--name-only', version]);
+          const paths = tree
+            .split('\n')
+            .filter(file => !file.indexOf(sourceDir));
+          if (!paths.length) {
+            throw new Error('Version has no docs');
+          }
+
+          return Promise.all(
+            paths.map(path => git.show([`${version}:${path}`]))
+          );
           // return response
           //   .slice(response.indexOf('\n'))
           //   .trim()
           //   .split('\n');
         } catch (error) {
-          return null;
+          return [];
         }
       })
     );
