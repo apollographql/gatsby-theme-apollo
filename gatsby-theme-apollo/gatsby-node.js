@@ -42,19 +42,36 @@ exports.createPages = async ({actions}) => {
     Object.keys(versions).map(async key => {
       try {
         const version = versions[key];
-        const tree = await git.raw(['ls-tree', '-r', '--name-only', version]);
+        const tree = await git.raw(['ls-tree', '-r', version]);
 
-        const paths = tree
-          .split('\n')
-          .filter(file => !file.indexOf(sourceDir) && /\.mdx?$/.test(file));
-        if (!paths.length) {
+        const objects = tree.split('\n').map(object => ({
+          mode: object.slice(0, object.indexOf(' ')),
+          path: object.slice(object.lastIndexOf('\t') + 1)
+        }));
+
+        const markdown = objects.filter(({path}) => /\.mdx?$/.test(path));
+        const paths = markdown.map(file => file.path);
+        const docs = markdown.filter(({path}) => !path.indexOf(sourceDir));
+
+        if (!docs.length) {
           throw new Error('Version has no docs');
         }
 
-        const basePath = `v${key}`;
+        const basePath = `/v${key}`;
         const contents = await Promise.all(
-          paths.map(async path => {
-            const text = await git.show([`${version}:${path}`]);
+          docs.map(async doc => {
+            let text = await git.show([`${version}:${doc.path}`]);
+            if (doc.mode === '120000') {
+              // the file is a symlink
+              const directory = doc.path.slice(0, doc.path.lastIndexOf('/'));
+              const symlink = path.resolve(`/${directory}`, text).slice(1);
+              if (!paths.includes(symlink)) {
+                return null;
+              }
+
+              text = await git.show([`${version}:${symlink}`]);
+            }
+
             const {data: frontmatter, content} = matter(text);
             const processed = remark()
               .use(html, {
@@ -64,13 +81,14 @@ exports.createPages = async ({actions}) => {
               })
               .use(slug)
               .processSync(content);
+
             return {
               frontmatter,
               html: processed.contents,
               path:
                 basePath +
-                path
-                  .slice(0, path.lastIndexOf('.'))
+                doc.path
+                  .slice(0, doc.path.lastIndexOf('.'))
                   .replace(sourceDir, '')
                   .replace('/index', '')
             };
@@ -81,8 +99,8 @@ exports.createPages = async ({actions}) => {
           id: key,
           basePath,
           tag: versions[key],
-          contents: contents.filter(content =>
-            Boolean(content.html.replace(/\n/g, ''))
+          contents: contents.filter(
+            content => content && Boolean(content.html.replace(/\n/g, ''))
           )
         };
       } catch (error) {
