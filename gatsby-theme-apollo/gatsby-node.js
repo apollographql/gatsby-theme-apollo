@@ -38,8 +38,10 @@ exports.createPages = async ({actions}) => {
     return !acc[version] ? {...acc, [version]: tag} : acc;
   }, {});
 
+  const versionKeys = Object.keys(versions);
+  const currentVersion = Math.max(...versionKeys).toString();
   versions = await Promise.all(
-    Object.keys(versions).map(async key => {
+    versionKeys.map(async key => {
       try {
         const version = versions[key];
         const tree = await git.raw(['ls-tree', '-r', version]);
@@ -57,7 +59,7 @@ exports.createPages = async ({actions}) => {
           throw new Error('Version has no docs');
         }
 
-        const basePath = `/v${key}`;
+        const basePath = key === currentVersion ? '/' : `/v${key}`;
         const contents = await Promise.all(
           docs.map(async doc => {
             let text = await git.show([`${version}:${doc.path}`]);
