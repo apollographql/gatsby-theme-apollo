@@ -20,11 +20,12 @@ const Container = styled.div({
   flexGrow: 1
 });
 
+const headerHeight = 64;
 const Header = styled.header({
   display: 'flex',
   alignItems: 'center',
   flexShrink: 0,
-  height: 64,
+  height: headerHeight,
   padding: '0 24px',
   color: colors.primary,
   backgroundColor: 'white',
@@ -80,14 +81,15 @@ const NavItem = styled(Link)({
 });
 
 const MainContent = styled.div({
-  display: 'flex'
+  display: 'flex',
+  alignItems: 'flex-start'
 });
 
 const Contents = styled.aside({
   flexShrink: 0,
   width: 200,
   position: 'sticky',
-  top: 0
+  top: headerHeight
 });
 
 export default function Docs(props) {
