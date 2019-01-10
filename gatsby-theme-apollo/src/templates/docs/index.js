@@ -7,7 +7,7 @@ import SidebarNav from './sidebar-nav';
 import VersionSelect from './version-select';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
-import {ReactComponent as Logo} from '../../assets/logo.svg';
+import {ReactComponent as LogoSmall} from '../../assets/logo-small.svg';
 
 const colors = {
   primary: '#220a82',
@@ -44,8 +44,8 @@ const SidebarHeader = styled(Header)({
   borderBottom: `1px solid ${colors.divider}`
 });
 
-const StyledLogo = styled(Logo)({
-  marginRight: 'auto',
+const StyledLogoSmall = styled(LogoSmall)({
+  marginRight: 8,
   height: 36,
   fill: 'currentColor'
 });
@@ -102,7 +102,8 @@ export default function Docs(props) {
       <Container>
         <Sidebar>
           <SidebarHeader>
-            <StyledLogo />
+            <StyledLogoSmall />
+            Apollo Docs
           </SidebarHeader>
           <SidebarContent>
             <VersionSelect versions={versions} value={version.basePath} />
@@ -120,6 +121,7 @@ export default function Docs(props) {
           <MainContent>
             <div dangerouslySetInnerHTML={{__html: html}} />
             <Contents>
+              <h6>In this section</h6>
               <ul>
                 {headings.map(heading => (
                   <li key={heading.id}>
