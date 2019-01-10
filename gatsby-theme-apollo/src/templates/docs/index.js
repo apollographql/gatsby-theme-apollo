@@ -6,6 +6,7 @@ import Search from './search';
 import SidebarNav from './sidebar-nav';
 import VersionSelect from './version-select';
 import styled from '@emotion/styled';
+import {FaGithub, FaSlack} from 'react-icons/fa';
 import {Link} from 'gatsby';
 import {ReactComponent as LogoSmall} from '../../assets/logo-small.svg';
 
@@ -82,12 +83,14 @@ const NavItem = styled(Link)({
 
 const MainContent = styled.div({
   display: 'flex',
-  alignItems: 'flex-start'
+  alignItems: 'flex-start',
+  padding: '40px 64px'
 });
 
 const Contents = styled.aside({
   flexShrink: 0,
   width: 200,
+  marginLeft: 40,
   position: 'sticky',
   top: headerHeight
 });
@@ -129,6 +132,12 @@ export default function Docs(props) {
                   </li>
                 ))}
               </ul>
+              <h6>
+                <FaGithub /> Edit on GitHub
+              </h6>
+              <h6>
+                <FaSlack /> Discuss on Slack
+              </h6>
             </Contents>
           </MainContent>
         </Main>
