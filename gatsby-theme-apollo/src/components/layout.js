@@ -1,4 +1,3 @@
-import Header from './header';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -38,7 +37,6 @@ export default function Layout(props) {
                 href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.0.0/themes/reset-min.css"
               />
             </Helmet>
-            <Header />
             {props.children}
           </Container>
         );
