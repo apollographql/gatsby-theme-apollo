@@ -15,7 +15,7 @@ export default class VersionSelect extends Component {
       <select value={this.props.value} onChange={this.onVersionChange}>
         {this.props.versions.map(version => (
           <option key={version.id} value={version.basePath}>
-            v{version.id} ({version.tag})
+            Version {version.majorMinor}
           </option>
         ))}
       </select>

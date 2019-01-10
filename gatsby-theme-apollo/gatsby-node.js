@@ -99,10 +99,11 @@ exports.createPages = async ({actions}) => {
           })
         );
 
+        const semver = versions[key].match(semverPattern)[0];
         return {
           id: key,
           basePath,
-          tag: versions[key],
+          majorMinor: semver.slice(0, semver.lastIndexOf('.')),
           contents: contents.filter(
             content => content && Boolean(content.html.replace(/\n/g, ''))
           )
