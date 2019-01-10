@@ -38,8 +38,10 @@ exports.createPages = async ({actions}) => {
     return !acc[version] ? {...acc, [version]: tag} : acc;
   }, {});
 
-  const versionKeys = Object.keys(versions);
-  const currentVersion = Math.max(...versionKeys).toString();
+  const versionKeys = Object.keys(versions)
+    .sort()
+    .reverse();
+  const currentVersion = versionKeys[0];
   versions = await Promise.all(
     versionKeys.map(async key => {
       try {
