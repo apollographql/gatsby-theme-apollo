@@ -5,16 +5,11 @@ import React from 'react';
 import Search from './search';
 import SidebarNav from './sidebar-nav';
 import VersionSelect from './version-select';
+import colors from '../../util/colors';
 import styled from '@emotion/styled';
 import {FaGithub, FaSlack} from 'react-icons/fa';
 import {Link} from 'gatsby';
 import {ReactComponent as LogoSmall} from '../../assets/logo-small.svg';
-
-const colors = {
-  primary: '#220a82',
-  secondary: '#e535ab',
-  divider: '#d8d9e0'
-};
 
 const Container = styled.div({
   display: 'flex',
@@ -95,6 +90,21 @@ const Contents = styled.aside({
   top: headerHeight
 });
 
+const ContentsLink = styled(Link)({
+  display: 'flex',
+  alignItems: 'center',
+  marginBottom: 12,
+  fontWeight: 600,
+  color: 'inherit',
+  textDecoration: 'none',
+  svg: {
+    width: 20,
+    height: 20,
+    marginRight: 4,
+    fill: colors.textSecondary
+  }
+});
+
 export default function Docs(props) {
   const {version, versions, frontmatter, html, headings} = props.pageContext;
   return (
@@ -124,7 +134,7 @@ export default function Docs(props) {
           <MainContent>
             <div dangerouslySetInnerHTML={{__html: html}} />
             <Contents>
-              <h6>In this section</h6>
+              <h5>In this section</h5>
               <ul>
                 {headings.map(heading => (
                   <li key={heading.id}>
@@ -132,12 +142,12 @@ export default function Docs(props) {
                   </li>
                 ))}
               </ul>
-              <h6>
+              <ContentsLink>
                 <FaGithub /> Edit on GitHub
-              </h6>
-              <h6>
+              </ContentsLink>
+              <ContentsLink>
                 <FaSlack /> Discuss on Slack
-              </h6>
+              </ContentsLink>
             </Contents>
           </MainContent>
         </Main>
