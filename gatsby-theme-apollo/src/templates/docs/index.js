@@ -8,6 +8,11 @@ import VersionSelect from './version-select';
 import styled from '@emotion/styled';
 import {ReactComponent as Logo} from '../../assets/logo.svg';
 
+const Container = styled.div({
+  display: 'flex',
+  flexGrow: 1
+});
+
 const Header = styled.header({
   display: 'flex',
   alignItems: 'center',
@@ -20,8 +25,9 @@ const Header = styled.header({
   top: 0
 });
 
+const divider = '#d8d9e0';
 const SidebarHeader = styled(Header)({
-  borderBottom: '1px solid #eee'
+  borderBottom: `1px solid ${divider}`
 });
 
 const StyledLogo = styled(Logo)({
@@ -30,15 +36,15 @@ const StyledLogo = styled(Logo)({
   fill: 'currentColor'
 });
 
-const Content = styled.div({
-  display: 'flex',
-  flexGrow: 1
-});
-
 const Sidebar = styled.aside({
   flexShrink: 0,
-  width: 240,
+  width: 305,
+  borderRight: `1px solid ${divider}`,
   overflowY: 'auto'
+});
+
+const SidebarContent = styled.div({
+  padding: '16px 24px'
 });
 
 const Main = styled.main({
@@ -46,7 +52,7 @@ const Main = styled.main({
   overflowY: 'auto'
 });
 
-const MainInner = styled.div({
+const MainContent = styled.div({
   display: 'flex'
 });
 
@@ -64,19 +70,21 @@ export default function Docs(props) {
       <Helmet>
         <title>{frontmatter.title}</title>
       </Helmet>
-      <Content>
+      <Container>
         <Sidebar>
           <SidebarHeader>
             <StyledLogo />
           </SidebarHeader>
-          <VersionSelect versions={versions} value={version.basePath} />
-          <SidebarNav contents={version.contents} />
+          <SidebarContent>
+            <VersionSelect versions={versions} value={version.basePath} />
+            <SidebarNav contents={version.contents} />
+          </SidebarContent>
         </Sidebar>
         <Main>
           <Header>
             <Search />
           </Header>
-          <MainInner>
+          <MainContent>
             <div dangerouslySetInnerHTML={{__html: html}} />
             <Contents>
               <ul>
@@ -87,15 +95,13 @@ export default function Docs(props) {
                 ))}
               </ul>
             </Contents>
-          </MainInner>
+          </MainContent>
         </Main>
-      </Content>
-      {props.children}
+      </Container>
     </Layout>
   );
 }
 
 Docs.propTypes = {
-  children: PropTypes.node,
   pageContext: PropTypes.object.isRequired
 };
