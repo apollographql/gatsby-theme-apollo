@@ -3,5 +3,6 @@ export default {
   secondary: '#e535ab',
   divider: '#d8d9e0',
   text: '#343c5a',
-  textSecondary: '#747790'
+  textSecondary: '#747790',
+  textTertiary: '#9496AA'
 };

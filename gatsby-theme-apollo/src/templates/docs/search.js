@@ -1,4 +1,5 @@
 import React from 'react';
+import colors from '../../util/colors';
 import styled from '@emotion/styled';
 import {
   InstantSearch,
@@ -6,10 +7,54 @@ import {
   connectStateResults
 } from 'react-instantsearch-dom';
 
+const inputHeight = 40;
+const inputPadding = 16;
+const submitIconSize = 16;
+const resetIconSize = 12;
+const iconMargin = 8;
 const Container = styled.div({
-  color: 'black',
   position: 'relative',
-  zIndex: 1
+  '.ais-SearchBox-form': {
+    position: 'relative',
+    color: colors.textSecondary
+  },
+  '.ais-SearchBox-input': {
+    height: inputHeight,
+    padding: 0,
+    paddingLeft: inputPadding + submitIconSize + iconMargin,
+    paddingRight: inputPadding + resetIconSize + iconMargin,
+    border: `1px solid ${colors.textTertiary}`,
+    borderRadius: inputHeight / 2,
+    fontSize: 14,
+    background: 'none',
+    outline: 'none',
+    ':focus': {
+      borderColor: colors.text
+    }
+  },
+  [['.ais-SearchBox-submit', '.ais-SearchBox-reset']]: {
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)'
+  },
+  '.ais-SearchBox-submit': {
+    left: inputPadding
+  },
+  '.ais-SearchBox-reset': {
+    right: inputPadding
+  },
+  [['.ais-SearchBox-submitIcon', '.ais-SearchBox-resetIcon']]: {
+    display: 'block',
+    fill: 'currentColor'
+  },
+  '.ais-SearchBox-submitIcon': {
+    width: submitIconSize,
+    height: submitIconSize
+  },
+  '.ais-SearchBox-resetIcon': {
+    width: resetIconSize,
+    height: resetIconSize
+  }
 });
 
 const Results = styled.div({

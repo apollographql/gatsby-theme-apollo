@@ -24,6 +24,7 @@
     "gatsby-source-filesystem": "^2.0.10",
     "gatsby-source-graphql": "^2.0.7",
     "gray-matter": "^4.0.1",
+    "instantsearch.css": "^7.1.0",
     "jsdom": "^13.1.0",
     "lodash": "^4.17.11",
     "prop-types": "^15.6.2",

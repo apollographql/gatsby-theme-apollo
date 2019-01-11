@@ -1,3 +1,4 @@
+import 'instantsearch.css/themes/reset.css';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -32,10 +33,6 @@ export default function Layout(props) {
           <Container>
             <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`}>
               <link rel="shortcut icon" src="/favicon.ico" />
-              <link
-                rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.0.0/themes/reset-min.css"
-              />
             </Helmet>
             {props.children}
           </Container>
