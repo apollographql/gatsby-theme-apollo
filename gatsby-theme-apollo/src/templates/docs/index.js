@@ -78,15 +78,29 @@ const NavItem = styled.a({
 });
 
 const MainContent = styled.div({
-  display: 'flex',
-  alignItems: 'flex-start',
   padding: '40px 64px'
+});
+
+const MainHeading = styled.h1({
+  marginBottom: 8
+});
+
+const MainSubheading = styled.h3({
+  fontWeight: 400,
+  color: colors.textSecondary
+});
+
+const MainContentInner = styled.div({
+  display: 'flex',
+  alignItems: 'flex-start'
 });
 
 const Contents = styled.aside({
   flexShrink: 0,
   width: 200,
+  marginTop: -20,
   marginLeft: 40,
+  paddingTop: 24,
   position: 'sticky',
   top: headerHeight
 });
@@ -149,25 +163,32 @@ export default function Docs(props) {
             </Nav>
           </Header>
           <MainContent>
-            <div dangerouslySetInnerHTML={{__html: html}} />
-            <Contents>
-              <h4>In this section</h4>
-              <ContentsList>
-                {headings.map(heading => (
-                  <ContentsListItem key={heading.id}>
-                    <ContentsListItemLink href={`#${heading.id}`}>
-                      {heading.text}
-                    </ContentsListItemLink>
-                  </ContentsListItem>
-                ))}
-              </ContentsList>
-              <ContentsLink>
-                <FaGithub /> Edit on GitHub
-              </ContentsLink>
-              <ContentsLink>
-                <FaSlack /> Discuss on Slack
-              </ContentsLink>
-            </Contents>
+            <MainHeading>Welcome</MainHeading>
+            <MainSubheading>
+              Start here to learn about the Apollo platform
+            </MainSubheading>
+            <hr />
+            <MainContentInner>
+              <div dangerouslySetInnerHTML={{__html: html}} />
+              <Contents>
+                <h4>In this section</h4>
+                <ContentsList>
+                  {headings.map(heading => (
+                    <ContentsListItem key={heading.id}>
+                      <ContentsListItemLink href={`#${heading.id}`}>
+                        {heading.text}
+                      </ContentsListItemLink>
+                    </ContentsListItem>
+                  ))}
+                </ContentsList>
+                <ContentsLink>
+                  <FaGithub /> Edit on GitHub
+                </ContentsLink>
+                <ContentsLink>
+                  <FaSlack /> Discuss on Slack
+                </ContentsLink>
+              </Contents>
+            </MainContentInner>
           </MainContent>
         </Main>
       </Container>

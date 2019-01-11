@@ -19,6 +19,7 @@ const Container = styled.div({
     color: colors.textSecondary
   },
   '.ais-SearchBox-input': {
+    width: 230,
     height: inputHeight,
     padding: 0,
     paddingLeft: inputPadding + submitIconSize + iconMargin,

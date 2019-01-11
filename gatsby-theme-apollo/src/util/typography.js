@@ -22,6 +22,12 @@ export default new Typography({
     form: {
       marginBottom: 0
     },
+    hr: {
+      backgroundColor: colors.grey
+    },
+    h1: {
+      fontWeight: 400
+    },
     'h4,p': {
       fontSize: '1.125rem'
     },
