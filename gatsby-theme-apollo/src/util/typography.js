@@ -25,6 +25,9 @@ export default new Typography({
     'h4,p': {
       fontSize: '1.125rem'
     },
+    h4: {
+      marginBottom: rhythm(3 / 4)
+    },
     h5: {
       marginBottom: rhythm(3 / 4),
       fontSize: '1rem'

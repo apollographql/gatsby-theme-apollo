@@ -91,6 +91,19 @@ const Contents = styled.aside({
   top: headerHeight
 });
 
+const ContentsList = styled.ul({
+  marginLeft: 0
+});
+
+const ContentsListItem = styled.li({
+  listStyle: 'none'
+});
+
+const ContentsListItemLink = styled.a({
+  color: 'inherit',
+  textDecoration: 'none'
+});
+
 const ContentsLink = nest(
   styled.h5({
     display: 'flex'
@@ -103,7 +116,7 @@ const ContentsLink = nest(
     svg: {
       width: 20,
       height: 20,
-      marginRight: 4,
+      marginRight: 6,
       fill: colors.textSecondary
     }
   })
@@ -139,13 +152,15 @@ export default function Docs(props) {
             <div dangerouslySetInnerHTML={{__html: html}} />
             <Contents>
               <h4>In this section</h4>
-              <ul>
+              <ContentsList>
                 {headings.map(heading => (
-                  <li key={heading.id}>
-                    <a href={`#${heading.id}`}>{heading.text}</a>
-                  </li>
+                  <ContentsListItem key={heading.id}>
+                    <ContentsListItemLink href={`#${heading.id}`}>
+                      {heading.text}
+                    </ContentsListItemLink>
+                  </ContentsListItem>
                 ))}
-              </ul>
+              </ContentsList>
               <ContentsLink>
                 <FaGithub /> Edit on GitHub
               </ContentsLink>
