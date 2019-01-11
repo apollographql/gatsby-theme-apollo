@@ -33,6 +33,7 @@
     "react-icons": "^3.3.0",
     "react-instantsearch-dom": "^5.3.2",
     "react-typography": "^0.16.13",
+    "recompose": "^0.30.0",
     "remark": "^10.0.1",
     "remark-html": "^9.0.0",
     "remark-toc": "^5.1.1",

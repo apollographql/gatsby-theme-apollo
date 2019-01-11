@@ -3,7 +3,9 @@ import colors from './colors';
 
 const sansSerif = ['Source Sans Pro', 'Helvetica', 'sans-serif'];
 export default new Typography({
-  bodyColor: colors.text,
+  bodyColor: colors.textSecondary,
+  headerColor: colors.text,
+  scaleRatio: 2.5,
   googleFonts: [
     {
       name: 'Source Sans Pro',
@@ -12,12 +14,23 @@ export default new Typography({
   ],
   headerFontFamily: sansSerif,
   bodyFontFamily: sansSerif,
-  overrideStyles: () => ({
+  boldWeight: 600,
+  overrideStyles: ({rhythm}) => ({
     html: {
       overflowY: 'auto'
     },
     form: {
       marginBottom: 0
+    },
+    'h4,p': {
+      fontSize: '1.125rem'
+    },
+    h5: {
+      marginBottom: rhythm(3 / 4),
+      fontSize: '1rem'
+    },
+    h6: {
+      fontSize: '0.875rem'
     }
   })
 });

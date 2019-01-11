@@ -6,9 +6,9 @@ import Search from './search';
 import SidebarNav from './sidebar-nav';
 import VersionSelect from './version-select';
 import colors from '../../util/colors';
+import nest from 'recompose/nest';
 import styled from '@emotion/styled';
 import {FaGithub, FaSlack} from 'react-icons/fa';
-import {Link} from 'gatsby';
 import {ReactComponent as LogoSmall} from '../../assets/logo-small.svg';
 
 const Container = styled.div({
@@ -61,11 +61,12 @@ const Nav = styled.nav({
   marginLeft: 'auto'
 });
 
-const NavItem = styled(Link)({
+const NavItem = styled.a({
   display: 'flex',
   alignItems: 'center',
   padding: '0 4px',
   borderBottom: '2px solid transparent',
+  fontSize: 18,
   color: colors.primary,
   textDecoration: 'none',
   '&.active': {
@@ -90,20 +91,23 @@ const Contents = styled.aside({
   top: headerHeight
 });
 
-const ContentsLink = styled(Link)({
-  display: 'flex',
-  alignItems: 'center',
-  marginBottom: 12,
-  fontWeight: 600,
-  color: 'inherit',
-  textDecoration: 'none',
-  svg: {
-    width: 20,
-    height: 20,
-    marginRight: 4,
-    fill: colors.textSecondary
-  }
-});
+const ContentsLink = nest(
+  styled.h5({
+    display: 'flex'
+  }),
+  styled.a({
+    display: 'flex',
+    alignItems: 'center',
+    color: 'inherit',
+    textDecoration: 'none',
+    svg: {
+      width: 20,
+      height: 20,
+      marginRight: 4,
+      fill: colors.textSecondary
+    }
+  })
+);
 
 export default function Docs(props) {
   const {version, versions, frontmatter, html, headings} = props.pageContext;
@@ -134,7 +138,7 @@ export default function Docs(props) {
           <MainContent>
             <div dangerouslySetInnerHTML={{__html: html}} />
             <Contents>
-              <h5>In this section</h5>
+              <h4>In this section</h4>
               <ul>
                 {headings.map(heading => (
                   <li key={heading.id}>
