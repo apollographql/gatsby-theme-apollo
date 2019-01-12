@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
+import styled from '@emotion/styled';
 import {navigate} from 'gatsby';
+
+const Select = styled.select({
+  fontSize: 12
+});
 
 export default class VersionSelect extends Component {
   static propTypes = {
@@ -12,13 +17,13 @@ export default class VersionSelect extends Component {
 
   render() {
     return (
-      <select value={this.props.value} onChange={this.onVersionChange}>
+      <Select value={this.props.value} onChange={this.onVersionChange}>
         {this.props.versions.map(version => (
           <option key={version.id} value={version.basePath}>
             Version {version.majorMinor}
           </option>
         ))}
-      </select>
+      </Select>
     );
   }
 }

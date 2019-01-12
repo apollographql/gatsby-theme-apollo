@@ -47,7 +47,16 @@ const StyledLogoSmall = styled(LogoSmall)({
 });
 
 const SidebarContent = styled.div({
-  padding: '16px 24px'
+  padding: '16px 24px',
+  paddingRight: 12
+});
+
+const SidebarContentHeader = styled.h4({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  fontWeight: 400,
+  color: colors.primary
 });
 
 const Main = styled.main({
@@ -150,7 +159,10 @@ export default function Docs(props) {
             Apollo Docs
           </SidebarHeader>
           <SidebarContent>
-            <VersionSelect versions={versions} value={version.basePath} />
+            <SidebarContentHeader>
+              Platform
+              <VersionSelect versions={versions} value={version.basePath} />
+            </SidebarContentHeader>
             <SidebarNav contents={version.contents} />
           </SidebarContent>
         </Sidebar>

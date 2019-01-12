@@ -61,7 +61,7 @@ exports.createPages = async ({actions}) => {
           throw new Error('Version has no docs');
         }
 
-        const basePath = key === currentVersion ? '/' : `/v${key}`;
+        const basePath = key === currentVersion ? '/' : `/v${key}/`;
         const contents = await Promise.all(
           docs.map(async doc => {
             let text = await git.show([`${version}:${doc.path}`]);
@@ -85,7 +85,6 @@ exports.createPages = async ({actions}) => {
               })
               .use(slug)
               .processSync(content);
-
             return {
               frontmatter,
               html: processed.contents,
@@ -95,6 +94,7 @@ exports.createPages = async ({actions}) => {
                   .slice(0, doc.path.lastIndexOf('.'))
                   .replace(sourceDir, '')
                   .replace('/index', '')
+                  .slice(1) // remove first slash
             };
           })
         );

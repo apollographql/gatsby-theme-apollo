@@ -2,9 +2,20 @@ import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import groupBy from 'lodash/groupBy';
 import startCase from 'lodash/startCase';
+import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 
-const directoryPattern = /^\/v\d+\/([\w-]+)\//;
+const StyledList = styled.ul({
+  marginLeft: 0,
+  listStyle: 'none'
+});
+
+const StyledLink = styled(Link)({
+  color: 'inherit',
+  textDecoration: 'none'
+});
+
+const directoryPattern = /^\/(v\d+)?(\/[\w-]+)+/;
 const titleExceptions = {
   api: 'API',
   graphql: 'GraphQL'
@@ -17,21 +28,24 @@ export default class SidebarNav extends Component {
 
   renderPages(pages) {
     return (
-      <ul>
+      <StyledList>
         {pages.map(page => (
           <li key={page.path}>
-            <Link to={page.path}>{page.frontmatter.title}</Link>
+            <StyledLink to={page.path}>{page.frontmatter.title}</StyledLink>
           </li>
         ))}
-      </ul>
+      </StyledList>
     );
   }
 
   render() {
     const {root, ...directories} = groupBy(this.props.contents, content => {
-      const match = content.path.match(directoryPattern);
-      if (match) {
-        const directory = match[1];
+      const segments = content.path
+        .split('/')
+        .filter(Boolean)
+        .filter(segment => !/v\d+/.test(segment));
+      if (segments.length > 1) {
+        const directory = segments[0];
         return titleExceptions[directory] || startCase(directory);
       }
 
