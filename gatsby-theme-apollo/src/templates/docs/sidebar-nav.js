@@ -15,7 +15,6 @@ const StyledLink = styled(Link)({
   textDecoration: 'none'
 });
 
-const directoryPattern = /^\/(v\d+)?(\/[\w-]+)+/;
 const titleExceptions = {
   api: 'API',
   graphql: 'GraphQL'

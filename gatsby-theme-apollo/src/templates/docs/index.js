@@ -47,7 +47,7 @@ const StyledLogoSmall = styled(LogoSmall)({
 });
 
 const SidebarContent = styled.div({
-  padding: '16px 24px',
+  padding: '20px 24px',
   paddingRight: 12
 });
 
