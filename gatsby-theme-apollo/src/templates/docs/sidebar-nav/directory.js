@@ -29,10 +29,12 @@ const HeadingButton = styled.button({
   background: 'none',
   outline: 'none',
   cursor: 'pointer',
+  color: 'inherit',
   svg: {
     display: 'block',
     width: iconSize,
-    height: iconSize
+    height: iconSize,
+    fill: 'currentColor'
   }
 });
 
