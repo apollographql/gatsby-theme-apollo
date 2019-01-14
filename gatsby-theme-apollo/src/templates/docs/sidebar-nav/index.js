@@ -1,3 +1,4 @@
+import Directory from './directory';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import groupBy from 'lodash/groupBy';
@@ -55,10 +56,9 @@ export default class SidebarNav extends Component {
       <Fragment>
         {this.renderPages(root)}
         {Object.keys(directories).map(key => (
-          <div key={key}>
-            <h6>{key}</h6>
+          <Directory key={key} title={key}>
             {this.renderPages(directories[key])}
-          </div>
+          </Directory>
         ))}
       </Fragment>
     );

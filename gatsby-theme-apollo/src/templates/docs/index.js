@@ -37,7 +37,8 @@ const Sidebar = styled.aside({
 });
 
 const SidebarHeader = styled(Header)({
-  borderBottom: `1px solid ${colors.divider}`
+  borderBottom: `1px solid ${colors.divider}`,
+  fontSize: 18
 });
 
 const StyledLogoSmall = styled(LogoSmall)({
@@ -48,13 +49,14 @@ const StyledLogoSmall = styled(LogoSmall)({
 
 const SidebarContent = styled.div({
   padding: '20px 24px',
-  paddingRight: 12
+  paddingRight: 0
 });
 
 const SidebarContentHeader = styled.h4({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
+  paddingRight: 16,
   fontWeight: 400,
   color: colors.primary
 });
