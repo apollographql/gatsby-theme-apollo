@@ -107,7 +107,16 @@ const MainContentInner = styled.div({
 });
 
 const PageContent = styled.div({
-  overflow: 'hidden'
+  overflow: 'hidden',
+  '[id]::before': {
+    // inspired by https://css-tricks.com/hash-tag-links-padding/
+    content: "''",
+    display: 'block',
+    marginTop: -headerHeight,
+    height: headerHeight,
+    visibility: 'hidden',
+    pointerEvents: 'none'
+  }
 });
 
 const Contents = styled.aside({
