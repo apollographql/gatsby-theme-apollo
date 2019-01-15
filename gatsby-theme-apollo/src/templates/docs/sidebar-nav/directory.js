@@ -12,14 +12,14 @@ const Container = styled.div({
   borderTop: `1px solid ${colors.divider}`
 });
 
-const Heading = styled.h6({
+const Heading = styled.h6(props => ({
   display: 'flex',
   alignItems: 'center',
   marginBottom: headingMargin,
-  color: colors.text,
+  color: props.active ? colors.primary : colors.text,
   textTransform: 'uppercase',
   letterSpacing: 2
-});
+}));
 
 const iconSize = 20;
 const HeadingButton = styled.button({
@@ -41,28 +41,31 @@ const HeadingButton = styled.button({
 export default class Directory extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    active: PropTypes.bool.isRequired
   };
 
   state = {
-    extended: false
+    expanded: false
   };
 
   toggle = () =>
     this.setState(prevState => ({
-      extended: !prevState.extended
+      expanded: !prevState.expanded
     }));
 
   render() {
     return (
       <Container>
-        <Heading>
+        <Heading active={this.props.active}>
           {this.props.title}
-          <HeadingButton onClick={this.toggle}>
-            {this.state.extended ? <MdExpandLess /> : <MdExpandMore />}
-          </HeadingButton>
+          {!this.props.active && (
+            <HeadingButton onClick={this.toggle}>
+              {this.state.expanded ? <MdExpandLess /> : <MdExpandMore />}
+            </HeadingButton>
+          )}
         </Heading>
-        {this.state.extended && this.props.children}
+        {(this.props.active || this.state.expanded) && this.props.children}
       </Container>
     );
   }

@@ -1,6 +1,7 @@
 import Directory from './directory';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
+import colors from '../../../util/colors';
 import groupBy from 'lodash/groupBy';
 import startCase from 'lodash/startCase';
 import styled from '@emotion/styled';
@@ -10,6 +11,10 @@ const StyledList = styled.ul({
   marginLeft: 0,
   listStyle: 'none'
 });
+
+const StyledListItem = styled.li(props => ({
+  color: props.active && colors.primary
+}));
 
 const StyledLink = styled(Link)({
   color: 'inherit',
@@ -23,16 +28,20 @@ const titleExceptions = {
 
 export default class SidebarNav extends Component {
   static propTypes = {
-    contents: PropTypes.array.isRequired
+    contents: PropTypes.array.isRequired,
+    pathname: PropTypes.string.isRequired
   };
 
   renderPages(pages) {
     return (
       <StyledList>
         {pages.map(page => (
-          <li key={page.path}>
+          <StyledListItem
+            key={page.path}
+            active={page.path === this.props.pathname}
+          >
             <StyledLink to={page.path}>{page.frontmatter.title}</StyledLink>
-          </li>
+          </StyledListItem>
         ))}
       </StyledList>
     );
@@ -55,11 +64,18 @@ export default class SidebarNav extends Component {
     return (
       <Fragment>
         {this.renderPages(root)}
-        {Object.keys(directories).map(key => (
-          <Directory key={key} title={key}>
-            {this.renderPages(directories[key])}
-          </Directory>
-        ))}
+        {Object.keys(directories).map(key => {
+          const pages = directories[key];
+          return (
+            <Directory
+              key={key}
+              title={key}
+              active={pages.some(page => page.path === this.props.pathname)}
+            >
+              {this.renderPages(pages)}
+            </Directory>
+          );
+        })}
       </Fragment>
     );
   }

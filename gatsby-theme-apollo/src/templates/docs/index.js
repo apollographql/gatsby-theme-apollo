@@ -165,7 +165,10 @@ export default function Docs(props) {
               Platform
               <VersionSelect versions={versions} value={version.basePath} />
             </SidebarContentHeader>
-            <SidebarNav contents={version.contents} />
+            <SidebarNav
+              contents={version.contents}
+              pathname={props.location.pathname}
+            />
           </SidebarContent>
         </Sidebar>
         <Main>
@@ -211,5 +214,6 @@ export default function Docs(props) {
 }
 
 Docs.propTypes = {
-  pageContext: PropTypes.object.isRequired
+  pageContext: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired
 };
