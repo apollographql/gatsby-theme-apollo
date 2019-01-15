@@ -4,39 +4,38 @@ import colors from '../../../util/colors';
 import styled from '@emotion/styled';
 import {MdExpandLess, MdExpandMore} from 'react-icons/md';
 
-const headingMargin = 16;
 const Container = styled.div({
-  marginTop: headingMargin,
-  paddingTop: headingMargin,
-  paddingRight: headingMargin,
   borderTop: `1px solid ${colors.divider}`
 });
 
-const Heading = styled.h6(props => ({
+const iconSize = 20;
+const Heading = styled.button(props => ({
   display: 'flex',
   alignItems: 'center',
-  marginBottom: headingMargin,
-  color: props.active ? colors.primary : colors.text,
-  textTransform: 'uppercase',
-  letterSpacing: 2
-}));
-
-const iconSize = 20;
-const HeadingButton = styled.button({
-  marginLeft: 'auto',
-  padding: 0,
+  width: '100%',
+  marginBottom: 0,
+  padding: 16,
+  paddingLeft: 0,
   border: 0,
   background: 'none',
   outline: 'none',
   cursor: 'pointer',
-  color: 'inherit',
+  color: props.active ? colors.primary : colors.text,
+  h6: {
+    margin: 0,
+    textTransform: 'uppercase',
+    letterSpacing: 2,
+    color: 'inherit'
+  },
   svg: {
     display: 'block',
     width: iconSize,
     height: iconSize,
-    fill: 'currentColor'
+    marginLeft: 'auto',
+    fill: 'currentColor',
+    opacity: props.active ? 0 : 1
   }
-});
+}));
 
 export default class Directory extends Component {
   static propTypes = {
@@ -57,13 +56,9 @@ export default class Directory extends Component {
   render() {
     return (
       <Container>
-        <Heading active={this.props.active}>
-          {this.props.title}
-          {!this.props.active && (
-            <HeadingButton onClick={this.toggle}>
-              {this.state.expanded ? <MdExpandLess /> : <MdExpandMore />}
-            </HeadingButton>
-          )}
+        <Heading active={this.props.active} onClick={this.toggle}>
+          <h6>{this.props.title}</h6>
+          {this.state.expanded ? <MdExpandLess /> : <MdExpandMore />}
         </Heading>
         {(this.props.active || this.state.expanded) && this.props.children}
       </Container>

@@ -1,7 +1,7 @@
 import Helmet from 'react-helmet';
 import Layout from '../../components/layout';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {Fragment} from 'react';
 import Search from './search';
 import SidebarNav from './sidebar-nav';
 import VersionSelect from './version-select';
@@ -106,6 +106,10 @@ const MainContentInner = styled.div({
   alignItems: 'flex-start'
 });
 
+const PageContent = styled.div({
+  overflow: 'hidden'
+});
+
 const Contents = styled.aside({
   flexShrink: 0,
   width: 200,
@@ -186,18 +190,22 @@ export default function Docs(props) {
             </MainSubheading>
             <hr />
             <MainContentInner>
-              <div dangerouslySetInnerHTML={{__html: html}} />
+              <PageContent dangerouslySetInnerHTML={{__html: html}} />
               <Contents>
-                <h4>In this section</h4>
-                <ContentsList>
-                  {headings.map(heading => (
-                    <ContentsListItem key={heading.id}>
-                      <ContentsListItemLink href={`#${heading.id}`}>
-                        {heading.text}
-                      </ContentsListItemLink>
-                    </ContentsListItem>
-                  ))}
-                </ContentsList>
+                {headings.length > 0 && (
+                  <Fragment>
+                    <h4>In this section</h4>
+                    <ContentsList>
+                      {headings.map(heading => (
+                        <ContentsListItem key={heading.id}>
+                          <ContentsListItemLink href={`#${heading.id}`}>
+                            {heading.text}
+                          </ContentsListItemLink>
+                        </ContentsListItem>
+                      ))}
+                    </ContentsList>
+                  </Fragment>
+                )}
                 <ContentsLink>
                   <FaGithub /> Edit on GitHub
                 </ContentsLink>
