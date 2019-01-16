@@ -11,11 +11,6 @@ import styled from '@emotion/styled';
 import {FaGithub, FaSlack} from 'react-icons/fa';
 import {ReactComponent as LogoSmall} from '../../assets/logo-small.svg';
 
-const Container = styled.div({
-  display: 'flex',
-  flexGrow: 1
-});
-
 const headerHeight = 64;
 const Header = styled.header({
   display: 'flex',
@@ -169,7 +164,7 @@ export default function Docs(props) {
       <Helmet>
         <title>{frontmatter.title}</title>
       </Helmet>
-      <Container>
+      <div className="flex flex-grow">
         <Sidebar>
           <SidebarHeader>
             <StyledLogoSmall />
@@ -227,7 +222,7 @@ export default function Docs(props) {
             </MainContentInner>
           </MainContent>
         </Main>
-      </Container>
+      </div>
     </Layout>
   );
 }
