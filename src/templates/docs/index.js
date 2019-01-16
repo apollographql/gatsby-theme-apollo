@@ -9,7 +9,7 @@ import colors from '../../util/colors';
 import nest from 'recompose/nest';
 import styled from '@emotion/styled';
 import {FaGithub, FaSlack} from 'react-icons/fa';
-import {ReactComponent as LogoSmall} from '../../assets/logo-small.svg';
+import {ReactComponent as LogoSmall} from '../../../ui/logo-small.svg';
 
 const headerHeight = 64;
 const Header = styled.header({
