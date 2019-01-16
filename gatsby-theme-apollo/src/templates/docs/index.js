@@ -33,12 +33,14 @@ const Sidebar = styled.aside({
   flexShrink: 0,
   width: 305,
   borderRight: `1px solid ${colors.divider}`,
-  overflowY: 'auto'
+  overflowY: 'auto',
+  position: 'relative'
 });
 
 const SidebarHeader = styled(Header)({
   borderBottom: `1px solid ${colors.divider}`,
-  fontSize: 18
+  fontSize: 18,
+  zIndex: 1
 });
 
 const StyledLogoSmall = styled(LogoSmall)({
