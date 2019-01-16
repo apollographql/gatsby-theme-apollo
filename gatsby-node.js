@@ -7,7 +7,7 @@ const slug = require('remark-slug');
 const {JSDOM} = require('jsdom');
 
 const sourceDir = 'docs/source'; // TODO: make configurable
-const workingDir = path.resolve(__dirname, '../../apollo-server');
+const workingDir = path.resolve(__dirname, '../apollo-server');
 const git = simpleGit(workingDir);
 
 const semverSegment = '(\\d+)(\\.\\d+){2}';
