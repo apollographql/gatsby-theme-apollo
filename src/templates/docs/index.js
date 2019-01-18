@@ -10,6 +10,7 @@ import nest from 'recompose/nest';
 import styled from '@emotion/styled';
 import {FaGithub, FaSlack} from 'react-icons/fa';
 import {ReactComponent as LogoSmall} from '../../../ui/logo-small.svg';
+import {graphql} from 'gatsby';
 
 const Container = styled.div({
   display: 'flex',
@@ -178,7 +179,7 @@ export default function Docs(props) {
           </SidebarHeader>
           <SidebarContent>
             <SidebarContentHeader>
-              Platform
+              {props.data.site.siteMetadata.subtitle}
               <VersionSelect versions={versions} value={version.basePath} />
             </SidebarContentHeader>
             <SidebarNav
@@ -234,6 +235,17 @@ export default function Docs(props) {
 }
 
 Docs.propTypes = {
+  data: PropTypes.object.isRequired,
   pageContext: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired
 };
+
+export const pageQuery = graphql`
+  {
+    site {
+      siteMetadata {
+        subtitle
+      }
+    }
+  }
+`;
