@@ -82,7 +82,7 @@ export default function Search() {
       indexName="bestbuy"
     >
       <Container>
-        <SearchBox />
+        <SearchBox focusShortcuts={[191]} />
         <Results>
           <SearchResults />
         </Results>
