@@ -104,6 +104,7 @@ const MainContentInner = styled.div({
 });
 
 const PageContent = styled.div({
+  flexGrow: 1,
   overflow: 'hidden',
   '[id]::before': {
     // inspired by https://css-tricks.com/hash-tag-links-padding/
