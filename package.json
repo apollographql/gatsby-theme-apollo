@@ -13,7 +13,7 @@
     "@emotion/styled": "^10.0.6",
     "@svgr/webpack": "^4.1.0",
     "emotion": "^10.0.2",
-    "gatsby": "^2.0.67",
+    "gatsby": "^2.0.91",
     "gatsby-plugin-emotion": "^4.0.1",
     "gatsby-plugin-react-helmet": "^3.0.2",
     "gatsby-plugin-svgr": "^2.0.1",
