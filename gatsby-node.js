@@ -6,14 +6,12 @@ const remark = require('remark');
 const slug = require('remark-slug');
 const {JSDOM} = require('jsdom');
 
-const sourceDir = 'docs/source'; // TODO: make configurable
 const git = simpleGit(process.cwd());
-
 const semverSegment = '(\\d+)(\\.\\d+){2}';
 const semverPattern = new RegExp(semverSegment);
 const tagPattern = new RegExp(`^v${semverSegment}$`);
 
-exports.createPages = async ({actions}) => {
+exports.createPages = async ({actions}, {sourceDir = 'docs/source'}) => {
   const remotes = await git.getRemotes(true);
   const {origin} = remotes.reduce(
     (acc, remote) => ({
