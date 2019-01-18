@@ -1,8 +1,4 @@
-const dotenv = require('dotenv');
 const path = require('path');
-// const slug = require('remark-slug');
-
-dotenv.config();
 
 module.exports = {
   siteMetadata: {
@@ -11,22 +7,7 @@ module.exports = {
   plugins: [
     'gatsby-plugin-svgr',
     'gatsby-plugin-emotion',
-    // {
-    //   resolve: 'gatsby-mdx',
-    //   options: {
-    //     mdPlugins: [slug],
-    //     defaultLayouts: {
-    //       default: require.resolve('./src/templates/docs.js')
-    //     }
-    //   }
-    // },
-    // {
-    //   resolve: 'gatsby-source-filesystem',
-    //   options: {
-    //     name: 'pages',
-    //     path: path.resolve('./src/pages/')
-    //   }
-    // },
+    'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-plugin-typography',
       options: {
@@ -34,17 +15,6 @@ module.exports = {
           process.cwd(),
           require.resolve('./src/util/typography.js')
         )
-      }
-    },
-    {
-      resolve: 'gatsby-source-graphql',
-      options: {
-        typeName: 'GitHub',
-        fieldName: 'github',
-        url: 'https://api.github.com/graphql',
-        headers: {
-          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`
-        }
       }
     }
   ]
