@@ -166,10 +166,11 @@ const ContentsLink = nest(
 
 export default function Docs(props) {
   const {version, versions, frontmatter, html, headings} = props.pageContext;
+  const {title, description} = frontmatter;
   return (
     <Layout>
       <Helmet>
-        <title>{frontmatter.title}</title>
+        <title>{title}</title>
       </Helmet>
       <Container>
         <Sidebar>
@@ -197,10 +198,8 @@ export default function Docs(props) {
             </Nav>
           </Header>
           <MainContent>
-            <MainHeading>Welcome</MainHeading>
-            <MainSubheading>
-              Start here to learn about the Apollo platform
-            </MainSubheading>
+            <MainHeading>{title}</MainHeading>
+            {description && <MainSubheading>{description}</MainSubheading>}
             <hr />
             <MainContentInner>
               <PageContent dangerouslySetInnerHTML={{__html: html}} />
