@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const simpleGit = require('simple-git/promise');
 const matter = require('gray-matter');
@@ -6,12 +7,12 @@ const remark = require('remark');
 const slug = require('remark-slug');
 const {JSDOM} = require('jsdom');
 
-const git = simpleGit(process.cwd());
 const semverSegment = '(\\d+)(\\.\\d+){2}';
 const semverPattern = new RegExp(semverSegment);
 const tagPattern = new RegExp(`^v${semverSegment}$`);
 
-exports.createPages = async ({actions}, {sourceDir = 'docs/source'}) => {
+exports.createPages = async ({actions}, {sourceDir = 'docs/source', root}) => {
+  const git = simpleGit(root);
   const remotes = await git.getRemotes(true);
   const {origin} = remotes.reduce(
     (acc, remote) => ({
@@ -149,4 +150,11 @@ exports.onCreateWebpackConfig = ({loaders, actions}) => {
       ]
     }
   });
+};
+
+exports.onPostBootstrap = (_, {root}) => {
+  fs.copyFileSync(
+    path.resolve(__dirname, 'static/favicon.ico'),
+    path.resolve(root, 'public/favicon.ico')
+  );
 };
