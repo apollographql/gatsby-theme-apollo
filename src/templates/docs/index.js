@@ -96,7 +96,9 @@ const MainContent = styled.div({
 });
 
 const MainHeading = styled.h1({
-  marginBottom: 8
+  ':not(:last-child)': {
+    marginBottom: 8
+  }
 });
 
 const MainSubheading = styled.h3({
@@ -198,8 +200,10 @@ export default function Docs(props) {
             </Nav>
           </Header>
           <MainContent>
-            <MainHeading>{title}</MainHeading>
-            {description && <MainSubheading>{description}</MainSubheading>}
+            <div>
+              <MainHeading>{title}</MainHeading>
+              {description && <MainSubheading>{description}</MainSubheading>}
+            </div>
             <hr />
             <MainContentInner>
               <PageContent dangerouslySetInnerHTML={{__html: html}} />
