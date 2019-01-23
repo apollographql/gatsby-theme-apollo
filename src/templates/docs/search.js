@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import colors from '../../util/colors';
 import styled from '@emotion/styled';
 import {
@@ -7,9 +7,8 @@ import {
   connectStateResults
 } from 'react-instantsearch-dom';
 
-const inputPadding = 16;
 const borderRadius = 5;
-const border = `1px solid ${colors.textTertiary}`;
+const border = `1px solid ${colors.text3}`;
 const verticalAlign = {
   position: 'absolute',
   top: '50%',
@@ -21,10 +20,13 @@ const Hotkey = styled.div({
   width: 24,
   height: 24,
   border,
+  borderColor: colors.text4,
+  color: colors.text4,
   borderRadius,
   textAlign: 'center',
-  lineHeight: '20px',
-  right: inputPadding / 2
+  lineHeight: 1.125,
+  right: 8,
+  pointerEvents: 'none'
 });
 
 const Container = styled.div({
@@ -40,7 +42,7 @@ const Container = styled.div({
     width: '100%',
     height: 40,
     padding: 0,
-    paddingLeft: inputPadding,
+    paddingLeft: 16,
     border,
     borderRadius,
     fontSize: 14,
@@ -50,12 +52,9 @@ const Container = styled.div({
       borderColor: colors.text2
     }
   },
-  '.ais-SearchBox-submitIcon': {
-    display: 'none'
-  },
   '.ais-SearchBox-reset': {
     ...verticalAlign,
-    right: inputPadding
+    right: 14
   },
   '.ais-SearchBox-resetIcon': {
     display: 'block',
@@ -84,20 +83,42 @@ const SearchResults = connectStateResults(
     searchResults.hits.map(hit => <div key={hit.objectID}>{hit.name}</div>)
 );
 
-export default function Search() {
-  return (
-    <Container>
-      <InstantSearch
-        appId="latency"
-        apiKey="3d9875e51fbd20c7754e65422f7ce5e1"
-        indexName="bestbuy"
-      >
-        <SearchBox focusShortcuts={[191]} />
-        <Results>
-          <SearchResults />
-        </Results>
-      </InstantSearch>
-      <Hotkey>/</Hotkey>
-    </Container>
-  );
+export default class Search extends Component {
+  state = {
+    focused: false,
+    value: ''
+  };
+
+  onFocus = () => this.setState({focused: true});
+
+  onBlur = () => this.setState({focused: false});
+
+  onChange = event => this.setState({value: event.target.value});
+
+  onReset = () => this.setState({value: ''});
+
+  render() {
+    return (
+      <Container>
+        <InstantSearch
+          appId="latency"
+          apiKey="3d9875e51fbd20c7754e65422f7ce5e1"
+          indexName="bestbuy"
+        >
+          <SearchBox
+            focusShortcuts={[191]}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            onChange={this.onChange}
+            onReset={this.onReset}
+            submit={null}
+          />
+          <Results>
+            <SearchResults />
+          </Results>
+        </InstantSearch>
+        {!this.state.focused && !this.state.value && <Hotkey>/</Hotkey>}
+      </Container>
+    );
+  }
 }
