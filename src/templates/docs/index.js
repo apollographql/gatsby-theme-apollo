@@ -72,7 +72,8 @@ const Main = styled.main({
 const Nav = styled.nav({
   display: 'flex',
   alignSelf: 'stretch',
-  marginLeft: 'auto'
+  marginLeft: 'auto',
+  marginRight: 40
 });
 
 const NavItem = styled.a({
