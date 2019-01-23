@@ -23,7 +23,7 @@ export default new Typography({
       marginBottom: 0
     },
     hr: {
-      backgroundColor: colors.grey
+      backgroundColor: colors.divider
     },
     h1: {
       fontWeight: 400
