@@ -78,7 +78,8 @@ exports.createPages = async ({actions}, {sourceDir = 'docs/source', root}) => {
             const processed = remark()
               .use(html, {
                 sanitize: {
-                  allowComments: false
+                  allowComments: false,
+                  clobber: []
                 }
               })
               .use(slug)
