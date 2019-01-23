@@ -20,7 +20,7 @@ const Heading = styled.button(props => ({
   background: 'none',
   outline: 'none',
   cursor: 'pointer',
-  color: props.active ? colors.primary : colors.text,
+  color: props.active ? colors.primary : colors.text1,
   h6: {
     margin: 0,
     textTransform: 'uppercase',

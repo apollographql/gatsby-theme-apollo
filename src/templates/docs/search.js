@@ -7,64 +7,74 @@ import {
   connectStateResults
 } from 'react-instantsearch-dom';
 
-const inputHeight = 40;
 const inputPadding = 16;
-const submitIconSize = 16;
-const resetIconSize = 12;
-const iconMargin = 8;
+const borderRadius = 5;
+const border = `1px solid ${colors.textTertiary}`;
+const verticalAlign = {
+  position: 'absolute',
+  top: '50%',
+  transform: 'translateY(-50%)'
+};
+
+const Hotkey = styled.div({
+  ...verticalAlign,
+  width: 24,
+  height: 24,
+  border,
+  borderRadius,
+  textAlign: 'center',
+  lineHeight: '20px',
+  right: inputPadding / 2
+});
+
 const Container = styled.div({
+  flexGrow: 1,
+  maxWidth: 480,
+  marginRight: 'auto',
   position: 'relative',
   '.ais-SearchBox-form': {
     position: 'relative',
-    color: colors.textSecondary
+    color: colors.text2
   },
   '.ais-SearchBox-input': {
-    width: 230,
-    height: inputHeight,
+    width: '100%',
+    height: 40,
     padding: 0,
-    paddingLeft: inputPadding + submitIconSize + iconMargin,
-    paddingRight: inputPadding + resetIconSize + iconMargin,
-    border: `1px solid ${colors.textTertiary}`,
-    borderRadius: inputHeight / 2,
+    paddingLeft: inputPadding,
+    border,
+    borderRadius,
     fontSize: 14,
     background: 'none',
     outline: 'none',
     ':focus': {
-      borderColor: colors.text
+      borderColor: colors.text2
     }
   },
-  [['.ais-SearchBox-submit', '.ais-SearchBox-reset']]: {
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)'
-  },
-  '.ais-SearchBox-submit': {
-    left: inputPadding
+  '.ais-SearchBox-submitIcon': {
+    display: 'none'
   },
   '.ais-SearchBox-reset': {
+    ...verticalAlign,
     right: inputPadding
   },
-  [['.ais-SearchBox-submitIcon', '.ais-SearchBox-resetIcon']]: {
-    display: 'block',
-    fill: 'currentColor'
-  },
-  '.ais-SearchBox-submitIcon': {
-    width: submitIconSize,
-    height: submitIconSize
-  },
   '.ais-SearchBox-resetIcon': {
-    width: resetIconSize,
-    height: resetIconSize
+    display: 'block',
+    fill: 'currentColor',
+    width: 12,
+    height: 12
   }
 });
 
 const Results = styled.div({
-  maxHeight: 500,
+  maxHeight: 640,
+  marginTop: 14,
+  borderRadius,
+  boxShadow: 'rgba(0,0,0,0.1) 0 2px 12px',
   backgroundColor: 'white',
   overflow: 'auto',
   position: 'absolute',
   top: '100%',
-  right: 0
+  left: 0
 });
 
 const SearchResults = connectStateResults(
@@ -76,17 +86,18 @@ const SearchResults = connectStateResults(
 
 export default function Search() {
   return (
-    <InstantSearch
-      appId="latency"
-      apiKey="3d9875e51fbd20c7754e65422f7ce5e1"
-      indexName="bestbuy"
-    >
-      <Container>
+    <Container>
+      <InstantSearch
+        appId="latency"
+        apiKey="3d9875e51fbd20c7754e65422f7ce5e1"
+        indexName="bestbuy"
+      >
         <SearchBox focusShortcuts={[191]} />
         <Results>
           <SearchResults />
         </Results>
-      </Container>
-    </InstantSearch>
+      </InstantSearch>
+      <Hotkey>/</Hotkey>
+    </Container>
   );
 }

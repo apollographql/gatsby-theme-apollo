@@ -8,7 +8,7 @@ import {transparentize} from 'polished';
 const iconSize = 24;
 const horizontalPadding = 8;
 const Container = styled.div({
-  color: colors.textSecondary,
+  color: colors.text2,
   borderRadius: 4,
   backgroundColor: transparentize(0.75, colors.divider),
   position: 'relative',

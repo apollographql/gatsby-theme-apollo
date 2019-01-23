@@ -3,8 +3,8 @@ import colors from './colors';
 
 const sansSerif = ['Source Sans Pro', 'Helvetica', 'sans-serif'];
 export default new Typography({
-  bodyColor: colors.textSecondary,
-  headerColor: colors.text,
+  bodyColor: colors.text2,
+  headerColor: colors.text1,
   scaleRatio: 2.5,
   googleFonts: [
     {

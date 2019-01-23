@@ -72,8 +72,7 @@ const Main = styled.main({
 const Nav = styled.nav({
   display: 'flex',
   alignSelf: 'stretch',
-  marginLeft: 'auto',
-  marginRight: 40
+  margin: '0 40px'
 });
 
 const NavItem = styled.a({
@@ -104,7 +103,7 @@ const MainHeading = styled.h1({
 
 const MainSubheading = styled.h3({
   fontWeight: 400,
-  color: colors.textSecondary
+  color: colors.text2
 });
 
 const MainContentInner = styled.div({
@@ -162,7 +161,7 @@ const ContentsLink = nest(
       width: 20,
       height: 20,
       marginRight: 6,
-      fill: colors.textSecondary
+      fill: colors.text2
     }
   })
 );
