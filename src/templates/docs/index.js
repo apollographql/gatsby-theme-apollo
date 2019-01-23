@@ -167,9 +167,18 @@ const ContentsLink = nest(
   })
 );
 
+const navItems = {
+  '/platform': 'Platform',
+  '/tutorial': 'Tutorial',
+  '/client': 'Client',
+  '/server': 'Server',
+  '/community': 'Community'
+};
+
 export default function Docs(props) {
   const {version, versions, frontmatter, html, headings} = props.pageContext;
   const {title, description} = frontmatter;
+  const {subtitle, basePath} = props.data.site.siteMetadata;
   return (
     <Layout>
       <Helmet>
@@ -183,7 +192,7 @@ export default function Docs(props) {
           </SidebarHeader>
           <SidebarContent>
             <SidebarContentHeader>
-              {props.data.site.siteMetadata.subtitle}
+              {subtitle}
               <VersionSelect versions={versions} value={version.basePath} />
             </SidebarContentHeader>
             <SidebarNav
@@ -196,8 +205,15 @@ export default function Docs(props) {
           <Header>
             <Search />
             <Nav>
-              <NavItem>Platform</NavItem>
-              <NavItem className="active">Tutorial</NavItem>
+              {Object.keys(navItems).map(key => (
+                <NavItem
+                  key={key}
+                  href={key}
+                  className={key === basePath ? 'active' : null}
+                >
+                  {navItems[key]}
+                </NavItem>
+              ))}
             </Nav>
           </Header>
           <MainContent>
@@ -249,6 +265,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         subtitle
+        basePath
       }
     }
   }

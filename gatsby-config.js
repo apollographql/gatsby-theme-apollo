@@ -1,9 +1,10 @@
 const path = require('path');
 
-module.exports = ({subtitle}) => ({
+module.exports = ({subtitle, basePath}) => ({
   siteMetadata: {
     title: 'Apollo Documentation',
-    subtitle
+    subtitle,
+    basePath
   },
   plugins: [
     'gatsby-plugin-svgr',
