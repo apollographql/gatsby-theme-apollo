@@ -73,6 +73,10 @@ const Results = styled.div({
   left: 0
 });
 
+function preventDefault(event) {
+  event.preventDefault();
+}
+
 class SearchInput extends Component {
   static propTypes = {
     searchResults: PropTypes.object
@@ -87,10 +91,8 @@ class SearchInput extends Component {
   onBlur = () => this.setState({focused: false});
 
   render() {
-    const query = this.props.searchResults
-      ? this.props.searchResults.query
-      : '';
-    const resultsShown = query.trim();
+    const {query = ''} = this.props.searchResults || {};
+    const resultsShown = this.state.focused && query.trim();
     return (
       <Fragment>
         <Container>
@@ -105,7 +107,9 @@ class SearchInput extends Component {
           {resultsShown && (
             <Results>
               {this.props.searchResults.hits.map(hit => (
-                <div key={hit.objectID}>{hit.name}</div>
+                <div key={hit.objectID} onMouseDown={preventDefault}>
+                  {hit.name}
+                </div>
               ))}
             </Results>
           )}
