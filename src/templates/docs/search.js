@@ -2,6 +2,7 @@
 import React, {Component, Fragment, createRef} from 'react';
 import colors from '../../util/colors';
 import styled from '@emotion/styled';
+import {MdClose} from 'react-icons/md';
 import {position, size, transparentize} from 'polished';
 
 const borderRadius = 5;
@@ -52,6 +53,21 @@ const Overlay = styled.div(position('fixed', 0), {
   backgroundColor: transparentize(0.5, colors.text2)
 });
 
+const ResetButton = styled.button(verticalAlign, size(20), {
+  padding: 0,
+  border: 0,
+  background: 'none',
+  cursor: 'pointer',
+  outline: 'none',
+  color: 'inherit',
+  right: 10,
+  svg: {
+    display: 'block',
+    ...size('100%'),
+    fill: 'currentColor'
+  }
+});
+
 // const boxShadowColor = transparentize(0.9, 'black');
 // const Results = styled.div({
 //   width: 600,
@@ -66,9 +82,9 @@ const Overlay = styled.div(position('fixed', 0), {
 //   left: 0
 // });
 
-// function preventDefault(event) {
-//   event.preventDefault();
-// }
+function preventDefault(event) {
+  event.preventDefault();
+}
 
 export default class Search extends Component {
   state = {
@@ -76,12 +92,14 @@ export default class Search extends Component {
     value: ''
   };
 
+  form = createRef();
+
   input = createRef();
 
   componentDidMount() {
     window.addEventListener('keydown', this.onKeyDown, true);
 
-    docsearch({
+    this.search = docsearch({
       apiKey: '768e823959d35bbd51e4b2439be13fb7',
       indexName: 'apollodata',
       inputSelector: '#input',
@@ -112,10 +130,17 @@ export default class Search extends Component {
 
   onBlur = () => this.setState({focused: false});
 
+  reset = () => {
+    this.setState({value: ''});
+    this.search.autocomplete.autocomplete.setVal('');
+  };
+
   render() {
+    const {focused, value} = this.state;
+    const resultsShown = focused && value.trim();
     return (
       <Fragment>
-        {this.state.focused && this.state.value.trim() && <Overlay />}
+        {resultsShown && <Overlay />}
         <Container>
           <input
             id="input"
@@ -127,6 +152,11 @@ export default class Search extends Component {
             placeholder="Search using Engine"
             ref={this.input}
           />
+          {resultsShown && (
+            <ResetButton onMouseDown={preventDefault} onClick={this.reset}>
+              <MdClose />
+            </ResetButton>
+          )}
           {!this.state.focused && !this.state.value && <Hotkey>/</Hotkey>}
         </Container>
       </Fragment>
