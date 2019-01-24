@@ -24,6 +24,8 @@ const Hotkey = styled.div(verticalAlign, size(24), {
   pointerEvents: 'none'
 });
 
+const boxShadowColor = transparentize(0.9, 'black');
+const boxShadow = `${boxShadowColor} 0 2px 12px`;
 const Container = styled.div({
   flexGrow: 1,
   maxWidth: 480,
@@ -31,23 +33,33 @@ const Container = styled.div({
   color: colors.text2,
   position: 'relative',
   '.algolia-autocomplete': {
-    width: '100%'
-  },
-  input: {
     width: '100%',
-    height: 40,
-    padding: 0,
-    paddingLeft: 16,
-    border,
-    borderRadius,
-    fontSize: 14,
-    background: 'white',
-    outline: 'none',
-    ':focus': {
-      borderColor: colors.text2
+    '.ds-dropdown-menu': {
+      width: 648,
+      borderRadius,
+      boxShadow,
+      '&::before': {
+        display: 'none'
+      },
+      '.ds-dataset-1': {
+        border
+      }
     }
   }
 });
+
+const StyledInput = styled.input(props => ({
+  width: '100%',
+  height: 40,
+  padding: 0,
+  paddingLeft: 16,
+  border,
+  borderRadius,
+  boxShadow: props.resultsShown ? boxShadow : 'none',
+  fontSize: 14,
+  background: 'white',
+  outline: 'none'
+}));
 
 const Overlay = styled.div(position('fixed', 0), {
   backgroundColor: transparentize(0.5, colors.text2)
@@ -142,7 +154,8 @@ export default class Search extends Component {
       <Fragment>
         {resultsShown && <Overlay />}
         <Container>
-          <input
+          <StyledInput
+            ref={this.input}
             id="input"
             type="search"
             onFocus={this.onFocus}
@@ -150,7 +163,7 @@ export default class Search extends Component {
             onChange={this.onChange}
             value={this.state.value}
             placeholder="Search using Engine"
-            ref={this.input}
+            resultsShown={resultsShown}
           />
           {resultsShown && (
             <ResetButton onMouseDown={preventDefault} onClick={this.reset}>
