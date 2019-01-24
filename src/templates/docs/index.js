@@ -27,7 +27,8 @@ const Header = styled.header({
   color: colors.primary,
   backgroundColor: 'white',
   position: 'sticky',
-  top: 0
+  top: 0,
+  zIndex: 1
 });
 
 const Sidebar = styled.aside({
@@ -40,8 +41,7 @@ const Sidebar = styled.aside({
 
 const SidebarHeader = styled(Header)({
   borderBottom: `1px solid ${colors.divider}`,
-  fontSize: 18,
-  zIndex: 1
+  fontSize: 18
 });
 
 const StyledLogoSmall = styled(LogoSmall)({
