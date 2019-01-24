@@ -29,6 +29,10 @@ export default function Layout(props) {
           <Container>
             <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`}>
               <link rel="shortcut icon" src="/favicon.ico" />
+              <link
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"
+              />
             </Helmet>
             {props.children}
           </Container>
