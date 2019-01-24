@@ -1,8 +1,8 @@
 /* global docsearch */
-import React, {Component, createRef} from 'react';
+import React, {Component, Fragment, createRef} from 'react';
 import colors from '../../util/colors';
 import styled from '@emotion/styled';
-import {size} from 'polished';
+import {position, size, transparentize} from 'polished';
 
 const borderRadius = 5;
 const border = `1px solid ${colors.text3}`;
@@ -48,9 +48,9 @@ const Container = styled.div({
   }
 });
 
-// const Overlay = styled.div(position('fixed', 0), {
-//   backgroundColor: transparentize(0.5, colors.text2)
-// });
+const Overlay = styled.div(position('fixed', 0), {
+  backgroundColor: transparentize(0.5, colors.text2)
+});
 
 // const boxShadowColor = transparentize(0.9, 'black');
 // const Results = styled.div({
@@ -85,7 +85,9 @@ export default class Search extends Component {
       apiKey: '768e823959d35bbd51e4b2439be13fb7',
       indexName: 'apollodata',
       inputSelector: '#input',
-      debug: true
+      autocompleteOptions: {
+        openOnFocus: true
+      }
     });
   }
 
@@ -112,20 +114,22 @@ export default class Search extends Component {
 
   render() {
     return (
-      <Container>
-        {/* {resultsShown && <Overlay />} */}
-        <input
-          id="input"
-          type="search"
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          onChange={this.onChange}
-          value={this.state.value}
-          placeholder="Search using Engine"
-          ref={this.input}
-        />
-        {!this.state.focused && !this.state.value && <Hotkey>/</Hotkey>}
-      </Container>
+      <Fragment>
+        {this.state.focused && this.state.value.trim() && <Overlay />}
+        <Container>
+          <input
+            id="input"
+            type="search"
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            onChange={this.onChange}
+            value={this.state.value}
+            placeholder="Search using Engine"
+            ref={this.input}
+          />
+          {!this.state.focused && !this.state.value && <Hotkey>/</Hotkey>}
+        </Container>
+      </Fragment>
     );
   }
 }
