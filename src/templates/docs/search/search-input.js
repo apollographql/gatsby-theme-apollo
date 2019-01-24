@@ -3,7 +3,6 @@ import React, {Component, Fragment} from 'react';
 import colors from '../../../util/colors';
 import styled from '@emotion/styled';
 import {SearchBox, connectStateResults} from 'react-instantsearch-dom';
-import {css} from '@emotion/core';
 import {position, size, transparentize} from 'polished';
 
 const borderRadius = 5;
@@ -45,11 +44,15 @@ const Container = styled.div({
       borderColor: colors.text2
     }
   },
-  '.ais-SearchBox-reset': css(verticalAlign, {right: 14}),
-  '.ais-SearchBox-resetIcon': css(size(12), {
+  '.ais-SearchBox-reset': {
+    ...verticalAlign,
+    right: 14
+  },
+  '.ais-SearchBox-resetIcon': {
+    ...size(12),
     display: 'block',
     fill: 'currentColor'
-  })
+  }
 });
 
 const Overlay = styled.div(position('fixed', 0), {
