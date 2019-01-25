@@ -61,9 +61,20 @@ const StyledInput = styled.input(props => ({
   outline: 'none'
 }));
 
-const Overlay = styled.div(position('fixed', 0), {
-  backgroundColor: transparentize(0.5, colors.text2)
-});
+const Overlay = styled.div(
+  position('fixed', 0),
+  props =>
+    !props.visible && {
+      opacity: 0,
+      visibility: 'hidden'
+    },
+  {
+    backgroundColor: transparentize(0.5, colors.text2),
+    transitionProperty: 'opacity, visibility',
+    transitionDuration: '150ms',
+    transitionTimingFunction: 'ease-in-out'
+  }
+);
 
 const ResetButton = styled.button(verticalAlign, size(20), {
   padding: 0,
