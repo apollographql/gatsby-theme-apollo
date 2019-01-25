@@ -29,6 +29,7 @@ const boxShadow = `${boxShadowColor} 0 2px 12px`;
 const Container = styled.div({
   flexGrow: 1,
   maxWidth: 480,
+  marginLeft: 40,
   marginRight: 'auto',
   color: colors.text2,
   position: 'relative',
@@ -36,15 +37,81 @@ const Container = styled.div({
     width: '100%',
     '.ds-dropdown-menu': {
       width: 648,
+      marginTop: 14,
       borderRadius,
       boxShadow,
       '&::before': {
         display: 'none'
       },
       '[class^=ds-dataset-]': {
+        padding: 0,
         border,
         borderRadius: 'inherit'
+      },
+      '.ds-suggestions': {
+        marginTop: 0
+      },
+      '.ds-suggestion': {
+        padding: '20px 32px',
+        borderBottom: `1px solid ${colors.divider}`,
+        '&.ds-cursor': {
+          backgroundColor: transparentize(0.5, colors.divider)
+        }
       }
+    },
+    '.algolia-docsearch-suggestion': {
+      padding: 0,
+      color: 'inherit',
+      background: 'none',
+      textDecoration: 'none',
+      [['&--wrapper', '&--subcategory-column', '&--content']]: {
+        width: 'auto',
+        float: 'none'
+      },
+      '&--wrapper': {
+        paddingTop: 0
+      },
+      '&--category-header': {
+        marginTop: 0,
+        marginBottom: 4,
+        borderBottom: 0,
+        fontSize: 14,
+        color: 'inherit',
+        textTransform: 'uppercase',
+        letterSpacing: 2
+      },
+      [['&--subcategory-column', '&--content']]: {
+        padding: 0,
+        '&::before': {
+          display: 'none'
+        }
+      },
+      '&--subcategory-column': {
+        marginBottom: 4,
+        fontSize: 22,
+        color: colors.text1,
+        textAlign: 'initial'
+      },
+      '&--content': {
+        background: 'none !important'
+      },
+      '&--title': {
+        marginBottom: 0,
+        fontSize: 18,
+        fontWeight: 'normal',
+        color: 'inherit'
+      },
+      '&--highlight': {
+        boxShadow: 'none !important',
+        color: `${colors.primary} !important`,
+        background: 'none !important'
+      },
+      '&--no-results': {
+        padding: 32
+      }
+    },
+    '.algolia-docsearch-footer': {
+      margin: 12
     }
   }
 });
