@@ -41,8 +41,9 @@ const Container = styled.div({
       '&::before': {
         display: 'none'
       },
-      '.ds-dataset-1': {
-        border
+      '[class^=ds-dataset-]': {
+        border,
+        borderRadius: 'inherit'
       }
     }
   }
@@ -163,7 +164,7 @@ export default class Search extends Component {
     const resultsShown = focused && value.trim();
     return (
       <Fragment>
-        {resultsShown && <Overlay />}
+        <Overlay visible={resultsShown} />
         <Container>
           <StyledInput
             ref={this.input}
