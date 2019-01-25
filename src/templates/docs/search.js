@@ -92,20 +92,6 @@ const ResetButton = styled.button(verticalAlign, size(20), {
   }
 });
 
-// const boxShadowColor = transparentize(0.9, 'black');
-// const Results = styled.div({
-//   width: 600,
-//   maxHeight: 600,
-//   marginTop: 14,
-//   borderRadius,
-//   boxShadow: `${boxShadowColor} 0 2px 12px`,
-//   backgroundColor: 'white',
-//   overflow: 'auto',
-//   position: 'absolute',
-//   top: '100%',
-//   left: 0
-// });
-
 function preventDefault(event) {
   event.preventDefault();
 }
