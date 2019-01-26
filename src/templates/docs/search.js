@@ -227,7 +227,7 @@ export default class Search extends Component {
             onBlur={this.onBlur}
             onChange={this.onChange}
             value={this.state.value}
-            placeholder="Search using Engine"
+            placeholder="Search Apollo Docs"
             resultsShown={resultsShown}
           />
           {resultsShown && (
