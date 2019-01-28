@@ -5,14 +5,43 @@ const matter = require('gray-matter');
 const html = require('remark-html');
 const remark = require('remark');
 const slug = require('remark-slug');
+const yaml = require('js-yaml');
 const {JSDOM} = require('jsdom');
 
 const semverSegment = '(\\d+)(\\.\\d+){2}';
 const semverPattern = new RegExp(semverSegment);
 const tagPattern = new RegExp(`^v${semverSegment}$`);
 
-exports.createPages = async ({actions}, {sourceDir = 'docs/source', root}) => {
-  const git = simpleGit(root);
+function getFilePath(file) {
+  return file.path;
+}
+
+async function getSidebarCategories(objects, configPaths, git, version) {
+  const filePaths = objects.map(getFilePath);
+  const existingConfig = configPaths.filter(configPath =>
+    filePaths.includes(configPath)
+  )[0];
+
+  if (existingConfig) {
+    const existingConfigText = await git.show([`${version}:${existingConfig}`]);
+
+    // parse the config if it's YAML
+    if (/\.yml$/.test(existingConfig)) {
+      const yamlConfig = yaml.safeLoad(existingConfigText);
+      return yamlConfig.sidebar_categories;
+    }
+
+    // TODO: handle js configs
+  }
+
+  return null;
+}
+
+exports.createPages = async (
+  {actions},
+  {rootDir = 'docs', sourceDir = 'source', root, sidebarCategories}
+) => {
+  const git = simpleGit(path.relative(root, '../apollo-server'));
   const remotes = await git.getRemotes(true);
   const {origin} = remotes.reduce(
     (acc, remote) => ({
@@ -40,72 +69,78 @@ exports.createPages = async ({actions}, {sourceDir = 'docs/source', root}) => {
     .sort()
     .reverse();
   const currentVersion = versionKeys[0];
+  const fullSourceDir = path.join(rootDir, sourceDir);
+  const configPaths = [`${rootDir}/gatsby-config.js`, `${rootDir}/_config.yml`];
+
   versions = await Promise.all(
     versionKeys.map(async key => {
       try {
         const version = versions[key];
         const tree = await git.raw(['ls-tree', '-r', version]);
-
         const objects = tree.split('\n').map(object => ({
           mode: object.slice(0, object.indexOf(' ')),
           path: object.slice(object.lastIndexOf('\t') + 1)
         }));
 
+        const isCurrentVersion = key === currentVersion;
+        const versionSidebarCategories = isCurrentVersion
+          ? sidebarCategories
+          : await getSidebarCategories(objects, configPaths, git, version);
+
         const markdown = objects.filter(({path}) => /\.mdx?$/.test(path));
-        const paths = markdown.map(file => file.path);
-        const docs = markdown.filter(({path}) => !path.indexOf(sourceDir));
+        const markdownPaths = markdown.map(getFilePath);
+        const docs = markdown.filter(({path}) => !path.indexOf(fullSourceDir));
 
-        if (!docs.length) {
-          throw new Error('Version has no docs');
-        }
-
-        const basePath = key === currentVersion ? '/' : `/v${key}/`;
-        const contents = await Promise.all(
-          docs.map(async doc => {
-            let text = await git.show([`${version}:${doc.path}`]);
-            if (doc.mode === '120000') {
-              // the file is a symlink
-              const directory = doc.path.slice(0, doc.path.lastIndexOf('/'));
-              const symlink = path.resolve(`/${directory}`, text).slice(1);
-              if (!paths.includes(symlink)) {
-                return null;
+        const contents = {};
+        const basePath = isCurrentVersion ? '/' : `/v${key}/`;
+        for (const category in versionSidebarCategories) {
+          const filePaths = versionSidebarCategories[category];
+          contents[category] = await Promise.all(
+            filePaths.map(async filePath => {
+              const fullFilePath = `${fullSourceDir}/${filePath}.md`;
+              const doc = docs.find(({path}) => path === fullFilePath);
+              if (!doc) {
+                throw new Error(`Doc not found: ${fullFilePath}`);
               }
 
-              text = await git.show([`${version}:${symlink}`]);
-            }
-
-            const {data: frontmatter, content} = matter(text);
-            const processed = remark()
-              .use(html, {
-                sanitize: {
-                  allowComments: false,
-                  clobber: []
+              let text = await git.show([`${version}:${fullFilePath}`]);
+              if (doc.mode === '120000') {
+                // the file is a symlink, so we need to follow it
+                const directory = doc.path.slice(0, doc.path.lastIndexOf('/'));
+                const symlink = path.resolve(`/${directory}`, text).slice(1);
+                if (!markdownPaths.includes(symlink)) {
+                  return null;
                 }
-              })
-              .use(slug)
-              .processSync(content);
-            return {
-              frontmatter,
-              html: processed.contents,
-              path:
-                basePath +
-                doc.path
-                  .slice(0, doc.path.lastIndexOf('.'))
-                  .replace(sourceDir, '')
-                  .replace('/index', '')
-                  .slice(1) // remove first slash
-            };
-          })
-        );
+
+                text = await git.show([`${version}:${symlink}`]);
+              }
+
+              const {data: frontmatter, content} = matter(text);
+              const processed = remark()
+                .use(html, {
+                  sanitize: {
+                    allowComments: false,
+                    clobber: []
+                  }
+                })
+                .use(slug)
+                .processSync(content);
+
+              return {
+                frontmatter,
+                html: processed.contents,
+                path: basePath + filePath.replace(/^index$/, '')
+              };
+            })
+          );
+        }
 
         const semver = versions[key].match(semverPattern)[0];
         return {
           id: key,
           basePath,
           majorMinor: semver.slice(0, semver.lastIndexOf('.')),
-          contents: contents.filter(
-            content => content && Boolean(content.html.replace(/\n/g, ''))
-          )
+          contents
         };
       } catch (error) {
         return null;
@@ -114,31 +149,34 @@ exports.createPages = async ({actions}, {sourceDir = 'docs/source', root}) => {
   );
 
   const docsTemplate = require.resolve('./src/templates/docs');
-  versions.filter(Boolean).forEach((version, index, array) =>
-    version.contents.forEach(({path, frontmatter, html}) => {
-      const dom = new JSDOM(html);
-      const headings = Array.from(
-        dom.window.document.querySelectorAll('h1,h2,h3')
-      ).map(heading => ({
-        id: heading.id,
-        text: heading.textContent
-      }));
+  versions.filter(Boolean).forEach((version, index, array) => {
+    for (const key in version.contents) {
+      version.contents[key].forEach(({path, frontmatter, html}) => {
+        const dom = new JSDOM(html);
+        const headings = Array.from(
+          dom.window.document.querySelectorAll('h1,h2,h3')
+        ).map(heading => ({
+          id: heading.id,
+          text: heading.textContent
+        }));
 
-      actions.createPage({
-        path,
-        component: docsTemplate,
-        context: {
-          frontmatter,
-          html,
-          headings,
-          version,
-          versions: array
-        }
+        actions.createPage({
+          path,
+          component: docsTemplate,
+          context: {
+            frontmatter,
+            html,
+            headings,
+            version,
+            versions: array
+          }
+        });
       });
-    })
-  );
+    }
+  });
 };
 
+// include theme files in babel transpilation
 exports.onCreateWebpackConfig = ({loaders, actions}) => {
   actions.setWebpackConfig({
     module: {
@@ -153,6 +191,7 @@ exports.onCreateWebpackConfig = ({loaders, actions}) => {
   });
 };
 
+// copy the favicon from the theme dir to the built website
 exports.onPostBootstrap = (_, {root}) => {
   fs.copyFileSync(
     path.resolve(__dirname, 'static/favicon.ico'),

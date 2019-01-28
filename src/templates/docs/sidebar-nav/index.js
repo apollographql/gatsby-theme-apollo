@@ -2,8 +2,6 @@ import Directory from './directory';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import colors from '../../../util/colors';
-import groupBy from 'lodash/groupBy';
-import startCase from 'lodash/startCase';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 
@@ -21,14 +19,9 @@ const StyledLink = styled(Link)({
   textDecoration: 'none'
 });
 
-const titleExceptions = {
-  api: 'API',
-  graphql: 'GraphQL'
-};
-
 export default class SidebarNav extends Component {
   static propTypes = {
-    contents: PropTypes.array.isRequired,
+    contents: PropTypes.object.isRequired,
     pathname: PropTypes.string.isRequired
   };
 
@@ -48,24 +41,12 @@ export default class SidebarNav extends Component {
   }
 
   render() {
-    const {root, ...directories} = groupBy(this.props.contents, content => {
-      const segments = content.path
-        .split('/')
-        .filter(Boolean)
-        .filter(segment => !/v\d+/.test(segment));
-      if (segments.length > 1) {
-        const directory = segments[0];
-        return titleExceptions[directory] || startCase(directory);
-      }
-
-      return 'root';
-    });
-
+    const {null: root, ...categories} = this.props.contents;
     return (
       <Fragment>
         {this.renderPages(root)}
-        {Object.keys(directories).map(key => {
-          const pages = directories[key];
+        {Object.keys(categories).map(key => {
+          const pages = categories[key];
           return (
             <Directory
               key={key}
