@@ -12,12 +12,8 @@ const semverSegment = '(\\d+)(\\.\\d+){2}';
 const semverPattern = new RegExp(semverSegment);
 const tagPattern = new RegExp(`^v${semverSegment}$`);
 
-function getFilePath(file) {
-  return file.path;
-}
-
 async function getSidebarCategories(objects, configPaths, git, version) {
-  const filePaths = objects.map(getFilePath);
+  const filePaths = objects.map(object => object.path);
   const existingConfig = configPaths.filter(configPath =>
     filePaths.includes(configPath)
   )[0];
@@ -87,23 +83,35 @@ exports.createPages = async (
           ? sidebarCategories
           : await getSidebarCategories(objects, configPaths, git, version);
 
+        if (!versionSidebarCategories) {
+          throw new Error(
+            `No sidebar configuration found for this version: ${version}`
+          );
+        }
+
         const markdown = objects.filter(({path}) => /\.mdx?$/.test(path));
-        const markdownPaths = markdown.map(getFilePath);
+        const markdownPaths = markdown.map(object => object.path);
         const docs = markdown.filter(({path}) => !path.indexOf(fullSourceDir));
 
         const contents = {};
         const basePath = isCurrentVersion ? '/' : `/v${key}/`;
         for (const category in versionSidebarCategories) {
-          const filePaths = versionSidebarCategories[category];
-          contents[category] = await Promise.all(
-            filePaths.map(async filePath => {
-              const fullFilePath = `${fullSourceDir}/${filePath}.md`;
-              const doc = docs.find(({path}) => path === fullFilePath);
-              if (!doc) {
-                throw new Error(`Doc not found: ${fullFilePath}`);
+          const sidebarItems = versionSidebarCategories[category];
+          const categoryContents = await Promise.all(
+            sidebarItems.map(async sidebarItem => {
+              if (typeof sidebarItem !== 'string') {
+                return {
+                  link: sidebarItem
+                };
               }
 
-              let text = await git.show([`${version}:${fullFilePath}`]);
+              const filePath = `${fullSourceDir}/${sidebarItem}.md`;
+              const doc = docs.find(({path}) => path === filePath);
+              if (!doc) {
+                throw new Error(`Doc not found: ${filePath}`);
+              }
+
+              let text = await git.show([`${version}:${filePath}`]);
               if (doc.mode === '120000') {
                 // the file is a symlink, so we need to follow it
                 const directory = doc.path.slice(0, doc.path.lastIndexOf('/'));
@@ -129,10 +137,12 @@ exports.createPages = async (
               return {
                 frontmatter,
                 html: processed.contents,
-                path: basePath + filePath.replace(/^index$/, '')
+                path: basePath + sidebarItem.replace(/^index$/, '')
               };
             })
           );
+
+          contents[category] = categoryContents.filter(Boolean);
         }
 
         const semver = versions[key].match(semverPattern)[0];
@@ -143,6 +153,7 @@ exports.createPages = async (
           contents
         };
       } catch (error) {
+        console.error(error);
         return null;
       }
     })
@@ -151,7 +162,12 @@ exports.createPages = async (
   const docsTemplate = require.resolve('./src/templates/docs');
   versions.filter(Boolean).forEach((version, index, array) => {
     for (const key in version.contents) {
-      version.contents[key].forEach(({path, frontmatter, html}) => {
+      version.contents[key].forEach(({path, frontmatter, html, link}) => {
+        if (link) {
+          // don't create pages for sidebar links
+          return;
+        }
+
         const dom = new JSDOM(html);
         const headings = Array.from(
           dom.window.document.querySelectorAll('h1,h2,h3')
@@ -168,6 +184,7 @@ exports.createPages = async (
             html,
             headings,
             version,
+            // use `array` here because we're filtering versions before the loop
             versions: array
           }
         });

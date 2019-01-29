@@ -11,13 +11,12 @@ const StyledList = styled.ul({
 });
 
 const StyledListItem = styled.li(props => ({
-  color: props.active && colors.primary
+  color: props.active && colors.primary,
+  a: {
+    color: 'inherit',
+    textDecoration: 'none'
+  }
 }));
-
-const StyledLink = styled(Link)({
-  color: 'inherit',
-  textDecoration: 'none'
-});
 
 export default class SidebarNav extends Component {
   static propTypes = {
@@ -33,7 +32,11 @@ export default class SidebarNav extends Component {
             key={page.path}
             active={page.path === this.props.pathname}
           >
-            <StyledLink to={page.path}>{page.frontmatter.title}</StyledLink>
+            {page.link ? (
+              <a href={page.link.href}>{page.link.title}</a>
+            ) : (
+              <Link to={page.path}>{page.frontmatter.title}</Link>
+            )}
           </StyledListItem>
         ))}
       </StyledList>
