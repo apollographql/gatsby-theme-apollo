@@ -187,6 +187,7 @@ exports.createPages = async (
           return;
         }
 
+        // find all of the headings within a page to generate the contents menu
         const dom = new JSDOM(html);
         const headings = Array.from(
           dom.window.document.querySelectorAll('h1,h2,h3')
