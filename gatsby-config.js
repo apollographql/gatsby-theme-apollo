@@ -1,9 +1,10 @@
 const path = require('path');
 
-module.exports = ({subtitle, basePath}) => ({
+module.exports = ({subtitle, description, basePath}) => ({
   siteMetadata: {
     title: 'Apollo Documentation',
     subtitle,
+    description,
     basePath
   },
   plugins: [

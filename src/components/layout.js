@@ -23,10 +23,11 @@ export default function Layout(props) {
         }
       `}
       render={data => {
-        const {title} = data.site.siteMetadata;
+        const {title, description} = data.site.siteMetadata;
         return (
           <Container>
             <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`}>
+              <meta name="description" content={description} />
               <link rel="shortcut icon" src="/favicon.ico" />
               <link
                 rel="stylesheet"
