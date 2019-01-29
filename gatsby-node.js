@@ -12,7 +12,8 @@ const semverSegment = '(\\d+)(\\.\\d+){2}';
 const semverPattern = new RegExp(semverSegment);
 const tagPattern = new RegExp(`^v${semverSegment}$`);
 
-async function getSidebarCategories(objects, configPaths, git, version) {
+const configPaths = ['gatsby-config.js', '_config.yml'];
+async function getSidebarCategories(objects, git, version) {
   // check for config paths in our current set of objects
   const filePaths = objects.map(object => object.path);
   const existingConfig = configPaths.filter(configPath =>
@@ -20,7 +21,9 @@ async function getSidebarCategories(objects, configPaths, git, version) {
   )[0];
 
   if (existingConfig) {
-    const existingConfigText = await git.show([`${version}:${existingConfig}`]);
+    const existingConfigText = await git.show([
+      `${version}:./${existingConfig}`
+    ]);
 
     // parse the config if it's YAML
     if (/\.yml$/.test(existingConfig)) {
@@ -36,7 +39,7 @@ async function getSidebarCategories(objects, configPaths, git, version) {
 
 exports.createPages = async (
   {actions},
-  {rootDir = 'docs', sourceDir = 'source', root, sidebarCategories}
+  {contentDir = 'source', root, sidebarCategories}
 ) => {
   const git = simpleGit(root);
   const remotes = await git.getRemotes(true);
@@ -73,14 +76,15 @@ exports.createPages = async (
     .reverse();
   const currentVersion = versionKeys[0];
 
-  const fullSourceDir = path.join(rootDir, sourceDir);
-  const configPaths = [`${rootDir}/gatsby-config.js`, `${rootDir}/_config.yml`];
-
   versions = await Promise.all(
     versionKeys.map(async key => {
       try {
         const version = versions[key];
         const tree = await git.raw(['ls-tree', '-r', version]);
+        if (!tree) {
+          return null;
+        }
+
         const objects = tree.split('\n').map(object => ({
           mode: object.slice(0, object.indexOf(' ')),
           path: object.slice(object.lastIndexOf('\t') + 1)
@@ -92,7 +96,7 @@ exports.createPages = async (
         const isCurrentVersion = key === currentVersion;
         const versionSidebarCategories = isCurrentVersion
           ? sidebarCategories
-          : await getSidebarCategories(objects, configPaths, git, version);
+          : await getSidebarCategories(objects, git, version);
 
         if (!versionSidebarCategories) {
           throw new Error(
@@ -104,7 +108,7 @@ exports.createPages = async (
         // useful later
         const markdown = objects.filter(({path}) => /\.mdx?$/.test(path));
         const markdownPaths = markdown.map(object => object.path);
-        const docs = markdown.filter(({path}) => !path.indexOf(fullSourceDir));
+        const docs = markdown.filter(({path}) => !path.indexOf(contentDir));
 
         const contents = {};
         const basePath = isCurrentVersion ? '/' : `/v${key}/`;
@@ -120,13 +124,13 @@ exports.createPages = async (
                 };
               }
 
-              const filePath = `${fullSourceDir}/${sidebarItem}.md`;
+              const filePath = `${contentDir}/${sidebarItem}.md`;
               const doc = docs.find(({path}) => path === filePath);
               if (!doc) {
-                throw new Error(`Doc not found: ${filePath}`);
+                throw new Error(`Doc not found: ${filePath}@v${key}`);
               }
 
-              let text = await git.show([`${version}:${filePath}`]);
+              let text = await git.show([`${version}:./${filePath}`]);
               if (doc.mode === '120000') {
                 // if the file is a symlink we need to follow it
                 const directory = doc.path.slice(0, doc.path.lastIndexOf('/'));
