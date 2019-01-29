@@ -27,6 +27,7 @@
     "react-dom": "^16.6.3",
     "react-helmet": "^5.2.0",
     "react-icons": "^3.3.0",
+    "react-remark": "^1.0.5",
     "react-typography": "^0.16.13",
     "recompose": "^0.30.0",
     "remark": "^10.0.1",
