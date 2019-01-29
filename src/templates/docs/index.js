@@ -167,11 +167,11 @@ const ContentsLink = nest(
 );
 
 const navItems = {
-  '/platform': 'Platform',
-  '/tutorial': 'Tutorial',
-  '/client': 'Client',
-  '/server': 'Server',
-  '/community': 'Community'
+  '/docs/platform': 'Platform',
+  '/docs/tutorial': 'Tutorial',
+  '/docs/client': 'Client',
+  '/docs/server': 'Server',
+  '/docs/community': 'Community'
 };
 
 export default function Docs(props) {
