@@ -2,11 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const simpleGit = require('simple-git/promise');
 const matter = require('gray-matter');
-const html = require('remark-html');
-const remark = require('remark');
-const slug = require('remark-slug');
 const yaml = require('js-yaml');
-const {JSDOM} = require('jsdom');
 
 const semverSegment = '(\\d+)(\\.\\d+){2}';
 const semverPattern = new RegExp(semverSegment);
@@ -135,6 +131,9 @@ exports.createPages = async (
                 // if the file is a symlink we need to follow it
                 const directory = doc.path.slice(0, doc.path.lastIndexOf('/'));
                 const symlink = path.resolve(`/${directory}`, text).slice(1);
+
+                // ensure that the symlinked page exists because errors thrown
+                // by `git.show` below cause subsequent git functions to fail
                 if (!markdownPaths.includes(symlink)) {
                   return null;
                 }
@@ -142,20 +141,10 @@ exports.createPages = async (
                 text = await git.show([`${version}:${symlink}`]);
               }
 
-              const {data: frontmatter, content} = matter(text);
-              const processed = remark()
-                .use(html, {
-                  sanitize: {
-                    allowComments: false,
-                    clobber: []
-                  }
-                })
-                .use(slug)
-                .processSync(content);
-
+              const {content, data} = matter(text);
               return {
-                frontmatter,
-                html: processed.contents,
+                content,
+                frontmatter: data,
                 path: basePath + sidebarItem.replace(/^index$/, '')
               };
             })
@@ -181,28 +170,18 @@ exports.createPages = async (
   const docsTemplate = require.resolve('./src/templates/docs');
   versions.filter(Boolean).forEach((version, index, array) => {
     for (const key in version.contents) {
-      version.contents[key].forEach(({path, frontmatter, html, link}) => {
+      version.contents[key].forEach(({path, frontmatter, content, link}) => {
         if (link) {
           // don't create pages for sidebar links
           return;
         }
 
-        // find all of the headings within a page to generate the contents menu
-        const dom = new JSDOM(html);
-        const headings = Array.from(
-          dom.window.document.querySelectorAll('h1,h2,h3')
-        ).map(heading => ({
-          id: heading.id,
-          text: heading.textContent
-        }));
-
         actions.createPage({
           path,
           component: docsTemplate,
           context: {
+            content,
             frontmatter,
-            html,
-            headings,
             version,
             // use `array` here because we're filtering versions before the loop
             versions: array

@@ -1,34 +1,20 @@
+import Header from '../../components/header';
 import Helmet from 'react-helmet';
 import Layout from '../../components/layout';
+import PageContent from './page-content';
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
+import React from 'react';
 import Search from './search';
 import SidebarNav from './sidebar-nav';
 import VersionSelect from './version-select';
 import colors from '../../util/colors';
-import nest from 'recompose/nest';
 import styled from '@emotion/styled';
-import {FaGithub, FaSlack} from 'react-icons/fa';
 import {ReactComponent as LogoSmall} from '../../../ui/logo-small.svg';
 import {graphql} from 'gatsby';
 
 const Container = styled.div({
   display: 'flex',
   flexGrow: 1
-});
-
-const headerHeight = 64;
-const Header = styled.header({
-  display: 'flex',
-  alignItems: 'center',
-  flexShrink: 0,
-  height: headerHeight,
-  padding: '0 24px',
-  color: colors.primary,
-  backgroundColor: 'white',
-  position: 'sticky',
-  top: 0,
-  zIndex: 1
 });
 
 const Sidebar = styled.aside({
@@ -106,66 +92,6 @@ const MainSubheading = styled.h3({
   color: colors.text2
 });
 
-const MainContentInner = styled.div({
-  display: 'flex',
-  alignItems: 'flex-start'
-});
-
-const PageContent = styled.div({
-  flexGrow: 1,
-  overflow: 'hidden',
-  '[id]::before': {
-    // inspired by https://css-tricks.com/hash-tag-links-padding/
-    content: "''",
-    display: 'block',
-    marginTop: -headerHeight,
-    height: headerHeight,
-    visibility: 'hidden',
-    pointerEvents: 'none'
-  }
-});
-
-const Contents = styled.aside({
-  flexShrink: 0,
-  width: 200,
-  marginTop: -20,
-  marginLeft: 40,
-  paddingTop: 24,
-  position: 'sticky',
-  top: headerHeight
-});
-
-const ContentsList = styled.ul({
-  marginLeft: 0
-});
-
-const ContentsListItem = styled.li({
-  listStyle: 'none'
-});
-
-const ContentsListItemLink = styled.a({
-  color: 'inherit',
-  textDecoration: 'none'
-});
-
-const ContentsLink = nest(
-  styled.h5({
-    display: 'flex'
-  }),
-  styled.a({
-    display: 'flex',
-    alignItems: 'center',
-    color: 'inherit',
-    textDecoration: 'none',
-    svg: {
-      width: 20,
-      height: 20,
-      marginRight: 6,
-      fill: colors.text2
-    }
-  })
-);
-
 const navItems = {
   '/docs/platform': 'Platform',
   '/docs/tutorial': 'Tutorial',
@@ -175,7 +101,7 @@ const navItems = {
 };
 
 export default function Docs(props) {
-  const {version, versions, frontmatter, html, headings} = props.pageContext;
+  const {version, versions, frontmatter, content} = props.pageContext;
   const {title, description} = frontmatter;
   const {subtitle, basePath} = props.data.site.siteMetadata;
   return (
@@ -221,31 +147,7 @@ export default function Docs(props) {
               {description && <MainSubheading>{description}</MainSubheading>}
             </div>
             <hr />
-            <MainContentInner>
-              <PageContent dangerouslySetInnerHTML={{__html: html}} />
-              <Contents>
-                {headings.length > 0 && (
-                  <Fragment>
-                    <h4>In this section</h4>
-                    <ContentsList>
-                      {headings.map(heading => (
-                        <ContentsListItem key={heading.id}>
-                          <ContentsListItemLink href={`#${heading.id}`}>
-                            {heading.text}
-                          </ContentsListItemLink>
-                        </ContentsListItem>
-                      ))}
-                    </ContentsList>
-                  </Fragment>
-                )}
-                <ContentsLink>
-                  <FaGithub /> Edit on GitHub
-                </ContentsLink>
-                <ContentsLink>
-                  <FaSlack /> Discuss on Slack
-                </ContentsLink>
-              </Contents>
-            </MainContentInner>
+            <PageContent content={content} />
           </MainContent>
         </Main>
       </Container>
