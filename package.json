@@ -27,11 +27,11 @@
     "react-dom": "^16.6.3",
     "react-helmet": "^5.2.0",
     "react-icons": "^3.3.0",
-    "react-remark": "^1.0.5",
     "react-typography": "^0.16.13",
     "recompose": "^0.30.0",
     "remark": "^10.0.1",
     "remark-html": "^9.0.0",
+    "remark-react": "^5.0.1",
     "remark-slug": "^5.1.1",
     "simple-git": "^1.107.0",
     "typography": "^0.16.17"
