@@ -1,3 +1,4 @@
+import CodeBlock from '../../components/code-block';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import colors from '../../util/colors';
@@ -100,6 +101,9 @@ export default function PageContent(props) {
         attributes: {
           '*': ['id'],
           code: ['className']
+        },
+        remarkReactComponents: {
+          pre: CodeBlock
         }
       }
     })
