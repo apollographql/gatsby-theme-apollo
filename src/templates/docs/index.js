@@ -8,9 +8,13 @@ import Search from './search';
 import SidebarNav from './sidebar-nav';
 import VersionSelect from './version-select';
 import colors from '../../util/colors';
+import hljs from 'highlight.js/lib/highlight';
+import javascript from 'highlight.js/lib/languages/javascript';
 import styled from '@emotion/styled';
 import {ReactComponent as LogoSmall} from '../../../ui/logo-small.svg';
 import {graphql} from 'gatsby';
+
+hljs.registerLanguage('javascript', javascript);
 
 const Container = styled.div({
   display: 'flex',
