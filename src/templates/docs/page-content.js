@@ -96,14 +96,14 @@ export default function PageContent(props) {
   const processed = remark()
     .use(slug)
     .use(remark2react, {
+      remarkReactComponents: {
+        pre: CodeBlock
+      },
       sanitize: {
         clobber: [],
         attributes: {
           '*': ['id'],
           code: ['className']
-        },
-        remarkReactComponents: {
-          pre: CodeBlock
         }
       }
     })

@@ -1,3 +1,4 @@
+import 'highlight.js/styles/github.css';
 import PropTypes from 'prop-types';
 import React, {Component, createRef} from 'react';
 import hljs from 'highlight.js/lib/highlight';
@@ -13,7 +14,7 @@ export default class CodeBlock extends Component {
   node = createRef();
 
   componentDidMount() {
-    hljs.highlightBlock(this.node);
+    hljs.highlightBlock(this.node.current);
   }
 
   render() {
