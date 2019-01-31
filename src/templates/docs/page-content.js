@@ -1,15 +1,19 @@
-import '../../util/prism.css';
-import Prism from 'prismjs';
+/* global Prism */
+import 'prismjs';
+import 'prismjs/plugins/line-highlight/prism-line-highlight';
+import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
+import 'prismjs/themes/prism.css';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import colors from '../../util/colors';
+import detab from 'detab';
 import nest from 'recompose/nest';
 import querystring from 'querystring';
 import remark from 'remark';
 import remark2react from 'remark-react';
 import slug from 'remark-slug';
 import styled from '@emotion/styled';
-import visit from 'unist-util-visit';
+import u from 'unist-builder';
 import {FaGithub, FaSlack} from 'react-icons/fa';
 import {headerHeight} from '../../components/header';
 
@@ -94,21 +98,25 @@ function findHeadings(component) {
   }, []);
 }
 
-function line() {
-  return transformer;
-}
+// from https://github.com/syntax-tree/mdast-util-to-hast/blob/master/lib/handlers/code.js
+function codeToHast(h, node) {
+  const value = node.value ? detab(node.value + '\n') : '';
+  const lang = node.lang && node.lang.match(/^[^ \t]+(?=[ \t]|$)/);
+  const codeProps = {};
+  const preProps = {};
 
-function transformer(tree) {
-  visit(tree, 'code', visitor);
-}
+  if (lang) {
+    codeProps.className = ['language-' + lang];
+  }
 
-function visitor(node) {
-  const {line} = querystring.parse(node.meta);
-  node.data = {
-    hProperties: {
-      dataLine: line
-    }
-  };
+  if (node.meta) {
+    const {line} = querystring.parse(node.meta);
+    preProps.dataLine = line;
+  }
+
+  return h(node.position, 'pre', preProps, [
+    h(node, 'code', codeProps, [u('text', value)])
+  ]);
 }
 
 export default class PageContent extends Component {
@@ -123,14 +131,20 @@ export default class PageContent extends Component {
   render() {
     // turn the markdown into JSX and add slug ids to the headings
     const processed = remark()
-      .use(line)
+      // .use(line)
       .use(slug)
       .use(remark2react, {
         sanitize: {
           clobber: [],
           attributes: {
             '*': ['id'],
+            pre: ['className', 'data*'],
             code: ['className', 'data*']
+          }
+        },
+        toHast: {
+          handlers: {
+            code: codeToHast
           }
         }
       })
