@@ -35,7 +35,8 @@
     "remark-react-codemirror": "^1.0.5",
     "remark-slug": "^5.1.1",
     "simple-git": "^1.107.0",
-    "typography": "^0.16.17"
+    "typography": "^0.16.17",
+    "unist-util-visit": "^1.4.0"
   },
   "devDependencies": {
     "@trevorblades/eslint-config": "^6.19.2",

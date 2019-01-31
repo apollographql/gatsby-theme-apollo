@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import colors from '../../util/colors';
 import nest from 'recompose/nest';
+import querystring from 'querystring';
 import remark from 'remark';
 import remark2react from 'remark-react';
 import slug from 'remark-slug';
 import styled from '@emotion/styled';
+import visit from 'unist-util-visit';
 import {FaGithub, FaSlack} from 'react-icons/fa';
 import {headerHeight} from '../../components/header';
+
+console.log();
 
 const Container = styled.div({
   display: 'flex',
@@ -91,9 +95,27 @@ function findHeadings(component) {
   }, []);
 }
 
+function line() {
+  return transformer;
+}
+
+function transformer(tree) {
+  visit(tree, 'code', visitor);
+}
+
+function visitor(node) {
+  const {line} = querystring.parse(node.meta);
+  node.data = {
+    hProperties: {
+      dataLine: line
+    }
+  };
+}
+
 export default function PageContent(props) {
   // turn the markdown into JSX and add slug ids to the headings
   const processed = remark()
+    .use(line)
     .use(slug)
     .use(remark2react, {
       remarkReactComponents: {
@@ -103,7 +125,7 @@ export default function PageContent(props) {
         clobber: [],
         attributes: {
           '*': ['id'],
-          code: ['className']
+          code: ['className', 'data*']
         }
       }
     })
