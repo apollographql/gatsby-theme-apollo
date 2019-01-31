@@ -23,6 +23,7 @@
     "highlight.js": "^9.14.1",
     "js-yaml": "^3.12.1",
     "polished": "^2.3.3",
+    "prismjs": "^1.15.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
