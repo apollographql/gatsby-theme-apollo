@@ -1,6 +1,7 @@
-import CodeBlock from '../../components/code-block';
+import '../../util/prism.css';
+import Prism from 'prismjs';
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
+import React, {Component, Fragment} from 'react';
 import colors from '../../util/colors';
 import nest from 'recompose/nest';
 import querystring from 'querystring';
@@ -11,8 +12,6 @@ import styled from '@emotion/styled';
 import visit from 'unist-util-visit';
 import {FaGithub, FaSlack} from 'react-icons/fa';
 import {headerHeight} from '../../components/header';
-
-console.log();
 
 const Container = styled.div({
   display: 'flex',
@@ -112,57 +111,60 @@ function visitor(node) {
   };
 }
 
-export default function PageContent(props) {
-  // turn the markdown into JSX and add slug ids to the headings
-  const processed = remark()
-    .use(line)
-    .use(slug)
-    .use(remark2react, {
-      remarkReactComponents: {
-        pre: CodeBlock
-      },
-      sanitize: {
-        clobber: [],
-        attributes: {
-          '*': ['id'],
-          code: ['className', 'data*']
+export default class PageContent extends Component {
+  static propTypes = {
+    content: PropTypes.string.isRequired
+  };
+
+  componentDidMount() {
+    Prism.highlightAll();
+  }
+
+  render() {
+    // turn the markdown into JSX and add slug ids to the headings
+    const processed = remark()
+      .use(line)
+      .use(slug)
+      .use(remark2react, {
+        sanitize: {
+          clobber: [],
+          attributes: {
+            '*': ['id'],
+            code: ['className', 'data*']
+          }
         }
-      }
-    })
-    .processSync(props.content);
+      })
+      .processSync(this.props.content);
 
-  // find all of the headings within a page to generate the contents menu
-  const headings = findHeadings(processed.contents);
+    // find all of the headings within a page to generate the contents menu
+    const headings = findHeadings(processed.contents);
 
-  return (
-    <Container>
-      <InnerContainer>{processed.contents}</InnerContainer>
-      <Sidebar>
-        {headings.length > 0 && (
-          <Fragment>
-            <h4>In this section</h4>
-            <SidebarList>
-              {headings.map(heading => (
-                <SidebarListItem key={heading.id}>
-                  <SidebarListItemLink href={`#${heading.id}`}>
-                    {heading.text}
-                  </SidebarListItemLink>
-                </SidebarListItem>
-              ))}
-            </SidebarList>
-          </Fragment>
-        )}
-        <SidebarLink>
-          <FaGithub /> Edit on GitHub
-        </SidebarLink>
-        <SidebarLink>
-          <FaSlack /> Discuss on Slack
-        </SidebarLink>
-      </Sidebar>
-    </Container>
-  );
+    return (
+      <Container>
+        <InnerContainer>{processed.contents}</InnerContainer>
+        <Sidebar>
+          {headings.length > 0 && (
+            <Fragment>
+              <h4>In this section</h4>
+              <SidebarList>
+                {headings.map(heading => (
+                  <SidebarListItem key={heading.id}>
+                    <SidebarListItemLink href={`#${heading.id}`}>
+                      {heading.text}
+                    </SidebarListItemLink>
+                  </SidebarListItem>
+                ))}
+              </SidebarList>
+            </Fragment>
+          )}
+          <SidebarLink>
+            <FaGithub /> Edit on GitHub
+          </SidebarLink>
+          <SidebarLink>
+            <FaSlack /> Discuss on Slack
+          </SidebarLink>
+        </Sidebar>
+      </Container>
+    );
+  }
 }
-
-PageContent.propTypes = {
-  content: PropTypes.string.isRequired
-};
