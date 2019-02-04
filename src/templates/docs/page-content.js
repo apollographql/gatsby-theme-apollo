@@ -17,12 +17,15 @@ import slug from 'remark-slug';
 import styled from '@emotion/styled';
 import {FaGithub, FaSlack} from 'react-icons/fa';
 import {headerHeight} from '../../components/header';
+import {transparentize} from 'polished';
 
 const Container = styled.div({
   display: 'flex',
   alignItems: 'flex-start'
 });
 
+const codeSelector = 'code[class*="language-"]';
+const preSelector = 'pre[class*="language-"]';
 const InnerContainer = styled.div({
   flexGrow: 1,
   overflow: 'hidden',
@@ -34,6 +37,45 @@ const InnerContainer = styled.div({
     height: headerHeight,
     visibility: 'hidden',
     pointerEvents: 'none'
+  },
+  [[codeSelector, preSelector]]: {
+    fontFamily: "'Source Code Pro', monospace",
+    color: colors.text1
+  },
+  [[`:not(pre) > ${codeSelector}`, preSelector]]: {
+    backgroundColor: '#f7f8fa'
+  },
+  '.line-numbers .line-numbers-rows': {
+    border: 0
+  },
+  '.line-numbers-rows > span:before': {
+    color: colors.text4
+  },
+  '.line-highlight': {
+    background: transparentize(0.9, colors.primary)
+  },
+  [['.token.atrule', '.token.attr-value', '.token.keyword']]: {
+    color: colors.primary
+  },
+  '.token.punctuation': {
+    color: colors.text2
+  },
+  [['.token.operator', '.token.entity', '.token.url']]: {
+    color: 'inherit',
+    background: 'none'
+  },
+  [['.token.function', '.token.class-name']]: {
+    color: colors.secondary
+  },
+  [[
+    '.token.selector',
+    '.token.attr-name',
+    '.token.string',
+    '.token.char',
+    '.token.builtin',
+    '.token.inserted'
+  ]]: {
+    color: colors.tertiary
   }
 });
 
@@ -90,7 +132,6 @@ export default class PageContent extends Component {
   render() {
     // turn the markdown into JSX and add slug ids to the headings
     const processed = remark()
-      // .use(line)
       .use(slug)
       .use(remark2react, {
         sanitize: {
@@ -98,7 +139,8 @@ export default class PageContent extends Component {
           attributes: {
             '*': ['id'],
             pre: ['className', 'data*'],
-            code: ['className', 'data*']
+            code: ['className', 'data*'],
+            img: ['src', 'alt']
           }
         },
         toHast: {
