@@ -144,7 +144,8 @@ export default class PageContent extends Component {
             '*': ['id'],
             pre: ['className', 'data*'],
             code: ['className', 'data*'],
-            img: ['src', 'alt']
+            img: ['src', 'alt'],
+            a: ['href', 'target', 'rel']
           }
         },
         toHast: {
