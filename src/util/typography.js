@@ -51,6 +51,12 @@ export default new Typography({
     },
     'blockquote > p': {
       fontSize: 'inherit'
+    },
+    ':not(pre) > code': {
+      padding: '3px',
+      fontFamily: "'Source Code Pro', monospace",
+      color: colors.primary,
+      backgroundColor: colors.background
     }
   })
 });
