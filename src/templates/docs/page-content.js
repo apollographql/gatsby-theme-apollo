@@ -5,15 +5,14 @@ import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
 import 'prismjs/themes/prism.css';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
+import codeToHast from '../../util/code-to-hast';
 import colors from '../../util/colors';
-import detab from 'detab';
+import findHeadings from '../../util/find-headings';
 import nest from 'recompose/nest';
-import querystring from 'querystring';
 import remark from 'remark';
 import remark2react from 'remark-react';
 import slug from 'remark-slug';
 import styled from '@emotion/styled';
-import u from 'unist-builder';
 import {FaGithub, FaSlack} from 'react-icons/fa';
 import {headerHeight} from '../../components/header';
 
@@ -76,48 +75,6 @@ const SidebarLink = nest(
     }
   })
 );
-
-function findHeadings(component) {
-  return component.props.children.reduce((acc, child) => {
-    if (typeof child === 'object') {
-      if (/^h[1-6]$/.test(child.type)) {
-        return acc.concat([
-          {
-            id: child.props.id,
-            text: child.props.children[0]
-          }
-        ]);
-      }
-
-      if (child.props.children) {
-        return acc.concat(findHeadings(child));
-      }
-    }
-
-    return acc;
-  }, []);
-}
-
-// from https://github.com/syntax-tree/mdast-util-to-hast/blob/master/lib/handlers/code.js
-function codeToHast(h, node) {
-  const value = node.value ? detab(node.value + '\n') : '';
-  const lang = node.lang && node.lang.match(/^[^ \t]+(?=[ \t]|$)/);
-  const codeProps = {};
-  const preProps = {};
-
-  if (lang) {
-    codeProps.className = ['language-' + lang];
-  }
-
-  if (node.meta) {
-    const {line} = querystring.parse(node.meta);
-    preProps.dataLine = line;
-  }
-
-  return h(node.position, 'pre', preProps, [
-    h(node, 'code', codeProps, [u('text', value)])
-  ]);
-}
 
 export default class PageContent extends Component {
   static propTypes = {
