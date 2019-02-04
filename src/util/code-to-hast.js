@@ -15,6 +15,7 @@ export default function codeToHast(h, node) {
 
   if (node.meta) {
     const {line} = querystring.parse(node.meta);
+    preProps.className = ['line-numbers'];
     preProps.dataLine = line;
   }
 
