@@ -66,6 +66,9 @@ const codeBlockStyles = css({
     '.token.inserted'
   ]]: {
     color: colors.tertiary
+  },
+  [['.token.comment', '.token.prolog', '.token.doctype', '.token.cdata']]: {
+    color: colors.text3
   }
 });
 
