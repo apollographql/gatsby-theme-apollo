@@ -16,6 +16,7 @@ import remark2react from 'remark-react';
 import slug from 'remark-slug';
 import styled from '@emotion/styled';
 import {FaGithub, FaSlack} from 'react-icons/fa';
+import {css} from '@emotion/core';
 import {headerHeight} from '../../components/header';
 import {transparentize} from 'polished';
 
@@ -26,18 +27,7 @@ const Container = styled.div({
 
 const codeSelector = 'code[class*="language-"]';
 const preSelector = 'pre[class*="language-"]';
-const InnerContainer = styled.div({
-  flexGrow: 1,
-  overflow: 'hidden',
-  '[id]::before': {
-    // inspired by https://css-tricks.com/hash-tag-links-padding/
-    content: "''",
-    display: 'block',
-    marginTop: -headerHeight,
-    height: headerHeight,
-    visibility: 'hidden',
-    pointerEvents: 'none'
-  },
+const codeBlockStyles = css({
   [[codeSelector, preSelector]]: {
     fontFamily: "'Source Code Pro', monospace",
     color: colors.text1
@@ -76,6 +66,20 @@ const InnerContainer = styled.div({
     '.token.inserted'
   ]]: {
     color: colors.tertiary
+  }
+});
+
+const InnerContainer = styled.div(codeBlockStyles, {
+  flexGrow: 1,
+  overflow: 'hidden',
+  '[id]::before': {
+    // inspired by https://css-tricks.com/hash-tag-links-padding/
+    content: "''",
+    display: 'block',
+    marginTop: -headerHeight,
+    height: headerHeight,
+    visibility: 'hidden',
+    pointerEvents: 'none'
   }
 });
 
