@@ -43,6 +43,14 @@ export default new Typography({
     },
     h6: {
       fontSize: '0.875rem'
+    },
+    blockquote: {
+      marginLeft: 0,
+      padding: '12px 20px',
+      borderLeft: `2px solid ${colors.primary}`
+    },
+    'blockquote > p': {
+      fontSize: 'inherit'
     }
   })
 });
