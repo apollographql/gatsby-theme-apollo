@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = ({subtitle, description, basePath}) => ({
   siteMetadata: {
-    title: 'Apollo Documentation',
+    title: 'Apollo Docs',
     subtitle,
     description,
     basePath

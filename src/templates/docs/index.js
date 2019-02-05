@@ -5,40 +5,16 @@ import PageContent from './page-content';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Search from './search';
+import Sidebar from '../../components/sidebar';
 import SidebarNav from './sidebar-nav';
 import VersionSelect from './version-select';
 import colors from '../../util/colors';
 import styled from '@emotion/styled';
-import {ReactComponent as LogoSmall} from '../../../ui/logo-small.svg';
 import {graphql} from 'gatsby';
 
 const Container = styled.div({
   display: 'flex',
   flexGrow: 1
-});
-
-const Sidebar = styled.aside({
-  flexShrink: 0,
-  width: 305,
-  borderRight: `1px solid ${colors.divider}`,
-  overflowY: 'auto',
-  position: 'relative'
-});
-
-const SidebarHeader = styled(Header)({
-  borderBottom: `1px solid ${colors.divider}`,
-  fontSize: 18
-});
-
-const StyledLogoSmall = styled(LogoSmall)({
-  marginRight: 8,
-  height: 36,
-  fill: 'currentColor'
-});
-
-const SidebarContent = styled.div({
-  padding: '20px 24px',
-  paddingRight: 0
 });
 
 const SidebarContentHeader = styled.h4({
@@ -110,21 +86,15 @@ export default function Docs(props) {
         <title>{title}</title>
       </Helmet>
       <Container>
-        <Sidebar>
-          <SidebarHeader>
-            <StyledLogoSmall />
-            Apollo Docs
-          </SidebarHeader>
-          <SidebarContent>
-            <SidebarContentHeader>
-              {subtitle}
-              <VersionSelect versions={versions} value={version.basePath} />
-            </SidebarContentHeader>
-            <SidebarNav
-              contents={version.contents}
-              pathname={props.location.pathname}
-            />
-          </SidebarContent>
+        <Sidebar title={title}>
+          <SidebarContentHeader>
+            {subtitle}
+            <VersionSelect versions={versions} value={version.basePath} />
+          </SidebarContentHeader>
+          <SidebarNav
+            contents={version.contents}
+            pathname={props.location.pathname}
+          />
         </Sidebar>
         <Main>
           <Header>
