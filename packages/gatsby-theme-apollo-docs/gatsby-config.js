@@ -1,7 +1,10 @@
-module.exports = ({subtitle, description, basePath}) => ({
+module.exports = ({subtitle, description, basePath, root}) => ({
   __experimentalThemes: [
     {
-      resolve: 'gatsby-theme-apollo'
+      resolve: 'gatsby-theme-apollo',
+      options: {
+        root
+      }
     }
   ],
   siteMetadata: {
