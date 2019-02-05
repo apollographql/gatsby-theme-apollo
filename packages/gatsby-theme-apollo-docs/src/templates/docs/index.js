@@ -79,14 +79,14 @@ const navItems = {
 export default function Docs(props) {
   const {version, versions, frontmatter, content} = props.pageContext;
   const {title, description} = frontmatter;
-  const {subtitle, basePath} = props.data.site.siteMetadata;
+  const {title: pageTitle, subtitle, basePath} = props.data.site.siteMetadata;
   return (
     <Layout>
       <Helmet>
         <title>{title}</title>
       </Helmet>
       <Container>
-        <Sidebar title={title}>
+        <Sidebar title={pageTitle}>
           <SidebarContentHeader>
             {subtitle}
             <VersionSelect versions={versions} value={version.basePath} />
@@ -135,6 +135,7 @@ export const pageQuery = graphql`
   {
     site {
       siteMetadata {
+        title
         subtitle
         basePath
       }
