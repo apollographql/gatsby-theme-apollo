@@ -1,3 +1,5 @@
+import ContentWrapper from 'gatsby-theme-apollo/src/components/content-wrapper';
+import FlexWrapper from 'gatsby-theme-apollo/src/components/flex-wrapper';
 import Header from 'gatsby-theme-apollo/src/components/header';
 import Helmet from 'react-helmet';
 import Layout from 'gatsby-theme-apollo/src/components/layout';
@@ -11,11 +13,6 @@ import VersionSelect from './version-select';
 import colors from 'gatsby-theme-apollo/src/util/colors';
 import styled from '@emotion/styled';
 import {graphql} from 'gatsby';
-
-const Container = styled.div({
-  display: 'flex',
-  flexGrow: 1
-});
 
 const SidebarContentHeader = styled.h4({
   display: 'flex',
@@ -53,10 +50,6 @@ const NavItem = styled.a({
   }
 });
 
-const MainContent = styled.div({
-  padding: '40px 64px'
-});
-
 const MainHeading = styled.h1({
   ':not(:last-child)': {
     marginBottom: 8
@@ -85,7 +78,7 @@ export default function Docs(props) {
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      <Container>
+      <FlexWrapper>
         <Sidebar title={pageTitle}>
           <SidebarContentHeader>
             {subtitle}
@@ -111,16 +104,16 @@ export default function Docs(props) {
               ))}
             </Nav>
           </Header>
-          <MainContent>
+          <ContentWrapper>
             <div>
               <MainHeading>{title}</MainHeading>
               {description && <MainSubheading>{description}</MainSubheading>}
             </div>
             <hr />
             <PageContent content={content} />
-          </MainContent>
+          </ContentWrapper>
         </Main>
-      </Container>
+      </FlexWrapper>
     </Layout>
   );
 }
