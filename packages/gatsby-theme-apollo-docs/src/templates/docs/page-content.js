@@ -8,7 +8,7 @@ import 'prismjs/themes/prism.css';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import codeToHast from '../../util/code-to-hast';
-import colors from '../../util/colors';
+import colors from 'gatsby-theme-apollo/src/util/colors';
 import findHeadings from '../../util/find-headings';
 import mapProps from 'recompose/mapProps';
 import nest from 'recompose/nest';
@@ -18,7 +18,7 @@ import slug from 'remark-slug';
 import styled from '@emotion/styled';
 import {FaGithub, FaSlack} from 'react-icons/fa';
 import {css} from '@emotion/core';
-import {headerHeight} from '../../components/header';
+import {headerHeight} from 'gatsby-theme-apollo/src/components/header';
 import {transparentize} from 'polished';
 
 const Container = styled.div({

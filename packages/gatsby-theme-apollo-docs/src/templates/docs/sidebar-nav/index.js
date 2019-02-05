@@ -1,7 +1,7 @@
 import Directory from './directory';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import colors from '../../../util/colors';
+import colors from 'gatsby-theme-apollo/src/util/colors';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 

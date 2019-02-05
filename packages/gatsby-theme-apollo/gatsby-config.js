@@ -1,12 +1,6 @@
 const path = require('path');
 
-module.exports = ({subtitle, description, basePath}) => ({
-  siteMetadata: {
-    title: 'Apollo Docs',
-    subtitle,
-    description,
-    basePath
-  },
+module.exports = {
   plugins: [
     'gatsby-plugin-svgr',
     'gatsby-plugin-emotion',
@@ -21,4 +15,4 @@ module.exports = ({subtitle, description, basePath}) => ({
       }
     }
   ]
-});
+};

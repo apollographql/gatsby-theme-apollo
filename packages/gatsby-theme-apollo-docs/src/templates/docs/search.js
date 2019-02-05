@@ -1,6 +1,6 @@
 /* global docsearch */
 import React, {Component, Fragment, createRef} from 'react';
-import colors from '../../util/colors';
+import colors from 'gatsby-theme-apollo/src/util/colors';
 import styled from '@emotion/styled';
 import {MdClose} from 'react-icons/md';
 import {position, size, transparentize} from 'polished';
