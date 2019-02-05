@@ -33,6 +33,7 @@ const codeBlockStyles = css({
     color: colors.text1
   },
   [[`:not(pre) > ${codeSelector}`, preSelector]]: {
+    border: `1px solid ${colors.divider}`,
     backgroundColor: colors.background
   },
   '.line-numbers .line-numbers-rows': {
