@@ -10,6 +10,7 @@ import React, {Component, Fragment} from 'react';
 import codeToHast from '../../util/code-to-hast';
 import colors from '../../util/colors';
 import findHeadings from '../../util/find-headings';
+import mapProps from 'recompose/mapProps';
 import nest from 'recompose/nest';
 import remark from 'remark';
 import remark2react from 'remark-react';
@@ -128,6 +129,17 @@ const SidebarLink = nest(
   })
 );
 
+function createImageComponent(repo, ref) {
+  return mapProps(props => ({
+    alt: props.alt,
+    src: /^(https?:)?\/\//.test(props.src)
+      ? props.src
+      : `https://raw.githubusercontent.com/${repo}/${ref}/docs/source/source/${
+          props.src
+        }`
+  }))('img');
+}
+
 export default class PageContent extends Component {
   static propTypes = {
     content: PropTypes.string.isRequired
@@ -142,6 +154,9 @@ export default class PageContent extends Component {
     const processed = remark()
       .use(slug)
       .use(remark2react, {
+        remarkReactComponents: {
+          img: createImageComponent('apollographql/apollo-server', 'master')
+        },
         sanitize: {
           clobber: [],
           attributes: {
