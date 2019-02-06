@@ -32,7 +32,7 @@ export default class SidebarNav extends Component {
             active={page.path === this.props.pathname}
           >
             {page.link ? (
-              <a href={page.link.href}>{page.link.title}</a>
+              <a href={page.path}>{page.title}</a>
             ) : (
               <Link activeStyle={{color: colors.primary}} to={page.path}>
                 {page.title}
