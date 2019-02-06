@@ -28,7 +28,7 @@ export default new Typography({
     h1: {
       fontWeight: 400
     },
-    'h4,p': {
+    [['h4', 'p', 'li']]: {
       fontSize: '1.125rem'
     },
     p: {
