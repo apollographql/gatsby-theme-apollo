@@ -38,14 +38,18 @@ const Heading = styled.button(props => ({
 }));
 
 export default class Category extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: Boolean(props.alwaysExpanded)
+    };
+  }
+
   static propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
-    active: PropTypes.bool.isRequired
-  };
-
-  state = {
-    expanded: false
+    active: PropTypes.bool.isRequired,
+    alwaysExpanded: PropTypes.bool
   };
 
   toggle = () =>
@@ -53,12 +57,21 @@ export default class Category extends Component {
       expanded: !prevState.expanded
     }));
 
+  renderIcon() {
+    return this.state.expanded ? <MdExpandLess /> : <MdExpandMore />;
+  }
+
   render() {
     return (
       <Container>
-        <Heading active={this.props.active} onClick={this.toggle}>
+        <Heading
+          active={this.props.active}
+          onClick={this.props.alwaysExpanded ? null : this.toggle}
+        >
           <h6>{this.props.title}</h6>
-          {this.state.expanded ? <MdExpandLess /> : <MdExpandMore />}
+          {!this.props.active &&
+            !this.props.alwaysExpanded &&
+            this.renderIcon()}
         </Heading>
         {(this.props.active || this.state.expanded) && this.props.children}
       </Container>

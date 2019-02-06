@@ -19,6 +19,7 @@ const StyledListItem = styled.li({
 
 export default class SidebarNav extends Component {
   static propTypes = {
+    alwaysExpanded: PropTypes.bool.isRequired,
     contents: PropTypes.object.isRequired,
     pathname: PropTypes.string.isRequired
   };
@@ -56,6 +57,7 @@ export default class SidebarNav extends Component {
               key={key}
               title={key}
               active={pages.some(page => page.path === this.props.pathname)}
+              alwaysExpanded={this.props.alwaysExpanded}
             >
               {this.renderPages(pages)}
             </Category>
