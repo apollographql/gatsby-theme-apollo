@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Search from './search';
 import Sidebar from 'gatsby-theme-apollo/src/components/sidebar';
-import SidebarNav from './sidebar-nav';
+import SidebarNav from 'gatsby-theme-apollo/src/components/sidebar-nav';
 import VersionSelect from './version-select';
 import colors from 'gatsby-theme-apollo/src/util/colors';
 import styled from '@emotion/styled';
@@ -70,8 +70,7 @@ const navItems = {
 };
 
 export default function Docs(props) {
-  const {version, versions, frontmatter, content} = props.pageContext;
-  const {title, description} = frontmatter;
+  const {version, versions, title, description, content} = props.pageContext;
   const {title: pageTitle, subtitle, basePath} = props.data.site.siteMetadata;
   return (
     <Layout>

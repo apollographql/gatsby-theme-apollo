@@ -1,7 +1,7 @@
-import Directory from './directory';
+import Category from './category';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import colors from 'gatsby-theme-apollo/src/util/colors';
+import colors from '../../util/colors';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 
@@ -35,7 +35,7 @@ export default class SidebarNav extends Component {
             {page.link ? (
               <a href={page.link.href}>{page.link.title}</a>
             ) : (
-              <Link to={page.path}>{page.frontmatter.title}</Link>
+              <Link to={page.path}>{page.title}</Link>
             )}
           </StyledListItem>
         ))}
@@ -51,13 +51,13 @@ export default class SidebarNav extends Component {
         {Object.keys(categories).map(key => {
           const pages = categories[key];
           return (
-            <Directory
+            <Category
               key={key}
               title={key}
               active={pages.some(page => page.path === this.props.pathname)}
             >
               {this.renderPages(pages)}
-            </Directory>
+            </Category>
           );
         })}
       </Fragment>

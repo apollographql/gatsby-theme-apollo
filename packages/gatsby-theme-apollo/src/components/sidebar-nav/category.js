@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import colors from 'gatsby-theme-apollo/src/util/colors';
+import colors from '../../util/colors';
 import styled from '@emotion/styled';
 import {MdExpandLess, MdExpandMore} from 'react-icons/md';
 
@@ -37,7 +37,7 @@ const Heading = styled.button(props => ({
   }
 }));
 
-export default class Directory extends Component {
+export default class Category extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
