@@ -115,7 +115,9 @@ exports.createPages = async (
                 // sidebar items can be an object with `title` and `href`
                 // properties to render a regular anchor tag
                 return {
-                  link: sidebarItem
+                  path: sidebarItem.href,
+                  title: sidebarItem.title,
+                  link: true
                 };
               }
 
