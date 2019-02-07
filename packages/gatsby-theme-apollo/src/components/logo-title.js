@@ -5,7 +5,8 @@ import {StaticQuery, graphql} from 'gatsby';
 
 const Container = styled.div({
   display: 'flex',
-  alignItems: 'center'
+  alignItems: 'center',
+  fontSize: 18
 });
 
 const StyledLogoSmall = styled(LogoSmall)({
