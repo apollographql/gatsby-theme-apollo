@@ -5,7 +5,7 @@
   "dependencies": {
     "detab": "^2.0.1",
     "gatsby": "^2.0.91",
-    "gatsby-theme-apollo": "^0.0.57",
+    "gatsby-theme-apollo": "0.0.57",
     "gray-matter": "^4.0.1",
     "js-yaml": "^3.12.1",
     "polished": "^2.3.3",
