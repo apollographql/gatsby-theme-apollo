@@ -29,10 +29,7 @@ export default class SidebarNav extends Component {
     return (
       <StyledList>
         {pages.map(page => (
-          <StyledListItem
-            key={page.path}
-            active={page.path === this.props.pathname}
-          >
+          <StyledListItem key={page.path}>
             {page.link ? (
               <a href={page.path}>{page.title}</a>
             ) : (
