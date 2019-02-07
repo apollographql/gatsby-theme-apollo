@@ -11,6 +11,7 @@ const StyledList = styled.ul({
 });
 
 const StyledListItem = styled.li({
+  fontSize: '1rem',
   a: {
     color: 'inherit',
     textDecoration: 'none'

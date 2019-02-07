@@ -103,7 +103,8 @@ const SidebarList = styled.ul({
 });
 
 const SidebarListItem = styled.li({
-  listStyle: 'none'
+  listStyle: 'none',
+  fontSize: '1rem'
 });
 
 const SidebarListItemLink = styled.a({
