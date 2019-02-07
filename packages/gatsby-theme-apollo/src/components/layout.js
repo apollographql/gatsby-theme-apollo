@@ -26,13 +26,9 @@ export default function Layout(props) {
         const {title, description} = data.site.siteMetadata;
         return (
           <Container>
-            <Helmet defaultTitle={title} titleTemplate={`%s · ${title}`}>
+            <Helmet defaultTitle={title} titleTemplate={`%s - ${title}`}>
               <meta name="description" content={description} />
               <link rel="shortcut icon" src="/favicon.ico" />
-              <link
-                rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"
-              />
             </Helmet>
             {props.children}
           </Container>
