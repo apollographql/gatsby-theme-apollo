@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import colors from '../util/colors';
 import styled from '@emotion/styled';
 import {breakpointMd} from '../util/breakpoints';
+import {transparentize} from 'polished';
 
 const Container = styled.aside({
   flexShrink: 0,
@@ -15,6 +16,7 @@ const Container = styled.aside({
   [breakpointMd]: {
     height: '100%',
     backgroundColor: 'white',
+    boxShadow: `0 0 48px ${transparentize(0.75, 'black')}`,
     position: 'absolute',
     top: 0,
     left: 0,
