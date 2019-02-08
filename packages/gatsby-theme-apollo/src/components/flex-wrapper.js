@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
+import {cover} from 'polished';
 
-export default styled.div({
-  display: 'flex',
-  flexGrow: 1
+export default styled.div(cover(), {
+  display: 'flex'
 });
