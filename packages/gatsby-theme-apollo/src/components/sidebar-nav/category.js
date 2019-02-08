@@ -5,7 +5,11 @@ import styled from '@emotion/styled';
 import {MdExpandLess, MdExpandMore} from 'react-icons/md';
 
 const Container = styled.div({
-  borderTop: `1px solid ${colors.divider}`
+  borderTop: `1px solid ${colors.divider}`,
+  ':first-child': {
+    borderTop: 0,
+    marginTop: -12
+  }
 });
 
 const iconSize = 20;
