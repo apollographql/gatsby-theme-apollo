@@ -47,7 +47,7 @@ export default class SidebarNav extends Component {
     const {null: root, ...categories} = this.props.contents;
     return (
       <Fragment>
-        {this.renderPages(root)}
+        {root && this.renderPages(root)}
         {Object.keys(categories).map(key => {
           const pages = categories[key];
           return (

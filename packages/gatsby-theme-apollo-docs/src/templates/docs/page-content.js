@@ -152,7 +152,7 @@ export default class PageContent extends Component {
 
   render() {
     // turn the markdown into JSX and add slug ids to the headings
-    const processed = remark()
+    const {contents} = remark()
       .use(slug)
       .use(remark2react, {
         remarkReactComponents: {
@@ -177,11 +177,11 @@ export default class PageContent extends Component {
       .processSync(this.props.content);
 
     // find all of the headings within a page to generate the contents menu
-    const headings = findHeadings(processed.contents);
+    const headings = findHeadings(contents);
 
     return (
       <Container>
-        <InnerContainer>{processed.contents}</InnerContainer>
+        <InnerContainer>{contents}</InnerContainer>
         <Sidebar>
           {headings.length > 0 && (
             <Fragment>
