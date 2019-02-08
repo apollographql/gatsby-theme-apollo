@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import colors from '../util/colors';
 import styled from '@emotion/styled';
+import {breakpointMd} from '../util/breakpoints';
 
 const Container = styled.aside({
   flexShrink: 0,
@@ -11,7 +12,7 @@ const Container = styled.aside({
   borderRight: `1px solid ${colors.divider}`,
   overflowY: 'auto',
   position: 'relative',
-  '@media (max-width: 850px)': {
+  [breakpointMd]: {
     height: '100%',
     backgroundColor: 'white',
     position: 'absolute',
