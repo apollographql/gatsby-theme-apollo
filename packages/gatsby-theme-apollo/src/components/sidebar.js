@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import colors from '../util/colors';
 import styled from '@emotion/styled';
+import {Link} from 'gatsby';
 import {breakpointMd} from '../util/breakpoints';
 import {transparentize} from 'polished';
 
@@ -35,6 +36,11 @@ const StyledHeader = styled(Header)({
   fontSize: 18
 });
 
+const StyledLink = styled(Link)({
+  color: 'inherit',
+  textDecoration: 'none'
+});
+
 const Content = styled.div({
   padding: '20px 24px',
   paddingRight: 0
@@ -60,7 +66,9 @@ export default class Sidebar extends Component {
         }
       >
         <StyledHeader>
-          <LogoTitle />
+          <StyledLink to="/">
+            <LogoTitle />
+          </StyledLink>
         </StyledHeader>
         <Content>{this.props.children}</Content>
       </Container>
