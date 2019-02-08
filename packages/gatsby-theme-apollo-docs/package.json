@@ -1,11 +1,11 @@
 {
   "name": "gatsby-theme-apollo-docs",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "main": "index.js",
   "dependencies": {
     "detab": "^2.0.1",
     "gatsby": "^2.0.91",
-    "gatsby-theme-apollo": "^0.0.63",
+    "gatsby-theme-apollo": "^0.0.64",
     "gray-matter": "^4.0.1",
     "js-yaml": "^3.12.1",
     "polished": "^2.3.3",
