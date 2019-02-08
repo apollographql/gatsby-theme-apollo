@@ -1,7 +1,7 @@
 import Header from './header';
 import LogoTitle from './logo-title';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {Component} from 'react';
 import colors from '../util/colors';
 import styled from '@emotion/styled';
 
@@ -10,7 +10,21 @@ const Container = styled.aside({
   width: 305,
   borderRight: `1px solid ${colors.divider}`,
   overflowY: 'auto',
-  position: 'relative'
+  position: 'relative',
+  '@media (max-width: 850px)': {
+    height: '100%',
+    backgroundColor: 'white',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 2,
+    opacity: 0,
+    visibility: 'hidden',
+    transform: 'translateX(-100%)',
+    transitionProperty: 'transform, opacity, visibility',
+    transitionDuration: '150ms',
+    transitionTimingFunction: 'ease-in-out'
+  }
 });
 
 const StyledHeader = styled(Header)({
@@ -23,17 +37,30 @@ const Content = styled.div({
   paddingRight: 0
 });
 
-export default function Sidebar(props) {
-  return (
-    <Container>
-      <StyledHeader>
-        <LogoTitle />
-      </StyledHeader>
-      <Content>{props.children}</Content>
-    </Container>
-  );
-}
+export default class Sidebar extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    open: PropTypes.bool.isRequired
+  };
 
-Sidebar.propTypes = {
-  children: PropTypes.node.isRequired
-};
+  render() {
+    return (
+      <Container
+        style={
+          this.props.open
+            ? {
+                opacity: 1,
+                visibility: 'visible',
+                transform: 'none'
+              }
+            : null
+        }
+      >
+        <StyledHeader>
+          <LogoTitle />
+        </StyledHeader>
+        <Content>{this.props.children}</Content>
+      </Container>
+    );
+  }
+}
