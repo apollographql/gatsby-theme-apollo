@@ -19,7 +19,6 @@ const SidebarContentHeader = styled.h4({
   alignItems: 'center',
   justifyContent: 'space-between',
   paddingRight: 16,
-  fontWeight: 400,
   color: colors.primary
 });
 
@@ -57,7 +56,6 @@ const MainHeading = styled.h1({
 });
 
 const MainSubheading = styled.h3({
-  fontWeight: 400,
   color: colors.text2
 });
 
