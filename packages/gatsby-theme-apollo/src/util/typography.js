@@ -25,7 +25,7 @@ export default new Typography({
     hr: {
       backgroundColor: colors.divider
     },
-    h1: {
+    [['h1', 'h2', 'h3', 'h4']]: {
       fontWeight: 400
     },
     [['h4', 'p', 'li']]: {
