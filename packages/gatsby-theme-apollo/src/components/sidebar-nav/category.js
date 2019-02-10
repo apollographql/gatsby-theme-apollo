@@ -23,7 +23,7 @@ const Heading = styled.button(props => ({
   border: 0,
   background: 'none',
   outline: 'none',
-  cursor: 'pointer',
+  cursor: props.expandable ? 'pointer' : 'default',
   color: props.active ? colors.primary : colors.text1,
   h6: {
     margin: 0,
@@ -69,6 +69,7 @@ export default class Category extends Component {
     return (
       <Container>
         <Heading
+          expandable={!this.props.alwaysExpanded}
           active={this.props.active}
           onClick={this.props.alwaysExpanded ? null : this.toggle}
         >
