@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import colors from '../../util/colors';
 import styled from '@emotion/styled';
+import {Link} from 'gatsby';
 import {MdExpandLess, MdExpandMore} from 'react-icons/md';
+import {css} from '@emotion/core';
 
 const Container = styled.div({
   borderTop: `1px solid ${colors.divider}`,
@@ -13,7 +15,7 @@ const Container = styled.div({
 });
 
 const iconSize = 20;
-const Heading = styled.button(props => ({
+const headingStyles = css({
   display: 'flex',
   alignItems: 'center',
   width: '100%',
@@ -21,10 +23,9 @@ const Heading = styled.button(props => ({
   padding: 16,
   paddingLeft: 0,
   border: 0,
+  color: colors.text1,
   background: 'none',
   outline: 'none',
-  cursor: props.expandable ? 'pointer' : 'default',
-  color: props.active ? colors.primary : colors.text1,
   h6: {
     margin: 0,
     textTransform: 'uppercase',
@@ -36,10 +37,17 @@ const Heading = styled.button(props => ({
     width: iconSize,
     height: iconSize,
     marginLeft: 'auto',
-    fill: 'currentColor',
-    opacity: props.active ? 0 : 1
+    fill: 'currentColor'
   }
+});
+
+const StyledButton = styled.button(headingStyles, props => ({
+  color: props.active && colors.primary
 }));
+
+const StyledLink = styled(Link)(headingStyles, {
+  textDecoration: 'none'
+});
 
 export default class Category extends Component {
   constructor(props) {
@@ -51,6 +59,7 @@ export default class Category extends Component {
 
   static propTypes = {
     title: PropTypes.string.isRequired,
+    path: PropTypes.string,
     children: PropTypes.node.isRequired,
     active: PropTypes.bool.isRequired,
     alwaysExpanded: PropTypes.bool
@@ -65,19 +74,28 @@ export default class Category extends Component {
     return this.state.expanded ? <MdExpandLess /> : <MdExpandMore />;
   }
 
+  renderContents() {
+    return (
+      <Fragment>
+        <h6>{this.props.title}</h6>
+        {!this.props.active && !this.props.alwaysExpanded && this.renderIcon()}
+      </Fragment>
+    );
+  }
+
   render() {
     return (
       <Container>
-        <Heading
-          expandable={!this.props.alwaysExpanded}
-          active={this.props.active}
-          onClick={this.props.alwaysExpanded ? null : this.toggle}
-        >
-          <h6>{this.props.title}</h6>
-          {!this.props.active &&
-            !this.props.alwaysExpanded &&
-            this.renderIcon()}
-        </Heading>
+        {this.props.alwaysExpanded && this.props.path ? (
+          <StyledLink to={this.props.path}>{this.renderContents()}</StyledLink>
+        ) : (
+          <StyledButton
+            active={this.props.active}
+            onClick={this.props.alwaysExpanded ? null : this.toggle}
+          >
+            {this.renderContents()}
+          </StyledButton>
+        )}
         {(this.props.active || this.state.expanded) && this.props.children}
       </Container>
     );

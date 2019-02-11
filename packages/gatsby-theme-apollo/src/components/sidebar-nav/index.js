@@ -21,7 +21,7 @@ const StyledListItem = styled.li({
 export default class SidebarNav extends Component {
   static propTypes = {
     alwaysExpanded: PropTypes.bool.isRequired,
-    contents: PropTypes.object.isRequired,
+    contents: PropTypes.array.isRequired,
     pathname: PropTypes.string.isRequired
   };
 
@@ -44,20 +44,23 @@ export default class SidebarNav extends Component {
   }
 
   render() {
-    const {null: root, ...categories} = this.props.contents;
     return (
       <Fragment>
-        {root && this.renderPages(root)}
-        {Object.keys(categories).map(key => {
-          const pages = categories[key];
+        {this.props.contents.map(({title, path, pages}) => {
+          const contents = this.renderPages(pages);
+          if (!title) {
+            return contents;
+          }
+
           return (
             <Category
-              key={key}
-              title={key}
+              key={title}
+              title={title}
+              path={path}
               active={pages.some(page => page.path === this.props.pathname)}
               alwaysExpanded={this.props.alwaysExpanded}
             >
-              {this.renderPages(pages)}
+              {contents}
             </Category>
           );
         })}
