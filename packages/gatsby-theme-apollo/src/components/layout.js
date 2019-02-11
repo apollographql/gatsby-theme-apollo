@@ -21,7 +21,11 @@ export default function Layout(props) {
           <Fragment>
             <Helmet defaultTitle={title} titleTemplate={`%s - ${title}`}>
               <meta name="description" content={description} />
-              <link rel="shortcut icon" src={withPrefix('/favicon.ico')} />
+              <link
+                rel="icon"
+                type="image/x-icon"
+                src={withPrefix('/favicon.ico')}
+              />
             </Helmet>
             {props.children}
           </Fragment>
