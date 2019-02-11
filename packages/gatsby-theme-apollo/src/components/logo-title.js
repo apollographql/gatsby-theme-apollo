@@ -1,6 +1,6 @@
+import Logo from './logo';
 import React from 'react';
 import styled from '@emotion/styled';
-import {ReactComponent as LogoSmall} from '../../ui/logo-small.svg';
 import {StaticQuery, graphql} from 'gatsby';
 
 const Container = styled.div({
@@ -9,7 +9,7 @@ const Container = styled.div({
   fontSize: 18
 });
 
-const StyledLogoSmall = styled(LogoSmall)({
+const StyledLogo = styled(Logo)({
   marginRight: 8,
   height: 36,
   fill: 'currentColor'
@@ -29,7 +29,7 @@ export default function LogoTitle() {
       `}
       render={data => (
         <Container>
-          <StyledLogoSmall />
+          <StyledLogo />
           {data.site.siteMetadata.title}
         </Container>
       )}
