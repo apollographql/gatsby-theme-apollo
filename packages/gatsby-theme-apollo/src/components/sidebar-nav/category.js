@@ -8,7 +8,7 @@ import {css} from '@emotion/core';
 
 const Container = styled.div({
   borderTop: `1px solid ${colors.divider}`,
-  ':first-child': {
+  ':first-of-type': {
     borderTop: 0,
     marginTop: -12
   }
