@@ -24,7 +24,7 @@ export default function Layout(props) {
               <link
                 rel="icon"
                 type="image/x-icon"
-                src={withPrefix('/favicon.ico')}
+                href={withPrefix('/favicon.ico')}
               />
             </Helmet>
             {props.children}
