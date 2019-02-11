@@ -11,6 +11,7 @@ export default function Layout(props) {
           site {
             siteMetadata {
               title
+              description
             }
           }
         }
