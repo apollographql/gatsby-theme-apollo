@@ -33,12 +33,6 @@ const Container = styled.aside(
         transitionDuration: '150ms',
         transitionTimingFunction: 'ease-in-out'
       }
-    },
-  props =>
-    props.open && {
-      opacity: 1,
-      visibility: 'visible',
-      transform: 'none'
     }
 );
 
@@ -67,7 +61,18 @@ export default class Sidebar extends Component {
 
   render() {
     return (
-      <Container responsive={this.props.responsive} open={this.props.open}>
+      <Container
+        responsive={this.props.responsive}
+        style={
+          this.props.open
+            ? {
+                opacity: 1,
+                visibility: 'visible',
+                transform: 'none'
+              }
+            : null
+        }
+      >
         <StyledHeader>
           <StyledLink to="/">
             <LogoTitle noLogo={this.props.noLogo} />
