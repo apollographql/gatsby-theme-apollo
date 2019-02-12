@@ -2,10 +2,10 @@ import Header from './header';
 import LogoTitle from './logo-title';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
+import breakpoints from '../util/breakpoints';
 import colors from '../util/colors';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
-import {breakpointMd} from '../util/breakpoints';
 import {transparentize} from 'polished';
 
 const Container = styled.aside({
@@ -14,7 +14,7 @@ const Container = styled.aside({
   borderRight: `1px solid ${colors.divider}`,
   overflowY: 'auto',
   position: 'relative',
-  [breakpointMd]: {
+  [breakpoints.md]: {
     height: '100%',
     backgroundColor: 'white',
     boxShadow: `0 0 48px ${transparentize(0.75, 'black')}`,

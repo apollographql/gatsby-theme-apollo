@@ -1,9 +1,9 @@
+import breakpoints from '../util/breakpoints';
 import styled from '@emotion/styled';
-import {breakpointMd} from '../util/breakpoints';
 
 export default styled.div({
   padding: '40px 64px',
-  [breakpointMd]: {
+  [breakpoints.md]: {
     padding: '32px 48px'
   }
 });

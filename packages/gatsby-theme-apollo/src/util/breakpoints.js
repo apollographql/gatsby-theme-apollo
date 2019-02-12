@@ -1,2 +1,4 @@
-export const breakpointSm = '@media (max-width: 600px)';
-export const breakpointMd = '@media (max-width: 850px)';
+export default {
+  sm: '@media (max-width: 600px)',
+  md: '@media (max-width: 850px)'
+};
