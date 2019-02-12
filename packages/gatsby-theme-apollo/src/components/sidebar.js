@@ -49,7 +49,8 @@ const Content = styled.div({
 export default class Sidebar extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    open: PropTypes.bool.isRequired
+    open: PropTypes.bool.isRequired,
+    noLogo: PropTypes.bool
   };
 
   render() {
@@ -67,7 +68,7 @@ export default class Sidebar extends Component {
       >
         <StyledHeader>
           <StyledLink to="/">
-            <LogoTitle />
+            <LogoTitle noLogo={this.props.noLogo} />
           </StyledLink>
         </StyledHeader>
         <Content>{this.props.children}</Content>

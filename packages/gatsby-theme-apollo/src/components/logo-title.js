@@ -1,4 +1,5 @@
 import Logo from './logo';
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from '@emotion/styled';
 import {StaticQuery, graphql} from 'gatsby';
@@ -15,7 +16,7 @@ const StyledLogo = styled(Logo)({
   fill: 'currentColor'
 });
 
-export default function LogoTitle() {
+export default function LogoTitle(props) {
   return (
     <StaticQuery
       query={graphql`
@@ -29,10 +30,14 @@ export default function LogoTitle() {
       `}
       render={data => (
         <Container>
-          <StyledLogo />
+          {!props.noLogo && <StyledLogo />}
           {data.site.siteMetadata.title}
         </Container>
       )}
     />
   );
 }
+
+LogoTitle.propTypes = {
+  noLogo: PropTypes.bool
+};
