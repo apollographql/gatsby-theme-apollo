@@ -8,28 +8,33 @@ import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 import {transparentize} from 'polished';
 
-const Container = styled.aside({
-  flexShrink: 0,
-  width: 305,
-  borderRight: `1px solid ${colors.divider}`,
-  overflowY: 'auto',
-  position: 'relative',
-  [breakpoints.md]: {
-    height: '100%',
-    backgroundColor: 'white',
-    boxShadow: `0 0 48px ${transparentize(0.75, 'black')}`,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    zIndex: 2,
-    opacity: 0,
-    visibility: 'hidden',
-    transform: 'translateX(-100%)',
-    transitionProperty: 'transform, opacity, visibility',
-    transitionDuration: '150ms',
-    transitionTimingFunction: 'ease-in-out'
-  }
-});
+const Container = styled.aside(
+  {
+    flexShrink: 0,
+    width: 305,
+    borderRight: `1px solid ${colors.divider}`,
+    overflowY: 'auto',
+    position: 'relative'
+  },
+  props =>
+    props.responsive && {
+      [breakpoints.md]: {
+        height: '100%',
+        backgroundColor: 'white',
+        boxShadow: `0 0 48px ${transparentize(0.75, 'black')}`,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: 2,
+        opacity: 0,
+        visibility: 'hidden',
+        transform: 'translateX(-100%)',
+        transitionProperty: 'transform, opacity, visibility',
+        transitionDuration: '150ms',
+        transitionTimingFunction: 'ease-in-out'
+      }
+    }
+);
 
 const StyledHeader = styled(Header)({
   borderBottom: `1px solid ${colors.divider}`,
@@ -50,12 +55,14 @@ export default class Sidebar extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     open: PropTypes.bool.isRequired,
-    noLogo: PropTypes.bool
+    noLogo: PropTypes.bool,
+    responsive: PropTypes.bool
   };
 
   render() {
     return (
       <Container
+        responsive={this.props.responsive}
         style={
           this.props.open
             ? {
