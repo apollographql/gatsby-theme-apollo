@@ -26,9 +26,9 @@ const Container = styled.aside(
         top: 0,
         left: 0,
         zIndex: 2,
-        opacity: 0,
-        visibility: 'hidden',
-        transform: 'translateX(-100%)',
+        opacity: props.open ? 1 : 0,
+        visibility: props.open ? 'visible' : 'hidden',
+        transform: props.open ? 'none' : 'translateX(-100%)',
         transitionProperty: 'transform, opacity, visibility',
         transitionDuration: '150ms',
         transitionTimingFunction: 'ease-in-out'
@@ -61,18 +61,7 @@ export default class Sidebar extends Component {
 
   render() {
     return (
-      <Container
-        responsive={this.props.responsive}
-        style={
-          this.props.open
-            ? {
-                opacity: 1,
-                visibility: 'visible',
-                transform: 'none'
-              }
-            : null
-        }
-      >
+      <Container responsive={this.props.responsive} open={this.props.open}>
         <StyledHeader>
           <StyledLink to="/">
             <LogoTitle noLogo={this.props.noLogo} />
