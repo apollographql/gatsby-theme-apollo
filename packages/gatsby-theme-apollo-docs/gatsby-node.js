@@ -105,7 +105,7 @@ exports.createPages = async (
         const markdownPaths = markdown.map(object => object.path);
         const docs = markdown.filter(({path}) => !path.indexOf(contentDir));
 
-        const contents = {};
+        const contents = [];
         const basePath = isCurrentVersion ? '/' : `/v${key}/`;
         for (const category in versionSidebarCategories) {
           const sidebarItems = versionSidebarCategories[category];
@@ -151,7 +151,10 @@ exports.createPages = async (
             })
           );
 
-          contents[category] = categoryContents.filter(Boolean);
+          contents.push({
+            title: category,
+            pages: categoryContents.filter(Boolean)
+          });
         }
 
         const semver = versions[key].match(semverPattern)[0];
