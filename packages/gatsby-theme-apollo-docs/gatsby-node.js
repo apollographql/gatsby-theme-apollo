@@ -173,28 +173,26 @@ exports.createPages = async (
 
   const docsTemplate = require.resolve('./src/templates/docs');
   versions.filter(Boolean).forEach((version, index, array) => {
-    for (const key in version.contents) {
-      version.contents[key].forEach(
-        ({path, title, description, content, link}) => {
-          if (link) {
-            // don't create pages for sidebar links
-            return;
-          }
-
-          actions.createPage({
-            path,
-            component: docsTemplate,
-            context: {
-              content,
-              title,
-              description,
-              version,
-              // use `array` here because we're filtering versions before the loop
-              versions: array
-            }
-          });
+    version.contents.forEach(({pages}) => {
+      pages.forEach(({path, title, description, content, link}) => {
+        if (link) {
+          // don't create pages for sidebar links
+          return;
         }
-      );
-    }
+
+        actions.createPage({
+          path,
+          component: docsTemplate,
+          context: {
+            content,
+            title,
+            description,
+            version,
+            // use `array` here because we're filtering versions before the loop
+            versions: array
+          }
+        });
+      });
+    });
   });
 };
