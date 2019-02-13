@@ -42,7 +42,8 @@ const headingStyles = css({
 });
 
 const StyledButton = styled.button(headingStyles, props => ({
-  color: props.active && colors.primary
+  color: props.active && colors.primary,
+  cursor: 'pointer'
 }));
 
 const StyledLink = styled(Link)(headingStyles, {

@@ -20,7 +20,7 @@ const StyledListItem = styled.li({
 
 export default class SidebarNav extends Component {
   static propTypes = {
-    alwaysExpanded: PropTypes.bool.isRequired,
+    alwaysExpanded: PropTypes.bool,
     contents: PropTypes.array.isRequired,
     pathname: PropTypes.string.isRequired
   };
