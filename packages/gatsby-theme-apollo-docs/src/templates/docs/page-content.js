@@ -18,7 +18,7 @@ import slug from 'remark-slug';
 import styled from '@emotion/styled';
 import {FaGithub, FaSlack} from 'react-icons/fa';
 import {css} from '@emotion/core';
-import {headerHeight} from 'gatsby-theme-apollo/src/components/header';
+import {headerHeight} from 'gatsby-theme-apollo';
 import {transparentize} from 'polished';
 
 const Container = styled.div({
