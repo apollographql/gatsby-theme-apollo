@@ -4,7 +4,7 @@ import {findDOMNode} from 'react-dom';
 
 export default class ResponsiveSidebar extends Component {
   static propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.func.isRequired
   };
 
   state = {
