@@ -17,8 +17,8 @@ import remark2react from 'remark-react';
 import slug from 'remark-slug';
 import styled from '@emotion/styled';
 import {FaGithub, FaSlack} from 'react-icons/fa';
+import {breakpoints, headerHeight} from 'gatsby-theme-apollo';
 import {css} from '@emotion/core';
-import {headerHeight} from 'gatsby-theme-apollo';
 import {transparentize} from 'polished';
 
 const Container = styled.div({
@@ -95,7 +95,16 @@ const Sidebar = styled.aside({
   marginLeft: 40,
   paddingTop: 24,
   position: 'sticky',
-  top: headerHeight
+  top: headerHeight,
+  [breakpoints.lg]: {
+    display: 'none'
+  },
+  [breakpoints.md]: {
+    display: 'block'
+  },
+  [breakpoints.sm]: {
+    display: 'none'
+  }
 });
 
 const SidebarList = styled.ul({
