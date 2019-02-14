@@ -25,9 +25,9 @@ export default class SidebarNav extends Component {
     pathname: PropTypes.string.isRequired
   };
 
-  renderPages(pages) {
+  renderPages(pages, key) {
     return (
-      <StyledList>
+      <StyledList key={key}>
         {pages.map(page => (
           <StyledListItem key={page.path}>
             {page.link ? (
@@ -47,7 +47,7 @@ export default class SidebarNav extends Component {
     return (
       <Fragment>
         {this.props.contents.map(({title, path, pages}) => {
-          const contents = this.renderPages(pages);
+          const contents = this.renderPages(pages, title);
           if (!title) {
             return contents;
           }
