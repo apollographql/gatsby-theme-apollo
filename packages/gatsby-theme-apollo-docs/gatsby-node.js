@@ -152,7 +152,7 @@ exports.createPages = async (
           );
 
           contents.push({
-            title: category,
+            title: category === 'null' ? null : category,
             pages: categoryContents.filter(Boolean)
           });
         }
