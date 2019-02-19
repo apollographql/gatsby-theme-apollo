@@ -6,16 +6,11 @@ import u from 'unist-builder';
 export default function codeToHast(h, node) {
   const value = node.value ? detab(node.value + '\n') : '';
   const lang = node.lang && node.lang.match(/^[^ \t]+(?=[ \t]|$)/);
-  const codeProps = {};
-  const preProps = {};
-
-  if (lang) {
-    codeProps.className = ['language-' + lang];
-  }
+  const codeProps = {className: `language-${lang}`};
+  const preProps = {className: 'line-numbers'};
 
   if (node.meta) {
     const {line} = querystring.parse(node.meta);
-    preProps.className = ['line-numbers'];
     preProps.dataLine = line;
   }
 
