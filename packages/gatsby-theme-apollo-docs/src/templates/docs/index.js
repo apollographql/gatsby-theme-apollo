@@ -74,7 +74,14 @@ const navItems = {
 };
 
 export default function Docs(props) {
-  const {version, versions, title, description, content} = props.pageContext;
+  const {
+    version,
+    versions,
+    title,
+    description,
+    content,
+    fileDir
+  } = props.pageContext;
   const {title: pageTitle, subtitle, basePath} = props.data.site.siteMetadata;
   return (
     <Layout>
@@ -130,7 +137,11 @@ export default function Docs(props) {
                   )}
                 </div>
                 <hr />
-                <PageContent content={content} />
+                <PageContent
+                  content={content}
+                  fileDir={fileDir}
+                  version={version}
+                />
               </ContentWrapper>
             </Main>
           </FlexWrapper>

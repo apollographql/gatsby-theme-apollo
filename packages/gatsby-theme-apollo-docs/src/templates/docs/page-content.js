@@ -12,6 +12,7 @@ import colors from 'gatsby-theme-apollo/src/util/colors';
 import findHeadings from '../../util/find-headings';
 import mapProps from 'recompose/mapProps';
 import nest from 'recompose/nest';
+import path from 'path';
 import remark from 'remark';
 import remark2react from 'remark-react';
 import slug from 'remark-slug';
@@ -139,20 +140,30 @@ const SidebarLink = nest(
   })
 );
 
-function createImageComponent(repo, ref) {
-  return mapProps(props => ({
-    alt: props.alt,
-    src: /^(https?:)?\/\//.test(props.src)
-      ? props.src
-      : `https://raw.githubusercontent.com/${repo}/${ref}/docs/source/source/${
-          props.src
-        }`
-  }))('img');
+function createImageComponent({repo, tag}, fileDir) {
+  return mapProps(props => {
+    let src = props.src;
+    const isUrl = /^(https?:)?\/\//.test(src);
+    if (!isUrl) {
+      const imagePath = path.resolve(fileDir, src);
+      src = path.join(
+        `https://raw.githubusercontent.com/${repo}/${tag}`,
+        imagePath
+      );
+    }
+
+    return {
+      alt: props.alt,
+      src
+    };
+  })('img');
 }
 
 export default class PageContent extends Component {
   static propTypes = {
-    content: PropTypes.string.isRequired
+    content: PropTypes.string.isRequired,
+    fileDir: PropTypes.string.isRequired,
+    version: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -165,7 +176,7 @@ export default class PageContent extends Component {
       .use(slug)
       .use(remark2react, {
         remarkReactComponents: {
-          img: createImageComponent('apollographql/apollo-server', 'master')
+          img: createImageComponent(this.props.version, this.props.fileDir)
         },
         sanitize: {
           clobber: [],
