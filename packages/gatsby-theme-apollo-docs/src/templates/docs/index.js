@@ -1,3 +1,4 @@
+import DocsNav from './docs-nav';
 import Helmet from 'react-helmet';
 import PageContent from './page-content';
 import PropTypes from 'prop-types';
@@ -33,28 +34,6 @@ const Main = styled.main({
   overflowY: 'auto'
 });
 
-const Nav = styled.nav({
-  display: 'flex',
-  alignSelf: 'stretch',
-  margin: '0 40px'
-});
-
-const NavItem = styled.a({
-  display: 'flex',
-  alignItems: 'center',
-  padding: '0 4px',
-  borderBottom: '2px solid transparent',
-  fontSize: 18,
-  color: colors.primary,
-  textDecoration: 'none',
-  '&.active': {
-    borderColor: colors.secondary
-  },
-  ':not(:last-child)': {
-    marginRight: 24
-  }
-});
-
 const MainHeading = styled.h1({
   ':not(:last-child)': {
     marginBottom: 8
@@ -64,14 +43,6 @@ const MainHeading = styled.h1({
 const MainSubheading = styled.h3({
   color: colors.text2
 });
-
-const navItems = {
-  '/docs/platform': 'Platform',
-  '/docs/tutorial': 'Tutorial',
-  '/docs/client': 'Client',
-  '/docs/server': 'Server',
-  '/docs/community': 'Community'
-};
 
 export default function Docs(props) {
   const {
@@ -83,6 +54,7 @@ export default function Docs(props) {
     fileDir
   } = props.pageContext;
   const {title: pageTitle, subtitle, basePath} = props.data.site.siteMetadata;
+  const docsNav = <DocsNav basePath={basePath} />;
   return (
     <Layout>
       <Helmet>
@@ -114,20 +86,11 @@ export default function Docs(props) {
               <MobileHeader>
                 <MenuButton onClick={openSidebar} />
                 <LogoTitle />
+                {docsNav}
               </MobileHeader>
               <DesktopHeader>
                 <Search />
-                <Nav>
-                  {Object.keys(navItems).map(key => (
-                    <NavItem
-                      key={key}
-                      href={key}
-                      className={key === basePath ? 'active' : null}
-                    >
-                      {navItems[key]}
-                    </NavItem>
-                  ))}
-                </Nav>
+                {docsNav}
               </DesktopHeader>
               <ContentWrapper>
                 <div>
