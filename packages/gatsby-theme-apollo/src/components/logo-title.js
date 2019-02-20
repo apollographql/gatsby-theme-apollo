@@ -7,6 +7,7 @@ import {StaticQuery, graphql} from 'gatsby';
 const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
+  flexShrink: 0,
   fontSize: 18
 });
 

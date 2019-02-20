@@ -16,6 +16,7 @@ import {
   ResponsiveSidebar,
   Sidebar,
   SidebarNav,
+  breakpoints,
   colors
 } from 'gatsby-theme-apollo';
 import {graphql} from 'gatsby';
@@ -47,7 +48,10 @@ const Nav = styled.nav({
   display: 'flex',
   alignSelf: 'stretch',
   marginLeft: 'auto',
-  paddingLeft: 40
+  paddingLeft: 40,
+  [breakpoints.sm]: {
+    display: 'none'
+  }
 });
 
 const NavItem = styled.a({
