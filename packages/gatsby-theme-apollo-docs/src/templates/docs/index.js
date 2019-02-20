@@ -46,7 +46,8 @@ const MainSubheading = styled.h3({
 const Nav = styled.nav({
   display: 'flex',
   alignSelf: 'stretch',
-  margin: '0 40px'
+  marginleft: 'auto',
+  paddingLeft: 40
 });
 
 const NavItem = styled.a({
