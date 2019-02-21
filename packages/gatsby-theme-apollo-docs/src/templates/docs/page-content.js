@@ -88,7 +88,10 @@ const InnerContainer = styled.div(codeBlockStyles, {
     pointerEvents: 'none'
   },
   'a[href]': {
-    color: colors.primary
+    color: colors.primary,
+    ':hover': {
+      textDecoration: 'none'
+    }
   }
 });
 
