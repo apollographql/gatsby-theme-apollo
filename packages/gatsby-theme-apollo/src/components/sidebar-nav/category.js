@@ -71,15 +71,19 @@ export default class Category extends Component {
       expanded: !prevState.expanded
     }));
 
-  renderIcon() {
-    return this.state.expanded ? <MdExpandLess /> : <MdExpandMore />;
-  }
-
   renderContents() {
+    const Icon = this.state.expanded ? MdExpandLess : MdExpandMore;
     return (
       <Fragment>
         <h6>{this.props.title}</h6>
-        {!this.props.active && !this.props.alwaysExpanded && this.renderIcon()}
+        <Icon
+          style={{
+            visibility:
+              this.props.active || this.props.alwaysExpanded
+                ? 'hidden'
+                : 'visible'
+          }}
+        />
       </Fragment>
     );
   }
