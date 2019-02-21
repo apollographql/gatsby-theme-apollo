@@ -1,7 +1,9 @@
 import Typography from 'typography';
-import colors from './colors';
+import codeBlocks from './code-blocks';
+import colors from '../colors';
 
 const sansSerif = ['Source Sans Pro', 'Helvetica', 'sans-serif'];
+
 export default new Typography({
   bodyColor: colors.text2,
   headerColor: colors.text1,
@@ -52,11 +54,6 @@ export default new Typography({
     'blockquote > p': {
       fontSize: 'inherit'
     },
-    ':not(pre) > code': {
-      padding: '3px',
-      fontFamily: "'Source Code Pro', monospace",
-      color: colors.primary,
-      backgroundColor: colors.background
-    }
+    ...codeBlocks(rhythm)
   })
 });

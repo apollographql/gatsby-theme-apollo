@@ -20,63 +20,13 @@ import styled from '@emotion/styled';
 import {FaGithub} from 'react-icons/fa';
 import {ReactComponent as SpectrumLogo} from '../../assets/logos/spectrum.svg';
 import {breakpoints, headerHeight} from 'gatsby-theme-apollo';
-import {css} from '@emotion/core';
-import {transparentize} from 'polished';
 
 const Container = styled.div({
   display: 'flex',
   alignItems: 'flex-start'
 });
 
-const codeSelector = 'code[class*="language-"]';
-const preSelector = 'pre[class*="language-"]';
-const codeBlockStyles = css({
-  [[codeSelector, preSelector]]: {
-    fontFamily: "'Source Code Pro', monospace",
-    color: colors.text1
-  },
-  [[`:not(pre) > ${codeSelector}`, preSelector]]: {
-    border: `1px solid ${colors.divider}`,
-    backgroundColor: colors.background
-  },
-  '.line-numbers .line-numbers-rows': {
-    border: 0
-  },
-  '.line-numbers-rows > span:before': {
-    color: colors.text4
-  },
-  '.line-highlight': {
-    background: transparentize(0.9, colors.primary)
-  },
-  [['.token.atrule', '.token.attr-value', '.token.keyword']]: {
-    color: colors.primary
-  },
-  '.token.punctuation': {
-    color: colors.text2
-  },
-  [['.token.operator', '.token.entity', '.token.url']]: {
-    color: 'inherit',
-    background: 'none'
-  },
-  [['.token.function', '.token.class-name']]: {
-    color: colors.secondary
-  },
-  [[
-    '.token.selector',
-    '.token.attr-name',
-    '.token.string',
-    '.token.char',
-    '.token.builtin',
-    '.token.inserted'
-  ]]: {
-    color: colors.tertiary
-  },
-  [['.token.comment', '.token.prolog', '.token.doctype', '.token.cdata']]: {
-    color: colors.text3
-  }
-});
-
-const InnerContainer = styled.div(codeBlockStyles, {
+const InnerContainer = styled.div({
   flexGrow: 1,
   overflow: 'hidden',
   '[id]::before': {
