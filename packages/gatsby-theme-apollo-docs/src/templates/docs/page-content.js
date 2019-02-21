@@ -86,6 +86,9 @@ const InnerContainer = styled.div(codeBlockStyles, {
     height: headerHeight,
     visibility: 'hidden',
     pointerEvents: 'none'
+  },
+  'a[href]': {
+    color: colors.primary
   }
 });
 
