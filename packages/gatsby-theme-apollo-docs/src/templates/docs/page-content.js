@@ -147,7 +147,7 @@ const SidebarLink = nest(
   })
 );
 
-function createImageComponent(repo, tag, filePath) {
+function createImageComponent(owner, repo, tag, filePath) {
   return mapProps(({alt, src}) => {
     const isUrl = /^(https?:)?\/\//.test(src);
     if (!isUrl) {
@@ -157,8 +157,9 @@ function createImageComponent(repo, tag, filePath) {
         alt,
         src: path.join(
           'https://raw.githubusercontent.com',
+          owner,
           repo,
-          tag,
+          encodeURIComponent(tag),
           imagePath
         )
       };
@@ -183,14 +184,14 @@ export default class PageContent extends Component {
   }
 
   render() {
-    const {repo, tag} = this.props.version;
+    const {owner, repo, tag} = this.props.version;
 
     // turn the markdown into JSX and add slug ids to the headings
     const {contents} = remark()
       .use(slug)
       .use(remark2react, {
         remarkReactComponents: {
-          img: createImageComponent(repo, tag, this.props.filePath)
+          img: createImageComponent(owner, repo, tag, this.props.filePath)
         },
         sanitize: {
           clobber: [],
@@ -234,6 +235,7 @@ export default class PageContent extends Component {
           <SidebarLink
             href={path.join(
               'https://github.com',
+              owner,
               repo,
               'tree',
               encodeURIComponent(tag),
@@ -242,7 +244,7 @@ export default class PageContent extends Component {
           >
             <FaGithub /> Edit on GitHub
           </SidebarLink>
-          <SidebarLink href="https://spectrum.chat/apollo">
+          <SidebarLink href={`https://spectrum.chat/apollo/${repo}`}>
             <SpectrumLogo /> Discuss on Spectrum
           </SidebarLink>
         </Sidebar>
