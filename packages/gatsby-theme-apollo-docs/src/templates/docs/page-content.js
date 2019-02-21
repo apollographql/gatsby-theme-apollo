@@ -146,20 +146,25 @@ const SidebarLink = nest(
   })
 );
 
-function createImageComponent({repo, tag}, fileDir) {
-  return mapProps(props => {
-    let src = props.src;
+function createImageComponent(repo, tag, filePath) {
+  return mapProps(({alt, src}) => {
     const isUrl = /^(https?:)?\/\//.test(src);
     if (!isUrl) {
+      const fileDir = path.dirname(filePath);
       const imagePath = path.resolve(fileDir, src);
-      src = path.join(
-        `https://raw.githubusercontent.com/${repo}/${tag}`,
-        imagePath
-      );
+      return {
+        alt,
+        src: path.join(
+          'https://raw.githubusercontent.com',
+          repo,
+          tag,
+          imagePath
+        )
+      };
     }
 
     return {
-      alt: props.alt,
+      alt,
       src
     };
   })('img');
@@ -168,7 +173,7 @@ function createImageComponent({repo, tag}, fileDir) {
 export default class PageContent extends Component {
   static propTypes = {
     content: PropTypes.string.isRequired,
-    fileDir: PropTypes.string.isRequired,
+    filePath: PropTypes.string.isRequired,
     version: PropTypes.object.isRequired
   };
 
@@ -177,12 +182,14 @@ export default class PageContent extends Component {
   }
 
   render() {
+    const {repo, tag} = this.props.version;
+
     // turn the markdown into JSX and add slug ids to the headings
     const {contents} = remark()
       .use(slug)
       .use(remark2react, {
         remarkReactComponents: {
-          img: createImageComponent(this.props.version, this.props.fileDir)
+          img: createImageComponent(repo, tag, this.props.filePath)
         },
         sanitize: {
           clobber: [],
@@ -223,7 +230,15 @@ export default class PageContent extends Component {
               </SidebarList>
             </Fragment>
           )}
-          <SidebarLink>
+          <SidebarLink
+            href={path.join(
+              'https://github.com',
+              repo,
+              'tree',
+              encodeURIComponent(tag),
+              this.props.filePath
+            )}
+          >
             <FaGithub /> Edit on GitHub
           </SidebarLink>
           <SidebarLink>

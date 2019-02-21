@@ -151,7 +151,7 @@ exports.createPages = async (
                 ...data,
                 content,
                 path: basePath + sidebarItem.replace(/^index$/, ''),
-                fileDir: path.resolve(docsRoot, path.dirname(filePath))
+                filePath: path.resolve(docsRoot, filePath)
               };
             })
           );
@@ -181,7 +181,7 @@ exports.createPages = async (
   const docsTemplate = require.resolve('./src/templates/docs');
   versions.filter(Boolean).forEach((version, index, array) => {
     version.contents.forEach(({pages}) => {
-      pages.forEach(({path, fileDir, title, description, content, link}) => {
+      pages.forEach(({path, filePath, title, description, content, link}) => {
         if (link) {
           // don't create pages for sidebar links
           return;
@@ -195,7 +195,7 @@ exports.createPages = async (
             title,
             description,
             version,
-            fileDir,
+            filePath,
             // use `array` here because we're filtering versions before the loop
             versions: array
           }

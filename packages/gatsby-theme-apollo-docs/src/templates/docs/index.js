@@ -106,7 +106,7 @@ export default class Docs extends Component {
       title,
       description,
       content,
-      fileDir
+      filePath
     } = this.props.pageContext;
     const {title: pageTitle, subtitle} = this.props.data.site.siteMetadata;
     return (
@@ -156,7 +156,7 @@ export default class Docs extends Component {
                   <hr />
                   <PageContent
                     content={content}
-                    fileDir={fileDir}
+                    filePath={filePath}
                     version={version}
                   />
                 </ContentWrapper>
