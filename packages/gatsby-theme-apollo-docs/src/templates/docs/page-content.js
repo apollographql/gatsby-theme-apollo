@@ -17,7 +17,8 @@ import remark from 'remark';
 import remark2react from 'remark-react';
 import slug from 'remark-slug';
 import styled from '@emotion/styled';
-import {FaGithub, FaSlack} from 'react-icons/fa';
+import {FaGithub} from 'react-icons/fa';
+import {ReactComponent as SpectrumLogo} from '../../assets/logos/spectrum.svg';
 import {breakpoints, headerHeight} from 'gatsby-theme-apollo';
 import {css} from '@emotion/core';
 import {transparentize} from 'polished';
@@ -241,8 +242,8 @@ export default class PageContent extends Component {
           >
             <FaGithub /> Edit on GitHub
           </SidebarLink>
-          <SidebarLink>
-            <FaSlack /> Discuss on Slack
+          <SidebarLink href="https://spectrum.chat/apollo">
+            <SpectrumLogo /> Discuss on Spectrum
           </SidebarLink>
         </Sidebar>
       </Container>
