@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import colors from '../../util/colors';
 import styled from '@emotion/styled';
-import {Link} from 'gatsby';
+import {Link, withPrefix} from 'gatsby';
 
 const StyledList = styled.ul({
   marginLeft: 0,
@@ -57,7 +57,9 @@ export default class SidebarNav extends Component {
               key={title}
               title={title}
               path={path}
-              active={pages.some(page => page.path === this.props.pathname)}
+              active={pages.some(
+                page => withPrefix(page.path) === this.props.pathname
+              )}
               alwaysExpanded={this.props.alwaysExpanded}
             >
               {contents}
