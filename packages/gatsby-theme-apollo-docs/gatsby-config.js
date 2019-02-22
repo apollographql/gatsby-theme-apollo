@@ -7,6 +7,7 @@ module.exports = ({subtitle, description, basePath, root}) => ({
       }
     }
   ],
+  pathPrefix: basePath,
   siteMetadata: {
     title: 'Apollo Docs',
     subtitle,
