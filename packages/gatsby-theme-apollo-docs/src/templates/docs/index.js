@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import Search from './search';
 import SelectLink from './select-link';
+import socialImage from '../../assets/images/social.jpg';
 import styled from '@emotion/styled';
 import {
   ContentWrapper,
@@ -95,11 +96,35 @@ export default class Docs extends Component {
       content,
       filePath
     } = this.props.pageContext;
-    const {title: pageTitle, subtitle} = this.props.data.site.siteMetadata;
+
+    const {
+      title: siteTitle,
+      description: siteDescription,
+      subtitle
+    } = this.props.data.site.siteMetadata;
+
     return (
       <Layout>
         <Helmet>
           <title>{title}</title>
+          <meta property="og:title" content={title} />
+          <meta property="og:site_name" content={siteTitle} />
+          <meta
+            property="og:description"
+            content={description || siteDescription}
+          />
+          <meta property="og:image" content={socialImage} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@apollographql" />
+          <meta name="twitter:title" content={title} />
+          <meta
+            name="twitter:description"
+            content={description || siteDescription}
+          />
+          <meta
+            name="twitter:image"
+            content={'https://apollographql.com' + socialImage}
+          />
           <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"
@@ -112,7 +137,7 @@ export default class Docs extends Component {
                 responsive
                 open={sidebarOpen}
                 ref={sidebarRef}
-                title={pageTitle}
+                title={siteTitle}
               >
                 <SidebarContentHeader>
                   {subtitle}
