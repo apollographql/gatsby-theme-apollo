@@ -6,7 +6,6 @@ import {navigate} from 'gatsby';
 import {transparentize} from 'polished';
 
 const iconSize = 24;
-const horizontalPadding = 8;
 const Container = styled.div({
   color: colors.text2,
   borderRadius: 4,
@@ -26,31 +25,40 @@ const Container = styled.div({
   }
 });
 
-const Select = styled.select({
-  appearance: 'none',
-  padding: `6px ${horizontalPadding}px`,
-  paddingRight: horizontalPadding / 2 + iconSize,
-  border: 0,
-  fontSize: 12,
-  color: 'inherit',
-  outline: 'none'
+const Select = styled.select(props => {
+  const horizontalPadding = props.large ? 12 : 8;
+  return {
+    appearance: 'none',
+    padding: `6px ${horizontalPadding}px`,
+    paddingRight: horizontalPadding / 2 + iconSize,
+    border: 0,
+    fontSize: props.large ? 14 : 12,
+    lineHeight: 1.25,
+    color: 'inherit',
+    outline: 'none'
+  };
 });
 
-export default class VersionSelect extends Component {
+export default class SelectLink extends Component {
   static propTypes = {
-    versions: PropTypes.array.isRequired,
-    value: PropTypes.string.isRequired
+    options: PropTypes.array.isRequired,
+    value: PropTypes.string.isRequired,
+    large: PropTypes.bool
   };
 
-  onVersionChange = event => navigate(event.target.value);
+  onChange = event => navigate(event.target.value);
 
   render() {
     return (
       <Container>
-        <Select value={this.props.value} onChange={this.onVersionChange}>
-          {this.props.versions.map(version => (
-            <option key={version.id} value={version.basePath}>
-              Version {version.majorMinor}
+        <Select
+          large={this.props.large}
+          value={this.props.value}
+          onChange={this.onChange}
+        >
+          {this.props.options.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.text}
             </option>
           ))}
         </Select>

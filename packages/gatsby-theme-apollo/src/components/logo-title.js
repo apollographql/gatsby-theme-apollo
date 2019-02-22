@@ -30,7 +30,7 @@ export default function LogoTitle(props) {
         }
       `}
       render={data => (
-        <Container>
+        <Container className={props.className}>
           {!props.noLogo && <StyledLogo />}
           {data.site.siteMetadata.title}
         </Container>
@@ -40,5 +40,6 @@ export default function LogoTitle(props) {
 }
 
 LogoTitle.propTypes = {
-  noLogo: PropTypes.bool
+  noLogo: PropTypes.bool,
+  className: PropTypes.string
 };

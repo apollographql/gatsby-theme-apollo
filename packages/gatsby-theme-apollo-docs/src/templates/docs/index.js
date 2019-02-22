@@ -3,7 +3,7 @@ import PageContent from './page-content';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import Search from './search';
-import VersionSelect from './version-select';
+import SelectLink from './select-link';
 import styled from '@emotion/styled';
 import {
   ContentWrapper,
@@ -20,6 +20,10 @@ import {
   colors
 } from 'gatsby-theme-apollo';
 import {graphql} from 'gatsby';
+
+const StyledLogoTitle = styled(LogoTitle)({
+  marginRight: 'auto'
+});
 
 const SidebarContentHeader = styled.h4({
   display: 'flex',
@@ -70,35 +74,18 @@ const NavItem = styled.a({
   }
 });
 
-const navItems = {
+const headerNavOptions = Object.entries({
   '/docs/platform': 'Platform',
   '/docs/tutorial': 'Tutorial',
   '/docs/client': 'Client',
   '/docs/server': 'Server',
   '/docs/community': 'Community'
-};
+}).map(([value, text]) => ({
+  value,
+  text
+}));
 
 export default class Docs extends Component {
-  renderHeaderNav() {
-    return (
-      <Nav>
-        {Object.keys(navItems).map(key => (
-          <NavItem
-            key={key}
-            href={key}
-            className={
-              key === this.props.data.site.siteMetadata.basePath
-                ? 'active'
-                : null
-            }
-          >
-            {navItems[key]}
-          </NavItem>
-        ))}
-      </Nav>
-    );
-  }
-
   render() {
     const {
       version,
@@ -129,7 +116,13 @@ export default class Docs extends Component {
               >
                 <SidebarContentHeader>
                   {subtitle}
-                  <VersionSelect versions={versions} value={version.basePath} />
+                  <SelectLink
+                    value={version.basePath}
+                    options={versions.map(({majorMinor, basePath}) => ({
+                      text: `Version ${majorMinor}`,
+                      value: basePath
+                    }))}
+                  />
                 </SidebarContentHeader>
                 <SidebarNav
                   contents={version.contents}
@@ -139,12 +132,30 @@ export default class Docs extends Component {
               <Main>
                 <MobileHeader>
                   <MenuButton onClick={openSidebar} />
-                  <LogoTitle />
-                  {this.renderHeaderNav()}
+                  <StyledLogoTitle />
+                  <SelectLink
+                    large
+                    options={headerNavOptions}
+                    value={version.basePath}
+                  />
                 </MobileHeader>
                 <DesktopHeader>
                   <Search />
-                  {this.renderHeaderNav()}
+                  <Nav>
+                    {headerNavOptions.map(({value, text}) => (
+                      <NavItem
+                        key={value}
+                        href={value}
+                        className={
+                          value === this.props.data.site.siteMetadata.basePath
+                            ? 'active'
+                            : null
+                        }
+                      >
+                        {text}
+                      </NavItem>
+                    ))}
+                  </Nav>
                 </DesktopHeader>
                 <ContentWrapper>
                   <div>
