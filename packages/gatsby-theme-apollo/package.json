@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo",
-  "version": "0.0.89",
+  "version": "0.0.90",
   "main": "index.js",
   "dependencies": {
     "@emotion/core": "^10.0.7",
