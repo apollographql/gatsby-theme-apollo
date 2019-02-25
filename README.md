@@ -4,6 +4,12 @@ This repo contains [Gatsby](https://gatsbyjs.org) themes that make it easy to cr
 
 ## Basic usage
 
+First, install `gatsby` and the theme that you want to use. This example will be using the base theme, `gatsby-theme-apollo`.
+
+```bash
+$ npm install gatsby gatsby-theme-apollo
+```
+
 Using a Gatsby theme is really easy! Simply configure your theme under the `__experimentalThemes` property in your Gatsby config. The only required option here is `root`, which should always be `__dirname`. It's also a good idea to give your site a `title` and `description`, as defined under the `siteMetadata` property in the config.
 
 ```js
