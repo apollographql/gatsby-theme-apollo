@@ -46,7 +46,7 @@ import {Layout} from 'gatsby-theme-apollo';
 function MyPage() {
   return (
     <Layout>
-      I'm a page!
+      Hello world
     </Layout>
   );
 }
