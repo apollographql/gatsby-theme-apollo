@@ -47,7 +47,7 @@ export default function Home() {
 }
 ```
 
-As you can see, the page is wrapped in a `Layout` component and contains a `LogoTitle`, both coming from `gatsby-theme-apollo`. Our base theme has a bunch of useful shared components like these, and they're all documented [here](./packages/gatsby-theme-apollo).
+As you can see, the page is wrapped in a `Layout` component and contains a `LogoTitle`, both coming from `gatsby-theme-apollo`. Our base theme has a bunch of useful shared components like these, and they're all documented [in the base theme](./packages/gatsby-theme-apollo).
 
 ## Deploying to a subdirectory
 
