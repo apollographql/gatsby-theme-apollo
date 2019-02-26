@@ -38,7 +38,19 @@ import {MenuButton, Sidebar, breakpoints} from 'gatsby-theme-apollo';
 
 ### Layout
 
-The `Layout` should wrap every page that gets created. It configures `react-helmet` and sets the meta description tag with data from the `siteMetadata` property in your Gatsby config. It also sets the favicon for the page to the Apollo "A" logo.
+`Layout` should wrap every page that gets created. It configures `react-helmet` and sets the meta description tag with data from the `siteMetadata` property in your Gatsby config. It also sets the favicon for the page to the Apollo "A" logo.
+
+```js
+import {Layout} from 'gatsby-theme-apollo';
+
+function MyPage() {
+  return (
+    <Layout>
+      I'm a page!
+    </Layout>
+  );
+}
+```
 
 | Prop name | Type | Required |
 | --------- | ---- | -------- |
@@ -51,11 +63,11 @@ A sticky header component with a white background and our brand primary, ![#220a
 `MobileHeader` and `DesktopHeader` components are also exported, and can be used to easily render headers with different content depending on the window size.
 
 ```js
-import {MobileHeader, DesktopHeader} from 'gatsby-theme-apollo';
+import {Layout, MobileHeader, DesktopHeader} from 'gatsby-theme-apollo';
 
 function MyPage() {
   return (
-    <div>
+    <Layout>
       <MobileHeader>
         This is only shown on mobile
         <HamburgerMenu />
@@ -65,7 +77,7 @@ function MyPage() {
         This is only shown on desktop
         <HorizontalMenu />
       </DesktopHeader>
-    </div>
+    </Layout>
   );
 }
 ```
