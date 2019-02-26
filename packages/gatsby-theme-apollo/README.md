@@ -2,6 +2,13 @@
 
 This is the base theme for building Apollo-branded Gatsby sites. It contains a small amount of configuration, and a handful of components that make it easy to build consistent-looking UIs.
 
+It comes with a few Gatsby plugins:
+
+ - `gatsby-plugin-svgr` enables [importing SVGs as React components](https://www.gatsbyjs.org/packages/gatsby-plugin-svgr)
+ - `gatsby-plugin-emotion` server renders your [Emotion](https://emotion.sh) styles
+ - `gatsby-plugin-react-helmet` server renders `<head>` tags set with [React Helmet](https://github.com/nfl/react-helmet)
+ - `gatsby-plugin-typography` provides a stylesheet reset and sets default styles for basic HTML elements
+
 ## Installation
 
 ```bash
@@ -38,7 +45,7 @@ import {MenuButton, Sidebar, breakpoints} from 'gatsby-theme-apollo';
 
 ### Layout
 
-`Layout` should wrap every page that gets created. It configures `react-helmet` and sets the meta description tag with data from the `siteMetadata` property in your Gatsby config. It also sets the favicon for the page to the Apollo "A" logo.
+`Layout` should wrap every page that gets created. It configures [React Helmet](https://github.com/nfl/react-helmet) and sets the meta description tag with data from the `siteMetadata` property in your Gatsby config. It also sets the favicon for the page to the Apollo "A" logo.
 
 ```js
 import {Layout} from 'gatsby-theme-apollo';
