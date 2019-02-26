@@ -28,12 +28,48 @@ module.exports = {
 };
 ```
 
-## Components
+## Components and utilities
+
+All of the React components and utilities documented here are available as named exports in the `gatsby-theme-apollo` package. You can import them like this:
+
+```js
+import {MenuButton, Sidebar, breakpoints} from 'gatsby-theme-apollo';
+```
 
 ### Layout
 
+The `Layout` should be used to wrap every page that gets created. It configures `react-helmet` and sets the meta description tag with data from the `siteMetadata` property in your Gatsby config. It also sets the favicon for the page to the Apollo "A" logo.
+
+| Prop name | Type | Required |
+| --------- | ---- | -------- |
+| children  | Node | yes      |
+
+### Header
+
+A sticky header component with a white background and our brand primary, ![#220a82](https://placehold.it/15/220a82/000000?text=+) `#220a82` as the font color.
+
+`MobileHeader` and `DesktopHeader` components are also exported, and can be used to easily render headers with different content depending on the window size.
+
 ```js
-import {Layout} from 'gatsby-theme-apollo';
+import {MobileHeader, DesktopHeader} from 'gatsby-theme-apollo';
+
+function MyPage() {
+  return (
+    <div>
+      <MobileHeader>
+        This is only shown on mobile
+        <HamburgerMenu />
+      </MobileHeader>
+      <DesktopHeader>
+        <Logo />
+        This is only shown on desktop
+        <HorizontalMenu />
+      </DesktopHeader>
+    </div>
+  );
+}
 ```
 
-This component only takes `children`, but it should be used to wrap every page that gets created. It configures `react-helmet` and sets the meta description tag with data from the `siteMetadata` property in your Gatsby config. It also sets the favicon for the page to the Apollo "A" logo.
+| Prop name | Type | Required |
+| --------- | ---- | -------- |
+| children  | Node | yes      |
