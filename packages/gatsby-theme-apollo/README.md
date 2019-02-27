@@ -18,6 +18,7 @@ It comes with a few Gatsby plugins:
   - [Header](#header)
   - [Sidebar](#sidebar)
   - [SidebarNav](#sidebar-nav)
+  - [ResponsiveSidebar](#responsive-sidebar)
   - [colors](#colors)
 
 ## Installation
@@ -95,7 +96,7 @@ function MyPage() {
 ```js
 import {Layout, MobileHeader, DesktopHeader} from 'gatsby-theme-apollo';
 
-function MyResponsivePage() {
+function MyPage() {
   return (
     <Layout>
       <MobileHeader>
@@ -194,6 +195,42 @@ function MyPage(props) {
 | contents       | array  | yes      | An array of items to render                                       |
 | pathname       | string | yes      | The current path (`props.location.pathname` expected)             |
 | alwaysExpanded | bool   | no       | If `true`, all collapsible sections are expanded and cannot close |
+
+
+### ResponsiveSidebar
+
+A render props component that manages the state for responsive sidebars. On mobile devices, the sidebar is opened by a `MenuButton` component, and dismissed when the user clicks away from the sidebar. This component's `children` prop accepts a function that provides values and functions to enable this behavior easily.
+
+```js
+import {
+  Layout,
+  Sidebar,
+  ResponsiveSidebar,
+  FlexWrapper,
+  MenuButton
+} from 'gatsby-theme-apollo';
+
+function MyPage() {
+  return (
+    <Layout>
+      <ResponsiveSidebar>
+        {({sidebarOpen, openSidebar, onWrapperClick, sidebarRef}) => (
+          <FlexWrapper onClick={onWrapperClick}>
+            <Sidebar responsive open={sidebarOpen} ref={sidebarRef}>
+              This is a sidebar
+            </Sidebar>
+            <MenuButton onClick={openSidebar} />
+          </FlexWrapper>
+        )}
+      </ResponsiveSidebar>
+    </Layout>
+  );
+}
+```
+
+| Prop name | Type | Required | Description                                                 |
+| --------- | ---- | -------- | ----------------------------------------------------------- |
+| children  | func | yes      | A render prop-style function that returns a React component |
 
 ### colors
 
