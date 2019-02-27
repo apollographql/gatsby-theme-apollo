@@ -1,4 +1,4 @@
-<img align="right" width="200" src="https://i.imgur.com/w00laXv.png">
+<img align="right" width="200" src="https://i.imgur.com/6QsMJfS.png">
 
 # Apollo Gatsby Themes
 
