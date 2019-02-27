@@ -168,7 +168,7 @@ const contents = [
 ];
 ```
 
-Each element in the array can have `title`, `path`, `pages`, and `anchor` props. `pages` is an array of more elements with the same shape. By default, a [Gatsby `Link` component](https://www.gatsbyjs.org/docs/gatsby-link/) will be used to render the links, but you can use a regular HTML anchor tag (`<a>`) by passing the `anchor` option to any page object.
+Each element in the array can have `title`, `path`, `pages`, and `anchor` props. `pages` is an array of more elements with the same shape. By default, a [Gatsby `Link` component](https://www.gatsbyjs.org/docs/gatsby-link/) will be used to render the links, but you can use a regular HTML anchor tag (`<a>`) by passing the `anchor` property to `true` on any page object.
 
 The `SidebarNav` component gives the currently selected page an "active" style, and if it's a subpage, it will keep the currently active section expanded. To facilitate this, you must pass the current path to the `pathname` prop. Luckily, Gatsby exposes this in the `location` prop that gets passed automatically to every page!
 
