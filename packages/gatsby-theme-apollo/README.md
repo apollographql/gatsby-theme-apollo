@@ -17,6 +17,7 @@ It comes with a few Gatsby plugins:
   - [Layout](#layout)
   - [Header](#header)
   - [Sidebar](#sidebar)
+  - [SidebarNav](#sidebar-nav)
   - [colors](#colors)
 
 ## Installation
@@ -139,6 +140,14 @@ function MyPage() {
 | responsive | bool | no       | If `true`, the sidebar will behave as a drawer absolutely positioned on the left |
 | open       | bool | no       | Controls the sidebar visibility when the `responsive` prop is `true`             |
 | noLogo     | bool | no       | If `true`, the logo next to the site title at the top left will be hidden        |
+
+### SidebarNav
+
+| Prop name      | Type   | Required |
+| -------------- | ------ | -------- |
+| contents       | array  | yes      |
+| pathname       | string | yes      |
+| alwaysExpanded | bool   | no       |
 
 ### colors
 
