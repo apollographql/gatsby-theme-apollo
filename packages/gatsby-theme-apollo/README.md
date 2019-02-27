@@ -255,6 +255,8 @@ export {ReactComponent as default} from '../../assets/custom-logo.svg';
 
 Check out [this CodeSandbox](https://codesandbox.io/s/mq7p0z3wmj) for a full component shadowing example!
 
+[![Edit Component shadowing example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/mq7p0z3wmj?fontsize=14)
+
 | Prop name | Type | Required | Description                          |
 | --------- | ---- | -------- | ------------------------------------ |
 | noLogo    | bool | no       | If `true`, the Apollo logo is hidden |
