@@ -138,3 +138,26 @@ function MyPage() {
 | responsive | bool | no       | If `true`, the sidebar will behave as a drawer absolutely positioned on the left |
 | open       | bool | no       | Controls the sidebar visibility when the `responsive` prop is `true`             |
 | noLogo     | bool | no       | If `true`, the logo next to the site title at the top left will be hidden        |
+
+### colors
+
+A mapping of named keys and their corresponding hex color codes. You can use this object to write CSS-in-JS rules like this:
+
+```js
+import {colors} from 'gatsby-theme-apollo';
+
+const StyledButton = styled.button({
+  color: colors.primary,
+  background: colors.background
+});
+```
+
+ - ![#220a82](https://placehold.it/15/220a82/000000?text=+) `primary`
+ - ![#e535ab](https://placehold.it/15/e535ab/000000?text=+) `secondary`
+ - ![#009f97](https://placehold.it/15/009f97/000000?text=+) `tertiary`
+ - ![#d8d9e0](https://placehold.it/15/d8d9e0/000000?text=+) `divider`
+ - ![#f7f8fa](https://placehold.it/15/f7f8fa/000000?text=+) `background`
+ - ![#343c5a](https://placehold.it/15/343c5a/000000?text=+) `text1`
+ - ![#747790](https://placehold.it/15/747790/000000?text=+) `text2`
+ - ![#9496aa](https://placehold.it/15/9496aa/000000?text=+) `text3`
+ - ![#afb1c0](https://placehold.it/15/afb1c0/000000?text=+) `text4`
