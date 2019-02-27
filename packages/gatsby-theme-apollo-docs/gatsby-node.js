@@ -119,7 +119,7 @@ exports.createPages = async (
                 return {
                   path: sidebarItem.href,
                   title: sidebarItem.title,
-                  link: true
+                  anchor: true
                 };
               }
 
