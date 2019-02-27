@@ -22,6 +22,7 @@ It comes with a few Gatsby plugins:
   - [LogoTitle](#logotitle)
   - [colors](#colors)
   - [breakpoints](#breakpoints)
+- [Examples](#examples)
 
 ## Installation
 
@@ -312,3 +313,7 @@ const StyledButton = styled.button({
 | sm  | @media (max-width: 600px)  |
 | md  | @media (max-width: 850px)  |
 | lg  | @media (max-width: 1120px) |
+
+## Examples
+
+- [Principled GraphQL](https://github.com/apollographql/principled-graphql)
