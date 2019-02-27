@@ -78,7 +78,7 @@ The `sidebarCategories` option is an object keyed by category titles. Each entry
 
 ## Older versions
 
-This theme uses [`simple-git`](https://github.com/steveukx/git-js) to look for older versions of documentation and create pages for them. If no _gatsby-config.js_ is found in the docs directory of an older version, its existing Hexo config will be used to define its `sidebarCategories`. Only one set of documentation will be generated per major version, based on its latest published tag.
+This theme uses [`simple-git`](https://github.com/steveukx/git-js) to look for older versions of documentation and create pages for them. If no _gatsby-config.js_ is found in the docs directory of an older version, its existing Hexo config will be used to configure its `sidebarCategories`. Only one set of documentation will be generated per major version, based on its latest published tag.
 
 ## Deployment
 
