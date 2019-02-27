@@ -5,8 +5,9 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 ## Table of contents
 
 - [Installation](#installation)
-- [Usage](#usage)
+- [Configuration](#configuration)
   - [sidebarCategories](#sidebarcategories)
+- [Creating pages](#creating-pages)
 - [Older versions](#older-versions)
 - [Deployment](#deployment)
 
@@ -16,7 +17,7 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 $ npm install gatsby gatsby-theme-apollo-docs
 ```
 
-## Usage
+## Configuration
 
 ```js
 // gatsby-config.js
@@ -59,7 +60,7 @@ module.exports = {
 
 ### sidebarCategories
 
-The `sidebarCategories` option is an object keyed by category titles. Each entry in the object is an array of page paths. The path should resemble the location of a markdown file in the git repository, relative to the directory specified by the `contentDir` theme option. Sidebar navigation items that are **not** a member of a category live under the `null` key.
+The `sidebarCategories` option is an object keyed by category titles. Each entry in the object is an array of page paths. The path should resemble the location of a markdown file in the git repository, relative to the directory specified by the `contentDir` theme option, and without the _.md_ extension. Sidebar navigation items that are **not** a member of a category live under the `null` key.
 
 ```js
 {
@@ -75,6 +76,21 @@ The `sidebarCategories` option is an object keyed by category titles. Each entry
   ]
 }
 ```
+
+## Creating pages
+
+Create markdown files in your `contentDir` (typically _source_) to generate pages. Your markdown files should contain some frontmatter defining their titles and descriptions.
+
+```md
+---
+title: Introduction
+description: What is Apollo Server and what does it do?
+---
+
+Apollo Server is the best way to quickly build a production-ready, self-documenting API for GraphQL clients, using data from any source.
+```
+
+Page URLs will be derived from the file paths of your markdown. You can nest markdown files within directories to create pages with additional path segments.
 
 ## Older versions
 
