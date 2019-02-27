@@ -17,6 +17,7 @@ It comes with a few Gatsby plugins:
   - [Layout](#layout)
   - [Header](#header)
   - [Sidebar](#sidebar)
+  - [colors](#colors)
 
 ## Installation
 
