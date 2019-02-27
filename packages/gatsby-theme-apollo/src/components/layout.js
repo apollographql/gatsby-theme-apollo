@@ -1,7 +1,7 @@
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
-import {StaticQuery, graphql} from 'gatsby';
+import {StaticQuery, graphql, withPrefix} from 'gatsby';
 
 export default function Layout(props) {
   return (
@@ -22,7 +22,7 @@ export default function Layout(props) {
           <Fragment>
             <Helmet defaultTitle={title} titleTemplate={`%s - ${title}`}>
               <meta name="description" content={description} />
-              <link rel="icon" href="https://apollographql.com/favicon.ico" />
+              <link rel="icon" href={withPrefix('/favicon.ico')} />
             </Helmet>
             {props.children}
           </Fragment>
