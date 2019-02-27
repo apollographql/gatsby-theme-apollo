@@ -45,9 +45,9 @@ module.exports = {
 | root              | string | Must be `__dirname`                                                                   |
 | subtitle          | string | The title that gets rendered above the sidebar navigation                             |
 | description       | string | The site description for SEO and social (FB, Twitter) tags                            |
-| contentDir        | string | The directory (relative to the _gatsby-config.js_ file) where the markdown files live |
-| basePath          | string | The path (relative to _https://apollographql.com_) where the website will be hosted   |
-| sidebarCategories | object | An object mapping categories to page paths (described below)                          |
+| contentDir        | string | The directory, relative to the _gatsby-config.js_ file, where the markdown files live |
+| basePath          | string | The path, relative to _https://apollographql.com_, where the website will be hosted   |
+| sidebarCategories | object | An object mapping categories to page paths ([described below](#sidebarCategories))    |
 
 ### sidebarCategories
 
