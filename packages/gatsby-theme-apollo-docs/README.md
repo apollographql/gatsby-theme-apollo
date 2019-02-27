@@ -98,4 +98,4 @@ This theme uses [`simple-git`](https://github.com/steveukx/git-js) to look for o
 
 ## Deployment
 
-All docs sites will eventually be deployed into a subdirectory, as configured by the `basePath` option&mdash;_https://apollographql.com/docs/apollo-server_, for example. [Read this guide](https://github.com/apollographql/gatsby-theme-apollo#deploying-to-a-subdirectory) to learn how to pull this off.
+All docs sites will eventually be deployed into a subdirectory, as configured by the `basePath` option&mdash;https://apollographql.com/docs/apollo-server, for example. [Read this guide](https://github.com/apollographql/gatsby-theme-apollo#deploying-to-a-subdirectory) to learn how to pull this off.

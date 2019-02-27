@@ -92,4 +92,4 @@ We use [Fly](https://fly.io) to manage our server rewrites and redirects. To poi
 - `/YOUR_PATH_PREFIX/:page` ➡️ `/YOUR_PATH_PREFIX/$page`
 - `/YOUR_PATH_PREFIX` ➡️ `/YOUR_PATH_PREFIX`
 
-Be sure to set the priority of each of these rules to `3`, or a value lower than the top two redirect rules that apply to our website root. Once these rewrite rules take effect, your site will be live at _https://apollographql.com/YOUR_PATH_PREFIX_.
+Be sure to set the priority of each of these rules to `3`, or a value lower than the top two redirect rules that apply to our website root. Once these rewrite rules take effect, your site will be live at https://apollographql.com/YOUR_PATH_PREFIX.
