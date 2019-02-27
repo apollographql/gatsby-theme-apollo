@@ -34,7 +34,7 @@ async function getSidebarCategories(objects, git, version) {
 
 exports.createPages = async (
   {actions},
-  {contentDir = 'source', root, sidebarCategories}
+  {contentDir, root, sidebarCategories}
 ) => {
   const git = simpleGit(root);
   const remotes = await git.getRemotes(true);
