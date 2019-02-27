@@ -1,5 +1,7 @@
 # Apollo Gatsby Themes
 
+<img src="https://i.imgur.com/KHi8XoR.png" style="float: right">
+
 This repo contains [Gatsby](https://gatsbyjs.org) themes that make it easy to create new websites at Apollo. In its most basic implementation, the theme provides a CSS reset, styles for regular HTML elements (`h1`, `h2`, `p`, `li`, etc.), and a handful of useful layout components.
 
 ## Packages
