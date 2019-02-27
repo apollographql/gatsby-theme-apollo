@@ -2,6 +2,11 @@
 
 This repo contains [Gatsby](https://gatsbyjs.org) themes that make it easy to create new websites at Apollo. In its most basic implementation, the theme provides a CSS reset, styles for regular HTML elements (`h1`, `h2`, `p`, `li`, etc.), and a handful of useful layout components.
 
+## Packages
+
+- [`gatsby-theme-apollo`](./packages/gatsby-theme-apollo)
+- [`gatsby-theme-apollo-docs`](./packages/gatsby-theme-apollo-docs)
+
 ## Basic usage
 
 First, install `gatsby` and the theme that you want to use. This example will be using the base theme, `gatsby-theme-apollo`.
