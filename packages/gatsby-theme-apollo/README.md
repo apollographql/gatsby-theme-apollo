@@ -19,6 +19,7 @@ It comes with a few Gatsby plugins:
   - [Sidebar](#sidebar)
   - [SidebarNav](#sidebar-nav)
   - [ResponsiveSidebar](#responsive-sidebar)
+  - [LogoTitle](#logo-title)
   - [colors](#colors)
 
 ## Installation
@@ -119,7 +120,7 @@ function MyPage() {
 
 ### Sidebar
 
-A component that renders a sidebar with the site title configured in the [`siteMetadata` Gatsby config option](https://www.gatsbyjs.org/docs/gatsby-config/#sitemetadata), and an Apollo "A" logo on the top left side. It can also be configured to collapse into the left side of the page on narrow windows.
+A component that renders a sidebar with a [`LogoTitle`](#logo-title) component in the top left corner. It can also be configured to collapse into the left side of the page on narrow windows.
 
 ```js
 import {Layout, Sidebar} from 'gatbsy-theme-apollo';
@@ -231,6 +232,31 @@ function MyPage() {
 | Prop name | Type | Required | Description                                                 |
 | --------- | ---- | -------- | ----------------------------------------------------------- |
 | children  | func | yes      | A render prop-style function that returns a React component |
+
+### LogoTitle
+
+A component that renders an Apollo "A" logo, and the site title, as defined in the [`siteMetadata` Gatsby config option](https://www.gatsbyjs.org/docs/gatsby-config/#sitemetadata).
+
+```js
+import {LogoTitle} from 'gatsby-theme-apollo';
+
+function MyPage() {
+  return <LogoTitle />;
+}
+```
+
+Through [component shadowing](https://www.gatsbyjs.org/blog/2019-01-29-themes-update-child-theming-and-component-shadowing/), you can override the logo that gets shown. Simply create a file that exports a SVG React component in your theme consumer at _src/gatsby-theme-apollo/components/logo.js_.
+
+```js
+// src/gatsby-theme-apollo/components/logo.js
+export {ReactComponent as default} from '../../assets/custom-logo.svg';
+```
+
+Check out [this CodeSandbox](https://codesandbox.io/s/mq7p0z3wmj) for a full component shadowing example!
+
+| Prop name | Type | Required | Description                          |
+| --------- | ---- | -------- | ------------------------------------ |
+| noLogo    | bool | no       | If `true`, the Apollo logo is hidden |
 
 ### colors
 
