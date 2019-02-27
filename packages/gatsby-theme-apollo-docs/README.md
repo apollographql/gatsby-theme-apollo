@@ -81,7 +81,7 @@ The `sidebarCategories` option is an object keyed by category titles. Each entry
 
 Create markdown files in your `contentDir` (typically _source_) to generate pages. Your markdown files should contain some frontmatter defining their titles and descriptions.
 
-```md
+```markdown
 ---
 title: Introduction
 description: What is Apollo Server and what does it do?
