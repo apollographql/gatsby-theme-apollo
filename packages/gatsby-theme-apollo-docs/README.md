@@ -2,6 +2,14 @@
 
 This is an entirely configuration-based Gatsby theme that generates a documentation website based on a series of markdown files.
 
+## Table of contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+  - [sidebarCategories](#sidebarcategories)
+- [Older versions](#older-versions)
+- [Deployment](#deployment)
+
 ## Installation
 
 ```bash
@@ -68,6 +76,10 @@ The `sidebarCategories` option is an object keyed by category titles. Each entry
 }
 ```
 
+## Older versions
+
+TODO
+
 ## Deployment
 
-All docs sites will eventually be deployed into a subdirectory, as configured by the `basePath` option&mdash;_https://apollographql.com/**docs/apollo-server**_, for example. [Read this guide](https://github.com/apollographql/gatsby-theme-apollo#deploying-to-a-subdirectory) to learn how to pull this off.
+All docs sites will eventually be deployed into a subdirectory, as configured by the `basePath` option&mdash;_https://apollographql.com/docs/apollo-server_, for example. [Read this guide](https://github.com/apollographql/gatsby-theme-apollo#deploying-to-a-subdirectory) to learn how to pull this off.
