@@ -21,6 +21,7 @@ It comes with a few Gatsby plugins:
   - [ResponsiveSidebar](#responsive-sidebar)
   - [LogoTitle](#logo-title)
   - [colors](#colors)
+  - [breakpoints](#breakpoints)
 
 ## Installation
 
@@ -271,12 +272,41 @@ const StyledButton = styled.button({
 });
 ```
 
- - ![#220a82](https://placehold.it/15/220a82/000000?text=+) `primary`
- - ![#e535ab](https://placehold.it/15/e535ab/000000?text=+) `secondary`
- - ![#009f97](https://placehold.it/15/009f97/000000?text=+) `tertiary`
- - ![#d8d9e0](https://placehold.it/15/d8d9e0/000000?text=+) `divider`
- - ![#f7f8fa](https://placehold.it/15/f7f8fa/000000?text=+) `background`
- - ![#343c5a](https://placehold.it/15/343c5a/000000?text=+) `text1`
- - ![#747790](https://placehold.it/15/747790/000000?text=+) `text2`
- - ![#9496aa](https://placehold.it/15/9496aa/000000?text=+) `text3`
- - ![#afb1c0](https://placehold.it/15/afb1c0/000000?text=+) `text4`
+| Key        | Value                                                            |
+| ---------- | ---------------------------------------------------------------- |
+| primary    | ![#220a82](https://placehold.it/15/220a82/000000?text=+) #220a82 |
+| secondary  | ![#e535ab](https://placehold.it/15/e535ab/000000?text=+) #e535ab |
+| tertiary   | ![#009f97](https://placehold.it/15/009f97/000000?text=+) #009f97 |
+| divider    | ![#d8d9e0](https://placehold.it/15/d8d9e0/000000?text=+) #d8d9e0 |
+| background | ![#f7f8fa](https://placehold.it/15/f7f8fa/000000?text=+) #f7f8fa |
+| text1      | ![#343c5a](https://placehold.it/15/343c5a/000000?text=+) #343c5a |
+| text2      | ![#747790](https://placehold.it/15/747790/000000?text=+) #747790 |
+| text3      | ![#9496aa](https://placehold.it/15/9496aa/000000?text=+) #9496aa |
+| text4      | ![#afb1c0](https://placehold.it/15/afb1c0/000000?text=+) #afb1c0 |
+
+ ### breakpoints
+
+ A mapping of size keys to media queries. This is useful for writing responsive CSS-in-JS components.
+
+ ```js
+ import {breakpoints} from 'gatsby-theme-apollo';
+
+ const StyledMenu = styled.nav({
+   fontSize: 24,
+   [breakpoints.lg]: {
+     fontSize: 20
+   },
+   [breakpoints.md]: {
+     fontSize: 16
+   },
+   [breakpoints.sm]: {
+     fontSize: 12
+   }
+ })
+ ```
+
+| Key | Value                      |
+| --- | -------------------------- |
+| sm  | @media (max-width: 600px)  |
+| md  | @media (max-width: 850px)  |
+| lg  | @media (max-width: 1120px) |
