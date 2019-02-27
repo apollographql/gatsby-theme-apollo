@@ -9,6 +9,13 @@ It comes with a few Gatsby plugins:
  - `gatsby-plugin-react-helmet` server renders `<head>` tags set with [React Helmet](https://github.com/nfl/react-helmet)
  - `gatsby-plugin-typography` provides a stylesheet reset and sets default styles for basic HTML elements
 
+## Table of contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Components and utilities](#components-and-utilities)
+  - [Layout](#layout)
+
 ## Installation
 
 ```bash
