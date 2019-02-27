@@ -39,3 +39,35 @@ module.exports = {
   ]
 };
 ```
+
+| Option name       | Description                                                                           |
+| ----------------- | ------------------------------------------------------------------------------------- |
+| root              | Must be `__dirname`                                                                   |
+| subtitle          | The title that gets rendered above the sidebar navigation                             |
+| description       | The site description for SEO and social (FB, Twitter) tags                            |
+| contentDir        | The directory (relative to the _gatsby-config.js_ file) where the markdown files live |
+| basePath          | The path (relative to _https://apollographql.com_) where the website will be hosted   |
+| sidebarCategories | An object mapping categories to page paths (described below)                          |
+
+### sidebarCategories
+
+The `sidebarCategories` option is an object keyed by category titles. Each entry in the object is an array of page paths. The path should resemble the location of a markdown file in the git repository, relative to the directory specified by the `contentDir` theme option. Sidebar navigation items that are **not** a member of a category live under the `null` key.
+
+```js
+{
+  null: [
+    'index',
+    'getting-started',
+    'whats-new'
+  ],
+  Features: [
+    'features/mocking',
+    'features/errors',
+    'features/data-sources'
+  ]
+}
+```
+
+## Deployment
+
+All docs sites will eventually be deployed into a subdirectory, as configured by the `basePath` option&mdash;_https://apollographql.com/**docs/apollo-server**_, for example. [Read this guide](https://github.com/apollographql/gatsby-theme-apollo#deploying-to-a-subdirectory) to learn how to pull this off.
