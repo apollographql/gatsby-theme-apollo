@@ -17,9 +17,9 @@ It comes with a few Gatsby plugins:
   - [Layout](#layout)
   - [Header](#header)
   - [Sidebar](#sidebar)
-  - [SidebarNav](#sidebar-nav)
-  - [ResponsiveSidebar](#responsive-sidebar)
-  - [LogoTitle](#logo-title)
+  - [SidebarNav](#sidebarnav)
+  - [ResponsiveSidebar](#responsivesidebar)
+  - [LogoTitle](#logotitle)
   - [colors](#colors)
   - [breakpoints](#breakpoints)
 
