@@ -76,12 +76,24 @@ function MyPage() {
 
 A sticky header component with a white background and our brand primary, ![#220a82](https://placehold.it/15/220a82/000000?text=+) `#220a82` as the font color.
 
+```js
+import {Layout, Header} from 'gatsby-theme-apollo';
+
+function MyPage() {
+  return (
+    <Layout>
+      <Header>Main nav goes up here</Header>
+    </Layout>
+  );
+}
+```
+
 `MobileHeader` and `DesktopHeader` components are also exported, and can be used to easily render headers with different content depending on the window size.
 
 ```js
 import {Layout, MobileHeader, DesktopHeader} from 'gatsby-theme-apollo';
 
-function MyPage() {
+function MyResponsivePage() {
   return (
     <Layout>
       <MobileHeader>
@@ -107,7 +119,7 @@ function MyPage() {
 A component that renders a sidebar with the site title configured in the [`siteMetadata` Gatsby config option](https://www.gatsbyjs.org/docs/gatsby-config/#sitemetadata), and an Apollo "A" logo on the top left side. It can also be configured to collapse into the left side of the page on narrow windows.
 
 ```js
-import {Layout, Sidebar, SidebarNav} from 'gatbsy-theme-apollo';
+import {Layout, Sidebar} from 'gatbsy-theme-apollo';
 
 function MyPage() {
   return (
