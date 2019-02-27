@@ -143,11 +143,57 @@ function MyPage() {
 
 ### SidebarNav
 
-| Prop name      | Type   | Required |
-| -------------- | ------ | -------- |
-| contents       | array  | yes      |
-| pathname       | string | yes      |
-| alwaysExpanded | bool   | no       |
+A configurable two-tiered, expandable/collapsible navigation component for use in conjunction with the `Sidebar` component above. It accepts a `contents` prop that defines what links and collapsible sections get rendered. Here's an example of the expected shape of a `contents` prop:
+
+```js
+const contents = [
+  {
+    title: 'Getting started',
+    path: '/'
+  },
+  {
+    title: 'External link',
+    path: 'https://apollographql.com',
+    anchor: true
+  },
+  {
+    title: 'Advanced features',
+    pages: [
+      {
+        title: 'Schema stitching',
+        path: '/advanced/schema-stitching'
+      }
+    ]
+  }
+];
+```
+
+Each element in the array can have `title`, `path`, `pages`, and `anchor` props. `pages` is an array of more elements with the same shape. By default, a [Gatsby `Link` component](https://www.gatsbyjs.org/docs/gatsby-link/) will be used to render the links, but you can use a regular HTML anchor tag (`<a>`) by passing the `anchor` option to any page object.
+
+The `SidebarNav` component gives the currently selected page an "active" style, and if it's a subpage, it will keep the currently active section expanded. To facilitate this, you must pass the current path to the `pathname` prop. Luckily, Gatsby exposes this in the `location` prop that gets passed automatically to every page!
+
+```js
+import {Layout, Sidebar, SidebarNav} from 'gatsby-theme-apollo';
+
+function MyPage(props) {
+  return (
+    <Layout>
+      <Sidebar>
+        <SidebarNav
+          contents={contents}
+          pathname={props.location.pathname}
+        />
+      </Sidebar>
+    </Layout>
+  );
+}
+```
+
+| Prop name      | Type   | Required | Description                                                       |
+| -------------- | ------ | -------- | ----------------------------------------------------------------- |
+| contents       | array  | yes      | An array of items to render                                       |
+| pathname       | string | yes      | The current path (`props.location.pathname` expected)             |
+| alwaysExpanded | bool   | no       | If `true`, all collapsible sections are expanded and cannot close |
 
 ### colors
 

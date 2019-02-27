@@ -30,7 +30,7 @@ export default class SidebarNav extends Component {
       <StyledList key={key}>
         {pages.map(page => (
           <StyledListItem key={page.path}>
-            {page.link ? (
+            {page.anchor ? (
               <a href={page.path}>{page.title}</a>
             ) : (
               <Link activeStyle={{color: colors.primary}} to={page.path}>
