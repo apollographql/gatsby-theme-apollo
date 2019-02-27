@@ -15,6 +15,8 @@ It comes with a few Gatsby plugins:
 - [Usage](#usage)
 - [Components and utilities](#components-and-utilities)
   - [Layout](#layout)
+  - [Header](#header)
+  - [Sidebar](#sidebar)
 
 ## Installation
 
@@ -68,7 +70,7 @@ function MyPage() {
 
 | Prop name | Type | Required |
 | --------- | ---- | -------- |
-| children  | Node | yes      |
+| children  | node | yes      |
 
 ### Header
 
@@ -98,4 +100,29 @@ function MyPage() {
 
 | Prop name | Type | Required |
 | --------- | ---- | -------- |
-| children  | Node | yes      |
+| children  | node | yes      |
+
+### Sidebar
+
+A component that renders a sidebar with the site title configured in the [`siteMetadata` Gatsby config option](https://www.gatsbyjs.org/docs/gatsby-config/#sitemetadata), and an Apollo "A" logo on the top left side. It can also be configured to collapse into the left side of the page on narrow windows.
+
+```js
+import {Layout, Sidebar, SidebarNav} from 'gatbsy-theme-apollo';
+
+function MyPage() {
+  return (
+    <Layout>
+      <Sidebar>
+        Sidebar content goes here
+      </Sidebar>
+    </Layout>
+  );
+}
+```
+
+| Prop name  | Type | Required | Description                                                                      |
+| ---------- | ---- | -------- | -------------------------------------------------------------------------------- |
+| children   | node | yes      |                                                                                  |
+| responsive | bool | no       | If `true`, the sidebar will behave as a drawer absolutely positioned on the left |
+| open       | bool | no       | Controls the sidebar visibility when the `responsive` prop is `true`             |
+| noLogo     | bool | no       | If `true`, the logo next to the site title at the top left will be hidden        |
