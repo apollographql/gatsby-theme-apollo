@@ -183,8 +183,8 @@ exports.createPages = async (
   const docsTemplate = require.resolve('./src/templates/docs');
   versions.filter(Boolean).forEach((version, index, array) => {
     version.contents.forEach(({pages}) => {
-      pages.forEach(({path, filePath, title, description, content, link}) => {
-        if (link) {
+      pages.forEach(({path, filePath, title, description, content, anchor}) => {
+        if (anchor) {
           // don't create pages for sidebar links
           return;
         }
