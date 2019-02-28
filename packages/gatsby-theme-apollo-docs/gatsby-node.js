@@ -180,7 +180,7 @@ exports.createPages = async (
     })
   );
 
-  const docsTemplate = require.resolve('./src/templates/docs');
+  const template = require.resolve('./src/components/template');
   versions.filter(Boolean).forEach((version, index, array) => {
     version.contents.forEach(({pages}) => {
       pages.forEach(({path, filePath, title, description, content, anchor}) => {
@@ -191,7 +191,7 @@ exports.createPages = async (
 
         actions.createPage({
           path,
-          component: docsTemplate,
+          component: template,
           context: {
             content,
             title,

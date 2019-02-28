@@ -7,9 +7,9 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/themes/prism.css';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import codeToHast from '../../util/code-to-hast';
+import codeToHast from '../util/code-to-hast';
 import colors from 'gatsby-theme-apollo/src/util/colors';
-import findHeadings from '../../util/find-headings';
+import findHeadings from '../util/find-headings';
 import mapProps from 'recompose/mapProps';
 import nest from 'recompose/nest';
 import path from 'path';
@@ -18,7 +18,7 @@ import remark2react from 'remark-react';
 import slug from 'remark-slug';
 import styled from '@emotion/styled';
 import {FaGithub} from 'react-icons/fa';
-import {ReactComponent as SpectrumLogo} from '../../assets/logos/spectrum.svg';
+import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
 import {breakpoints, headerHeight} from 'gatsby-theme-apollo';
 
 const Container = styled.div({

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import Search from './search';
 import SelectLink from './select-link';
-import socialImage from '../../assets/images/social.jpg';
+import socialImage from '../assets/images/social.jpg';
 import styled from '@emotion/styled';
 import {
   ContentWrapper,
@@ -86,7 +86,7 @@ const headerNavOptions = Object.entries({
   text
 }));
 
-export default class Docs extends Component {
+export default class Template extends Component {
   render() {
     const {
       version,
@@ -205,7 +205,7 @@ export default class Docs extends Component {
   }
 }
 
-Docs.propTypes = {
+Template.propTypes = {
   data: PropTypes.object.isRequired,
   pageContext: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired
