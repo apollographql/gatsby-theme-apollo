@@ -12,7 +12,7 @@ It comes with a few Gatsby plugins:
 ## Table of contents
 
 - [Installation](#installation)
-- [Usage](#usage)
+- [Configuration](#configuration)
 - [Components and utilities](#components-and-utilities)
   - [Layout](#layout)
   - [Header](#header)
@@ -30,7 +30,7 @@ It comes with a few Gatsby plugins:
 $ npm install gatsby gatsby-theme-apollo
 ```
 
-## Usage
+## Configuration
 
 ```js
 // gatsby-config.js
