@@ -1,4 +1,5 @@
 import Helmet from 'react-helmet';
+import NavItem from './nav-item';
 import PageContent from './page-content';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
@@ -59,32 +60,29 @@ const Nav = styled.nav({
   }
 });
 
-const NavItem = styled.a({
-  display: 'flex',
-  alignItems: 'center',
-  padding: '0 4px',
-  borderBottom: '2px solid transparent',
-  fontSize: 18,
-  color: colors.primary,
-  textDecoration: 'none',
-  '&.active': {
-    borderColor: colors.secondary
-  },
-  ':not(:last-child)': {
-    marginRight: 24
-  }
-});
+const navConfig = {
+  '/docs/platform': ['Platform'],
+  '/docs/tutorial': ['Tutorial'],
+  '/docs/apollo-client': ['Client'],
+  '/docs/apollo-server': [
+    'Server',
+    {
+      '/docs/apollo-server': ['Apollo Server'],
+      '/docs/graphql-tools': ['graphql-tools']
+    }
+  ],
+  '/docs/community': ['Community']
+};
 
-const headerNavOptions = Object.entries({
-  '/docs/platform': 'Platform',
-  '/docs/tutorial': 'Tutorial',
-  '/docs/client': 'Client',
-  '/docs/server': 'Server',
-  '/docs/community': 'Community'
-}).map(([value, text]) => ({
-  value,
-  text
-}));
+function generateNavOptions(config) {
+  return Object.entries(config).map(([value, [text, subpages]]) => ({
+    value,
+    text,
+    subpages: generateNavOptions(subpages)
+  }));
+}
+
+const navOptions = generateNavOptions(navConfig);
 
 export default class Template extends Component {
   render() {
@@ -160,23 +158,15 @@ export default class Template extends Component {
                   <StyledLogoTitle />
                   <SelectLink
                     large
-                    options={headerNavOptions}
+                    options={navOptions}
                     value={version.basePath}
                   />
                 </MobileHeader>
                 <DesktopHeader>
                   <Search />
                   <Nav>
-                    {headerNavOptions.map(({value, text}) => (
-                      <NavItem
-                        key={value}
-                        href={value}
-                        className={
-                          value === this.props.data.site.siteMetadata.basePath
-                            ? 'active'
-                            : null
-                        }
-                      >
+                    {navOptions.map(({value, text, subpages}) => (
+                      <NavItem key={value} href={value} subpages={subpages}>
                         {text}
                       </NavItem>
                     ))}
@@ -217,7 +207,6 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         subtitle
-        basePath
       }
     }
   }
