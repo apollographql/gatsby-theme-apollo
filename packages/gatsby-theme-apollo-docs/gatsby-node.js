@@ -38,6 +38,7 @@ exports.createPages = async (
 ) => {
   const git = simpleGit(root);
   const remotes = await git.getRemotes(true);
+  console.log(root, remotes);
   const {origin} = remotes.reduce(
     (acc, remote) => ({
       ...acc,
