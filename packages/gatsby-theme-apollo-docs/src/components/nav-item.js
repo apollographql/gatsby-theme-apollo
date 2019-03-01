@@ -2,14 +2,16 @@ import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
 import {StaticQuery, graphql} from 'gatsby';
+import {boxShadow} from './search';
 import {colors} from 'gatsby-theme-apollo';
 import {triangle} from 'polished';
 
-const subpagesBackgroundColor = colors.divider;
 const Subpages = styled.div({
   padding: '20px 24px',
   borderRadius: 4,
-  backgroundColor: subpagesBackgroundColor,
+  border: `1px solid ${colors.divider}`,
+  boxShadow,
+  backgroundColor: 'white',
   position: 'absolute',
   top: '100%',
   left: '50%',
@@ -21,7 +23,7 @@ const SubpagesTriangle = styled.div(
     pointingDirection: 'top',
     width: 16,
     height: 8,
-    foregroundColor: subpagesBackgroundColor
+    foregroundColor: colors.divider
   }),
   {
     position: 'absolute',
@@ -30,6 +32,11 @@ const SubpagesTriangle = styled.div(
     transform: 'translateX(-50%)'
   }
 );
+
+const SubpagesTriangleInner = styled(SubpagesTriangle)({
+  borderBottomColor: 'white',
+  bottom: -2
+});
 
 const Container = styled.div(props => ({
   marginRight: 24,
@@ -49,7 +56,7 @@ const Container = styled.div(props => ({
     }
   },
   ':not(:hover)': {
-    [[Subpages, SubpagesTriangle]]: {
+    [[Subpages, SubpagesTriangle, SubpagesTriangleInner]]: {
       display: 'none'
     }
   },
@@ -98,7 +105,6 @@ export default function NavItem(props) {
           <StyledAnchor href={props.href}>{props.children}</StyledAnchor>
           {props.subpages && (
             <Fragment>
-              <SubpagesTriangle />
               <Subpages>
                 {props.subpages.map(({value, text}) => (
                   <SubpageAnchor key={value} href={value}>
@@ -106,6 +112,8 @@ export default function NavItem(props) {
                   </SubpageAnchor>
                 ))}
               </Subpages>
+              <SubpagesTriangle />
+              <SubpagesTriangleInner />
             </Fragment>
           )}
         </Container>

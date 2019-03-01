@@ -32,7 +32,7 @@ const Hotkey = styled.div(verticalAlign, size(24), {
 });
 
 const boxShadowColor = transparentize(0.9, 'black');
-const boxShadow = `${boxShadowColor} 0 2px 12px`;
+export const boxShadow = `${boxShadowColor} 0 2px 12px`;
 const Container = styled.div(responsiveStyles, {
   flexGrow: 1,
   maxWidth: 480,
