@@ -198,7 +198,8 @@ exports.createPages = async (
             description,
             version,
             filePath,
-            // use `array` here because we're filtering versions before the loop
+            // use `array` here instead of `versions` because we're filtering
+            // before the loop starts
             versions: array
           }
         });
