@@ -37,7 +37,11 @@ exports.createPages = async (
   {contentDir, root, gitHubRepo, sidebarCategories}
 ) => {
   const git = simpleGit(root);
-  await git.addRemote('origin', `https://github.com/${gitHubRepo}.git`);
+  const remotes = await git.getRemotes();
+  if (!remotes.includes('origin')) {
+    await git.addRemote('origin', `https://github.com/${gitHubRepo}.git`);
+  }
+
   const [owner, repo] = gitHubRepo;
   const tagPatterns = [
     tagPattern,
