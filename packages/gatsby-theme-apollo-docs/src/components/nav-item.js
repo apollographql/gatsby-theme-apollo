@@ -8,7 +8,6 @@ import {triangle} from 'polished';
 const subpagesBackgroundColor = colors.divider;
 const Subpages = styled.div({
   padding: '20px 24px',
-  color: colors.text1,
   borderRadius: 4,
   backgroundColor: subpagesBackgroundColor,
   position: 'absolute',
@@ -71,11 +70,11 @@ const StyledAnchor = styled.a({
 
 const SubpageAnchor = styled.a({
   display: 'block',
-  color: 'inherit',
+  color: colors.text1,
   textDecoration: 'none',
   whiteSpace: 'nowrap',
   ':hover': {
-    color: colors.divider
+    color: colors.text2
   },
   ':not(:last-child)': {
     marginBottom: 8
