@@ -40,6 +40,7 @@ exports.createPages = async (
   const remotes = await git.getRemotes();
   if (!remotes.some(remote => remote.name === 'origin')) {
     await git.addRemote('origin', `https://github.com/${gitHubRepo}.git`);
+    await git.fetch();
   }
 
   const [owner, repo] = gitHubRepo.split('/');
@@ -102,6 +103,8 @@ exports.createPages = async (
         const markdown = objects.filter(({path}) => /\.mdx?$/.test(path));
         const markdownPaths = markdown.map(object => object.path);
         const docs = markdown.filter(({path}) => !path.indexOf(contentDir));
+
+        console.log(key, docs);
 
         const contents = [];
         const basePath = isCurrentVersion ? '/' : `/v${key}/`;
