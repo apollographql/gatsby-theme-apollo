@@ -38,9 +38,8 @@ exports.createPages = async (
 ) => {
   const git = simpleGit(root);
   const remotes = await git.getRemotes();
-  const hasOrigin = !remotes.some(remote => remote.name === 'origin');
-  console.log('hasOrigin', hasOrigin);
-  if (hasOrigin) {
+  const hasOrigin = remotes.some(remote => remote.name === 'origin');
+  if (!hasOrigin) {
     await git.addRemote('origin', `https://github.com/${gitHubRepo}.git`);
   }
 
@@ -59,8 +58,6 @@ exports.createPages = async (
   const tags = all.filter(tag =>
     tagPatterns.some(pattern => pattern.test(tag))
   );
-
-  console.log(tags);
 
   // map major version numbers to git tag
   let versions = tags.reduce((acc, tag) => {
@@ -107,8 +104,6 @@ exports.createPages = async (
         const markdown = objects.filter(({path}) => /\.mdx?$/.test(path));
         const markdownPaths = markdown.map(object => object.path);
         const docs = markdown.filter(({path}) => !path.indexOf(contentDir));
-
-        console.log(key, docs);
 
         const contents = [];
         const basePath = isCurrentVersion ? '/' : `/v${key}/`;
