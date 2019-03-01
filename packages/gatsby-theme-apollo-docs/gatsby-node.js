@@ -55,6 +55,8 @@ exports.createPages = async (
     tagPatterns.some(pattern => pattern.test(tag))
   );
 
+  console.log(tags);
+
   // map major version numbers to git tag
   let versions = tags.reduce((acc, tag) => {
     const match = tag.match(semverPattern);
