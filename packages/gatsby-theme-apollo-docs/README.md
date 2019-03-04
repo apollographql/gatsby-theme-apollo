@@ -31,6 +31,7 @@ module.exports = {
         description: 'A guide to using Apollo Server',
         contentDir: 'source',
         basePath: '/docs/apollo-server',
+        githubRepo: 'apollographql/apollo-server',
         sidebarCategories: {
           null: [
             'index',
@@ -56,6 +57,7 @@ module.exports = {
 | description       | string | The site description for SEO and social (FB, Twitter) tags                            |
 | contentDir        | string | The directory, relative to the _gatsby-config.js_ file, where the markdown files live |
 | basePath          | string | The path, relative to _https://apollographql.com_, where the website will be hosted   |
+| githubRepo        | string | The owner and name of the content repository on GitHub                                |
 | sidebarCategories | object | An object mapping categories to page paths ([described below](#sidebarCategories))    |
 
 ### sidebarCategories
