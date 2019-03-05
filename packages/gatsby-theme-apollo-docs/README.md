@@ -32,6 +32,7 @@ module.exports = {
         contentDir: 'source',
         basePath: '/docs/apollo-server',
         githubRepo: 'apollographql/apollo-server',
+        versions: ['1', '2'],
         sidebarCategories: {
           null: [
             'index',
@@ -58,6 +59,7 @@ module.exports = {
 | contentDir        | string | The directory, relative to the _gatsby-config.js_ file, where the markdown files live |
 | basePath          | string | The path, relative to _https://apollographql.com_, where the website will be hosted   |
 | githubRepo        | string | The owner and name of the content repository on GitHub                                |
+| versions          | array  | An array of strings representing the versions that the website should generate        |
 | sidebarCategories | object | An object mapping categories to page paths ([described below](#sidebarCategories))    |
 
 ### sidebarCategories

@@ -155,10 +155,12 @@ export default function Template(props) {
                       {subtitle}
                       <SelectLink
                         value={version.basePath}
-                        options={versions.map(({majorMinor, basePath}) => ({
-                          text: `Version ${majorMinor}`,
-                          value: basePath
-                        }))}
+                        options={versions.map(
+                          ({id, basePath, semverMatch}) => ({
+                            text: `Version ${id} (${semverMatch})`,
+                            value: basePath
+                          })
+                        )}
                       />
                     </SidebarContentHeader>
                     <SidebarNav

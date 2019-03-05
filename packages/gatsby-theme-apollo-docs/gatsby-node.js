@@ -1,11 +1,9 @@
 const path = require('path');
 const simpleGit = require('simple-git/promise');
 const matter = require('gray-matter');
+const semver = require('semver');
+const match = require('semver-match');
 const yaml = require('js-yaml');
-
-const semverSegment = '(\\d+)(\\.\\d+){2}';
-const semverPattern = new RegExp(semverSegment);
-const tagPattern = new RegExp(`^v${semverSegment}$`);
 
 const configPaths = ['gatsby-config.js', '_config.yml'];
 async function getSidebarCategories(objects, git, version) {
@@ -32,9 +30,12 @@ async function getSidebarCategories(objects, git, version) {
   return null;
 }
 
+const semverSegment = '\\d+(\\.\\d+){2}';
+const tagPattern = new RegExp(`^v${semverSegment}$`);
+
 exports.createPages = async (
   {actions},
-  {contentDir, root, githubRepo, sidebarCategories}
+  {contentDir, root, githubRepo, sidebarCategories, versions: versionKeys}
 ) => {
   const git = simpleGit(root);
   const remotes = await git.getRemotes();
@@ -43,6 +44,9 @@ exports.createPages = async (
     await git.addRemote('origin', `https://github.com/${githubRepo}.git`);
   }
 
+  // update repo
+  await git.fetch();
+
   const [owner, repo] = githubRepo.split('/');
   const tagPatterns = [
     tagPattern,
@@ -50,32 +54,33 @@ exports.createPages = async (
     new RegExp(`^${repo}@${semverSegment}$`)
   ];
 
-  // update repo
-  await git.fetch();
-
   // get a list of all tags that resemble a version
   const {all} = await git.tags({'--sort': '-v:refname'});
   const tags = all.filter(tag =>
     tagPatterns.some(pattern => pattern.test(tag))
   );
 
-  // map major version numbers to git tag
-  let versions = tags.reduce((acc, tag) => {
-    const match = tag.match(semverPattern);
-    const version = match[1];
-    return !acc[version] ? {...acc, [version]: tag} : acc;
-  }, {});
+  const semvers = tags.map(tag => {
+    const {version} = semver.coerce(tag);
+    return version;
+  });
 
-  const versionKeys = Object.keys(versions)
-    .sort()
-    .reverse();
-  const currentVersion = versionKeys[0];
+  const semverMap = semvers.reduce(
+    (acc, item, index) => ({
+      ...acc,
+      [item]: tags[index]
+    }),
+    {}
+  );
 
-  versions = await Promise.all(
-    versionKeys.map(async key => {
+  const sortedVersions = versionKeys.sort().reverse();
+  const currentVersion = sortedVersions[0];
+  const versions = await Promise.all(
+    sortedVersions.map(async version => {
       try {
-        const version = versions[key];
-        const tree = await git.raw(['ls-tree', '-r', version]);
+        const semverMatch = match(version, semvers);
+        const tag = semverMap[semverMatch];
+        const tree = await git.raw(['ls-tree', '-r', tag]);
         if (!tree) {
           return null;
         }
@@ -88,14 +93,14 @@ exports.createPages = async (
         // use the provided `sidebarCategories` from Gatsby config for the
         // current (latest) version, or grab the appropriate config file for
         // the version at hand
-        const isCurrentVersion = key === currentVersion;
+        const isCurrentVersion = version === currentVersion;
         const versionSidebarCategories = isCurrentVersion
           ? sidebarCategories
-          : await getSidebarCategories(objects, git, version);
+          : await getSidebarCategories(objects, git, tag);
 
         if (!versionSidebarCategories) {
           throw new Error(
-            `No sidebar configuration found for this version: ${version}`
+            `No sidebar configuration found for this version: ${tag}`
           );
         }
 
@@ -106,7 +111,7 @@ exports.createPages = async (
         const docs = markdown.filter(({path}) => !path.indexOf(contentDir));
 
         const contents = [];
-        const basePath = isCurrentVersion ? '/' : `/v${key}/`;
+        const basePath = isCurrentVersion ? '/' : `/v${version}/`;
         for (const category in versionSidebarCategories) {
           const sidebarItems = versionSidebarCategories[category];
           const categoryContents = await Promise.all(
@@ -124,10 +129,10 @@ exports.createPages = async (
               const filePath = `${contentDir}/${sidebarItem}.md`;
               const doc = docs.find(({path}) => path === filePath);
               if (!doc) {
-                throw new Error(`Doc not found: ${filePath}@v${key}`);
+                throw new Error(`Doc not found: ${filePath}@v${version}`);
               }
 
-              let text = await git.show([`${version}:./${filePath}`]);
+              let text = await git.show([`${tag}:./${filePath}`]);
               if (doc.mode === '120000') {
                 // if the file is a symlink we need to follow it
                 const directory = doc.path.slice(0, doc.path.lastIndexOf('/'));
@@ -139,7 +144,7 @@ exports.createPages = async (
                   return null;
                 }
 
-                text = await git.show([`${version}:${symlink}`]);
+                text = await git.show([`${tag}:${symlink}`]);
               }
 
               const repoRoot = await git.revparse(['--show-toplevel']);
@@ -161,15 +166,14 @@ exports.createPages = async (
           });
         }
 
-        const semver = versions[key].match(semverPattern)[0];
         return {
-          id: key,
+          id: version,
           basePath,
-          majorMinor: semver.slice(0, semver.lastIndexOf('.')),
           contents,
           owner,
           repo,
-          tag: version
+          tag,
+          semverMatch
         };
       } catch (error) {
         console.error(error);
