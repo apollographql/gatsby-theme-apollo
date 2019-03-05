@@ -65,7 +65,7 @@ const Nav = styled.nav({
 
 const navConfig = {
   '/docs/platform': ['Platform'],
-  '/docs/tutorial': ['Tutorial'],
+  '/docs/tutorial/introduction': ['Tutorial'],
   '/docs/apollo-client': [
     'Client',
     {
