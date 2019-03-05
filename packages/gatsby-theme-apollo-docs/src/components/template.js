@@ -124,6 +124,7 @@ export default function Template(props) {
           site {
             siteMetadata {
               title
+              description
               subtitle
             }
           }
