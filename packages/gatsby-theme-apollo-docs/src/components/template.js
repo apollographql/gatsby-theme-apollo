@@ -34,6 +34,10 @@ const SidebarContentHeader = styled.h4({
   color: colors.primary
 });
 
+const SidebarContentHeaderText = styled.span({
+  lineHeight: 1.5
+});
+
 const Main = styled.main({
   flexGrow: 1,
   overflowY: 'auto'
@@ -153,14 +157,18 @@ export default function Template(props) {
                     title={siteName}
                   >
                     <SidebarContentHeader>
-                      {subtitle}
-                      <SelectLink
-                        value={version.basePath}
-                        options={versions.map(({id, basePath}) => ({
-                          text: `Version ${id}`,
-                          value: basePath
-                        }))}
-                      />
+                      <SidebarContentHeaderText>
+                        {subtitle}
+                      </SidebarContentHeaderText>
+                      {versions.length > 1 && (
+                        <SelectLink
+                          value={version.basePath}
+                          options={versions.map(({id, basePath}) => ({
+                            text: `Version ${id}`,
+                            value: basePath
+                          }))}
+                        />
+                      )}
                     </SidebarContentHeader>
                     <SidebarNav
                       contents={version.contents}
