@@ -31,7 +31,7 @@ async function getSidebarCategories(objects, git, version) {
 }
 
 const semverSegment = '\\d+(\\.\\d+){2}';
-const tagPattern = new RegExp(`^v${semverSegment}$`);
+const tagPattern = new RegExp(`^v?${semverSegment}$`);
 
 exports.createPages = async (
   {actions},
