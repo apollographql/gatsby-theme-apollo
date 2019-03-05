@@ -48,7 +48,7 @@ exports.createPages = async (
   await git.fetch();
   const [owner, repo] = githubRepo.split('/');
 
-  let currentVersion = 'master';
+  let currentVersion = 'HEAD';
   let sortedVersions = [currentVersion];
   let semvers = [];
   let semverMap = {};
@@ -136,7 +136,7 @@ exports.createPages = async (
               const filePath = `${contentDir}/${sidebarItem}.md`;
               const doc = docs.find(({path}) => path === filePath);
               if (!doc) {
-                throw new Error(`Doc not found: ${filePath}@v${version}`);
+                throw new Error(`Doc not found: ${filePath}@${version}`);
               }
 
               let text = await git.show([`${tag}:./${filePath}`]);
