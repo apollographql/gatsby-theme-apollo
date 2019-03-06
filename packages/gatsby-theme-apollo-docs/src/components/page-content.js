@@ -8,17 +8,22 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/themes/prism.css';
 import PropTypes from 'prop-types';
-import React, {Fragment, PureComponent} from 'react';
+import React, {Component, Fragment} from 'react';
+// import codeToHast from '../util/code-to-hast';
 import colors from 'gatsby-theme-apollo/src/util/colors';
 import findHeadings from '../util/find-headings';
 import mapProps from 'recompose/mapProps';
 import nest from 'recompose/nest';
 import path from 'path';
+import raw from 'rehype-raw';
+import react from 'rehype-react';
+import rehype from 'remark-rehype';
+import remark from 'remark';
+import slug from 'remark-slug';
 import styled from '@emotion/styled';
 import {FaGithub} from 'react-icons/fa';
 import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
 import {breakpoints, headerHeight} from 'gatsby-theme-apollo';
-import {compiler} from 'markdown-to-jsx';
 
 const Container = styled.div({
   display: 'flex',
@@ -121,7 +126,7 @@ function createImageComponent(owner, repo, tag, filePath) {
   })('img');
 }
 
-export default class PageContent extends PureComponent {
+export default class PageContent extends Component {
   static propTypes = {
     content: PropTypes.string.isRequired,
     filePath: PropTypes.string.isRequired,
@@ -134,34 +139,25 @@ export default class PageContent extends PureComponent {
 
   render() {
     const {owner, repo, tag} = this.props.version;
-    const content = compiler(this.props.content, {
-      overrides: {
-        br: {
-          component: () => <br />
-        },
-        img: {
-          component: createImageComponent(owner, repo, tag, this.props.filePath)
-        },
-        code: {
-          component: mapProps(({className, ...props}) => ({
-            ...props,
-            className:
-              className &&
-              className
-                .split(' ')
-                .concat(['line-numbers'])
-                .join(' ')
-          }))('code')
+
+    // turn the markdown into JSX and add slug ids to the headings
+    const {contents} = remark()
+      .use(slug)
+      .use(rehype, {allowDangerousHTML: true})
+      .use(raw)
+      .use(react, {
+        components: {
+          img: createImageComponent(owner, repo, tag, this.props.filePath)
         }
-      }
-    });
+      })
+      .processSync(this.props.content);
 
     // find all of the headings within a page to generate the contents menu
-    const headings = findHeadings(content);
+    const headings = findHeadings(contents);
 
     return (
       <Container>
-        <InnerContainer>{content}</InnerContainer>
+        <InnerContainer>{contents}</InnerContainer>
         <Sidebar>
           {headings.length > 0 && (
             <Fragment>
