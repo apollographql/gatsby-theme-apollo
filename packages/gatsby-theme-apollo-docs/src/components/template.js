@@ -64,49 +64,65 @@ const Nav = styled.nav({
 });
 
 const navConfig = {
-  '/docs/platform': ['Platform'],
-  '/docs/tutorial/introduction': ['Tutorial'],
-  '/docs/apollo-client': [
-    'Client',
-    {
-      '/docs/react': ['React + React Native'],
-      '/docs/angular': ['Angular'],
-      'https://github.com/akryum/vue-apollo': ['Vue.js'],
-      '/docs/link': ['Apollo Link'],
-      '/docs/ios': ['Native iOS'],
-      '/docs/android': ['Native Android'],
-      '/docs/scalajs': ['Scala.js']
+  '/docs': {
+    text: 'Platform',
+    matchRegex: /^\/docs\/(intro|platform|resources|references|$)/
+  },
+  '/docs/tutorial/introduction': {
+    text: 'Tutorial',
+    matchRegex: /^\/docs\/tutorial/
+  },
+  '/docs/apollo-client': {
+    text: 'Client',
+    subpages: {
+      '/docs/react': 'React + React Native',
+      '/docs/angular': 'Angular',
+      'https://github.com/akryum/vue-apollo': 'Vue.js',
+      '/docs/link': 'Apollo Link',
+      '/docs/ios': 'Native iOS',
+      '/docs/android': 'Native Android',
+      '/docs/scalajs': 'Scala.js'
     }
-  ],
-  '/docs/apollo-server': [
-    'Server',
-    {
-      '/docs/apollo-server': ['Apollo Server'],
-      '/docs/graphql-tools': ['graphql-tools'],
-      '/docs/graphql-tools/schema-stitching': ['Schema stitching'],
-      '/docs/graphql-subscriptions': ['GraphQL subscriptions']
+  },
+  '/docs/apollo-server': {
+    text: 'Server',
+    subpages: {
+      '/docs/apollo-server': 'Apollo Server',
+      '/docs/graphql-tools': 'graphql-tools',
+      '/docs/graphql-tools/schema-stitching': 'Schema stitching',
+      '/docs/graphql-subscriptions': 'GraphQL subscriptions'
     }
-  ],
-  '/docs/community': [
-    'Community',
-    {
-      'https://blog.apollographql.com': ['Blog'],
-      'https://spectrum.chat/apollo': ['Spectrum'],
-      'https://twitter.com/apollographql': ['Twitter'],
-      'https://youtube.com/channel/UC0pEW_GOrMJ23l8QcrGdKSw': ['YouTube'],
-      '/docs/community': ['Contribute'],
-      'https://summit.graphql.com': ['GraphQL Summit'],
-      'https://graphql.com': ['Explore GraphQL']
+  },
+  '/docs/community': {
+    text: 'Community',
+    subpages: {
+      'https://blog.apollographql.com': 'Blog',
+      'https://spectrum.chat/apollo': 'Spectrum',
+      'https://twitter.com/apollographql': 'Twitter',
+      'https://youtube.com/channel/UC0pEW_GOrMJ23l8QcrGdKSw': 'YouTube',
+      '/docs/community': 'Contribute',
+      'https://summit.graphql.com': 'GraphQL Summit',
+      'https://graphql.com': 'Explore GraphQL'
     }
-  ]
+  }
 };
 
-function generateNavOptions(config) {
-  return Object.entries(config).map(([value, [text, subpages]]) => ({
+function generateSubpage([value, text]) {
+  return {
     value,
-    text,
-    subpages: subpages && generateNavOptions(subpages)
-  }));
+    text
+  };
+}
+
+function generateNavOptions(config) {
+  return Object.entries(config).map(
+    ([value, {text, matchRegex, subpages}]) => ({
+      value,
+      text,
+      matchRegex,
+      subpages: subpages && Object.entries(subpages).map(generateSubpage)
+    })
+  );
 }
 
 const navOptions = generateNavOptions(navConfig);
@@ -188,11 +204,24 @@ export default function Template(props) {
                     <DesktopHeader>
                       <Search />
                       <Nav>
-                        {navOptions.map(({value, text, subpages}) => (
-                          <NavItem key={value} href={value} subpages={subpages}>
-                            {text}
-                          </NavItem>
-                        ))}
+                        {navOptions.map(
+                          ({value, text, matchRegex, subpages}) => {
+                            const isActive = matchRegex
+                              ? matchRegex.test(props.location.pathname)
+                              : !props.location.pathname.indexOf(value);
+                            console.log(value, props.location.pathname);
+                            return (
+                              <NavItem
+                                key={value}
+                                href={value}
+                                subpages={subpages}
+                                active={isActive}
+                              >
+                                {text}
+                              </NavItem>
+                            );
+                          }
+                        )}
                       </Nav>
                     </DesktopHeader>
                     <ContentWrapper>

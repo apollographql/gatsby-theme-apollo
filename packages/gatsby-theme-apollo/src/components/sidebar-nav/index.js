@@ -25,8 +25,13 @@ export default class SidebarNav extends Component {
     pathname: PropTypes.string.isRequired
   };
 
-  isPageSelected = ({path}) =>
-    withPrefix(path) === this.props.pathname.replace(/\/$/, '');
+  isPageSelected = ({path}) => {
+    const prefixedPath = withPrefix(path);
+    const {pathname} = this.props;
+    return (
+      prefixedPath === pathname || prefixedPath === pathname.replace(/\/$/, '')
+    );
+  };
 
   renderPages(pages, key) {
     return (

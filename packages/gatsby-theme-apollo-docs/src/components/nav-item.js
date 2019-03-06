@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
-import {StaticQuery, graphql} from 'gatsby';
 import {boxShadow} from './search';
 import {colors} from 'gatsby-theme-apollo';
 import {triangle} from 'polished';
@@ -90,39 +89,27 @@ const SubpageAnchor = styled.a({
 
 export default function NavItem(props) {
   return (
-    <StaticQuery
-      query={graphql`
-        {
-          site {
-            siteMetadata {
-              basePath
-            }
-          }
-        }
-      `}
-      render={data => (
-        <Container active={props.href === data.site.siteMetadata.basePath}>
-          <StyledAnchor href={props.href}>{props.children}</StyledAnchor>
-          {props.subpages && (
-            <Fragment>
-              <Subpages>
-                {props.subpages.map(({value, text}) => (
-                  <SubpageAnchor key={value} href={value}>
-                    {text}
-                  </SubpageAnchor>
-                ))}
-              </Subpages>
-              <SubpagesTriangle />
-              <SubpagesTriangleInner />
-            </Fragment>
-          )}
-        </Container>
+    <Container active={props.active}>
+      <StyledAnchor href={props.href}>{props.children}</StyledAnchor>
+      {props.subpages && (
+        <Fragment>
+          <Subpages>
+            {props.subpages.map(({value, text}) => (
+              <SubpageAnchor key={value} href={value}>
+                {text}
+              </SubpageAnchor>
+            ))}
+          </Subpages>
+          <SubpagesTriangle />
+          <SubpagesTriangleInner />
+        </Fragment>
       )}
-    />
+    </Container>
   );
 }
 
 NavItem.propTypes = {
+  active: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
   href: PropTypes.string.isRequired,
   subpages: PropTypes.array
