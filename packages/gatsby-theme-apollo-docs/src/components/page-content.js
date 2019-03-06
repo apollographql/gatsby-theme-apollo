@@ -9,7 +9,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/themes/prism.css';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment, createElement} from 'react';
-// import codeToHast from '../util/code-to-hast';
+import codeToHast from '../util/code-to-hast';
 import colors from 'gatsby-theme-apollo/src/util/colors';
 import findHeadings from '../util/find-headings';
 import mapProps from 'recompose/mapProps';
@@ -143,7 +143,12 @@ export default class PageContent extends Component {
     // turn the markdown into JSX and add slug ids to the headings
     const {contents} = remark()
       .use(slug)
-      .use(rehype, {allowDangerousHTML: true})
+      .use(rehype, {
+        allowDangerousHTML: true,
+        handlers: {
+          code: codeToHast
+        }
+      })
       .use(raw)
       .use(react, {
         createElement,
