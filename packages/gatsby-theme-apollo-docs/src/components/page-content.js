@@ -1,5 +1,7 @@
 /* global Prism */
 import 'prismjs';
+import 'prismjs/components/prism-graphql';
+import 'prismjs/components/prism-jsx';
 import 'prismjs/plugins/line-highlight/prism-line-highlight';
 import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
