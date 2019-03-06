@@ -6,20 +6,17 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/themes/prism.css';
 import PropTypes from 'prop-types';
-import React, {Component, Fragment} from 'react';
-import codeToHast from '../util/code-to-hast';
+import React, {Fragment, PureComponent} from 'react';
 import colors from 'gatsby-theme-apollo/src/util/colors';
 import findHeadings from '../util/find-headings';
 import mapProps from 'recompose/mapProps';
 import nest from 'recompose/nest';
 import path from 'path';
-import remark from 'remark';
-import remark2react from 'remark-react';
-import slug from 'remark-slug';
 import styled from '@emotion/styled';
 import {FaGithub} from 'react-icons/fa';
 import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
 import {breakpoints, headerHeight} from 'gatsby-theme-apollo';
+import {compiler} from 'markdown-to-jsx';
 
 const Container = styled.div({
   display: 'flex',
@@ -122,7 +119,7 @@ function createImageComponent(owner, repo, tag, filePath) {
   })('img');
 }
 
-export default class PageContent extends Component {
+export default class PageContent extends PureComponent {
   static propTypes = {
     content: PropTypes.string.isRequired,
     filePath: PropTypes.string.isRequired,
@@ -135,38 +132,34 @@ export default class PageContent extends Component {
 
   render() {
     const {owner, repo, tag} = this.props.version;
-
-    // turn the markdown into JSX and add slug ids to the headings
-    const {contents} = remark()
-      .use(slug)
-      .use(remark2react, {
-        remarkReactComponents: {
-          img: createImageComponent(owner, repo, tag, this.props.filePath)
+    const content = compiler(this.props.content, {
+      overrides: {
+        br: {
+          component: () => <br />
         },
-        sanitize: {
-          clobber: [],
-          attributes: {
-            '*': ['id'],
-            pre: ['className', 'data*'],
-            code: ['className', 'data*'],
-            img: ['src', 'alt'],
-            a: ['href', 'target', 'rel']
-          }
+        img: {
+          component: createImageComponent(owner, repo, tag, this.props.filePath)
         },
-        toHast: {
-          handlers: {
-            code: codeToHast
-          }
+        code: {
+          component: mapProps(({className, ...props}) => ({
+            ...props,
+            className:
+              className &&
+              className
+                .split(' ')
+                .concat(['line-numbers'])
+                .join(' ')
+          }))('code')
         }
-      })
-      .processSync(this.props.content);
+      }
+    });
 
     // find all of the headings within a page to generate the contents menu
-    const headings = findHeadings(contents);
+    const headings = findHeadings(content);
 
     return (
       <Container>
-        <InnerContainer>{contents}</InnerContainer>
+        <InnerContainer>{content}</InnerContainer>
         <Sidebar>
           {headings.length > 0 && (
             <Fragment>
