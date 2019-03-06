@@ -10,7 +10,7 @@ export default function findHeadings(component) {
         ]);
       }
 
-      if (child.props.children) {
+      if (Array.isArray(child.props.children)) {
         return acc.concat(findHeadings(child));
       }
     }
