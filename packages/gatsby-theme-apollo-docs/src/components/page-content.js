@@ -8,7 +8,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/themes/prism.css';
 import PropTypes from 'prop-types';
-import React, {Component, Fragment} from 'react';
+import React, {Component, Fragment, createElement} from 'react';
 // import codeToHast from '../util/code-to-hast';
 import colors from 'gatsby-theme-apollo/src/util/colors';
 import findHeadings from '../util/find-headings';
@@ -146,6 +146,7 @@ export default class PageContent extends Component {
       .use(rehype, {allowDangerousHTML: true})
       .use(raw)
       .use(react, {
+        createElement,
         components: {
           img: createImageComponent(owner, repo, tag, this.props.filePath)
         }
