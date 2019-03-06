@@ -25,6 +25,9 @@ export default class SidebarNav extends Component {
     pathname: PropTypes.string.isRequired
   };
 
+  isPageSelected = ({path}) =>
+    withPrefix(path) === this.props.pathname.replace(/\/$/, '');
+
   renderPages(pages, key) {
     return (
       <StyledList key={key}>
@@ -33,7 +36,12 @@ export default class SidebarNav extends Component {
             {page.anchor ? (
               <a href={page.path}>{page.title}</a>
             ) : (
-              <Link activeStyle={{color: colors.primary}} to={page.path}>
+              <Link
+                style={
+                  this.isPageSelected(page) ? {color: colors.primary} : null
+                }
+                to={page.path}
+              >
                 {page.title}
               </Link>
             )}
@@ -57,9 +65,7 @@ export default class SidebarNav extends Component {
               key={title}
               title={title}
               path={path}
-              active={pages.some(
-                page => withPrefix(page.path) === this.props.pathname
-              )}
+              active={pages.some(this.isPageSelected)}
               alwaysExpanded={this.props.alwaysExpanded}
             >
               {contents}
