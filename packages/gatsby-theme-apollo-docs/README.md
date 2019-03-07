@@ -6,6 +6,7 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 
 - [Installation](#installation)
 - [Configuration](#configuration)
+  - [versions](#versions)
   - [sidebarCategories](#sidebarcategories)
 - [Creating pages](#creating-pages)
 - [Older versions](#older-versions)
