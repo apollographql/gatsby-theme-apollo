@@ -62,6 +62,22 @@ module.exports = {
 | versions          | array  | An array of strings representing the versions that the website should generate        |
 | sidebarCategories | object | An object mapping categories to page paths ([described below](#sidebarCategories))    |
 
+### versions
+
+If omitted, only one version of docs will be built, based on the state of HEAD in the theme consumer repository. This is helpful for creating deploy previews for docs pages.
+
+If used, the `versions` option expects an array of strings. The strings can be one, two, or three-digit version numbers that match the version number in any git tag in the repo. For example:
+
+```js
+versions: [
+  '1',     // yes
+  '2.4',   // yes
+  '3.5.1', // yes
+  'v4',    // no
+  'next'   // no
+]
+```
+
 ### sidebarCategories
 
 The `sidebarCategories` option is an object keyed by category titles. Each entry in the object is an array of page paths. The path should resemble the location of a markdown file in the git repository, relative to the directory specified by the `contentDir` theme option, and without the _.md_ extension. Sidebar navigation items that are **not** a member of a category live under the `null` key.
