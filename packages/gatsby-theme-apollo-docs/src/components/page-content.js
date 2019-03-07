@@ -27,7 +27,8 @@ import {breakpoints, codeBlockStyles, headerHeight} from 'gatsby-theme-apollo';
 
 const Container = styled.div({
   display: 'flex',
-  alignItems: 'flex-start'
+  alignItems: 'flex-start',
+  maxWidth: 1300
 });
 
 // TODO: replace with components in MDX
@@ -60,6 +61,8 @@ const documentationButtons = {
 
 const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
   flexGrow: 1,
+  maxWidth: '100ch',
+  marginRight: 'auto',
   overflow: 'hidden',
   '[id]::before': {
     // inspired by https://css-tricks.com/hash-tag-links-padding/
@@ -75,6 +78,9 @@ const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
     ':hover': {
       textDecoration: 'none'
     }
+  },
+  [['h2', 'h3', 'h4']]: {
+    marginTop: 56
   }
 });
 
@@ -82,7 +88,7 @@ const Sidebar = styled.aside({
   flexShrink: 0,
   width: 200,
   marginTop: -20,
-  marginLeft: 40,
+  marginLeft: 56,
   paddingTop: 24,
   position: 'sticky',
   top: headerHeight,
@@ -98,7 +104,8 @@ const Sidebar = styled.aside({
 });
 
 const SidebarList = styled.ul({
-  marginLeft: 0
+  marginLeft: 0,
+  marginBottom: 48
 });
 
 const SidebarListItem = styled.li({

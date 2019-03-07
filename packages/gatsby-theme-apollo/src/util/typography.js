@@ -33,7 +33,7 @@ export default new Typography({
       fontSize: '1.125rem'
     },
     p: {
-      lineHeight: 1.5
+      lineHeight: 1.7
     },
     h4: {
       marginBottom: rhythm(3 / 4)

@@ -47,19 +47,21 @@ const codeHighlighting = {
 
 export default {
   [['pre', 'code']]: {
-    fontFamily: "'Source Code Pro', monospace"
+    fontFamily: "'Source Code Pro', monospace",
+    fontSize: 16
   },
-  ':not(pre) > code': {
-    padding: '3px',
+  '*:not(pre) > code': {
+    padding: '1px 4px',
     color: colors.primary,
     backgroundColor: colors.background
   },
   [[codeSelector, preSelector]]: {
     color: colors.text1
   },
-  [[`:not(pre) > ${codeSelector}`, preSelector]]: {
+  [[`*:not(pre) > ${codeSelector}`, preSelector]]: {
     marginBottom: '1.45rem',
     border: `1px solid ${colors.divider}`,
+    borderRadius: 4,
     backgroundColor: colors.background
   },
   ...lines,
