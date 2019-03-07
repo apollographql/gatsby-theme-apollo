@@ -47,6 +47,31 @@ const InnerContainer = styled.div({
     ':hover': {
       textDecoration: 'none'
     }
+  },
+  // TODO: replace with components in MDX
+  '.documentation-buttons': {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    width: '100%',
+    maxWidth: 640,
+    margin: '0 auto 24px',
+    '.btn.default': {
+      padding: '12px 24px',
+      border: '2px solid transparent',
+      borderRadius: '3em',
+      fontSize: 14,
+      color: 'white',
+      textTransform: 'uppercase',
+      textDecoration: 'none',
+      letterSpacing: '0.1em',
+      textIndent: '0.1em',
+      backgroundColor: colors.secondary,
+      '&.hollow': {
+        borderColor: colors.secondary,
+        color: colors.secondary,
+        backgroundColor: 'transparent'
+      }
+    }
   }
 });
 
@@ -139,6 +164,12 @@ export default class PageContent extends Component {
 
   render() {
     const {owner, repo, tag} = this.props.version;
+    const ImageComponent = createImageComponent(
+      owner,
+      repo,
+      tag,
+      this.props.filePath
+    );
 
     // turn the markdown into JSX and add slug ids to the headings
     const {contents} = remark()
@@ -153,7 +184,7 @@ export default class PageContent extends Component {
       .use(react, {
         createElement,
         components: {
-          img: createImageComponent(owner, repo, tag, this.props.filePath)
+          img: ImageComponent
         }
       })
       .processSync(this.props.content);
