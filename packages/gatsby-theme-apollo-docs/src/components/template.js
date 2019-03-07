@@ -72,7 +72,7 @@ const navConfig = {
     text: 'Tutorial',
     matchRegex: /^\/docs\/tutorial/
   },
-  '/docs/apollo-client': {
+  '/docs/react': {
     text: 'Client',
     subpages: {
       '/docs/react': 'React + React Native',
