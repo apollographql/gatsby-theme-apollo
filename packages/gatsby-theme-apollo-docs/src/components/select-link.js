@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import colors from 'gatsby-theme-apollo/src/util/colors';
 import styled from '@emotion/styled';
+import {colors} from 'gatsby-theme-apollo';
 import {navigate} from 'gatsby';
 import {transparentize} from 'polished';
 

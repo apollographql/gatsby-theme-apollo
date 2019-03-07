@@ -14,7 +14,14 @@ const StyledListItem = styled.li({
   fontSize: '1rem',
   a: {
     color: 'inherit',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    ':hover': {
+      opacity: colors.hoverOpacity
+    },
+    '&.active': {
+      color: colors.primary,
+      pointerEvents: 'none'
+    }
   }
 });
 
@@ -42,9 +49,7 @@ export default class SidebarNav extends Component {
               <a href={page.path}>{page.title}</a>
             ) : (
               <Link
-                style={
-                  this.isPageSelected(page) ? {color: colors.primary} : null
-                }
+                className={this.isPageSelected(page) ? 'active' : null}
                 to={page.path}
               >
                 {page.title}

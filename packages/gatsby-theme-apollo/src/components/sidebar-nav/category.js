@@ -41,10 +41,17 @@ const headingStyles = css({
   }
 });
 
-const StyledButton = styled.button(headingStyles, props => ({
-  color: props.active && colors.primary,
-  cursor: 'pointer'
-}));
+const StyledButton = styled.button(headingStyles, {
+  '&[disabled]': {
+    color: colors.primary
+  },
+  ':not([disabled])': {
+    cursor: 'pointer',
+    ':hover': {
+      opacity: colors.hoverOpacity
+    }
+  }
+});
 
 const StyledLink = styled(Link)(headingStyles, {
   textDecoration: 'none'
@@ -95,7 +102,7 @@ export default class Category extends Component {
           <StyledLink to={this.props.path}>{this.renderContents()}</StyledLink>
         ) : (
           <StyledButton
-            active={this.props.active}
+            disabled={this.props.active}
             onClick={this.props.alwaysExpanded ? null : this.toggle}
           >
             {this.renderContents()}

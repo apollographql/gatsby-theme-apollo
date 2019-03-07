@@ -7,5 +7,6 @@ export default {
   text1: '#343c5a',
   text2: '#747790',
   text3: '#9496aa',
-  text4: '#afb1c0'
+  text4: '#afb1c0',
+  hoverOpacity: 0.8
 };

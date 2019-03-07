@@ -71,7 +71,10 @@ const StyledAnchor = styled.a({
   padding: '0 4px',
   fontSize: 18,
   color: colors.primary,
-  textDecoration: 'none'
+  textDecoration: 'none',
+  ':hover': {
+    opacity: colors.hoverOpacity
+  }
 });
 
 const SubpageAnchor = styled.a({
@@ -80,7 +83,7 @@ const SubpageAnchor = styled.a({
   textDecoration: 'none',
   whiteSpace: 'nowrap',
   ':hover': {
-    color: colors.text2
+    opacity: colors.hoverOpacity
   },
   ':not(:last-child)': {
     marginBottom: 8

@@ -10,7 +10,6 @@ import 'prismjs/themes/prism.css';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment, createElement} from 'react';
 import codeToHast from '../util/code-to-hast';
-import colors from 'gatsby-theme-apollo/src/util/colors';
 import findHeadings from '../util/find-headings';
 import mapProps from 'recompose/mapProps';
 import nest from 'recompose/nest';
@@ -23,7 +22,12 @@ import slug from 'remark-slug';
 import styled from '@emotion/styled';
 import {FaGithub} from 'react-icons/fa';
 import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
-import {breakpoints, codeBlockStyles, headerHeight} from 'gatsby-theme-apollo';
+import {
+  breakpoints,
+  codeBlockStyles,
+  colors,
+  headerHeight
+} from 'gatsby-theme-apollo';
 
 const Container = styled.div({
   display: 'flex',
@@ -115,7 +119,10 @@ const SidebarListItem = styled.li({
 
 const SidebarListItemLink = styled.a({
   color: 'inherit',
-  textDecoration: 'none'
+  textDecoration: 'none',
+  ':hover': {
+    opacity: colors.hoverOpacity
+  }
 });
 
 const SidebarLink = nest(
@@ -127,6 +134,9 @@ const SidebarLink = nest(
     alignItems: 'center',
     color: 'inherit',
     textDecoration: 'none',
+    ':hover': {
+      opacity: colors.hoverOpacity
+    },
     svg: {
       width: 20,
       height: 20,
