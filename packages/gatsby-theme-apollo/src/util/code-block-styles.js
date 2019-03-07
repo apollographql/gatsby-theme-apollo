@@ -1,4 +1,4 @@
-import colors from '../colors';
+import colors from './colors';
 import {transparentize} from 'polished';
 
 const codeSelector = 'code[class*="language-"]';
@@ -45,25 +45,23 @@ const codeHighlighting = {
   }
 };
 
-export default function codeBlocks(rhythm) {
-  return {
-    [['pre', 'code']]: {
-      fontFamily: "'Source Code Pro', monospace"
-    },
-    ':not(pre) > code': {
-      padding: '3px',
-      color: colors.primary,
-      backgroundColor: colors.background
-    },
-    [[codeSelector, preSelector]]: {
-      color: colors.text1
-    },
-    [[`:not(pre) > ${codeSelector}`, preSelector]]: {
-      marginBottom: rhythm(1),
-      border: `1px solid ${colors.divider}`,
-      backgroundColor: colors.background
-    },
-    ...lines,
-    ...codeHighlighting
-  };
-}
+export default {
+  [['pre', 'code']]: {
+    fontFamily: "'Source Code Pro', monospace"
+  },
+  ':not(pre) > code': {
+    padding: '3px',
+    color: colors.primary,
+    backgroundColor: colors.background
+  },
+  [[codeSelector, preSelector]]: {
+    color: colors.text1
+  },
+  [[`:not(pre) > ${codeSelector}`, preSelector]]: {
+    marginBottom: '1.45rem',
+    border: `1px solid ${colors.divider}`,
+    backgroundColor: colors.background
+  },
+  ...lines,
+  ...codeHighlighting
+};

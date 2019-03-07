@@ -23,32 +23,15 @@ import slug from 'remark-slug';
 import styled from '@emotion/styled';
 import {FaGithub} from 'react-icons/fa';
 import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
-import {breakpoints, headerHeight} from 'gatsby-theme-apollo';
+import {breakpoints, codeBlockStyles, headerHeight} from 'gatsby-theme-apollo';
 
 const Container = styled.div({
   display: 'flex',
   alignItems: 'flex-start'
 });
 
-const InnerContainer = styled.div({
-  flexGrow: 1,
-  overflow: 'hidden',
-  '[id]::before': {
-    // inspired by https://css-tricks.com/hash-tag-links-padding/
-    content: "''",
-    display: 'block',
-    marginTop: -headerHeight,
-    height: headerHeight,
-    visibility: 'hidden',
-    pointerEvents: 'none'
-  },
-  'a[href]': {
-    color: colors.primary,
-    ':hover': {
-      textDecoration: 'none'
-    }
-  },
-  // TODO: replace with components in MDX
+// TODO: replace with components in MDX
+const documentationButtons = {
   '.documentation-buttons': {
     display: 'flex',
     justifyContent: 'space-evenly',
@@ -71,6 +54,26 @@ const InnerContainer = styled.div({
         color: colors.secondary,
         backgroundColor: 'transparent'
       }
+    }
+  }
+};
+
+const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
+  flexGrow: 1,
+  overflow: 'hidden',
+  '[id]::before': {
+    // inspired by https://css-tricks.com/hash-tag-links-padding/
+    content: "''",
+    display: 'block',
+    marginTop: -headerHeight,
+    height: headerHeight,
+    visibility: 'hidden',
+    pointerEvents: 'none'
+  },
+  'a[href]': {
+    color: colors.primary,
+    ':hover': {
+      textDecoration: 'none'
     }
   }
 });
