@@ -106,6 +106,10 @@ const Sidebar = styled.aside({
   }
 });
 
+const SidebarHeading = styled.h4({
+  fontWeight: 600
+});
+
 const SidebarList = styled.ul({
   marginLeft: 0,
   marginBottom: 48
@@ -219,7 +223,7 @@ export default class PageContent extends Component {
         <Sidebar>
           {headings.length > 0 && (
             <Fragment>
-              <h4>In this section</h4>
+              <SidebarHeading>In this section</SidebarHeading>
               <SidebarList>
                 {headings.map(heading => (
                   <SidebarListItem key={heading.id}>
