@@ -134,13 +134,15 @@ function createImageComponent(owner, repo, tag, filePath) {
       const imagePath = path.resolve(fileDir, src);
       return {
         alt,
-        src: path.join(
-          'https://raw.githubusercontent.com',
-          owner,
-          repo,
-          encodeURIComponent(tag),
-          imagePath
-        )
+        src:
+          'https://' +
+          path.join(
+            'raw.githubusercontent.com',
+            owner,
+            repo,
+            encodeURIComponent(tag),
+            imagePath
+          )
       };
     }
 
