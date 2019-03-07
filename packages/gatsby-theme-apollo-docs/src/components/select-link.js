@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import styled from '@emotion/styled';
 import {colors} from 'gatsby-theme-apollo';
+import {navigate} from 'gatsby';
 import {transparentize} from 'polished';
+import {withPrefix} from 'gatsby-link';
 
 const iconSize = 24;
 const Container = styled.div({
@@ -42,17 +44,26 @@ export default class SelectLink extends Component {
   static propTypes = {
     options: PropTypes.array.isRequired,
     pathname: PropTypes.string.isRequired,
-    large: PropTypes.bool
+    large: PropTypes.bool,
+    useLink: PropTypes.bool
   };
 
   onChange = event => {
+    if (this.props.useLink) {
+      navigate(event.target.value);
+      return;
+    }
+
     window.location.href = event.target.value;
   };
 
   render() {
     let value;
     this.props.options.forEach(options => {
-      if (!this.props.pathname.indexOf(options.value)) {
+      const path = this.props.useLink
+        ? withPrefix(options.value)
+        : options.value;
+      if (!this.props.pathname.indexOf(path)) {
         value = options.value;
       }
     });
