@@ -178,6 +178,7 @@ export default function Template(props) {
                       </SidebarContentHeaderText>
                       {versions.length > 1 && (
                         <SelectLink
+                          useLink
                           pathname={props.location.pathname}
                           options={versions.map(({id, basePath}) => ({
                             text: `Version ${id}`,
