@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import styled from '@emotion/styled';
 import {colors} from 'gatsby-theme-apollo';
-import {navigate} from 'gatsby';
 import {transparentize} from 'polished';
 
 const iconSize = 24;
@@ -42,20 +41,25 @@ const Select = styled.select(props => {
 export default class SelectLink extends Component {
   static propTypes = {
     options: PropTypes.array.isRequired,
-    value: PropTypes.string.isRequired,
+    pathname: PropTypes.string.isRequired,
     large: PropTypes.bool
   };
 
-  onChange = event => navigate(event.target.value);
+  onChange = event => {
+    window.location.href = event.target.value;
+  };
 
   render() {
+    let value;
+    this.props.options.forEach(options => {
+      if (!this.props.pathname.indexOf(options.value)) {
+        value = options.value;
+      }
+    });
+
     return (
       <Container>
-        <Select
-          large={this.props.large}
-          value={this.props.value}
-          onChange={this.onChange}
-        >
+        <Select large={this.props.large} value={value} onChange={this.onChange}>
           {this.props.options.map(option => (
             <option key={option.value} value={option.value}>
               {option.text}

@@ -178,7 +178,7 @@ export default function Template(props) {
                       </SidebarContentHeaderText>
                       {versions.length > 1 && (
                         <SelectLink
-                          value={version.basePath}
+                          pathname={props.location.pathname}
                           options={versions.map(({id, basePath}) => ({
                             text: `Version ${id}`,
                             value: basePath
@@ -198,7 +198,7 @@ export default function Template(props) {
                       <SelectLink
                         large
                         options={navOptions}
-                        value={version.basePath}
+                        pathname={props.location.pathname}
                       />
                     </MobileHeader>
                     <DesktopHeader>
@@ -209,7 +209,6 @@ export default function Template(props) {
                             const isActive = matchRegex
                               ? matchRegex.test(props.location.pathname)
                               : !props.location.pathname.indexOf(value);
-                            console.log(value, props.location.pathname);
                             return (
                               <NavItem
                                 key={value}
