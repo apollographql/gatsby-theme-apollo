@@ -157,15 +157,12 @@ exports.createPages = async (
                 text = await git.show([`${tag}:${symlink}`]);
               }
 
-              const repoRoot = await git.revparse(['--show-toplevel']);
-              const docsRoot = root.replace(repoRoot.replace('\n', ''), '');
-
               const {content, data} = matter(text);
               return {
                 ...data,
                 content,
                 path: basePath + sidebarItem.replace(/^index$/, ''),
-                filePath: path.resolve(docsRoot, filePath)
+                filePath
               };
             })
           );
