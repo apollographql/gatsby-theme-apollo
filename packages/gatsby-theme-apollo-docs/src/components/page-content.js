@@ -9,6 +9,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/themes/prism.css';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment, createElement} from 'react';
+import autolinkHeadings from 'rehype-autolink-headings';
 import codeToHast from '../util/code-to-hast';
 import findHeadings from '../util/find-headings';
 import mapProps from 'recompose/mapProps';
@@ -18,7 +19,7 @@ import raw from 'rehype-raw';
 import react from 'rehype-react';
 import rehype from 'remark-rehype';
 import remark from 'remark';
-import slug from 'remark-slug';
+import slug from 'rehype-slug';
 import styled from '@emotion/styled';
 import {FaGithub} from 'react-icons/fa';
 import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
@@ -84,7 +85,14 @@ const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
     }
   },
   [['h2', 'h3', 'h4']]: {
-    ':not(:first-of-type)': {
+    'a[href]': {
+      color: 'inherit',
+      textDecoration: 'none',
+      ':hover': {
+        textDecoration: 'underline'
+      }
+    },
+    ':not(:first-child)': {
       marginTop: 56
     }
   }
@@ -119,14 +127,13 @@ const SidebarList = styled.ul({
 
 const SidebarListItem = styled.li({
   listStyle: 'none',
-  fontSize: '1rem'
-});
-
-const SidebarListItemLink = styled.a({
-  color: 'inherit',
-  textDecoration: 'none',
-  ':hover': {
-    opacity: colors.hoverOpacity
+  fontSize: '1rem',
+  a: {
+    color: 'inherit',
+    textDecoration: 'none',
+    ':hover': {
+      opacity: colors.hoverOpacity
+    }
   }
 });
 
@@ -200,7 +207,6 @@ export default class PageContent extends Component {
 
     // turn the markdown into JSX and add slug ids to the headings
     const {contents} = remark()
-      .use(slug)
       .use(rehype, {
         allowDangerousHTML: true,
         handlers: {
@@ -208,6 +214,10 @@ export default class PageContent extends Component {
         }
       })
       .use(raw)
+      .use(slug)
+      .use(autolinkHeadings, {
+        behavior: 'wrap'
+      })
       .use(react, {
         createElement,
         components: {
@@ -229,9 +239,7 @@ export default class PageContent extends Component {
               <SidebarList>
                 {headings.map(heading => (
                   <SidebarListItem key={heading.id}>
-                    <SidebarListItemLink href={`#${heading.id}`}>
-                      {heading.text}
-                    </SidebarListItemLink>
+                    {heading.text}
                   </SidebarListItem>
                 ))}
               </SidebarList>
