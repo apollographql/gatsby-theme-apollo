@@ -19,6 +19,7 @@ import raw from 'rehype-raw';
 import react from 'rehype-react';
 import rehype from 'remark-rehype';
 import remark from 'remark';
+import sanitize from 'rehype-sanitize';
 import slug from 'rehype-slug';
 import styled from '@emotion/styled';
 import {FaGithub} from 'react-icons/fa';
@@ -217,6 +218,16 @@ export default class PageContent extends Component {
       .use(slug)
       .use(autolinkHeadings, {
         behavior: 'wrap'
+      })
+      .use(sanitize, {
+        clobber: [],
+        attributes: {
+          '*': ['id'],
+          pre: ['className', 'data*'],
+          code: ['className', 'data*'],
+          img: ['src', 'alt'],
+          a: ['href', 'target', 'rel']
+        }
       })
       .use(react, {
         createElement,
