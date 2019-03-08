@@ -222,9 +222,9 @@ export default class PageContent extends Component {
       .use(sanitize, {
         clobber: [],
         attributes: {
-          '*': ['id'],
-          pre: ['className', 'data*'],
-          code: ['className', 'data*'],
+          '*': ['id', 'className'],
+          pre: ['data*'],
+          code: ['data*'],
           img: ['src', 'alt'],
           a: ['href', 'target', 'rel']
         }
