@@ -30,7 +30,7 @@ module.exports = {
         root: __dirname,
         subtitle: 'Apollo Server',
         description: 'A guide to using Apollo Server',
-        contentDir: 'source',
+        contentDir: 'docs/source',
         basePath: '/docs/apollo-server',
         githubRepo: 'apollographql/apollo-server',
         versions: ['1', '2'],
@@ -57,7 +57,7 @@ module.exports = {
 | root              | string | Must be `__dirname`                                                                   |
 | subtitle          | string | The title that gets rendered above the sidebar navigation                             |
 | description       | string | The site description for SEO and social (FB, Twitter) tags                            |
-| contentDir        | string | The directory, relative to the _gatsby-config.js_ file, where the markdown files live |
+| contentDir        | string | The directory, relative to the repo root, where the markdown files live               |
 | basePath          | string | The path, relative to _https://apollographql.com_, where the website will be hosted   |
 | githubRepo        | string | The owner and name of the content repository on GitHub                                |
 | versions          | array  | An array of strings representing the versions that the website should generate        |

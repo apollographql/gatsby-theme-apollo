@@ -87,7 +87,7 @@ exports.createPages = async (
       try {
         const semverMatch = match(version, semvers);
         const tag = semverMatch ? semverMap[semverMatch] : version;
-        const tree = await git.raw(['ls-tree', '-r', tag]);
+        const tree = await git.raw(['ls-tree', '-r', '--full-tree', tag]);
         if (!tree) {
           return null;
         }
@@ -139,7 +139,7 @@ exports.createPages = async (
                 throw new Error(`Doc not found: ${filePath}@${version}`);
               }
 
-              let text = await git.show([`${tag}:./${filePath}`]);
+              let text = await git.show([`${tag}:${filePath}`]);
               if (doc.mode === '120000') {
                 // if the file is a symlink we need to follow it
                 const directory = doc.path.slice(0, doc.path.lastIndexOf('/'));
