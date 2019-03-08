@@ -5,18 +5,25 @@ const semver = require('semver');
 const match = require('semver-match');
 const yaml = require('js-yaml');
 
+function treeToObjects(tree) {
+  return tree.split('\n').map(object => ({
+    mode: object.slice(0, object.indexOf(' ')),
+    path: object.slice(object.lastIndexOf('\t') + 1)
+  }));
+}
+
 const configPaths = ['gatsby-config.js', '_config.yml'];
-async function getSidebarCategories(objects, git, version) {
+async function getSidebarCategories(git, tag) {
   // check for config paths in our current set of objects
+  const tree = await git.raw(['ls-tree', '-r', tag]);
+  const objects = treeToObjects(tree);
   const filePaths = objects.map(object => object.path);
   const existingConfig = configPaths.filter(configPath =>
     filePaths.includes(configPath)
   )[0];
 
   if (existingConfig) {
-    const existingConfigText = await git.show([
-      `${version}:./${existingConfig}`
-    ]);
+    const existingConfigText = await git.show([`${tag}:./${existingConfig}`]);
 
     // parse the config if it's YAML
     if (/\.yml$/.test(existingConfig)) {
@@ -92,18 +99,13 @@ exports.createPages = async (
           return null;
         }
 
-        const objects = tree.split('\n').map(object => ({
-          mode: object.slice(0, object.indexOf(' ')),
-          path: object.slice(object.lastIndexOf('\t') + 1)
-        }));
-
         // use the provided `sidebarCategories` from Gatsby config for the
         // current (latest) version, or grab the appropriate config file for
         // the version at hand
         const isCurrentVersion = version === currentVersion;
         const versionSidebarCategories = isCurrentVersion
           ? sidebarCategories
-          : await getSidebarCategories(objects, git, tag);
+          : await getSidebarCategories(git, tag);
 
         if (!versionSidebarCategories) {
           throw new Error(
@@ -113,6 +115,7 @@ exports.createPages = async (
 
         // organize some arrays describing the repo contents that will be
         // useful later
+        const objects = treeToObjects(tree);
         const markdown = objects.filter(({path}) => /\.mdx?$/.test(path));
         const markdownPaths = markdown.map(object => object.path);
         const docs = markdown.filter(({path}) => !path.indexOf(contentDir));
