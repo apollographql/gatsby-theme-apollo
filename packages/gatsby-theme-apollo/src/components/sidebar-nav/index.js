@@ -33,11 +33,11 @@ export default class SidebarNav extends Component {
   };
 
   isPageSelected = ({path}) => {
-    const prefixedPath = withPrefix(path);
-    const {pathname} = this.props;
-    return (
-      prefixedPath === pathname || prefixedPath === pathname.replace(/\/$/, '')
-    );
+    const [prefixedPath, pathname] = [
+      withPrefix(path),
+      this.props.pathname
+    ].map(string => string.replace(/\/$/, ''));
+    return prefixedPath === pathname;
   };
 
   renderPages(pages, key) {
