@@ -157,17 +157,17 @@ function createImageComponent(owner, repo, tag, filePath) {
     if (!isUrl) {
       const fileDir = path.dirname(filePath);
       const imagePath = path.resolve(fileDir, src);
+      const urlPaths = path.join(
+        'raw.githubusercontent.com',
+        owner,
+        repo,
+        encodeURIComponent(tag),
+        imagePath
+      );
+
       return {
         alt,
-        src:
-          'https://' +
-          path.join(
-            'raw.githubusercontent.com',
-            owner,
-            repo,
-            encodeURIComponent(tag),
-            imagePath
-          )
+        src: `https://${urlPaths}?sanitize=true`
       };
     }
 
