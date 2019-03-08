@@ -84,7 +84,9 @@ const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
     }
   },
   [['h2', 'h3', 'h4']]: {
-    marginTop: 56
+    ':not(:first-child)': {
+      marginTop: 56
+    }
   }
 });
 
