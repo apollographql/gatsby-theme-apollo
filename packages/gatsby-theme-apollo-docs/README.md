@@ -11,6 +11,7 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 - [Creating pages](#creating-pages)
 - [Older versions](#older-versions)
 - [Deployment](#deployment)
+- [Migration](#migration)
 
 ## Installation
 
