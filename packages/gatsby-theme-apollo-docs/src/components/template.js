@@ -213,7 +213,7 @@ export default class Template extends Component {
                           {navOptions.map(
                             ({value, text, matchRegex, subpages}) => {
                               let isActive = matchRegex
-                                ? matchRegex.test(this.pathname)
+                                ? matchRegex.test(pathname)
                                 : this.isPathActive(value);
                               if (!isActive && subpages) {
                                 isActive = subpages.some(subpage =>
