@@ -1,7 +1,7 @@
 import NavItem from './nav-item';
 import PageContent from './page-content';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {Component} from 'react';
 import SEO from './seo';
 import Search from './search';
 import SelectLink from './select-link';
@@ -127,126 +127,138 @@ function generateNavOptions(config) {
 
 const navOptions = generateNavOptions(navConfig);
 
-export default function Template(props) {
-  const {
-    version,
-    versions,
-    title,
-    description,
-    content,
-    filePath
-  } = props.pageContext;
+export default class Template extends Component {
+  isPathActive(value) {
+    return !this.props.location.pathname.indexOf(value);
+  }
 
-  return (
-    <StaticQuery
-      query={graphql`
-        {
-          site {
-            siteMetadata {
-              title
-              description
-              subtitle
+  render() {
+    const {
+      version,
+      versions,
+      title,
+      description,
+      content,
+      filePath
+    } = this.props.pageContext;
+    const {pathname} = this.props.location;
+    return (
+      <StaticQuery
+        query={graphql`
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                subtitle
+              }
             }
           }
-        }
-      `}
-      render={data => {
-        const {
-          title: siteName,
-          description: siteDescription,
-          subtitle
-        } = data.site.siteMetadata;
-        return (
-          <Layout>
-            <SEO
-              title={title}
-              description={description || siteDescription}
-              siteName={siteName}
-            />
-            <ResponsiveSidebar>
-              {({sidebarRef, onWrapperClick, openSidebar, sidebarOpen}) => (
-                <FlexWrapper onClick={onWrapperClick}>
-                  <Sidebar
-                    responsive
-                    open={sidebarOpen}
-                    ref={sidebarRef}
-                    title={siteName}
-                  >
-                    <SidebarContentHeader>
-                      <SidebarContentHeaderText>
-                        {subtitle}
-                      </SidebarContentHeaderText>
-                      {versions.length > 1 && (
+        `}
+        render={data => {
+          const {
+            title: siteName,
+            description: siteDescription,
+            subtitle
+          } = data.site.siteMetadata;
+          return (
+            <Layout>
+              <SEO
+                title={title}
+                description={description || siteDescription}
+                siteName={siteName}
+              />
+              <ResponsiveSidebar>
+                {({sidebarRef, onWrapperClick, openSidebar, sidebarOpen}) => (
+                  <FlexWrapper onClick={onWrapperClick}>
+                    <Sidebar
+                      responsive
+                      open={sidebarOpen}
+                      ref={sidebarRef}
+                      title={siteName}
+                    >
+                      <SidebarContentHeader>
+                        <SidebarContentHeaderText>
+                          {subtitle}
+                        </SidebarContentHeaderText>
+                        {versions.length > 1 && (
+                          <SelectLink
+                            useLink
+                            pathname={pathname}
+                            options={versions.map(({id, basePath}) => ({
+                              text: `Version ${id}`,
+                              value: basePath
+                            }))}
+                          />
+                        )}
+                      </SidebarContentHeader>
+                      <SidebarNav
+                        contents={version.contents}
+                        pathname={pathname}
+                      />
+                    </Sidebar>
+                    <Main>
+                      <MobileHeader>
+                        <MenuButton onClick={openSidebar} />
+                        <StyledLogoTitle />
                         <SelectLink
-                          useLink
-                          pathname={props.location.pathname}
-                          options={versions.map(({id, basePath}) => ({
-                            text: `Version ${id}`,
-                            value: basePath
-                          }))}
+                          large
+                          options={navOptions}
+                          pathname={pathname}
                         />
-                      )}
-                    </SidebarContentHeader>
-                    <SidebarNav
-                      contents={version.contents}
-                      pathname={props.location.pathname}
-                    />
-                  </Sidebar>
-                  <Main>
-                    <MobileHeader>
-                      <MenuButton onClick={openSidebar} />
-                      <StyledLogoTitle />
-                      <SelectLink
-                        large
-                        options={navOptions}
-                        pathname={props.location.pathname}
-                      />
-                    </MobileHeader>
-                    <DesktopHeader>
-                      <Search />
-                      <Nav>
-                        {navOptions.map(
-                          ({value, text, matchRegex, subpages}) => {
-                            const isActive = matchRegex
-                              ? matchRegex.test(props.location.pathname)
-                              : !props.location.pathname.indexOf(value);
-                            return (
-                              <NavItem
-                                key={value}
-                                href={value}
-                                subpages={subpages}
-                                active={isActive}
-                              >
-                                {text}
-                              </NavItem>
-                            );
-                          }
-                        )}
-                      </Nav>
-                    </DesktopHeader>
-                    <ContentWrapper>
-                      <div>
-                        <MainHeading>{title}</MainHeading>
-                        {description && (
-                          <MainSubheading>{description}</MainSubheading>
-                        )}
-                      </div>
-                      <hr />
-                      <PageContent
-                        content={content}
-                        filePath={filePath}
-                        version={version}
-                      />
-                    </ContentWrapper>
-                  </Main>
-                </FlexWrapper>
-              )}
-            </ResponsiveSidebar>
-          </Layout>
-        );
-      }}
-    />
-  );
+                      </MobileHeader>
+                      <DesktopHeader>
+                        <Search />
+                        <Nav>
+                          {navOptions.map(
+                            ({value, text, matchRegex, subpages}) => {
+                              let isActive = matchRegex
+                                ? matchRegex.test(this.pathname)
+                                : this.isPathActive(value);
+                              if (!isActive && subpages) {
+                                isActive = subpages.some(subpage =>
+                                  this.isPathActive(subpage.value)
+                                );
+                              }
+
+                              return (
+                                <NavItem
+                                  key={value}
+                                  href={value}
+                                  subpages={subpages}
+                                  active={isActive}
+                                >
+                                  {text}
+                                </NavItem>
+                              );
+                            }
+                          )}
+                        </Nav>
+                      </DesktopHeader>
+                      <ContentWrapper>
+                        <div>
+                          <MainHeading>{title}</MainHeading>
+                          {description && (
+                            <MainSubheading>{description}</MainSubheading>
+                          )}
+                        </div>
+                        <hr />
+                        <PageContent
+                          content={content}
+                          filePath={filePath}
+                          version={version}
+                        />
+                      </ContentWrapper>
+                    </Main>
+                  </FlexWrapper>
+                )}
+              </ResponsiveSidebar>
+            </Layout>
+          );
+        }}
+      />
+    );
+  }
 }
 
 Template.propTypes = {
