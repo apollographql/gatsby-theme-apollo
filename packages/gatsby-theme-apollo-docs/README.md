@@ -144,7 +144,7 @@ Change the name of the _public_ directory (this typically contains the *_redirec
 mv public static
 ```
 
-You'll also need to edit the _docs_ directory's _.gitignore_ to reflect this change. This will typically look like this:
+You'll also need to edit the _docs_ directory's _.gitignore_ to reflect this change. You'll want to ignore the entire _public_ directory, as well as the _.cache_ directory. These changes will typically look like this:
 
 ```
   public/*
