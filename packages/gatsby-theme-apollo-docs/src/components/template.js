@@ -40,7 +40,8 @@ const SidebarContentHeaderText = styled.span({
 
 const Main = styled.main({
   flexGrow: 1,
-  overflowY: 'auto'
+  overflowY: 'auto',
+  WebkitOverflowScrolling: 'touch'
 });
 
 const MainHeading = styled.h1({
