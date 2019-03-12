@@ -68,7 +68,6 @@ const documentationButtons = {
 const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
   flexGrow: 1,
   maxWidth: '100ch',
-  marginRight: 56,
   overflow: 'hidden',
   '[id]::before': {
     // inspired by https://css-tricks.com/hash-tag-links-padding/
@@ -100,10 +99,12 @@ const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
 });
 
 const Sidebar = styled.aside({
+  boxSizing: 'content-box',
   flexShrink: 0,
   width: 200,
   margin: '-20px auto 0',
   paddingTop: 24,
+  paddingLeft: 56,
   position: 'sticky',
   top: headerHeight,
   [breakpoints.lg]: {
