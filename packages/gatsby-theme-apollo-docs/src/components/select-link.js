@@ -57,14 +57,27 @@ export default class SelectLink extends Component {
     window.location.href = event.target.value;
   };
 
+  isActive(path) {
+    return !this.props.pathname.indexOf(path);
+  }
+
   render() {
     let value;
-    this.props.options.forEach(options => {
-      const path = this.props.useLink
-        ? withPrefix(options.value)
-        : options.value;
-      if (!this.props.pathname.indexOf(path)) {
-        value = options.value;
+    this.props.options.forEach(option => {
+      const path = this.props.useLink ? withPrefix(option.value) : option.value;
+      const isActive = option.matchRegex
+        ? option.matchRegex.test(path)
+        : this.isActive(path);
+      if (isActive) {
+        value = option.value;
+      }
+
+      if (option.subpages) {
+        option.subpages.forEach(subpage => {
+          if (this.isActive(subpage.value)) {
+            value = option.value;
+          }
+        });
       }
     });
 
