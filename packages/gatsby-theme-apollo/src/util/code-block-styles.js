@@ -51,9 +51,10 @@ export default {
     fontSize: 16
   },
   '*:not(pre) > code': {
-    padding: '1px 4px',
-    color: colors.primary,
-    backgroundColor: colors.background
+    padding: '1px 5px',
+    borderRadius: 2,
+    color: colors.secondary,
+    backgroundColor: colors.background2
   },
   [[codeSelector, preSelector]]: {
     color: colors.text1
