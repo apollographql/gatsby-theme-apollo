@@ -165,6 +165,7 @@ function createImageComponent(owner, repo, tag, filePath) {
     if (!isUrl) {
       const fileDir = path.dirname(filePath);
       const imagePath = path.resolve(fileDir, src);
+      console.log(fileDir, src, imagePath);
       const urlPaths = path.join(
         'raw.githubusercontent.com',
         owner,
