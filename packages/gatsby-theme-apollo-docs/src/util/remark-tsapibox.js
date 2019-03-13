@@ -4,7 +4,10 @@ import handlebars from 'handlebars/dist/handlebars.min.js';
 import html from 'raw-loader!hexo-typescript-api-box/typescript-api-box.html'; // eslint-disable-line import/no-unresolved
 import map from 'lodash/map';
 import partition from 'lodash/partition';
+import showdown from 'showdown';
 import visit from 'unist-util-visit';
+
+const converter = new showdown.Converter();
 
 // this code is ported from hexo-typescript-api-box
 // https://github.com/apollographql/hexo-typescript-api-box/blob/master/typescript-api-box.js
@@ -13,6 +16,7 @@ function _link(id, name) {
   if (!name) {
     name = id;
   }
+
   return '<a href="#' + id + '">' + name + '</a>';
 }
 
@@ -338,8 +342,7 @@ handlebars.registerHelper('markdown', function(text) {
     });
   }
 
-  return text;
-  // return converter.makeHtml(text);
+  return converter.makeHtml(text);
 });
 
 // All h3s for now, will revisit
