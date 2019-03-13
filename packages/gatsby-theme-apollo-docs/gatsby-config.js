@@ -13,5 +13,6 @@ module.exports = ({subtitle, description, basePath, root}) => ({
     subtitle,
     description,
     basePath
-  }
+  },
+  plugins: ['gatsby-plugin-less']
 });
