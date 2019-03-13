@@ -22,6 +22,7 @@ import remark from 'remark';
 import sanitize from 'rehype-sanitize';
 import slug from 'rehype-slug';
 import styled from '@emotion/styled';
+import tsapibox from '../util/remark-tsapibox';
 import {FaGithub} from 'react-icons/fa';
 import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
 import {
@@ -209,6 +210,7 @@ export default class PageContent extends Component {
 
     // turn the markdown into JSX and add slug ids to the headings
     const {contents} = remark()
+      .use(tsapibox)
       .use(rehype, {
         allowDangerousHTML: true,
         handlers: {
