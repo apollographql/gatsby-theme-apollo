@@ -6,6 +6,9 @@ import map from 'lodash/map';
 import partition from 'lodash/partition';
 import visit from 'unist-util-visit';
 
+// this code is ported from hexo-typescript-api-box
+// https://github.com/apollographql/hexo-typescript-api-box/blob/master/typescript-api-box.js
+
 function _link(id, name) {
   if (!name) {
     name = id;
