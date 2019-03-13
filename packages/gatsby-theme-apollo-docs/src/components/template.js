@@ -140,7 +140,8 @@ export default class Template extends Component {
       title,
       description,
       content,
-      filePath
+      filePath,
+      docs
     } = this.props.pageContext;
     const {pathname} = this.props.location;
     return (
@@ -248,6 +249,7 @@ export default class Template extends Component {
                           content={content}
                           filePath={filePath}
                           version={version}
+                          docs={docs}
                         />
                       </ContentWrapper>
                     </Main>

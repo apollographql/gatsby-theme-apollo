@@ -1,4 +1,5 @@
 /* global Prism */
+import '../styles/api.less';
 import 'prismjs';
 import 'prismjs/components/prism-graphql';
 import 'prismjs/components/prism-jsx';
@@ -192,7 +193,8 @@ export default class PageContent extends Component {
   static propTypes = {
     content: PropTypes.string.isRequired,
     filePath: PropTypes.string.isRequired,
-    version: PropTypes.object.isRequired
+    version: PropTypes.object.isRequired,
+    docs: PropTypes.object
   };
 
   componentDidMount() {
@@ -210,7 +212,9 @@ export default class PageContent extends Component {
 
     // turn the markdown into JSX and add slug ids to the headings
     const {contents} = remark()
-      .use(tsapibox)
+      .use(tsapibox, {
+        docs: this.props.docs
+      })
       .use(rehype, {
         allowDangerousHTML: true,
         handlers: {

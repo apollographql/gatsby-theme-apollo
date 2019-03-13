@@ -42,7 +42,7 @@ const tagPattern = new RegExp(`^v?${semverSegment}$`);
 
 exports.createPages = async (
   {actions},
-  {contentDir, root, githubRepo, sidebarCategories, versions: versionKeys}
+  {contentDir, root, githubRepo, sidebarCategories, versions: versionKeys, docs}
 ) => {
   const git = simpleGit(root);
   const remotes = await git.getRemotes();
@@ -207,6 +207,7 @@ exports.createPages = async (
             description,
             version,
             filePath,
+            docs,
             // use `array` here instead of `versions` because we're filtering
             // before the loop starts
             versions: array
