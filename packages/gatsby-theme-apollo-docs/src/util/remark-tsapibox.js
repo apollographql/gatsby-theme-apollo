@@ -4,16 +4,19 @@ const pattern = /\{% tsapibox (\S+) %\}/;
 function attacher() {
   return transformer;
 
-  function transformer(tree, file) {
+  function transformer(tree) {
     visit(tree, 'text', visitor);
 
     function visitor(node) {
       const matches = node.value.match(RegExp(pattern, 'g'));
       if (matches) {
-        matches.forEach(match => {
-          const result = match.match(pattern)[1];
-          console.log(result, file);
-        });
+        node.type = 'html';
+        node.value = matches
+          .map(match => {
+            const result = match.match(pattern)[1];
+            return `<div>${result}</div>`;
+          })
+          .join('\n');
       }
     }
   }
