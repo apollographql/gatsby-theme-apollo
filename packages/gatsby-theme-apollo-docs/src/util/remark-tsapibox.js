@@ -51,6 +51,8 @@ export default function attacher({docs, typescriptApiBox}) {
     filepathPrefix = typescriptApiBox.filepathPrefix;
   }
 
+  return transformer;
+
   function templateArgs(rawData) {
     const parameters = _parameters(rawData);
     const split = partition(parameters, 'isOptions');
@@ -321,25 +323,25 @@ export default function attacher({docs, typescriptApiBox}) {
     return name.substring(0, 2) !== '__';
   }
 
-  return function transformer(tree) {
+  function transformer(tree) {
     visit(tree, 'text', visitor);
+  }
 
-    function visitor(node) {
-      const matches = node.value.match(RegExp(pattern, 'g'));
-      if (matches) {
-        node.type = 'html';
-        node.value = matches
-          .map(match => {
-            const result = match.match(pattern)[1];
-            const rawData = dataByKey[result];
-            const args = templateArgs(rawData);
-            const html = template(args);
-            return html;
-          })
-          .join('\n');
-      }
+  function visitor(node) {
+    const matches = node.value.match(RegExp(pattern, 'g'));
+    if (matches) {
+      node.type = 'html';
+      node.value = matches
+        .map(match => {
+          const result = match.match(pattern)[1];
+          const rawData = dataByKey[result];
+          const args = templateArgs(rawData);
+          const html = template(args);
+          return html;
+        })
+        .join('\n');
     }
-  };
+  }
 }
 
 handlebars.registerHelper('markdown', function(text) {
