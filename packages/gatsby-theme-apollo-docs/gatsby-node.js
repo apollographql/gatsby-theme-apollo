@@ -42,7 +42,15 @@ const tagPattern = new RegExp(`^v?${semverSegment}$`);
 
 exports.createPages = async (
   {actions},
-  {contentDir, root, githubRepo, sidebarCategories, versions: versionKeys, docs}
+  {
+    contentDir,
+    root,
+    githubRepo,
+    sidebarCategories,
+    versions: versionKeys,
+    docs,
+    typescriptApiBox
+  }
 ) => {
   const git = simpleGit(root);
   const remotes = await git.getRemotes();
@@ -208,6 +216,7 @@ exports.createPages = async (
             version,
             filePath,
             docs,
+            typescriptApiBox,
             // use `array` here instead of `versions` because we're filtering
             // before the loop starts
             versions: array

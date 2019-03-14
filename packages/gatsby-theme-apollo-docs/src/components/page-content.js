@@ -82,8 +82,9 @@ const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
   },
   'a[href]': {
     color: colors.primary,
+    textDecoration: 'none',
     ':hover': {
-      textDecoration: 'none'
+      textDecoration: 'underline'
     }
   },
   [['h2', 'h3', 'h4']]: {

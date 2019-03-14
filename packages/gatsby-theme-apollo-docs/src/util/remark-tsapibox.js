@@ -9,6 +9,7 @@ import visit from 'unist-util-visit';
 
 const converter = new showdown.Converter();
 
+// TODO: replace this with a better long-term solution maybe using TSDOC
 // this code is ported from hexo-typescript-api-box
 // https://github.com/apollographql/hexo-typescript-api-box/blob/master/typescript-api-box.js
 
@@ -22,7 +23,7 @@ function _link(id, name) {
 
 const template = handlebars.compile(html);
 const pattern = /\{% tsapibox (\S+) %\}/;
-export default function attacher({docs}) {
+export default function attacher({docs, typescriptApiBox}) {
   const dataByKey = {};
   function traverse(tree, parentName) {
     let name = tree.name;
@@ -43,6 +44,11 @@ export default function attacher({docs}) {
 
   if (docs) {
     traverse(docs);
+  }
+
+  let filepathPrefix = '';
+  if (typescriptApiBox) {
+    filepathPrefix = typescriptApiBox.filepathPrefix;
   }
 
   function templateArgs(rawData) {
@@ -92,7 +98,7 @@ export default function attacher({docs}) {
       summary: _summary(rawData),
       groups,
       repo: 'apollostack/apollo-client',
-      filepath: rawData.sources[0].fileName,
+      filepath: filepathPrefix + rawData.sources[0].fileName,
       lineno: rawData.sources[0].line
     };
   }

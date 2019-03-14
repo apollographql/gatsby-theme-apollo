@@ -48,7 +48,7 @@ const codeHighlighting = {
 export default {
   [['pre', 'code']]: {
     fontFamily: "'Source Code Pro', monospace",
-    fontSize: 16
+    fontSize: 'inherit'
   },
   '*:not(pre) > code': {
     padding: '1px 5px',
