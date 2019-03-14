@@ -25,8 +25,8 @@ async function getSidebarCategories(git, tag) {
   if (existingConfig) {
     const existingConfigText = await git.show([`${tag}:./${existingConfig}`]);
 
-    // parse the config if it's YAML
     if (/\.yml$/.test(existingConfig)) {
+      // parse the config if it's YAML
       const yamlConfig = yaml.safeLoad(existingConfigText);
       return yamlConfig.sidebar_categories;
     }
