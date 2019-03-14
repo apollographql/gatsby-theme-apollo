@@ -1,9 +1,6 @@
 import colors from './colors';
 import {transparentize} from 'polished';
 
-const codeSelector = 'code[class*="language-"]';
-const preSelector = 'pre[class*="language-"]';
-
 const lines = {
   '.line-numbers .line-numbers-rows': {
     border: 0
@@ -45,16 +42,27 @@ const codeHighlighting = {
   }
 };
 
+const codeSelector = 'code[class*="language-"]';
+const preSelector = 'pre[class*="language-"]';
+
 export default {
   [['pre', 'code']]: {
     fontFamily: "'Source Code Pro', monospace",
-    fontSize: 'inherit'
+    fontSize: '90%'
   },
   '*:not(pre) > code': {
+    display: 'inline-block',
+    verticalAlign: 'baseline',
     padding: '1px 5px',
     borderRadius: 2,
     color: colors.secondary,
     backgroundColor: colors.background2
+  },
+  'a > code': {
+    textDecoration: 'underline',
+    ':hover': {
+      textDecoration: 'none'
+    }
   },
   [[codeSelector, preSelector]]: {
     color: colors.text1
