@@ -48,7 +48,7 @@ const preSelector = 'pre[class*="language-"]';
 export default {
   [['pre', 'code']]: {
     fontFamily: "'Source Code Pro', monospace",
-    fontSize: '90%'
+    fontSize: '16px'
   },
   '*:not(pre) > code': {
     display: 'inline-block',
