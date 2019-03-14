@@ -20,6 +20,7 @@ import raw from 'rehype-raw';
 import react from 'rehype-react';
 import rehype from 'remark-rehype';
 import remark from 'remark';
+import removeBackticks from '../util/rehype-remove-backticks';
 import sanitize from 'rehype-sanitize';
 import slug from 'rehype-slug';
 import styled from '@emotion/styled';
@@ -237,6 +238,7 @@ export default class PageContent extends Component {
           a: ['href', 'target', 'rel']
         }
       })
+      .use(removeBackticks)
       .use(react, {
         createElement,
         components: {
