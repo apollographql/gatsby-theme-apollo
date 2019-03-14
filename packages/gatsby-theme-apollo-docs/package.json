@@ -1,12 +1,12 @@
 {
   "name": "gatsby-theme-apollo-docs",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "main": "index.js",
   "dependencies": {
     "detab": "^2.0.1",
     "gatsby": "^2.0.91",
     "gatsby-plugin-less": "^2.0.12",
-    "gatsby-theme-apollo": "^0.1.4",
+    "gatsby-theme-apollo": "^0.1.5",
     "gray-matter": "^4.0.1",
     "handlebars": "^4.1.0",
     "hexo-typescript-api-box": "^0.9.2",
