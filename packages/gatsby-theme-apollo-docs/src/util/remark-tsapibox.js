@@ -41,7 +41,9 @@ export default function attacher({docs}) {
     }
   }
 
-  traverse(docs);
+  if (docs) {
+    traverse(docs);
+  }
 
   function templateArgs(rawData) {
     const parameters = _parameters(rawData);
