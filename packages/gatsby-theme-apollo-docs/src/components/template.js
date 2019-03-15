@@ -151,9 +151,13 @@ export default class Template extends Component {
     } = this.props.pageContext;
     const {pathname} = this.props.location;
     const pages = version.contents.flatMap(content => content.pages);
-    const pageIndex = pages.findIndex(
-      page => withPrefix(page.path) === pathname.replace(/\/$/, '')
-    );
+    const pageIndex = pages.findIndex(page => {
+      const prefixedPath = withPrefix(page.path);
+      return (
+        prefixedPath === pathname ||
+        prefixedPath === pathname.replace(/\/$/, '')
+      );
+    });
     const prevPage = pages[pageIndex - 1];
     const nextPage = pages[pageIndex + 1];
     return (
