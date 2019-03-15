@@ -141,7 +141,8 @@ export default class Template extends Component {
       description,
       content,
       filePath,
-      docs
+      docs,
+      typescriptApiBox
     } = this.props.pageContext;
     const {pathname} = this.props.location;
     return (
@@ -250,6 +251,7 @@ export default class Template extends Component {
                           filePath={filePath}
                           version={version}
                           docs={docs}
+                          typescriptApiBox={typescriptApiBox}
                         />
                       </ContentWrapper>
                     </Main>

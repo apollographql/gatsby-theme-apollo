@@ -196,7 +196,8 @@ export default class PageContent extends Component {
     content: PropTypes.string.isRequired,
     filePath: PropTypes.string.isRequired,
     version: PropTypes.object.isRequired,
-    docs: PropTypes.object
+    docs: PropTypes.object,
+    typescriptApiBox: PropTypes.object
   };
 
   componentDidMount() {
@@ -215,7 +216,8 @@ export default class PageContent extends Component {
     // turn the markdown into JSX and add slug ids to the headings
     const {contents} = remark()
       .use(tsapibox, {
-        docs: this.props.docs
+        docs: this.props.docs,
+        typescriptApiBox: this.props.typescriptApiBox
       })
       .use(rehype, {
         allowDangerousHTML: true,
