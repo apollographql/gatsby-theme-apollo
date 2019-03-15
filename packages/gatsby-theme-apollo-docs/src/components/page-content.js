@@ -3,6 +3,8 @@ import '../styles/api.less';
 import 'prismjs';
 import 'prismjs/components/prism-graphql';
 import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-scala';
+import 'prismjs/components/prism-typescript';
 import 'prismjs/plugins/line-highlight/prism-line-highlight';
 import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
