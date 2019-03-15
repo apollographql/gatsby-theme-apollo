@@ -10,6 +10,7 @@ export {default as Layout} from './src/components/layout';
 export {default as Logo} from './src/components/logo';
 export {default as LogoTitle} from './src/components/logo-title';
 export {default as MenuButton} from './src/components/menu-button';
+export {default as PageNav} from './src/components/page-nav';
 export {
   default as ResponsiveSidebar
 } from './src/components/responsive-sidebar';

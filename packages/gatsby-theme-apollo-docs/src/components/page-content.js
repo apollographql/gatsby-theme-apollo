@@ -40,8 +40,7 @@ import {
 
 const Container = styled.div({
   display: 'flex',
-  alignItems: 'flex-start',
-  maxWidth: 1300
+  alignItems: 'flex-start'
 });
 
 // TODO: replace with components in MDX
@@ -110,7 +109,8 @@ const Sidebar = styled.aside({
   boxSizing: 'content-box',
   flexShrink: 0,
   width: 200,
-  margin: '-20px auto 0',
+  marginTop: -20,
+  marginLeft: 'auto',
   paddingTop: 24,
   paddingLeft: 56,
   position: 'sticky',

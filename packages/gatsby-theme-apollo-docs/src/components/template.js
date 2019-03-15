@@ -14,13 +14,14 @@ import {
   LogoTitle,
   MenuButton,
   MobileHeader,
+  PageNav,
   ResponsiveSidebar,
   Sidebar,
   SidebarNav,
   breakpoints,
   colors
 } from 'gatsby-theme-apollo';
-import {StaticQuery, graphql} from 'gatsby';
+import {StaticQuery, graphql, withPrefix} from 'gatsby';
 
 const StyledLogoTitle = styled(LogoTitle)({
   marginRight: 'auto'
@@ -62,6 +63,10 @@ const Nav = styled.nav({
   [breakpoints.sm]: {
     display: 'none'
   }
+});
+
+const InnerContentWrapper = styled.div({
+  maxWidth: 1200
 });
 
 const navConfig = {
@@ -145,6 +150,12 @@ export default class Template extends Component {
       typescriptApiBox
     } = this.props.pageContext;
     const {pathname} = this.props.location;
+    const pages = version.contents.flatMap(content => content.pages);
+    const pageIndex = pages.findIndex(
+      page => withPrefix(page.path) === pathname.replace(/\/$/, '')
+    );
+    const prevPage = pages[pageIndex - 1];
+    const nextPage = pages[pageIndex + 1];
     return (
       <StaticQuery
         query={graphql`
@@ -246,13 +257,16 @@ export default class Template extends Component {
                           )}
                         </div>
                         <hr />
-                        <PageContent
-                          content={content}
-                          filePath={filePath}
-                          version={version}
-                          docs={docs}
-                          typescriptApiBox={typescriptApiBox}
-                        />
+                        <InnerContentWrapper>
+                          <PageContent
+                            content={content}
+                            filePath={filePath}
+                            version={version}
+                            docs={docs}
+                            typescriptApiBox={typescriptApiBox}
+                          />
+                          <PageNav nextPage={nextPage} prevPage={prevPage} />
+                        </InnerContentWrapper>
                       </ContentWrapper>
                     </Main>
                   </FlexWrapper>
