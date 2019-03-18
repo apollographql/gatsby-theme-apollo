@@ -151,7 +151,9 @@ export default class Template extends Component {
       typescriptApiBox
     } = this.props.pageContext;
     const {pathname} = this.props.location;
-    const pages = flatMap(version.contents, 'pages');
+    const pages = flatMap(version.contents, 'pages').filter(
+      page => !page.anchor
+    );
     const pageIndex = pages.findIndex(page => {
       const prefixedPath = withPrefix(page.path);
       return (
