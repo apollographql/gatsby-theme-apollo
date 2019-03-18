@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import SEO from './seo';
 import Search from './search';
 import SelectLink from './select-link';
+import flatMap from 'lodash/flatMap';
 import styled from '@emotion/styled';
 import {
   ContentWrapper,
@@ -150,7 +151,7 @@ export default class Template extends Component {
       typescriptApiBox
     } = this.props.pageContext;
     const {pathname} = this.props.location;
-    const pages = version.contents.flatMap(content => content.pages);
+    const pages = flatMap(version.contents, 'pages');
     const pageIndex = pages.findIndex(page => {
       const prefixedPath = withPrefix(page.path);
       return (
