@@ -135,6 +135,20 @@ function generateNavOptions(config) {
 const navOptions = generateNavOptions(navConfig);
 
 export default class Template extends Component {
+  static propTypes = {
+    pageContext: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
+  };
+
+  componentDidMount() {
+    const hashElement = document.getElementById(
+      this.props.location.hash.slice(1)
+    );
+    if (hashElement) {
+      hashElement.scrollIntoView();
+    }
+  }
+
   isPathActive(value) {
     return !this.props.location.pathname.indexOf(value);
   }
@@ -286,8 +300,3 @@ export default class Template extends Component {
     );
   }
 }
-
-Template.propTypes = {
-  pageContext: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
-};
