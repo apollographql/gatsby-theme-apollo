@@ -135,9 +135,10 @@ const SidebarList = styled.ul({
   marginBottom: 48
 });
 
-const SidebarListItem = styled.li({
+const SidebarListItem = styled.li(props => ({
   listStyle: 'none',
   fontSize: '1rem',
+  color: props.active && colors.primary,
   a: {
     color: 'inherit',
     textDecoration: 'none',
@@ -145,7 +146,7 @@ const SidebarListItem = styled.li({
       opacity: colors.hoverOpacity
     }
   }
-});
+}));
 
 const SidebarLink = nest(
   styled.h5({
@@ -201,7 +202,8 @@ export default class PageContent extends Component {
     filePath: PropTypes.string.isRequired,
     version: PropTypes.object.isRequired,
     docs: PropTypes.object,
-    typescriptApiBox: PropTypes.object
+    typescriptApiBox: PropTypes.object,
+    activeHeading: PropTypes.string
   };
 
   componentDidMount() {
@@ -258,14 +260,17 @@ export default class PageContent extends Component {
 
     return (
       <Container>
-        <InnerContainer>{contents}</InnerContainer>
+        <InnerContainer id="contents">{contents}</InnerContainer>
         <Sidebar>
           {headings.length > 0 && (
             <Fragment>
               <SidebarHeading>In this section</SidebarHeading>
               <SidebarList>
                 {headings.map(heading => (
-                  <SidebarListItem key={heading.id}>
+                  <SidebarListItem
+                    key={heading.id}
+                    active={heading.id === this.props.activeHeading}
+                  >
                     {heading.text}
                   </SidebarListItem>
                 ))}

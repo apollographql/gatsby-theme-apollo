@@ -140,6 +140,10 @@ export default class Template extends Component {
     location: PropTypes.object.isRequired
   };
 
+  state = {
+    activeHeading: null
+  };
+
   componentDidMount() {
     const hashElement = document.getElementById(
       this.props.location.hash.slice(1)
@@ -148,6 +152,21 @@ export default class Template extends Component {
       hashElement.scrollIntoView();
     }
   }
+
+  onScroll = event => {
+    const {scrollTop} = event.target;
+    const contents = event.target.querySelector('#contents');
+    const headings = contents.querySelectorAll('h2, h3, h4, h5, h6');
+    for (let i = 0; i < headings.length; i++) {
+      const heading = headings[i];
+      if (scrollTop <= heading.offsetTop) {
+        this.setState({
+          activeHeading: heading.id
+        });
+        break;
+      }
+    }
+  };
 
   isPathActive(value) {
     return !this.props.location.pathname.indexOf(value);
@@ -232,7 +251,7 @@ export default class Template extends Component {
                         pathname={pathname}
                       />
                     </Sidebar>
-                    <Main>
+                    <Main onScroll={this.onScroll}>
                       <MobileHeader>
                         <MenuButton onClick={openSidebar} />
                         <StyledLogoTitle />
@@ -285,6 +304,7 @@ export default class Template extends Component {
                             version={version}
                             docs={docs}
                             typescriptApiBox={typescriptApiBox}
+                            activeHeading={this.state.activeHeading}
                           />
                           <PageNav nextPage={nextPage} prevPage={prevPage} />
                         </InnerContentWrapper>
