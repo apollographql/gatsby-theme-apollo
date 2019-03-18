@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo-docs",
-  "version": "0.2.26",
+  "version": "0.2.27",
   "main": "index.js",
   "dependencies": {
     "detab": "^2.0.1",
