@@ -18,6 +18,7 @@
     "react-helmet": "^5.2.0",
     "react-icons": "^3.3.0",
     "react-typography": "^0.16.13",
+    "store": "^2.0.12",
     "typography": "^0.16.17"
   }
 }

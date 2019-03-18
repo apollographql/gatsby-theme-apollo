@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import colors from '../../util/colors';
+import store from 'store';
 import styled from '@emotion/styled';
-import {Link} from 'gatsby';
+import {Link, withPrefix} from 'gatsby';
 import {MdExpandLess, MdExpandMore} from 'react-icons/md';
 import {css} from '@emotion/core';
 
@@ -57,11 +58,22 @@ const StyledLink = styled(Link)(headingStyles, {
   textDecoration: 'none'
 });
 
+const SIDEBAR_STATE_KEY = 'sidebar';
+
 export default class Category extends Component {
   constructor(props) {
     super(props);
+
+    const sidebarState = store.get(SIDEBAR_STATE_KEY) || {};
+    if (props.active) {
+      store.set(SIDEBAR_STATE_KEY, {
+        ...sidebarState,
+        [this.id]: true
+      });
+    }
+
     this.state = {
-      expanded: Boolean(props.alwaysExpanded)
+      expanded: Boolean(sidebarState[this.id] || props.alwaysExpanded)
     };
   }
 
@@ -73,10 +85,22 @@ export default class Category extends Component {
     alwaysExpanded: PropTypes.bool
   };
 
-  toggle = () =>
-    this.setState(prevState => ({
-      expanded: !prevState.expanded
-    }));
+  get id() {
+    return withPrefix(this.props.title);
+  }
+
+  toggle = () => {
+    this.setState(prevState => {
+      const expanded = !prevState.expanded;
+      const sidebarState = store.get(SIDEBAR_STATE_KEY) || {};
+      store.set(SIDEBAR_STATE_KEY, {
+        ...sidebarState,
+        [this.id]: expanded
+      });
+
+      return {expanded};
+    });
+  };
 
   renderContents() {
     const Icon = this.state.expanded ? MdExpandLess : MdExpandMore;
