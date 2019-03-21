@@ -17,6 +17,7 @@ import React, {Component, Fragment, createElement} from 'react';
 import autolinkHeadings from 'rehype-autolink-headings';
 import codeToHast from '../util/code-to-hast';
 import findHeadings from '../util/find-headings';
+import flatMap from 'lodash/flatMap';
 import mapProps from 'recompose/mapProps';
 import nest from 'recompose/nest';
 import path from 'path';
@@ -30,17 +31,20 @@ import slug from 'rehype-slug';
 import styled from '@emotion/styled';
 import tsapibox from '../util/remark-tsapibox';
 import {FaGithub} from 'react-icons/fa';
-import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
 import {
+  PageNav,
   breakpoints,
   codeBlockStyles,
   colors,
   headerHeight
 } from 'gatsby-theme-apollo';
+import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
+import {withPrefix} from 'gatsby';
 
 const Container = styled.div({
   display: 'flex',
-  alignItems: 'flex-start'
+  alignItems: 'flex-start',
+  maxWidth: 1200
 });
 
 // TODO: replace with components in MDX
@@ -74,7 +78,10 @@ const documentationButtons = {
 const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
   flexGrow: 1,
   maxWidth: '100ch',
-  overflow: 'hidden',
+  overflow: 'hidden'
+});
+
+const Contents = styled.div({
   '[id]::before': {
     // inspired by https://css-tricks.com/hash-tag-links-padding/
     content: "''",
@@ -105,15 +112,16 @@ const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
   }
 });
 
+export const sidebarWidth = 260;
 const Sidebar = styled.aside({
   display: 'flex',
   flexDirection: 'column',
   flexShrink: 0,
-  width: 260,
-  height: `calc(100vh - ${headerHeight}px)`,
-  marginTop: -20,
+  width: sidebarWidth,
+  maxHeight: `calc(100vh - ${headerHeight}px)`,
+  marginTop: -36,
   marginLeft: 'auto',
-  padding: '24px 56px',
+  padding: '40px 56px',
   paddingRight: 0,
   position: 'sticky',
   top: headerHeight,
@@ -208,6 +216,7 @@ export default class PageContent extends Component {
     content: PropTypes.string.isRequired,
     filePath: PropTypes.string.isRequired,
     version: PropTypes.object.isRequired,
+    pathname: PropTypes.string.isRequired,
     docs: PropTypes.object,
     typescriptApiBox: PropTypes.object,
     activeHeading: PropTypes.string
@@ -265,9 +274,26 @@ export default class PageContent extends Component {
     // find all of the headings within a page to generate the contents menu
     const headings = findHeadings(contents);
 
+    const pages = flatMap(this.props.version.contents, 'pages').filter(
+      page => !page.anchor
+    );
+    const pageIndex = pages.findIndex(page => {
+      const prefixedPath = withPrefix(page.path);
+      return (
+        prefixedPath === this.props.pathname ||
+        prefixedPath === this.props.pathname.replace(/\/$/, '')
+      );
+    });
+
     return (
       <Container>
-        <InnerContainer id="contents">{contents}</InnerContainer>
+        <InnerContainer>
+          <Contents id="contents">{contents}</Contents>
+          <PageNav
+            prevPage={pages[pageIndex - 1]}
+            nextPage={pages[pageIndex + 1]}
+          />
+        </InnerContainer>
         <Sidebar>
           {headings.length > 0 && (
             <Fragment>

@@ -5,7 +5,6 @@ import React, {Component, createRef} from 'react';
 import SEO from './seo';
 import Search from './search';
 import SelectLink from './select-link';
-import flatMap from 'lodash/flatMap';
 import styled from '@emotion/styled';
 import {
   ContentWrapper,
@@ -15,14 +14,13 @@ import {
   LogoTitle,
   MenuButton,
   MobileHeader,
-  PageNav,
   ResponsiveSidebar,
   Sidebar,
   SidebarNav,
   breakpoints,
   colors
 } from 'gatsby-theme-apollo';
-import {StaticQuery, graphql, withPrefix} from 'gatsby';
+import {StaticQuery, graphql} from 'gatsby';
 
 const StyledLogoTitle = styled(LogoTitle)({
   marginRight: 'auto'
@@ -66,8 +64,8 @@ const Nav = styled.nav({
   }
 });
 
-const InnerContentWrapper = styled.div({
-  maxWidth: 1200
+const StyledContentWrapper = styled(ContentWrapper)({
+  paddingBottom: 0
 });
 
 const navConfig = {
@@ -200,18 +198,6 @@ export default class Template extends Component {
       typescriptApiBox
     } = this.props.pageContext;
     const {pathname} = this.props.location;
-    const pages = flatMap(version.contents, 'pages').filter(
-      page => !page.anchor
-    );
-    const pageIndex = pages.findIndex(page => {
-      const prefixedPath = withPrefix(page.path);
-      return (
-        prefixedPath === pathname ||
-        prefixedPath === pathname.replace(/\/$/, '')
-      );
-    });
-    const prevPage = pages[pageIndex - 1];
-    const nextPage = pages[pageIndex + 1];
     return (
       <StaticQuery
         query={graphql`
@@ -305,7 +291,7 @@ export default class Template extends Component {
                           )}
                         </Nav>
                       </DesktopHeader>
-                      <ContentWrapper>
+                      <StyledContentWrapper>
                         <div>
                           <MainHeading>{title}</MainHeading>
                           {description && (
@@ -313,18 +299,16 @@ export default class Template extends Component {
                           )}
                         </div>
                         <hr />
-                        <InnerContentWrapper>
-                          <PageContent
-                            content={content}
-                            filePath={filePath}
-                            version={version}
-                            docs={docs}
-                            typescriptApiBox={typescriptApiBox}
-                            activeHeading={this.state.activeHeading}
-                          />
-                          <PageNav nextPage={nextPage} prevPage={prevPage} />
-                        </InnerContentWrapper>
-                      </ContentWrapper>
+                        <PageContent
+                          content={content}
+                          filePath={filePath}
+                          version={version}
+                          docs={docs}
+                          pathname={pathname}
+                          typescriptApiBox={typescriptApiBox}
+                          activeHeading={this.state.activeHeading}
+                        />
+                      </StyledContentWrapper>
                     </Main>
                   </FlexWrapper>
                 )}
