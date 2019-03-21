@@ -177,8 +177,8 @@ function createImageComponent(owner, repo, tag, filePath) {
     const isUrl = /^(https?:)?\/\//.test(src);
     if (!isUrl) {
       const fileDir = path.dirname(filePath);
-      const urlPaths = path.join(
-        'raw.githubusercontent.com',
+      let url = path.join(
+        'https://raw.githubusercontent.com',
         owner,
         repo,
         encodeURIComponent(tag),
@@ -186,9 +186,13 @@ function createImageComponent(owner, repo, tag, filePath) {
         src
       );
 
+      if (/\.svg$/.test(url)) {
+        url += '?sanitize=true';
+      }
+
       return {
         alt,
-        src: `https://${urlPaths}?sanitize=true`
+        src: url
       };
     }
 
