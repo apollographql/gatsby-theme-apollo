@@ -106,13 +106,15 @@ const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
 });
 
 const Sidebar = styled.aside({
-  boxSizing: 'content-box',
+  display: 'flex',
+  flexDirection: 'column',
   flexShrink: 0,
-  width: 200,
+  width: 260,
+  height: `calc(100vh - ${headerHeight}px)`,
   marginTop: -20,
   marginLeft: 'auto',
-  paddingTop: 24,
-  paddingLeft: 56,
+  padding: '24px 56px',
+  paddingRight: 0,
   position: 'sticky',
   top: headerHeight,
   [breakpoints.lg]: {
@@ -132,7 +134,8 @@ const SidebarHeading = styled.h4({
 
 const SidebarList = styled.ul({
   marginLeft: 0,
-  marginBottom: 48
+  marginBottom: 48,
+  overflow: 'auto'
 });
 
 const SidebarListItem = styled.li(props => ({
