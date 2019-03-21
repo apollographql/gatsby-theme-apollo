@@ -1,7 +1,7 @@
 import NavItem from './nav-item';
 import PageContent from './page-content';
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import SEO from './seo';
 import Search from './search';
 import SelectLink from './select-link';
@@ -140,8 +140,11 @@ export default class Template extends Component {
     location: PropTypes.object.isRequired
   };
 
+  main = createRef();
+
   state = {
-    activeHeading: null
+    activeHeading: null,
+    headingOffsets: []
   };
 
   componentDidMount() {
@@ -151,15 +154,28 @@ export default class Template extends Component {
     if (hashElement) {
       hashElement.scrollIntoView();
     }
+
+    window.addEventListener('resize', this.onResize);
+    this.onResize();
   }
 
+  onResize = () => {
+    const contents = this.main.current.querySelector('#contents');
+    const headings = contents.querySelectorAll('h2, h3');
+    this.setState({
+      headingOffsets: Array.from(headings).map(heading => ({
+        id: heading.id,
+        offset: heading.offsetTop
+      }))
+    });
+  };
+
   onScroll = event => {
-    const {scrollTop} = event.target;
-    const contents = event.target.querySelector('#contents');
-    const headings = contents.querySelectorAll('h2, h3, h4, h5, h6');
-    for (let i = 0; i < headings.length; i++) {
-      const heading = headings[i];
-      if (scrollTop <= heading.offsetTop) {
+    const {scrollTop} = event.currentTarget;
+    const {headingOffsets} = this.state;
+    for (let i = 0; i < headingOffsets.length; i++) {
+      const heading = headingOffsets[i];
+      if (scrollTop <= heading.offset) {
         this.setState({
           activeHeading: heading.id
         });
@@ -251,7 +267,7 @@ export default class Template extends Component {
                         pathname={pathname}
                       />
                     </Sidebar>
-                    <Main onScroll={this.onScroll}>
+                    <Main ref={this.main} onScroll={this.onScroll}>
                       <MobileHeader>
                         <MenuButton onClick={openSidebar} />
                         <StyledLogoTitle />
