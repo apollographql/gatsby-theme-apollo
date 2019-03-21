@@ -3,7 +3,8 @@ import {transparentize} from 'polished';
 
 const lines = {
   '.line-numbers .line-numbers-rows': {
-    border: 0
+    border: 0,
+    top: -2
   },
   '.line-numbers-rows > span:before': {
     color: colors.text4
