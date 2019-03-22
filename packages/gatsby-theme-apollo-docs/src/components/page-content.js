@@ -185,8 +185,8 @@ function createImageComponent(owner, repo, tag, filePath) {
     const isUrl = /^(https?:)?\/\//.test(src);
     if (!isUrl) {
       const fileDir = path.dirname(filePath);
-      let url = path.join(
-        'https://raw.githubusercontent.com',
+      let paths = path.join(
+        'raw.githubusercontent.com',
         owner,
         repo,
         encodeURIComponent(tag),
@@ -194,13 +194,13 @@ function createImageComponent(owner, repo, tag, filePath) {
         src
       );
 
-      if (/\.svg$/.test(url)) {
-        url += '?sanitize=true';
+      if (/\.svg$/.test(paths)) {
+        paths += '?sanitize=true';
       }
 
       return {
         alt,
-        src: url
+        src: 'https://' + paths
       };
     }
 
@@ -311,14 +311,17 @@ export default class PageContent extends Component {
             </Fragment>
           )}
           <SidebarLink
-            href={path.join(
-              'https://github.com',
-              owner,
-              repo,
-              'tree',
-              encodeURIComponent(tag),
-              this.props.filePath
-            )}
+            href={
+              'https://' +
+              path.join(
+                'github.com',
+                owner,
+                repo,
+                'tree',
+                encodeURIComponent(tag),
+                this.props.filePath
+              )
+            }
           >
             <FaGithub /> Edit on GitHub
           </SidebarLink>
