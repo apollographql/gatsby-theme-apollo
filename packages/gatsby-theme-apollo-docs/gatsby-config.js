@@ -14,5 +14,11 @@ module.exports = ({subtitle, description, basePath, root}) => ({
     description,
     basePath
   },
-  plugins: ['gatsby-plugin-less']
+  plugins: [
+    'gatsby-plugin-less',
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      trackingId: 'UA-74643563-13'
+    }
+  ]
 });
