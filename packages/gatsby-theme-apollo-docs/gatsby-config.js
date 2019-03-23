@@ -18,7 +18,9 @@ module.exports = ({subtitle, description, basePath, root}) => ({
     'gatsby-plugin-less',
     {
       resolve: 'gatsby-plugin-google-analytics',
-      trackingId: 'UA-74643563-13'
+      options: {
+        trackingId: 'UA-74643563-13'
+      }
     }
   ]
 });
