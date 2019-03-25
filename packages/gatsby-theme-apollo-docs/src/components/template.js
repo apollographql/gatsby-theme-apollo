@@ -169,17 +169,21 @@ export default class Template extends Component {
   };
 
   onScroll = event => {
-    const {scrollTop} = event.currentTarget;
+    const scrollTop = event.currentTarget.scrollTop + window.innerHeight / 2;
     const {headingOffsets} = this.state;
-    for (let i = 0; i < headingOffsets.length; i++) {
+    for (let i = headingOffsets.length - 1; i >= 0; i--) {
       const heading = headingOffsets[i];
-      if (scrollTop <= heading.offset) {
+      if (scrollTop >= heading.offset) {
         this.setState({
           activeHeading: heading.id
         });
-        break;
+        return;
       }
     }
+
+    this.setState({
+      activeHeading: null
+    });
   };
 
   isPathActive(value) {
