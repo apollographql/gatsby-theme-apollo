@@ -8,11 +8,7 @@ import {MdExpandLess, MdExpandMore} from 'react-icons/md';
 import {css} from '@emotion/core';
 
 const Container = styled.div({
-  borderTop: `1px solid ${colors.divider}`,
-  ':first-of-type': {
-    borderTop: 0,
-    marginTop: -12
-  }
+  borderTop: `1px solid ${colors.divider}`
 });
 
 const iconSize = 20;
