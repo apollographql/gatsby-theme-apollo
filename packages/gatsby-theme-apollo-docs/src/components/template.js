@@ -40,6 +40,7 @@ const SidebarContentHeaderText = styled.span({
 
 const Main = styled.main({
   flexGrow: 1,
+  outline: 'none',
   overflowY: 'auto',
   WebkitOverflowScrolling: 'touch'
 });
@@ -257,7 +258,7 @@ export default class Template extends Component {
                         pathname={pathname}
                       />
                     </Sidebar>
-                    <Main ref={this.main} onScroll={this.onScroll}>
+                    <Main ref={this.main} onScroll={this.onScroll} tabIndex={0}>
                       <MobileHeader>
                         <MenuButton onClick={openSidebar} />
                         <StyledLogoTitle />
