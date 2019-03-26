@@ -158,7 +158,7 @@ export default class Template extends Component {
   }
 
   onResize = () => {
-    const contents = this.main.current.querySelector('#contents');
+    const contents = this.main.current.querySelector('.content-wrapper');
     const headings = contents.querySelectorAll('h1, h2, h3');
     this.setState({
       headingOffsets: Array.from(headings).map(heading => ({
@@ -237,8 +237,8 @@ export default class Template extends Component {
                       ref={sidebarRef}
                       title={siteName}
                     >
-                      <SidebarContentHeader>
-                        <SidebarContentHeaderText>
+                      <SidebarContentHeader className="sidebar">
+                        <SidebarContentHeaderText className="title-sidebar">
                           {subtitle}
                         </SidebarContentHeaderText>
                         {versions.length > 1 && (
@@ -296,7 +296,7 @@ export default class Template extends Component {
                         </Nav>
                       </DesktopHeader>
                       <StyledContentWrapper>
-                        <div>
+                        <div className="header-wrapper">
                           <MainHeading>{title}</MainHeading>
                           {description && (
                             <MainSubheading>{description}</MainSubheading>

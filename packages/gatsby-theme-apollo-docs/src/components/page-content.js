@@ -81,7 +81,7 @@ const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
   overflow: 'hidden'
 });
 
-const Contents = styled.div({
+const ContentWrapper = styled.div({
   '[id]::before': {
     // inspired by https://css-tricks.com/hash-tag-links-padding/
     content: "''",
@@ -288,7 +288,9 @@ export default class PageContent extends Component {
     return (
       <Container>
         <InnerContainer>
-          <Contents id="contents">{contents}</Contents>
+          <ContentWrapper className="content-wrapper">
+            {contents}
+          </ContentWrapper>
           <PageNav
             prevPage={pages[pageIndex - 1]}
             nextPage={pages[pageIndex + 1]}
