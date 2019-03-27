@@ -259,61 +259,63 @@ export default class Template extends PureComponent {
                       />
                     </Sidebar>
                     <Main ref={this.main} onScroll={this.onScroll} tabIndex={0}>
-                      <MobileHeader>
-                        <MenuButton onClick={openSidebar} />
-                        <StyledLogoTitle />
-                        <SelectLink
-                          large
-                          options={navOptions}
-                          pathname={pathname}
-                        />
-                      </MobileHeader>
-                      <DesktopHeader>
-                        <Search />
-                        <Nav>
-                          {navOptions.map(
-                            ({value, text, matchRegex, subpages}) => {
-                              let isActive = matchRegex
-                                ? matchRegex.test(pathname)
-                                : this.isPathActive(value);
-                              if (!isActive && subpages) {
-                                isActive = subpages.some(subpage =>
-                                  this.isPathActive(subpage.value)
+                      <div>
+                        <MobileHeader>
+                          <MenuButton onClick={openSidebar} />
+                          <StyledLogoTitle />
+                          <SelectLink
+                            large
+                            options={navOptions}
+                            pathname={pathname}
+                          />
+                        </MobileHeader>
+                        <DesktopHeader>
+                          <Search />
+                          <Nav>
+                            {navOptions.map(
+                              ({ value, text, matchRegex, subpages }) => {
+                                let isActive = matchRegex
+                                  ? matchRegex.test(pathname)
+                                  : this.isPathActive(value);
+                                if (!isActive && subpages) {
+                                  isActive = subpages.some(subpage =>
+                                    this.isPathActive(subpage.value)
+                                  );
+                                }
+
+                                return (
+                                  <NavItem
+                                    key={value}
+                                    href={value}
+                                    subpages={subpages}
+                                    active={isActive}
+                                  >
+                                    {text}
+                                  </NavItem>
                                 );
                               }
-
-                              return (
-                                <NavItem
-                                  key={value}
-                                  href={value}
-                                  subpages={subpages}
-                                  active={isActive}
-                                >
-                                  {text}
-                                </NavItem>
-                              );
-                            }
-                          )}
-                        </Nav>
-                      </DesktopHeader>
-                      <StyledContentWrapper>
-                        <div className="header-wrapper">
-                          <MainHeading>{title}</MainHeading>
-                          {description && (
-                            <MainSubheading>{description}</MainSubheading>
-                          )}
-                        </div>
-                        <hr />
-                        <PageContent
-                          content={content}
-                          filePath={filePath}
-                          version={version}
-                          docs={docs}
-                          pathname={pathname}
-                          typescriptApiBox={typescriptApiBox}
-                          activeHeading={this.state.activeHeading}
-                        />
-                      </StyledContentWrapper>
+                            )}
+                          </Nav>
+                        </DesktopHeader>
+                        <StyledContentWrapper>
+                          <div className="header-wrapper">
+                            <MainHeading>{title}</MainHeading>
+                            {description && (
+                              <MainSubheading>{description}</MainSubheading>
+                            )}
+                          </div>
+                          <hr />
+                          <PageContent
+                            content={content}
+                            filePath={filePath}
+                            version={version}
+                            docs={docs}
+                            pathname={pathname}
+                            typescriptApiBox={typescriptApiBox}
+                            activeHeading={this.state.activeHeading}
+                          />
+                        </StyledContentWrapper>
+                      </div>
                     </Main>
                   </FlexWrapper>
                 )}
