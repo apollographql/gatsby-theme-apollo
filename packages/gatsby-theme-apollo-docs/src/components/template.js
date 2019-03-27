@@ -1,7 +1,7 @@
 import NavItem from './nav-item';
 import PageContent from './page-content';
 import PropTypes from 'prop-types';
-import React, {Component, createRef} from 'react';
+import React, {PureComponent, createRef} from 'react';
 import SEO from './seo';
 import Search from './search';
 import SelectLink from './select-link';
@@ -133,7 +133,7 @@ function generateNavOptions(config) {
 
 const navOptions = generateNavOptions(navConfig);
 
-export default class Template extends Component {
+export default class Template extends PureComponent {
   static propTypes = {
     pageContext: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired

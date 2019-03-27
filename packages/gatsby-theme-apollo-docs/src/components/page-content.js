@@ -13,7 +13,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/themes/prism.css';
 import PropTypes from 'prop-types';
-import React, {Component, Fragment, createElement} from 'react';
+import React, {Fragment, PureComponent, createElement} from 'react';
 import autolinkHeadings from 'rehype-autolink-headings';
 import codeToHast from '../util/code-to-hast';
 import findHeadings from '../util/find-headings';
@@ -211,7 +211,7 @@ function createImageComponent(owner, repo, tag, filePath) {
   })('img');
 }
 
-export default class PageContent extends Component {
+export default class PageContent extends PureComponent {
   static propTypes = {
     content: PropTypes.string.isRequired,
     filePath: PropTypes.string.isRequired,
