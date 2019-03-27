@@ -20,7 +20,7 @@ const headingStyles = css({
   padding: 16,
   paddingLeft: 0,
   border: 0,
-  color: colors.text1,
+  color: colors.text2,
   background: 'none',
   outline: 'none',
   h6: {
@@ -39,7 +39,7 @@ const headingStyles = css({
 });
 
 const StyledButton = styled.button(headingStyles, {
-  '&[disabled]': {
+  '&.active': {
     color: colors.primary
   },
   ':not([disabled])': {
@@ -105,10 +105,7 @@ export default class Category extends Component {
         <h6>{this.props.title}</h6>
         <Icon
           style={{
-            visibility:
-              this.props.active || this.props.alwaysExpanded
-                ? 'hidden'
-                : 'visible'
+            visibility: this.props.alwaysExpanded ? 'hidden' : 'visible'
           }}
         />
       </Fragment>
@@ -122,13 +119,13 @@ export default class Category extends Component {
           <StyledLink to={this.props.path}>{this.renderContents()}</StyledLink>
         ) : (
           <StyledButton
-            disabled={this.props.active}
+            className={this.props.active && 'active'}
             onClick={this.props.alwaysExpanded ? null : this.toggle}
           >
             {this.renderContents()}
           </StyledButton>
         )}
-        {(this.props.active || this.state.expanded) && this.props.children}
+        {this.state.expanded && this.props.children}
       </Container>
     );
   }
