@@ -4,7 +4,7 @@ export default function findHeadings(component) {
       typeof child === 'object' &&
       (!child.props.className || child.props.className.indexOf('api'))
     ) {
-      if (/^h[1-3]$/.test(child.type)) {
+      if (/^h[1-2]$/.test(child.type)) {
         return child.props.id
           ? acc.concat([
               {

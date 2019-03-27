@@ -160,7 +160,7 @@ export default class Template extends Component {
 
   onResize = () => {
     const contents = this.main.current.querySelector('.content-wrapper');
-    const headings = contents.querySelectorAll('h1, h2, h3');
+    const headings = contents.querySelectorAll('h1, h2');
     this.setState({
       headingOffsets: Array.from(headings).map(heading => ({
         id: heading.id,
