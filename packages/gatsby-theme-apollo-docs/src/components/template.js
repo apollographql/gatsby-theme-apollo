@@ -238,25 +238,27 @@ export default class Template extends PureComponent {
                       ref={sidebarRef}
                       title={siteName}
                     >
-                      <SidebarContentHeader className="sidebar">
-                        <SidebarContentHeaderText className="title-sidebar">
-                          {subtitle}
-                        </SidebarContentHeaderText>
-                        {versions.length > 1 && (
-                          <SelectLink
-                            useLink
-                            pathname={pathname}
-                            options={versions.map(({id, basePath}) => ({
-                              text: `Version ${id}`,
-                              value: basePath
-                            }))}
-                          />
-                        )}
-                      </SidebarContentHeader>
-                      <SidebarNav
-                        contents={version.contents}
-                        pathname={pathname}
-                      />
+                      <div className="sidebar">
+                        <SidebarContentHeader>
+                          <SidebarContentHeaderText className="title-sidebar">
+                            {subtitle}
+                          </SidebarContentHeaderText>
+                          {versions.length > 1 && (
+                            <SelectLink
+                              useLink
+                              pathname={pathname}
+                              options={versions.map(({id, basePath}) => ({
+                                text: `Version ${id}`,
+                                value: basePath
+                              }))}
+                            />
+                          )}
+                        </SidebarContentHeader>
+                        <SidebarNav
+                          contents={version.contents}
+                          pathname={pathname}
+                        />
+                      </div>
                     </Sidebar>
                     <Main ref={this.main} onScroll={this.onScroll} tabIndex={0}>
                       <div>
