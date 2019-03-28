@@ -275,7 +275,7 @@ export default class Template extends PureComponent {
                           <Search />
                           <Nav>
                             {navOptions.map(
-                              ({ value, text, matchRegex, subpages }) => {
+                              ({value, text, matchRegex, subpages}) => {
                                 let isActive = matchRegex
                                   ? matchRegex.test(pathname)
                                   : this.isPathActive(value);
