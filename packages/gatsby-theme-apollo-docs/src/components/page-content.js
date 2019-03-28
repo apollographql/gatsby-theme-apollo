@@ -82,15 +82,6 @@ const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
 });
 
 const ContentWrapper = styled.div({
-  '[id]::before': {
-    // inspired by https://css-tricks.com/hash-tag-links-padding/
-    content: "''",
-    display: 'block',
-    marginTop: -headerHeight,
-    height: headerHeight,
-    visibility: 'hidden',
-    pointerEvents: 'none'
-  },
   'a[href]': {
     color: colors.primary,
     textDecoration: 'none',
@@ -100,11 +91,16 @@ const ContentWrapper = styled.div({
   },
   [['h2', 'h3', 'h4']]: {
     'a[href]': {
-      color: 'inherit',
-      textDecoration: 'none',
-      ':hover': {
-        textDecoration: 'underline'
-      }
+      color: 'inherit'
+    },
+    '&[id]::before': {
+      // inspired by https://css-tricks.com/hash-tag-links-padding/
+      content: "''",
+      display: 'block',
+      marginTop: -headerHeight,
+      height: headerHeight,
+      visibility: 'hidden',
+      pointerEvents: 'none'
     },
     ':not(:first-child)': {
       marginTop: 56
