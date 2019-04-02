@@ -246,7 +246,7 @@ export default class Template extends PureComponent {
                           {versions.length > 1 && (
                             <SelectLink
                               useLink
-                              pathname={pathname}
+                              isPathActive={this.isPathActive}
                               options={versions.map(({id, basePath}) => ({
                                 text: `Version ${id}`,
                                 value: basePath
@@ -268,7 +268,7 @@ export default class Template extends PureComponent {
                           <SelectLink
                             large
                             options={navOptions}
-                            pathname={pathname}
+                            isPathActive={this.isPathActive}
                           />
                         </MobileHeader>
                         <DesktopHeader>

@@ -43,7 +43,7 @@ const Select = styled.select(props => {
 export default class SelectLink extends Component {
   static propTypes = {
     options: PropTypes.array.isRequired,
-    pathname: PropTypes.string.isRequired,
+    isPathActive: PropTypes.func.isRequired,
     large: PropTypes.bool,
     useLink: PropTypes.bool
   };
@@ -57,24 +57,20 @@ export default class SelectLink extends Component {
     window.location.href = event.target.value;
   };
 
-  isActive(path) {
-    return !this.props.pathname.indexOf(path);
-  }
-
   render() {
     let value;
     this.props.options.forEach(option => {
       const path = this.props.useLink ? withPrefix(option.value) : option.value;
       const isActive = option.matchRegex
         ? option.matchRegex.test(path)
-        : this.isActive(path);
+        : this.props.isPathActive(path);
       if (isActive) {
         value = option.value;
       }
 
       if (option.subpages) {
         option.subpages.forEach(subpage => {
-          if (this.isActive(subpage.value)) {
+          if (this.props.isPathActive(subpage.value)) {
             value = option.value;
           }
         });
