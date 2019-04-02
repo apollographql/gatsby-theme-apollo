@@ -146,31 +146,61 @@ export default class Template extends PureComponent {
     headingOffsets: []
   };
 
+  imagesLoaded = 0;
+
+  get contents() {
+    return this.main.current.querySelector('.content-wrapper');
+  }
+
+  get images() {
+    return this.contents.querySelectorAll('img');
+  }
+
   componentDidMount() {
-    const hashElement = document.getElementById(
-      this.props.location.hash.slice(1)
-    );
+    const hash = this.props.location.hash.slice(1);
+    const hashElement = document.getElementById(hash);
     if (hashElement) {
       hashElement.scrollIntoView();
     }
 
+    if (this.images.length) {
+      this.images.forEach(image => {
+        image.addEventListener('load', this.onImageLoad);
+      });
+    } else {
+      this.onResize();
+    }
+
     window.addEventListener('resize', this.onResize);
-    this.onResize();
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+    this.images.forEach(image => {
+      image.removeEventListener('load', this.onImageLoad);
+    });
+  }
+
+  onImageLoad = () => {
+    this.imagesLoaded += 1;
+    if (this.imagesLoaded === this.images.length) {
+      this.onResize();
+    }
+  };
+
   onResize = () => {
-    const contents = this.main.current.querySelector('.content-wrapper');
-    const headings = contents.querySelectorAll('h1, h2');
+    const headings = this.contents.querySelectorAll('h1, h2');
     this.setState({
       headingOffsets: Array.from(headings).map(heading => ({
         id: heading.id,
-        offset: heading.offsetTop
+        offset: heading.querySelector('a').offsetTop
       }))
     });
   };
 
   onScroll = event => {
-    const scrollTop = event.currentTarget.scrollTop + window.innerHeight / 2;
+    const windowOffset = window.innerHeight / 2;
+    const scrollTop = event.currentTarget.scrollTop + windowOffset;
     const {headingOffsets} = this.state;
     for (let i = headingOffsets.length - 1; i >= 0; i--) {
       const heading = headingOffsets[i];
