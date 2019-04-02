@@ -217,9 +217,9 @@ export default class Template extends PureComponent {
     });
   };
 
-  isPathActive(value) {
+  isPathActive = value => {
     return !this.props.location.pathname.indexOf(value);
-  }
+  };
 
   render() {
     const {
