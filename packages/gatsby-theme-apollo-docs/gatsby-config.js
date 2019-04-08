@@ -21,6 +21,13 @@ module.exports = ({subtitle, description, basePath, root}) => ({
       options: {
         trackingId: 'UA-74643563-13'
       }
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${root}/source`,
+        name: 'pages'
+      }
     }
   ]
 });
