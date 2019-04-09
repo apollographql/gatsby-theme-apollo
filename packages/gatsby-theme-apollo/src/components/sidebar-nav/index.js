@@ -132,9 +132,9 @@ export default class SidebarNav extends Component {
     this.setState({sidebarState});
   };
 
-  renderPages(pages, key) {
+  renderPages(pages) {
     return (
-      <StyledList key={key}>
+      <StyledList>
         {pages.map(page => (
           <StyledListItem key={page.path}>
             {page.anchor ? (
@@ -157,11 +157,11 @@ export default class SidebarNav extends Component {
     return (
       <Fragment>
         {this.props.contents.map(({title, path, pages}) => {
-          const contents = this.renderPages(pages, title);
+          const contents = this.renderPages(pages);
           if (!title) {
             const Icon = this.allExpanded ? MdUnfoldLess : MdUnfoldMore;
             return (
-              <Fragment>
+              <Fragment key="root">
                 {contents}
                 <ExpandAll onClick={this.toggleAll}>
                   <Icon size={18} />
