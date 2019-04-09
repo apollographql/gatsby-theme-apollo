@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo-docs",
-  "version": "0.2.46",
+  "version": "0.2.47",
   "main": "index.js",
   "dependencies": {
     "detab": "^2.0.1",
@@ -8,7 +8,7 @@
     "gatsby-plugin-google-analytics": "^2.0.17",
     "gatsby-plugin-less": "^2.0.12",
     "gatsby-source-filesystem": "^2.0.29",
-    "gatsby-theme-apollo": "^0.1.12",
+    "gatsby-theme-apollo": "^0.1.13",
     "gray-matter": "^4.0.1",
     "handlebars": "^4.1.0",
     "hast-util-is-element": "^1.0.2",
