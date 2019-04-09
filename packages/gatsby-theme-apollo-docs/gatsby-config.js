@@ -1,33 +1,46 @@
-module.exports = ({subtitle, description, basePath, root}) => ({
-  __experimentalThemes: [
-    {
-      resolve: 'gatsby-theme-apollo',
-      options: {
-        root
+module.exports = ({subtitle, description, basePath, root}) => {
+  const config = {
+    __experimentalThemes: [
+      {
+        resolve: 'gatsby-theme-apollo',
+        options: {
+          root
+        }
       }
-    }
-  ],
-  pathPrefix: basePath,
-  siteMetadata: {
-    title: 'Apollo Docs',
-    subtitle,
-    description,
-    basePath
-  },
-  plugins: [
-    'gatsby-plugin-less',
-    {
-      resolve: 'gatsby-plugin-google-analytics',
-      options: {
-        trackingId: 'UA-74643563-13'
-      }
+    ],
+    pathPrefix: basePath,
+    siteMetadata: {
+      title: 'Apollo Docs',
+      subtitle,
+      description,
+      basePath
     },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        path: `${root}/source`,
-        name: 'pages'
+    plugins: [
+      'gatsby-plugin-less',
+      {
+        resolve: 'gatsby-plugin-google-analytics',
+        options: {
+          trackingId: 'UA-74643563-13'
+        }
       }
-    }
-  ]
-});
+    ]
+  };
+
+  if (process.env.NODE_ENV === 'development') {
+    return {
+      ...config,
+      plugins: [
+        ...config.plugins,
+        {
+          resolve: 'gatsby-source-filesystem',
+          options: {
+            path: `${root}/source`,
+            name: 'pages'
+          }
+        }
+      ]
+    };
+  }
+
+  return config;
+};
