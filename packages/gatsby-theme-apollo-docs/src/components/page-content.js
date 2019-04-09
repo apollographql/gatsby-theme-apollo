@@ -176,10 +176,18 @@ const SidebarLink = nest(
   })
 );
 
-function createImageComponent(owner, repo, tag, filePath) {
+function createImageComponent(owner, repo, tag, filePath, localImages) {
   return mapProps(({alt, src}) => {
     const isUrl = /^(https?:)?\/\//.test(src);
     if (!isUrl) {
+      if (process.env.NODE_ENV === 'development') {
+        const relativePath = path.relative('/', src);
+        return {
+          alt,
+          src: localImages[relativePath]
+        };
+      }
+
       const fileDir = path.dirname(filePath);
       let paths = path.join(
         'raw.githubusercontent.com',
@@ -223,12 +231,13 @@ export default class PageContent extends PureComponent {
   }
 
   render() {
-    const {owner, repo, tag} = this.props.version;
+    const {owner, repo, tag, localImages} = this.props.version;
     const ImageComponent = createImageComponent(
       owner,
       repo,
       tag,
-      this.props.filePath
+      this.props.filePath,
+      localImages
     );
 
     // turn the markdown into JSX and add slug ids to the headings

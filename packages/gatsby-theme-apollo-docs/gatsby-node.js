@@ -216,10 +216,20 @@ async function getLocalVersions(
 ) {
   const result = await graphql(`
     {
-      allFile {
+      allMarkdown: allFile(filter: {extension: {eq: "md"}}) {
         edges {
           node {
             absolutePath
+          }
+        }
+      }
+      allImages: allFile(
+        filter: {extension: {in: ["jpg", "jpeg", "png", "gif", "svg"]}}
+      ) {
+        edges {
+          node {
+            relativePath
+            publicURL
           }
         }
       }
@@ -232,7 +242,7 @@ async function getLocalVersions(
     basePath,
     sidebarCategories,
     filePath => {
-      const page = result.data.allFile.edges.find(
+      const page = result.data.allMarkdown.edges.find(
         ({node}) =>
           filePath === path.relative(path.dirname(root), node.absolutePath)
       );
@@ -246,6 +256,15 @@ async function getLocalVersions(
       id: 'dev',
       basePath,
       contents,
+      localImages: result.data.allImages.edges
+        .map(edge => edge.node)
+        .reduce(
+          (acc, {relativePath, publicURL}) => ({
+            ...acc,
+            [relativePath]: publicURL
+          }),
+          {}
+        ),
       owner: 'apollographql',
       repo: 'repo',
       tag: 'HEAD'
