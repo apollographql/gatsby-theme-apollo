@@ -1,5 +1,4 @@
 import NavItem from './nav-item';
-import PageContent from './page-content';
 import PropTypes from 'prop-types';
 import React, {PureComponent, createRef} from 'react';
 import SEO from './seo';
@@ -220,16 +219,6 @@ export default class Template extends PureComponent {
   isPathActive = value => !this.props.location.pathname.indexOf(value);
 
   render() {
-    const {
-      version,
-      versions,
-      title,
-      description,
-      content,
-      filePath,
-      docs,
-      typescriptApiBox
-    } = this.props.pageContext;
     const {pathname} = this.props.location;
     return (
       <StaticQuery
@@ -246,18 +235,13 @@ export default class Template extends PureComponent {
           }
         `}
         render={data => {
-          const {
-            title: siteName,
-            description: siteDescription,
-            subtitle,
-            spectrumPath
-          } = data.site.siteMetadata;
+          const {title, description, subtitle} = data.site.siteMetadata;
           return (
             <Layout>
               <SEO
-                title={title}
-                description={description || siteDescription}
-                siteName={siteName}
+                title={this.props.title}
+                description={this.props.description || description}
+                siteName={title}
               />
               <ResponsiveSidebar>
                 {({sidebarRef, onWrapperClick, openSidebar, sidebarOpen}) => (
@@ -266,14 +250,14 @@ export default class Template extends PureComponent {
                       responsive
                       open={sidebarOpen}
                       ref={sidebarRef}
-                      title={siteName}
+                      title={title}
                     >
                       <div className="sidebar">
                         <SidebarContentHeader>
                           <SidebarContentHeaderText className="title-sidebar">
                             {subtitle}
                           </SidebarContentHeaderText>
-                          {versions.length > 1 && (
+                          {/* {versions.length > 1 && (
                             <SelectLink
                               useLink
                               isPathActive={this.isPathActive}
@@ -282,12 +266,12 @@ export default class Template extends PureComponent {
                                 value: basePath
                               }))}
                             />
-                          )}
+                          )} */}
                         </SidebarContentHeader>
-                        <SidebarNav
+                        {/* <SidebarNav
                           contents={version.contents}
                           pathname={pathname}
-                        />
+                        /> */}
                       </div>
                     </Sidebar>
                     <Main ref={this.main} onScroll={this.onScroll} tabIndex={0}>
@@ -331,13 +315,19 @@ export default class Template extends PureComponent {
                         </DesktopHeader>
                         <StyledContentWrapper>
                           <div className="header-wrapper">
-                            <MainHeading>{title}</MainHeading>
-                            {description && (
-                              <MainSubheading>{description}</MainSubheading>
+                            <MainHeading>{this.props.title}</MainHeading>
+                            {this.props.description && (
+                              <MainSubheading>
+                                {this.props.description}
+                              </MainSubheading>
                             )}
                           </div>
                           <hr />
-                          <PageContent
+                          <div className="content-wrapper">
+                            {this.props.children}
+                          </div>
+                          {/* <PageContent
+                            jsx={jsx}
                             content={content}
                             filePath={filePath}
                             version={version}
@@ -345,8 +335,7 @@ export default class Template extends PureComponent {
                             pathname={pathname}
                             typescriptApiBox={typescriptApiBox}
                             activeHeading={this.state.activeHeading}
-                            spectrumPath={spectrumPath}
-                          />
+                          /> */}
                         </StyledContentWrapper>
                       </div>
                     </Main>
