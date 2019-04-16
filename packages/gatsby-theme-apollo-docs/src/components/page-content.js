@@ -223,7 +223,8 @@ export default class PageContent extends PureComponent {
     pathname: PropTypes.string.isRequired,
     docs: PropTypes.object,
     typescriptApiBox: PropTypes.object,
-    activeHeading: PropTypes.string
+    activeHeading: PropTypes.string,
+    spectrumPath: PropTypes.string
   };
 
   componentDidMount() {
@@ -332,7 +333,10 @@ export default class PageContent extends PureComponent {
           >
             <FaGithub /> Edit on GitHub
           </SidebarLink>
-          <SidebarLink href={`https://spectrum.chat/apollo/${repo}`}>
+          <SidebarLink
+            href={`https://spectrum.chat/apollo/${this.props.spectrumPath ||
+              repo}`}
+          >
             <SpectrumLogo /> Discuss on Spectrum
           </SidebarLink>
         </Sidebar>

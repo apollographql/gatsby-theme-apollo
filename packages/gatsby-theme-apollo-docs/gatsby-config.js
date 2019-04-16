@@ -1,4 +1,4 @@
-module.exports = ({subtitle, description, basePath, root}) => {
+module.exports = ({subtitle, description, basePath, spectrumPath, root}) => {
   const config = {
     __experimentalThemes: [
       {
@@ -13,7 +13,8 @@ module.exports = ({subtitle, description, basePath, root}) => {
       title: 'Apollo Docs',
       subtitle,
       description,
-      basePath
+      basePath,
+      spectrumPath
     },
     plugins: [
       'gatsby-plugin-less',

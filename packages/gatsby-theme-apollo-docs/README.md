@@ -61,6 +61,7 @@ module.exports = {
 | contentDir        | string | The directory, relative to the repo root, where the markdown files live               |
 | basePath          | string | The path, relative to _https://apollographql.com_, where the website will be hosted   |
 | githubRepo        | string | The owner and name of the content repository on GitHub                                |
+| spectrumPath      | string | The path to be appended to Spectrum links                                             |
 | versions          | array  | An array of strings representing the versions that the website should generate        |
 | sidebarCategories | object | An object mapping categories to page paths ([described below](#sidebarCategories))    |
 

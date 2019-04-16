@@ -242,6 +242,7 @@ export default class Template extends PureComponent {
                 title
                 description
                 subtitle
+                spectrumPath
               }
             }
           }
@@ -250,7 +251,8 @@ export default class Template extends PureComponent {
           const {
             title: siteName,
             description: siteDescription,
-            subtitle
+            subtitle,
+            spectrumPath
           } = data.site.siteMetadata;
           return (
             <Layout>
@@ -345,6 +347,7 @@ export default class Template extends PureComponent {
                             pathname={pathname}
                             typescriptApiBox={typescriptApiBox}
                             activeHeading={this.state.activeHeading}
+                            spectrumPath={spectrumPath}
                           />
                         </StyledContentWrapper>
                       </div>
