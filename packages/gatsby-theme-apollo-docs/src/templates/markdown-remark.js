@@ -5,8 +5,9 @@ import {graphql} from 'gatsby';
 export default function MarkdownRemark(props) {
   return (
     <Template
-      location={props.location}
       {...props.data.markdownRemark.frontmatter}
+      location={props.location}
+      sidebarContents={props.pageContext.sidebarContents}
     >
       <div dangerouslySetInnerHTML={{__html: props.data.markdownRemark.html}} />
     </Template>

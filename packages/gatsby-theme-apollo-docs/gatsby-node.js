@@ -1,3 +1,4 @@
+const path = require('path');
 const {createFilePath} = require('gatsby-source-filesystem');
 const kebabCase = require('lodash/kebabCase');
 
@@ -50,6 +51,14 @@ exports.createPages = async ({actions, graphql}, options) => {
     }
   `);
 
+  const sidebarContents = Object.keys(options.sidebarCategories).map(key => ({
+    title: key === 'null' ? null : key,
+    pages: options.sidebarCategories[key].map(path => ({
+      title: 'text',
+      path
+    }))
+  }));
+
   const pages = data.allMdx.edges.concat(data.allMarkdownRemark.edges);
   pages.forEach(({node}) => {
     const template = kebabCase(node.internal.type);
@@ -57,7 +66,8 @@ exports.createPages = async ({actions, graphql}, options) => {
       path: node.fields.slug,
       component: require.resolve(`./src/templates/${template}`),
       context: {
-        id: node.id
+        id: node.id,
+        sidebarContents
       }
     });
   });
