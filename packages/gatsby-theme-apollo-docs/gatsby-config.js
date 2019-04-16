@@ -1,4 +1,10 @@
-module.exports = ({subtitle, description, basePath, spectrumPath, root}) => {
+module.exports = ({
+  subtitle,
+  description,
+  basePath,
+  spectrumPath = '',
+  root
+}) => {
   const config = {
     __experimentalThemes: [
       {
