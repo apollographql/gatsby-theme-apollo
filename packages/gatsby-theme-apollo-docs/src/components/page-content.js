@@ -231,7 +231,7 @@ export default class PageContent extends PureComponent {
   }
 
   render() {
-    const {owner, repo, tag, localImages} = this.props.version;
+    const {owner, repo, tag, basePath, localImages} = this.props.version;
     const ImageComponent = createImageComponent(
       owner,
       repo,
@@ -325,7 +325,7 @@ export default class PageContent extends PureComponent {
                 owner,
                 repo,
                 'tree',
-                encodeURIComponent(tag),
+                basePath === '/' ? 'master' : encodeURIComponent(tag),
                 this.props.filePath
               )
             }

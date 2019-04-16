@@ -38,6 +38,14 @@ async function getSidebarCategories(git, tag) {
   return null;
 }
 
+function getOwnerRepo(githubRepo) {
+  const [owner, repo] = githubRepo.split('/');
+  return {
+    owner,
+    repo
+  };
+}
+
 async function getContents(contentDir, basePath, categories, getText) {
   const contents = [];
   for (const category in categories) {
@@ -97,7 +105,7 @@ async function getVersions({
 
   // update repo
   await git.fetch();
-  const [owner, repo] = githubRepo.split('/');
+  const {owner, repo} = getOwnerRepo(githubRepo);
 
   let currentVersion = 'HEAD';
   let sortedVersions = [currentVersion];
@@ -212,7 +220,7 @@ async function getVersions({
 
 async function getLocalVersions(
   graphql,
-  {root, contentDir, sidebarCategories}
+  {root, contentDir, githubRepo, sidebarCategories}
 ) {
   const result = await graphql(`
     {
@@ -265,8 +273,7 @@ async function getLocalVersions(
           }),
           {}
         ),
-      owner: 'apollographql',
-      repo: 'repo',
+      ...getOwnerRepo(githubRepo),
       tag: 'HEAD'
     }
   ];
