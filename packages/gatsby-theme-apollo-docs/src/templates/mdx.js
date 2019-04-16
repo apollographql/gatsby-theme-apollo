@@ -5,7 +5,11 @@ import {graphql} from 'gatsby';
 
 export default function MDX(props) {
   return (
-    <Template location={props.location} {...props.data.mdx.frontmatter}>
+    <Template
+      {...props.data.mdx.frontmatter}
+      location={props.location}
+      sidebarContents={props.pageContext.sidebarContents}
+    >
       <MDXRenderer>{props.data.mdx.code.body}</MDXRenderer>
     </Template>
   );

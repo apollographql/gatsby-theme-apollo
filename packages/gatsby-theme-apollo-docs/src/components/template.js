@@ -269,10 +269,10 @@ export default class Template extends PureComponent {
                             />
                           )} */}
                         </SidebarContentHeader>
-                        {/* <SidebarNav
-                          contents={version.contents}
+                        <SidebarNav
+                          contents={this.props.sidebarContents}
                           pathname={pathname}
-                        /> */}
+                        />
                       </div>
                     </Sidebar>
                     <Main ref={this.main} onScroll={this.onScroll} tabIndex={0}>
