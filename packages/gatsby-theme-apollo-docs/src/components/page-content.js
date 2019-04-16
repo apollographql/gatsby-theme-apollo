@@ -332,7 +332,7 @@ export default class PageContent extends PureComponent {
           >
             <FaGithub /> Edit on GitHub
           </SidebarLink>
-          <SidebarLink href={`https://spectrum.chat/apollo/${repo}`}>
+          <SidebarLink href={'https://spectrum.chat/apollo'}>
             <SpectrumLogo /> Discuss on Spectrum
           </SidebarLink>
         </Sidebar>
