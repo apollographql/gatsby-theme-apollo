@@ -2,7 +2,8 @@ const path = require('path');
 const simpleGit = require('simple-git/promise');
 const matter = require('gray-matter');
 const yaml = require('js-yaml');
-const fsPromises = require('fs').promises;
+const fs = require('fs');
+const util = require('util');
 
 function treeToObjects(tree) {
   return tree.split('\n').map(object => ({
@@ -182,6 +183,7 @@ async function getVersions({
   );
 }
 
+const readFile = util.promisify(fs.readFile);
 async function getLocalVersions(
   graphql,
   {root, contentDir, githubRepo, sidebarCategories}
@@ -219,7 +221,7 @@ async function getLocalVersions(
           filePath === path.relative(path.dirname(root), node.absolutePath)
       );
 
-      return page && fsPromises.readFile(page.node.absolutePath, 'utf8');
+      return page && readFile(page.node.absolutePath, 'utf8');
     }
   );
 
