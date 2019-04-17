@@ -176,7 +176,7 @@ const SidebarLink = nest(
   })
 );
 
-function createImageComponent(owner, repo, tag, filePath, localImages) {
+function createImageComponent(owner, repo, ref, filePath, localImages) {
   return mapProps(({alt, src}) => {
     const isUrl = /^(https?:)?\/\//.test(src);
     if (!isUrl) {
@@ -193,7 +193,7 @@ function createImageComponent(owner, repo, tag, filePath, localImages) {
         'raw.githubusercontent.com',
         owner,
         repo,
-        encodeURIComponent(tag),
+        encodeURIComponent(ref),
         fileDir,
         src
       );
@@ -232,11 +232,11 @@ export default class PageContent extends PureComponent {
   }
 
   render() {
-    const {owner, repo, tag, basePath, localImages} = this.props.version;
+    const {owner, repo, ref, basePath, localImages} = this.props.version;
     const ImageComponent = createImageComponent(
       owner,
       repo,
-      tag,
+      ref,
       this.props.filePath,
       localImages
     );
@@ -326,7 +326,7 @@ export default class PageContent extends PureComponent {
                 owner,
                 repo,
                 'tree',
-                basePath === '/' ? 'master' : encodeURIComponent(tag),
+                basePath === '/' ? 'master' : encodeURIComponent(ref),
                 this.props.filePath
               )
             }
