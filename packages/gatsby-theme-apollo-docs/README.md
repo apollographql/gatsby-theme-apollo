@@ -235,7 +235,7 @@ Add a _netlify.toml_ file to the repo root. It should contain `base`, `publish`,
 [build]
   base    = "docs/"
   publish = "docs/public/"
-  command = "gatsby build --prefix-paths && mkdir -p docs/ios && mv public/* docs/ios && mv docs public/"
+  command = "gatsby build --prefix-paths && mkdir -p docs/ios && mv public/* docs/ios && mv docs public/ && mv public/docs/ios/_redirects public"
 [build.environment]
   NPM_VERSION = "6"
 ```
