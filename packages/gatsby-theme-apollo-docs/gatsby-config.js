@@ -1,11 +1,4 @@
-const gatsbyRemarkPlugins = [
-  {
-    resolve: 'gatsby-remark-images',
-    options: {
-      linkImagesToOriginal: false
-    }
-  }
-];
+const gatsbyRemarkPlugins = ['gatsby-remark-copy-linked-files'];
 
 module.exports = ({subtitle, description, basePath, root}) => ({
   __experimentalThemes: [
