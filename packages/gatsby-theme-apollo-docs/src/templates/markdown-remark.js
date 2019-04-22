@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Template from '../components/template';
 import {graphql} from 'gatsby';
@@ -13,6 +14,12 @@ export default function MarkdownRemark(props) {
     </Template>
   );
 }
+
+MarkdownRemark.propTypes = {
+  data: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  pageContext: PropTypes.object.isRequired
+};
 
 export const pageQuery = graphql`
   query MarkdownRemark($id: String) {

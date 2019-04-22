@@ -1,4 +1,3 @@
-const path = require('path');
 const {createFilePath} = require('gatsby-source-filesystem');
 const kebabCase = require('lodash/kebabCase');
 
