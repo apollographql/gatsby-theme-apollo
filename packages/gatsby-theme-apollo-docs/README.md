@@ -34,7 +34,17 @@ module.exports = {
         contentDir: 'docs/source',
         basePath: '/docs/apollo-server',
         githubRepo: 'apollographql/apollo-server',
-        versions: ['1', '2'],
+        versions: [
+          {
+            value: '1',
+            ref: 'origin/version-1'
+          },
+          {
+            value: '2',
+            ref: 'HEAD',
+            default: true
+          }
+        ],
         sidebarCategories: {
           null: [
             'index',
@@ -62,22 +72,26 @@ module.exports = {
 | basePath          | string | The path, relative to _https://apollographql.com_, where the website will be hosted   |
 | githubRepo        | string | The owner and name of the content repository on GitHub                                |
 | spectrumPath      | string | The path to be appended to Spectrum links                                             |
-| versions          | array  | An array of strings representing the versions that the website should generate        |
+| versions          | array  | An array of objects representing the versions that the website should generate        |
 | sidebarCategories | object | An object mapping categories to page paths ([described below](#sidebarCategories))    |
 
 ### versions
 
 If omitted, only one version of docs will be built, based on the state of HEAD in the theme consumer repository. This is helpful for creating deploy previews for docs pages.
 
-If used, the `versions` option expects an array of strings. The strings can be one, two, or three-digit version numbers that match the version number in any git tag in the repo. For example:
+If used, the `versions` option expects an array of objects. Each object requires a `value` and `ref` property, and an optional `default` property. The `value` is what will show up in the version dropdown, and the `ref` should be a commit SHA, branch name. For the default branch, `HEAD` is probably the best `ref` to use.
 
 ```js
 versions: [
-  '1',     // yes
-  '2.4',   // yes
-  '3.5.1', // yes
-  'v4',    // no
-  'next'   // no
+  {
+    value: '2.4',
+    ref: 'origin/version-2.4'
+  },
+  {
+    value: '2.5',
+    ref: 'HEAD',
+    default: true
+  }
 ]
 ```
 
