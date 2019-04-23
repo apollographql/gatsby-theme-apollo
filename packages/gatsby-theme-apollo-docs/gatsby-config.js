@@ -1,4 +1,7 @@
-const gatsbyRemarkPlugins = ['gatsby-remark-copy-linked-files'];
+const gatsbyRemarkPlugins = [
+  'gatsby-remark-copy-linked-files',
+  'gatsby-remark-autolink-headers'
+];
 
 module.exports = ({subtitle, description, basePath, root}) => ({
   __experimentalThemes: [
@@ -17,12 +20,6 @@ module.exports = ({subtitle, description, basePath, root}) => ({
     basePath
   },
   plugins: [
-    {
-      resolve: 'gatsby-mdx',
-      options: {
-        gatsbyRemarkPlugins
-      }
-    },
     'gatsby-plugin-less',
     {
       resolve: 'gatsby-source-filesystem',
@@ -41,6 +38,12 @@ module.exports = ({subtitle, description, basePath, root}) => ({
       resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: 'UA-74643563-13'
+      }
+    },
+    {
+      resolve: 'gatsby-mdx',
+      options: {
+        gatsbyRemarkPlugins
       }
     }
   ]

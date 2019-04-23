@@ -2,7 +2,7 @@ const {createFilePath} = require('gatsby-source-filesystem');
 const kebabCase = require('lodash/kebabCase');
 
 exports.onCreateNode = ({node, actions, getNode}) => {
-  if (['Mdx', 'MarkdownRemark'].includes(node.internal.type)) {
+  if (['MarkdownRemark', 'Mdx'].includes(node.internal.type)) {
     actions.createNodeField({
       name: 'slug',
       node,
@@ -11,38 +11,33 @@ exports.onCreateNode = ({node, actions, getNode}) => {
   }
 };
 
+function getPageFromFile({node}) {
+  return node.childMarkdownRemark || node.childMdx;
+}
+
 exports.createPages = async ({actions, graphql}, options) => {
   const {data} = await graphql(`
     {
-      allMarkdownRemark {
+      allFile {
         edges {
           node {
-            id
-            fields {
-              slug
+            childMarkdownRemark {
+              id
+              internal {
+                type
+              }
+              fields {
+                slug
+              }
             }
-            internal {
-              type
-            }
-            fileAbsolutePath
-            html
-          }
-        }
-      }
-      allMdx {
-        edges {
-          node {
-            id
-            fields {
-              slug
-            }
-            internal {
-              type
-            }
-            fileAbsolutePath
-            code {
-              body
-              scope
+            childMdx {
+              id
+              internal {
+                type
+              }
+              fields {
+                slug
+              }
             }
           }
         }
@@ -58,14 +53,15 @@ exports.createPages = async ({actions, graphql}, options) => {
     }))
   }));
 
-  const pages = data.allMdx.edges.concat(data.allMarkdownRemark.edges);
-  pages.forEach(({node}) => {
-    const template = kebabCase(node.internal.type);
+  data.allFile.edges.filter(getPageFromFile).forEach(file => {
+    const page = getPageFromFile(file);
     actions.createPage({
-      path: node.fields.slug,
-      component: require.resolve(`./src/templates/${template}`),
+      path: page.fields.slug,
+      component: require.resolve(
+        `./src/templates/${kebabCase(page.internal.type)}`
+      ),
       context: {
-        id: node.id,
+        id: page.id,
         sidebarContents
       }
     });
