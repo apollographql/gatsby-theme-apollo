@@ -12,6 +12,7 @@
     "gatsby-plugin-less": "^2.0.12",
     "gatsby-remark-autolink-headers": "^2.0.16",
     "gatsby-remark-copy-linked-files": "^2.0.12",
+    "gatsby-remark-prismjs": "^3.2.8",
     "gatsby-source-filesystem": "^2.0.29",
     "gatsby-theme-apollo": "^0.1.13",
     "gatsby-transformer-remark": "^2.3.8",
