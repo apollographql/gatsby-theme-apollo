@@ -1,3 +1,6 @@
+import '../styles/gatsby-prism.css';
+import '../styles/prism-theme.css';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import NavItem from './nav-item';
 import PropTypes from 'prop-types';
 import React, {PureComponent, createRef} from 'react';

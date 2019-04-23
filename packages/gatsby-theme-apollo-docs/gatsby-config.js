@@ -1,6 +1,12 @@
 const gatsbyRemarkPlugins = [
   'gatsby-remark-copy-linked-files',
-  'gatsby-remark-autolink-headers'
+  'gatsby-remark-autolink-headers',
+  {
+    resolve: 'gatsby-remark-prismjs',
+    options: {
+      showLineNumbers: true
+    }
+  }
 ];
 
 module.exports = ({subtitle, description, basePath, root}) => ({
