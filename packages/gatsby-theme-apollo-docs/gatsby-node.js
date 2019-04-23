@@ -11,33 +11,35 @@ exports.onCreateNode = ({node, actions, getNode}) => {
   }
 };
 
-function getPageFromFile({node}) {
+function getPageFromEdge({node}) {
   return node.childMarkdownRemark || node.childMdx;
 }
+
+const pageFragment = `
+  id
+  internal {
+    type
+  }
+  frontmatter {
+    title
+  }
+  fields {
+    slug
+  }
+`;
 
 exports.createPages = async ({actions, graphql}, options) => {
   const {data} = await graphql(`
     {
-      allFile {
+      allFile(filter: {extension: {in: ["md", "mdx"]}}) {
         edges {
           node {
+            relativePath
             childMarkdownRemark {
-              id
-              internal {
-                type
-              }
-              fields {
-                slug
-              }
+              ${pageFragment}
             }
             childMdx {
-              id
-              internal {
-                type
-              }
-              fields {
-                slug
-              }
+              ${pageFragment}
             }
           }
         }
@@ -47,14 +49,27 @@ exports.createPages = async ({actions, graphql}, options) => {
 
   const sidebarContents = Object.keys(options.sidebarCategories).map(key => ({
     title: key === 'null' ? null : key,
-    pages: options.sidebarCategories[key].map(path => ({
-      title: 'text',
-      path
-    }))
+    pages: options.sidebarCategories[key]
+      .map(path => {
+        const edge = data.allFile.edges.find(edge => {
+          const {relativePath} = edge.node;
+          return relativePath.slice(0, relativePath.lastIndexOf('.')) === path;
+        });
+
+        if (!edge) {
+          return null;
+        }
+
+        const page = getPageFromEdge(edge);
+        return {
+          title: page.frontmatter.title,
+          path: page.fields.slug
+        };
+      })
+      .filter(Boolean)
   }));
 
-  data.allFile.edges.filter(getPageFromFile).forEach(file => {
-    const page = getPageFromFile(file);
+  data.allFile.edges.map(getPageFromEdge).forEach(page => {
     actions.createPage({
       path: page.fields.slug,
       component: require.resolve(
