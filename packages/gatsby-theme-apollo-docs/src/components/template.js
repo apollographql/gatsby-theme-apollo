@@ -190,10 +190,19 @@ export default class Template extends PureComponent {
   onResize = () => {
     const headings = this.contents.querySelectorAll('h1, h2');
     this.setState({
-      headingOffsets: Array.from(headings).map(heading => ({
-        id: heading.id,
-        offset: heading.querySelector('a').offsetTop
-      }))
+      headingOffsets: Array.from(headings)
+        .map(heading => {
+          const anchor = heading.querySelector('a');
+          if (!anchor) {
+            return null;
+          }
+
+          return {
+            id: heading.id,
+            offset: anchor.offsetTop
+          };
+        })
+        .filter(Boolean)
     });
   };
 
