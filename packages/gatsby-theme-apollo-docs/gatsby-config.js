@@ -1,6 +1,6 @@
 const gatsbyRemarkPlugins = [
-  'gatsby-remark-copy-linked-files',
   'gatsby-remark-autolink-headers',
+  'gatsby-remark-copy-linked-files',
   {
     resolve: 'gatsby-remark-prismjs',
     options: {
