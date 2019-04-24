@@ -57,8 +57,8 @@ const BodyContent = styled.div({
     }
   },
   [['h2', 'h3', 'h4']]: {
-    'a[href]': {
-      color: 'inherit'
+    'a svg': {
+      fill: 'currentColor'
     },
     '&[id]::before': {
       // inspired by https://css-tricks.com/hash-tag-links-padding/
