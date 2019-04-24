@@ -142,7 +142,7 @@ export default class Template extends PureComponent {
   render() {
     const {pathname} = this.props.location;
     const {file, site} = this.props.data;
-    const {frontmatter} = file.childMarkdownRemark || file.childMdx;
+    const {frontmatter, headings} = file.childMarkdownRemark || file.childMdx;
     const {title, description, subtitle} = site.siteMetadata;
     const {
       sidebarContents,
@@ -201,6 +201,7 @@ export default class Template extends PureComponent {
                     gitRef="master"
                     pathname={pathname}
                     pages={pages}
+                    headings={headings}
                     spectrumPath={spectrumPath}
                     filePath={filePath}
                     activeHeading={this.state.activeHeading}
@@ -240,12 +241,18 @@ export const pageQuery = graphql`
           title
           description
         }
+        headings {
+          value
+        }
         html
       }
       childMdx {
         frontmatter {
           title
           description
+        }
+        headings {
+          value
         }
         code {
           body
