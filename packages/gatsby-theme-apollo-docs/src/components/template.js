@@ -11,7 +11,6 @@ import SEO from './seo';
 import Search from './search';
 import SelectLink from './select-link';
 import SidebarContent from './sidebar-content';
-import flatMap from 'lodash/flatMap';
 import styled from '@emotion/styled';
 import {
   ContentWrapper,
@@ -152,10 +151,6 @@ export default class Template extends PureComponent {
     } = this.props.pageContext;
 
     const [owner, repo] = githubRepo.split('/');
-    const pages = flatMap(sidebarContents, 'pages').filter(
-      page => !page.anchor
-    );
-
     return (
       <Layout>
         <SEO
@@ -200,7 +195,9 @@ export default class Template extends PureComponent {
                     repo={repo}
                     gitRef="master"
                     pathname={pathname}
-                    pages={pages}
+                    pages={sidebarContents
+                      .reduce((acc, {pages}) => acc.concat(pages), [])
+                      .filter(page => !page.anchor)}
                     headings={headings}
                     spectrumPath={spectrumPath}
                     filePath={filePath}
