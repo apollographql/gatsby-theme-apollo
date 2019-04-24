@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
+import Slugger from 'github-slugger';
 import nest from 'recompose/nest';
 import path from 'path';
 import styled from '@emotion/styled';
@@ -44,8 +45,7 @@ const Container = styled.div({
 
 const MainContent = styled.main({
   flexGrow: 1,
-  maxWidth: '100ch',
-  overflow: 'hidden'
+  maxWidth: '100ch'
 });
 
 const BodyContent = styled.div({
@@ -151,7 +151,7 @@ export default function PageContent(props) {
     );
   });
 
-  const headings = [];
+  const slugger = new Slugger();
   return (
     <Container>
       <MainContent>
@@ -162,18 +162,21 @@ export default function PageContent(props) {
         />
       </MainContent>
       <Aside>
-        {headings.length > 0 && (
+        {props.headings.length > 0 && (
           <Fragment>
             <AsideHeading>In this section</AsideHeading>
             <AsideList>
-              {headings.map(heading => (
-                <AsideListItem
-                  key={heading.id}
-                  active={heading.id === props.activeHeading}
-                >
-                  {heading.text}
-                </AsideListItem>
-              ))}
+              {props.headings.map(({value}) => {
+                const slug = slugger.slug(value);
+                return (
+                  <AsideListItem
+                    key={slug}
+                    active={slug === props.activeHeading}
+                  >
+                    <a href={`#${slug}`}>{value}</a>
+                  </AsideListItem>
+                );
+              })}
             </AsideList>
           </Fragment>
         )}
@@ -211,6 +214,7 @@ PageContent.propTypes = {
   gitRef: PropTypes.string.isRequired,
   filePath: PropTypes.string.isRequired,
   pages: PropTypes.array.isRequired,
+  headings: PropTypes.array.isRequired,
   activeHeading: PropTypes.string,
   spectrumPath: PropTypes.string
 };
