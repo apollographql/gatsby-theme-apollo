@@ -24,6 +24,7 @@ $ npm install gatsby gatsby-theme-apollo-docs
 ```js
 // gatsby-config.js
 module.exports = {
+  pathPrefix: '/docs/apollo-server',
   __experimentalThemes: [
     {
       resolve: 'gatsby-theme-apollo-docs',
@@ -32,7 +33,6 @@ module.exports = {
         subtitle: 'Apollo Server',
         description: 'A guide to using Apollo Server',
         contentDir: 'docs/source',
-        basePath: '/docs/apollo-server',
         githubRepo: 'apollographql/apollo-server',
         versions: ['1', '2'],
         sidebarCategories: {
@@ -59,7 +59,6 @@ module.exports = {
 | subtitle          | string | The title that gets rendered above the sidebar navigation                             |
 | description       | string | The site description for SEO and social (FB, Twitter) tags                            |
 | contentDir        | string | The directory, relative to the repo root, where the markdown files live               |
-| basePath          | string | The path, relative to _https://apollographql.com_, where the website will be hosted   |
 | githubRepo        | string | The owner and name of the content repository on GitHub                                |
 | versions          | array  | An array of strings representing the versions that the website should generate        |
 | sidebarCategories | object | An object mapping categories to page paths ([described below](#sidebarCategories))    |
@@ -120,7 +119,7 @@ This theme uses [`simple-git`](https://github.com/steveukx/git-js) to look for o
 
 ## Deployment
 
-All docs sites will eventually be deployed into a subdirectory, as configured by the `basePath` option&mdash;https://apollographql.com/docs/apollo-server, for example. [Read this guide](https://github.com/apollographql/gatsby-theme-apollo#deploying-to-a-subdirectory) to learn how to pull this off.
+All docs sites will eventually be deployed into a subdirectory, as configured by the `pathPrefix` option&mdash;https://apollographql.com/docs/apollo-server, for example. [Read this guide](https://github.com/apollographql/gatsby-theme-apollo#deploying-to-a-subdirectory) to learn how to pull this off.
 
 ## Migration
 
@@ -185,7 +184,7 @@ sidebar_categories:
     - watching-queries
     - mutations
 github_repo: apollographql/apollo-ios
-root: /docs/ios/ # called `basePath` in gatsby-config.js
+root: /docs/ios/ # called `pathPrefix` in gatsby-config.js
 content_root: docs/source # called `contentDir` in gatsby-config.js
 url: https://www.apollographql.com/docs/ios/ # not needed
 public_dir: public/docs/ios # not needed
@@ -195,6 +194,7 @@ _gatsby-config.js_
 
 ```js
 module.exports = {
+  pathPrefix: '/docs/ios',
   __experimentalThemes: [
     {
       resolve: 'gatsby-theme-apollo-docs',
@@ -203,7 +203,6 @@ module.exports = {
         subtitle: 'Apollo iOS Guide',
         description: 'A guide to using Apollo with iOS',
         contentDir: 'docs/source',
-        basePath: '/docs/ios',
         githubRepo: 'apollographql/apollo-ios',
         sidebarCategories: {
           null: [
@@ -228,7 +227,7 @@ module.exports = {
 
 ### 4. Add a Netlify config
 
-Add a _netlify.toml_ file to the repo root. It should contain `base`, `publish`, and `command` properties. The `base` and `publish` properties should always be `docs/` and `docs/public/`, respectively. The `command` property will build the site using the `gatsby build` command, and then move the built website into the appropriate directory to be served using Fly.io. You should edit the directory names in that property to reflect the `basePath` option that you provided in your _gatsby-config.js_ file. Here's an example of the iOS docs Netlify config:
+Add a _netlify.toml_ file to the repo root. It should contain `base`, `publish`, and `command` properties. The `base` and `publish` properties should always be `docs/` and `docs/public/`, respectively. The `command` property will build the site using the `gatsby build` command, and then move the built website into the appropriate directory to be served using Fly.io. You should edit the directory names in that property to reflect the `pathPrefix` option that you provided in your _gatsby-config.js_ file. Here's an example of the iOS docs Netlify config:
 
 ```toml
 [build]
@@ -241,4 +240,4 @@ Add a _netlify.toml_ file to the repo root. It should contain `base`, `publish`,
 
 ### 5. Deploy
 
-When these changes are pushed to GitHub and a pull request is opened, Netlify will build a deploy preview so you can check out the changes made. When you open the deploy preview in your web browser, be sure to append the `basePath` to the URL. In the example of the iOS docs, the URL would look like this: https://deploy-preview-471--apollo-ios-docs.netlify.com/docs/ios
+When these changes are pushed to GitHub and a pull request is opened, Netlify will build a deploy preview so you can check out the changes made. When you open the deploy preview in your web browser, be sure to append the `pathPrefix` to the URL. In the example of the iOS docs, the URL would look like this: https://deploy-preview-471--apollo-ios-docs.netlify.com/docs/ios
