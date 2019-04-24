@@ -142,7 +142,13 @@ export default class Template extends PureComponent {
     const {file, site} = this.props.data;
     const {frontmatter} = file.childMarkdownRemark || file.childMdx;
     const {title, description, subtitle} = site.siteMetadata;
-    const {sidebarContents, githubRepo, spectrumPath} = this.props.pageContext;
+    const {
+      sidebarContents,
+      githubRepo,
+      spectrumPath,
+      filePath
+    } = this.props.pageContext;
+
     const [owner, repo] = githubRepo.split('/');
     const pages = flatMap(sidebarContents, 'pages').filter(
       page => !page.anchor
@@ -194,6 +200,7 @@ export default class Template extends PureComponent {
                     pathname={pathname}
                     pages={pages}
                     spectrumPath={spectrumPath}
+                    filePath={filePath}
                     activeHeading={this.state.activeHeading}
                   >
                     {file.childMdx ? (
