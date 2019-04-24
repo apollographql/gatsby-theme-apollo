@@ -1,5 +1,4 @@
 const {createFilePath} = require('gatsby-source-filesystem');
-const kebabCase = require('lodash/kebabCase');
 
 exports.onCreateNode = ({node, actions, getNode}) => {
   if (['MarkdownRemark', 'Mdx'].includes(node.internal.type)) {
@@ -16,7 +15,6 @@ function getPageFromEdge({node}) {
 }
 
 const pageFragment = `
-  id
   internal {
     type
   }
@@ -34,6 +32,7 @@ exports.createPages = async ({actions, graphql}, options) => {
       allFile(filter: {extension: {in: ["md", "mdx"]}}) {
         edges {
           node {
+            id
             relativePath
             childMarkdownRemark {
               ${pageFragment}
@@ -47,9 +46,10 @@ exports.createPages = async ({actions, graphql}, options) => {
     }
   `);
 
-  const sidebarContents = Object.keys(options.sidebarCategories).map(key => ({
+  const {githubRepo, sidebarCategories, spectrumPath} = options;
+  const sidebarContents = Object.keys(sidebarCategories).map(key => ({
     title: key === 'null' ? null : key,
-    pages: options.sidebarCategories[key]
+    pages: sidebarCategories[key]
       .map(path => {
         const edge = data.allFile.edges.find(edge => {
           const {relativePath} = edge.node;
@@ -60,24 +60,26 @@ exports.createPages = async ({actions, graphql}, options) => {
           return null;
         }
 
-        const page = getPageFromEdge(edge);
+        const {frontmatter, fields} = getPageFromEdge(edge);
         return {
-          title: page.frontmatter.title,
-          path: page.fields.slug
+          title: frontmatter.title,
+          path: fields.slug
         };
       })
       .filter(Boolean)
   }));
 
-  data.allFile.edges.map(getPageFromEdge).forEach(page => {
+  const template = require.resolve('./src/components/template');
+  data.allFile.edges.forEach(edge => {
+    const page = getPageFromEdge(edge);
     actions.createPage({
       path: page.fields.slug,
-      component: require.resolve(
-        `./src/templates/${kebabCase(page.internal.type)}`
-      ),
+      component: template,
       context: {
-        id: page.id,
-        sidebarContents
+        id: edge.node.id,
+        sidebarContents,
+        githubRepo,
+        spectrumPath
       }
     });
   });

@@ -9,7 +9,7 @@ const gatsbyRemarkPlugins = [
   }
 ];
 
-module.exports = ({subtitle, description, basePath, root}) => ({
+module.exports = ({subtitle, description, pathPrefix, root}) => ({
   __experimentalThemes: [
     {
       resolve: 'gatsby-theme-apollo',
@@ -18,15 +18,13 @@ module.exports = ({subtitle, description, basePath, root}) => ({
       }
     }
   ],
-  pathPrefix: basePath,
+  pathPrefix,
   siteMetadata: {
     title: 'Apollo Docs',
     subtitle,
-    description,
-    basePath
+    description
   },
   plugins: [
-    'gatsby-plugin-less',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
