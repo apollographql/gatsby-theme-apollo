@@ -1,3 +1,4 @@
+const path = require('path');
 const {createFilePath} = require('gatsby-source-filesystem');
 
 exports.onCreateNode = ({node, actions, getNode}) => {
@@ -46,7 +47,7 @@ exports.createPages = async ({actions, graphql}, options) => {
     }
   `);
 
-  const {githubRepo, sidebarCategories, spectrumPath} = options;
+  const {contentDir, githubRepo, sidebarCategories, spectrumPath} = options;
   const sidebarContents = Object.keys(sidebarCategories).map(key => ({
     title: key === 'null' ? null : key,
     pages: sidebarCategories[key]
@@ -77,6 +78,7 @@ exports.createPages = async ({actions, graphql}, options) => {
       component: template,
       context: {
         id: edge.node.id,
+        filePath: path.join(contentDir, edge.node.relativePath),
         sidebarContents,
         githubRepo,
         spectrumPath

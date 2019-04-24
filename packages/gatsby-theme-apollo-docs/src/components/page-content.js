@@ -186,7 +186,7 @@ export default function PageContent(props) {
               props.repo,
               'tree',
               encodeURIComponent(props.gitRef),
-              this.props.filePath
+              props.filePath
             )
           }
         >
@@ -209,6 +209,7 @@ PageContent.propTypes = {
   owner: PropTypes.string.isRequired,
   repo: PropTypes.string.isRequired,
   gitRef: PropTypes.string.isRequired,
+  filePath: PropTypes.string.isRequired,
   pages: PropTypes.array.isRequired,
   activeHeading: PropTypes.string,
   spectrumPath: PropTypes.string
