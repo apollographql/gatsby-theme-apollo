@@ -156,17 +156,19 @@ export default class SidebarNav extends Component {
   render() {
     return (
       <Fragment>
-        {this.props.contents.map(({title, path, pages}) => {
+        {this.props.contents.map(({title, path, pages}, index, array) => {
           const contents = this.renderPages(pages);
           if (!title) {
             const Icon = this.allExpanded ? MdUnfoldLess : MdUnfoldMore;
             return (
               <Fragment key="root">
                 {contents}
-                <ExpandAll onClick={this.toggleAll}>
-                  <Icon size={18} />
-                  {this.allExpanded ? 'Collapse' : 'Expand'} all
-                </ExpandAll>
+                {array.length > 2 && (
+                  <ExpandAll onClick={this.toggleAll}>
+                    <Icon size={18} />
+                    {this.allExpanded ? 'Collapse' : 'Expand'} all
+                  </ExpandAll>
+                )}
               </Fragment>
             );
           }
