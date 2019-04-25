@@ -102,6 +102,7 @@ async function getVersions({
   // update repo
   await git.fetch();
   const {owner, repo} = getOwnerRepo(githubRepo);
+
   let sortedVersions = [
     {
       ref: 'HEAD',
@@ -109,7 +110,7 @@ async function getVersions({
     }
   ];
   if (versions) {
-    sortedVersions = versions.sort((a, b) => b.default - a.default);
+    sortedVersions = versions.sort((a, b) => !a.default - !b.default);
   }
 
   return Promise.all(
