@@ -112,12 +112,9 @@ async function getVersions({
   return Promise.all(
     sortedVersions.map(async version => {
       try {
-        const tree = await git.raw([
-          'ls-tree',
-          '-r',
-          '--full-tree',
-          version.ref
-        ]);
+        const remoteRef =
+          version.ref === 'HEAD' ? 'HEAD' : `origin/${version.ref}`;
+        const tree = await git.raw(['ls-tree', '-r', '--full-tree', remoteRef]);
         if (!tree) {
           return null;
         }
@@ -127,7 +124,7 @@ async function getVersions({
         // the version at hand
         const versionSidebarCategories = version.default
           ? sidebarCategories
-          : await getSidebarCategories(git, version.ref);
+          : await getSidebarCategories(git, remoteRef);
 
         if (!versionSidebarCategories) {
           throw new Error(`No sidebar configuration found at ${version.ref}`);
@@ -150,7 +147,7 @@ async function getVersions({
               throw new Error(`Doc not found: ${filePath}@${version.ref}`);
             }
 
-            const text = await git.show([`${version.ref}:${filePath}`]);
+            const text = await git.show([`${remoteRef}:${filePath}`]);
             if (doc.mode !== '120000') {
               // if the file is NOT a symlink we return it
               return text;
@@ -166,7 +163,7 @@ async function getVersions({
               return null;
             }
 
-            return git.show([`${version.ref}:${symlink}`]);
+            return git.show([`${remoteRef}:${symlink}`]);
           }
         );
 
