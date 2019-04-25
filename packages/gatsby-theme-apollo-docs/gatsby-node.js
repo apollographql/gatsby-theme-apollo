@@ -85,10 +85,6 @@ async function getContents(contentDir, basePath, categories, getText) {
   return contents;
 }
 
-function boolToNumber(bool) {
-  return Number(Boolean(bool));
-}
-
 async function getVersions({
   root,
   contentDir,
@@ -106,9 +102,11 @@ async function getVersions({
   // update repo
   await git.fetch();
   const {owner, repo} = getOwnerRepo(githubRepo);
-  const sortedVersions = versions
-    ? versions.sort((a, b) => boolToNumber(b.default) - boolToNumber(a.default))
-    : ['HEAD'];
+  let sortedVersions = ['HEAD'];
+  if (versions) {
+    sortedVersions = versions.sort((a, b) => b.default - a.default);
+  }
+
   return Promise.all(
     sortedVersions.map(async version => {
       try {
