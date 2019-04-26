@@ -71,15 +71,14 @@ export default class Template extends PureComponent {
       hashElement.scrollIntoView();
     }
 
+    window.addEventListener('resize', this.onResize);
+    this.onResize();
+
     if (this.images.length) {
       this.images.forEach(image => {
         image.addEventListener('load', this.onImageLoad);
       });
-    } else {
-      this.onResize();
     }
-
-    window.addEventListener('resize', this.onResize);
   }
 
   componentWillUnmount() {
