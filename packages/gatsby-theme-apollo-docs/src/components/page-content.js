@@ -167,13 +167,16 @@ export default function PageContent(props) {
             <AsideHeading>In this section</AsideHeading>
             <AsideList>
               {props.headings.map(({value}) => {
-                const slug = slugger.slug(value);
+                const div = document.createElement('div');
+                div.innerHTML = value;
+                const text = div.textContent || div.innerText || '';
+                const slug = slugger.slug(text);
                 return (
                   <AsideListItem
                     key={slug}
                     active={slug === props.activeHeading}
                   >
-                    <a href={`#${slug}`}>{value}</a>
+                    <a href={`#${slug}`}>{text}</a>
                   </AsideListItem>
                 );
               })}

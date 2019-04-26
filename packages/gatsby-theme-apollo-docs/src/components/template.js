@@ -236,7 +236,7 @@ export const pageQuery = graphql`
           title
           description
         }
-        headings {
+        headings(depth: h2) {
           value
         }
         html
@@ -246,7 +246,7 @@ export const pageQuery = graphql`
           title
           description
         }
-        headings {
+        headings(depth: h2) {
           value
         }
         code {
