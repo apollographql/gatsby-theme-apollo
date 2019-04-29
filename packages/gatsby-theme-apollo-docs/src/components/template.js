@@ -11,7 +11,6 @@ import SEO from './seo';
 import Search from './search';
 import SelectLink from './select-link';
 import SidebarContent from './sidebar-content';
-import Tsapibox from './tsapibox';
 import styled from '@emotion/styled';
 import {
   ContentWrapper,
@@ -203,12 +202,7 @@ export default class Template extends PureComponent {
                     activeHeading={this.state.activeHeading}
                   >
                     {file.childMdx ? (
-                      <MDXRenderer
-                        docs={docs}
-                        scope={{
-                          Tsapibox
-                        }}
-                      >
+                      <MDXRenderer docs={docs}>
                         {file.childMdx.code.body}
                       </MDXRenderer>
                     ) : (
