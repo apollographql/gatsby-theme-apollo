@@ -47,7 +47,13 @@ exports.createPages = async ({actions, graphql}, options) => {
     }
   `);
 
-  const {contentDir, githubRepo, sidebarCategories, spectrumPath} = options;
+  const {
+    contentDir,
+    githubRepo,
+    sidebarCategories,
+    spectrumPath,
+    docs
+  } = options;
   const sidebarContents = Object.keys(sidebarCategories).map(key => ({
     title: key === 'null' ? null : key,
     pages: sidebarCategories[key]
@@ -81,7 +87,8 @@ exports.createPages = async ({actions, graphql}, options) => {
         filePath: path.join(contentDir, edge.node.relativePath),
         sidebarContents,
         githubRepo,
-        spectrumPath
+        spectrumPath,
+        docs
       }
     });
   });

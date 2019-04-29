@@ -11,6 +11,7 @@ import SEO from './seo';
 import Search from './search';
 import SelectLink from './select-link';
 import SidebarContent from './sidebar-content';
+import Tsapibox from './tsapibox';
 import styled from '@emotion/styled';
 import {
   ContentWrapper,
@@ -144,7 +145,8 @@ export default class Template extends PureComponent {
       sidebarContents,
       githubRepo,
       spectrumPath,
-      filePath
+      filePath,
+      docs
     } = this.props.pageContext;
 
     const [owner, repo] = githubRepo.split('/');
@@ -201,7 +203,14 @@ export default class Template extends PureComponent {
                     activeHeading={this.state.activeHeading}
                   >
                     {file.childMdx ? (
-                      <MDXRenderer>{file.childMdx.code.body}</MDXRenderer>
+                      <MDXRenderer
+                        docs={docs}
+                        scope={{
+                          Tsapibox
+                        }}
+                      >
+                        {file.childMdx.code.body}
+                      </MDXRenderer>
                     ) : (
                       <div
                         dangerouslySetInnerHTML={{
