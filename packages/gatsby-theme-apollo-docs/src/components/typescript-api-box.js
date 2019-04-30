@@ -342,12 +342,12 @@ export default class TypescriptApiBox extends Component {
         <div className="api-body">
           <div className="desc">{args.summary}</div>
           {args.type && <div className="type">{args.type}</div>}
-          {args.groups.map(group => (
-            <Fragment key={group.id}>
+          {args.groups.map((group, index) => (
+            <Fragment key={index}>
               <h4 className="subheading">{group.name}</h4>
               <dl className="args">
-                {group.members.map(member => (
-                  <Fragment key={member.id}>
+                {group.members.map((member, index) => (
+                  <Fragment key={index}>
                     <dt>
                       <span className="name">{member.name}</span>
                       <span className="type">{member.type}</span>
