@@ -1,1 +1,1 @@
-export {default as Tsapibox} from './src/components/tsapibox';
+export {default as TypescriptApiBox} from './src/components/typescript-api-box';

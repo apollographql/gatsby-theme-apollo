@@ -52,7 +52,7 @@ exports.createPages = async ({actions, graphql}, options) => {
     githubRepo,
     sidebarCategories,
     spectrumPath,
-    docs
+    typescriptApiBox
   } = options;
   const sidebarContents = Object.keys(sidebarCategories).map(key => ({
     title: key === 'null' ? null : key,
@@ -88,7 +88,7 @@ exports.createPages = async ({actions, graphql}, options) => {
         sidebarContents,
         githubRepo,
         spectrumPath,
-        docs
+        typescriptApiBox
       }
     });
   });

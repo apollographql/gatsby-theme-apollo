@@ -145,7 +145,7 @@ export default class Template extends PureComponent {
       githubRepo,
       spectrumPath,
       filePath,
-      docs
+      typescriptApiBox
     } = this.props.pageContext;
 
     const [owner, repo] = githubRepo.split('/');
@@ -202,7 +202,7 @@ export default class Template extends PureComponent {
                     activeHeading={this.state.activeHeading}
                   >
                     {file.childMdx ? (
-                      <MDXRenderer docs={docs}>
+                      <MDXRenderer typescriptApiBox={typescriptApiBox}>
                         {file.childMdx.code.body}
                       </MDXRenderer>
                     ) : (
