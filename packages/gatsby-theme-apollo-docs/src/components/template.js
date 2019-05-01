@@ -23,6 +23,7 @@ import {
   ResponsiveSidebar,
   Sidebar
 } from 'gatsby-theme-apollo';
+import {TypescriptApiBoxContext} from './typescript-api-box';
 import {graphql} from 'gatsby';
 
 const StyledLogoTitle = styled(LogoTitle)({
@@ -202,9 +203,11 @@ export default class Template extends PureComponent {
                     activeHeading={this.state.activeHeading}
                   >
                     {file.childMdx ? (
-                      <MDXRenderer typescriptApiBox={typescriptApiBox}>
-                        {file.childMdx.code.body}
-                      </MDXRenderer>
+                      <TypescriptApiBoxContext.Provider
+                        value={typescriptApiBox}
+                      >
+                        <MDXRenderer>{file.childMdx.code.body}</MDXRenderer>
+                      </TypescriptApiBoxContext.Provider>
                     ) : (
                       <div
                         dangerouslySetInnerHTML={{

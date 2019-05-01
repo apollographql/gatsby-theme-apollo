@@ -164,7 +164,10 @@ export default class TypescriptApiBox extends Component {
   };
 
   _objectProperties(rawData) {
-    return rawData.indexSignature
+    const signatures = Array.isArray(rawData.indexSignature)
+      ? rawData.indexSignature
+      : [];
+    return signatures
       .map(signature => {
         const parameterString = this._indexParameterString(signature);
         return extend(this._parameter(signature), {name: parameterString});
@@ -180,7 +183,7 @@ export default class TypescriptApiBox extends Component {
   }
 
   // Render the type of a data object. It's pretty confusing, to say the least
-  _type(data, skipSignature) {
+  _type = (data, skipSignature) => {
     const type = data.type;
 
     if (data.kindString === 'Method') {
@@ -188,7 +191,10 @@ export default class TypescriptApiBox extends Component {
     }
 
     if (data.kindString === 'Call signature' && !skipSignature) {
-      const args = '(' + data.parameters.map(this._type).join(', ') + ')';
+      const paramTypes = Array.isArray(data.parameters)
+        ? data.parameters.map(this._type)
+        : [];
+      const args = '(' + paramTypes.join(', ') + ')';
       return args + ' => ' + this._type(data, true);
     }
 
@@ -226,7 +232,7 @@ export default class TypescriptApiBox extends Component {
       );
     }
     return typeName;
-  }
+  };
 
   // XXX: not sure whether to use the 'kind' enum from TS or just run with the
   // strings. Strings seem safe enough I guess
@@ -274,7 +280,7 @@ export default class TypescriptApiBox extends Component {
     }
 
     const signature = rawData.signatures && rawData.signatures[0];
-    if (!signature) {
+    if (!signature || !Array.isArray(signature.parameters)) {
       return [];
     }
 
@@ -291,7 +297,9 @@ export default class TypescriptApiBox extends Component {
 
       let properties = [];
       if (param.type && param.type.declaration) {
-        properties = param.type.declaration.children.map(this._parameter);
+        properties = Array.isArray(param.type.declaration.children)
+          ? param.type.declaration.children.map(this._parameter)
+          : [];
       } else if (param.type && param.type.type === 'reference') {
         const dataForProperties = dataByKey[param.type.name] || {};
         properties = Array.isArray(dataForProperties.children)
