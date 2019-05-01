@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {Component, Fragment} from 'react';
+import React, {Component, Fragment, createContext} from 'react';
 import extend from 'lodash/extend';
 import partition from 'lodash/partition';
 
@@ -42,8 +42,6 @@ function isReadableName(name) {
 
 export default class TypescriptApiBox extends Component {
   static propTypes = {
-    data: PropTypes.object.isRequired,
-    filepathPrefix: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired
   };
 
@@ -68,7 +66,7 @@ export default class TypescriptApiBox extends Component {
       }
     }
 
-    traverse(this.props.data);
+    traverse(this.context.data);
 
     return dataByKey;
   }
@@ -120,7 +118,7 @@ export default class TypescriptApiBox extends Component {
       summary: _summary(rawData),
       groups,
       repo: 'apollostack/apollo-client',
-      filepath: this.props.filepathPrefix + rawData.sources[0].fileName,
+      filepath: this.context.filepathPrefix + rawData.sources[0].fileName,
       lineno: rawData.sources[0].line
     };
   }
@@ -346,8 +344,8 @@ export default class TypescriptApiBox extends Component {
             <Fragment key={index}>
               <h4 className="subheading">{group.name}</h4>
               <dl className="args">
-                {group.members.map((member, index) => (
-                  <Fragment key={index}>
+                {group.members.map(member => (
+                  <Fragment key={member.id}>
                     <dt>
                       <span className="name">{member.name}</span>
                       <span className="type">{member.type}</span>
@@ -363,3 +361,6 @@ export default class TypescriptApiBox extends Component {
     );
   }
 }
+
+export const TypescriptApiBoxContext = createContext();
+TypescriptApiBox.contextType = TypescriptApiBoxContext;

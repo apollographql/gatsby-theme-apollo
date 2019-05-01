@@ -1,1 +1,4 @@
-export {default as TypescriptApiBox} from './src/components/typescript-api-box';
+export {
+  default as TypescriptApiBox,
+  TypescriptApiBoxContext
+} from './src/components/typescript-api-box';
