@@ -124,7 +124,7 @@ export default class TypescriptApiBox extends Component {
   }
 
   // This is just literally the name of the type, nothing fancy, except for references
-  _typeName(type) {
+  _typeName = type => {
     if (type.type === 'instrinct') {
       if (type.isArray) {
         return '[' + type.name + ']';
@@ -161,7 +161,7 @@ export default class TypescriptApiBox extends Component {
     } else if (type.type === 'stringLiteral') {
       return '"' + type.value + '"';
     }
-  }
+  };
 
   _objectProperties(rawData) {
     return rawData.indexSignature
@@ -260,15 +260,12 @@ export default class TypescriptApiBox extends Component {
     return escapedName;
   }
 
-  _parameter(parameter) {
-    return {
-      name: parameter.name,
-      type: this._type(parameter),
-      description:
-        parameter.comment &&
-        (parameter.comment.text || parameter.comment.shortText)
-    };
-  }
+  _parameter = param => ({
+    name: param.name,
+    type: this._type(param),
+    description:
+      param.comment && (param.comment.text || param.comment.shortText)
+  });
 
   // Takes the data about a function / constructor and parses out the named params
   _parameters(rawData, dataByKey) {
@@ -344,8 +341,8 @@ export default class TypescriptApiBox extends Component {
             <Fragment key={index}>
               <h4 className="subheading">{group.name}</h4>
               <dl className="args">
-                {group.members.map(member => (
-                  <Fragment key={member.id}>
+                {group.members.map((member, index) => (
+                  <Fragment key={index}>
                     <dt>
                       <span className="name">{member.name}</span>
                       <span className="type">{member.type}</span>
