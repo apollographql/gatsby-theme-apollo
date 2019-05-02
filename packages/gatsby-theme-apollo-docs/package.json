@@ -24,7 +24,6 @@
     "react-icons": "^3.3.0",
     "recompose": "^0.30.0",
     "remark": "^10.0.1",
-    "remark-react": "^5.0.1",
-    "simple-git": "^1.107.0"
+    "remark-react": "^5.0.1"
   }
 }
