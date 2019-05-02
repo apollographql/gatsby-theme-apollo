@@ -5,6 +5,7 @@ import partition from 'lodash/partition';
 import remark from 'remark';
 import remark2react from 'remark-react';
 import styled from '@emotion/styled';
+import withProps from 'recompose/withProps';
 import {colors} from 'gatsby-theme-apollo';
 
 const Container = styled.div({
@@ -60,10 +61,18 @@ function isReadableName(name) {
   return name.substring(0, 2) !== '__';
 }
 
+const Code = withProps({
+  className: 'language-'
+})('code');
+
 function mdToReact(text) {
   const sanitized = text.replace(/\{@link (\w*)\}/g, '[$1](#$1)');
   return remark()
-    .use(remark2react)
+    .use(remark2react, {
+      remarkReactComponents: {
+        code: Code
+      }
+    })
     .processSync(sanitized).contents;
 }
 
