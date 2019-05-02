@@ -2,10 +2,28 @@ import PropTypes from 'prop-types';
 import React, {Component, Fragment, createContext} from 'react';
 import extend from 'lodash/extend';
 import partition from 'lodash/partition';
+import styled from '@emotion/styled';
+import {colors} from 'gatsby-theme-apollo';
 
-function _link(id, name) {
-  return `<a href="#${id}">${name || id}</a>`;
-}
+const Container = styled.div({
+  border: `1px solid ${colors.divider}`,
+  borderRadius: 4,
+  margin: '1.5em 0',
+  overflow: 'hidden'
+});
+
+const Header = styled.div({
+  padding: '1.25rem',
+  backgroundColor: colors.background
+});
+
+const Body = styled.div({
+  padding: '1.25rem'
+});
+
+// function _link(id, name) {
+//   return `<a href="#${id}">${name || id}</a>`;
+// }
 
 function _summary(rawData) {
   if (rawData.comment) {
@@ -157,7 +175,9 @@ export default class TypescriptApiBox extends Component {
           return this._type(referencedData);
         }
       }
-      return _link(_typeId(type), type.name);
+
+      // it used to be this: return _link(_typeId(type), type.name);
+      return _typeId(type);
     } else if (type.type === 'stringLiteral') {
       return '"' + type.value + '"';
     }
@@ -320,8 +340,8 @@ export default class TypescriptApiBox extends Component {
     const rawData = this.dataByKey[this.props.name];
     const args = this.templateArgs(rawData);
     return (
-      <div className="api new-api-box">
-        <div className="api-heading">
+      <Container>
+        <Header>
           <h3 title={args.name} className="title-api selflink" id={args.id}>
             <a href={`#${args.id}`} className="link primary">
               {args.signature}
@@ -341,9 +361,9 @@ export default class TypescriptApiBox extends Component {
               </a>
             )}
           </div>
-        </div>
-        <div className="api-body">
-          <div className="desc">{args.summary}</div>
+        </Header>
+        <Body>
+          <p>{args.summary}</p>
           {args.type && <div className="type">{args.type}</div>}
           {args.groups.map((group, index) => (
             <Fragment key={index}>
@@ -361,8 +381,8 @@ export default class TypescriptApiBox extends Component {
               </dl>
             </Fragment>
           ))}
-        </div>
-      </div>
+        </Body>
+      </Container>
     );
   }
 }
