@@ -14,7 +14,14 @@ const gatsbyRemarkPlugins = [
   }
 ];
 
-module.exports = ({subtitle, description, root}) => ({
+module.exports = ({
+  subtitle,
+  description,
+  root,
+  githubRepo,
+  contentDir,
+  versions = {}
+}) => ({
   __experimentalThemes: [
     {
       resolve: 'gatsby-theme-apollo',
@@ -53,6 +60,15 @@ module.exports = ({subtitle, description, root}) => ({
       options: {
         gatsbyRemarkPlugins
       }
-    }
+    },
+    ...Object.keys(versions).map(key => ({
+      resolve: 'gatsby-source-git',
+      options: {
+        name: key,
+        remote: `https://github.com/${githubRepo}`,
+        branch: versions[key],
+        patterns: `${contentDir}/**`
+      }
+    }))
   ]
 });

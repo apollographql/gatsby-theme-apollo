@@ -3,10 +3,24 @@ const {createFilePath} = require('gatsby-source-filesystem');
 
 exports.onCreateNode = ({node, actions, getNode}) => {
   if (['MarkdownRemark', 'Mdx'].includes(node.internal.type)) {
+    let value = createFilePath({
+      node,
+      getNode
+    });
+
+    const parent = getNode(node.parent);
+    if (parent.gitRemote___NODE) {
+      const gitRemote = getNode(parent.gitRemote___NODE);
+      value = value.replace(
+        /^\/docs\/source\//,
+        `/v${gitRemote.sourceInstanceName}/`
+      );
+    }
+
     actions.createNodeField({
       name: 'slug',
       node,
-      value: createFilePath({node, getNode})
+      value
     });
   }
 };
