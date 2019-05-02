@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React, {Component, Fragment, createContext} from 'react';
 import extend from 'lodash/extend';
 import partition from 'lodash/partition';
+import remark from 'remark';
+import remark2react from 'remark-react';
 import styled from '@emotion/styled';
 import {colors} from 'gatsby-theme-apollo';
 
@@ -56,6 +58,13 @@ function _typeId(type) {
 
 function isReadableName(name) {
   return name.substring(0, 2) !== '__';
+}
+
+function mdToReact(text) {
+  const sanitized = text.replace(/\{@link (\w*)\}/g, '[$1](#$1)');
+  return remark()
+    .use(remark2react)
+    .processSync(sanitized).contents;
 }
 
 export default class TypescriptApiBox extends Component {
@@ -363,7 +372,7 @@ export default class TypescriptApiBox extends Component {
           </div>
         </Header>
         <Body>
-          <p>{args.summary}</p>
+          {args.summary && mdToReact(args.summary)}
           {args.type && <div className="type">{args.type}</div>}
           {args.groups.map((group, index) => (
             <Fragment key={index}>
@@ -375,7 +384,9 @@ export default class TypescriptApiBox extends Component {
                       <span className="name">{member.name}</span>
                       <span className="type">{member.type}</span>
                     </dt>
-                    <dd>{member.description}</dd>
+                    {member.description && (
+                      <dd>{mdToReact(member.description)}</dd>
+                    )}
                   </Fragment>
                 ))}
               </dl>
