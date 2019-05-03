@@ -45,6 +45,7 @@ const Container = styled.div({
 
 const MainContent = styled.main({
   flexGrow: 1,
+  width: 0,
   maxWidth: '100ch'
 });
 
