@@ -15,6 +15,7 @@
     "gatsby-source-git": "^1.0.1",
     "gatsby-theme-apollo": "^0.1.14",
     "gatsby-transformer-remark": "^2.3.8",
+    "js-yaml": "^3.13.1",
     "polished": "^2.3.3",
     "prismjs": "^1.15.0",
     "prop-types": "^15.6.2",

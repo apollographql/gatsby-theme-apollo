@@ -1,10 +1,21 @@
+const jsYaml = require('js-yaml');
 const path = require('path');
 const {createFilePath} = require('gatsby-source-filesystem');
 const {getVersionBasePath} = require('./src/utils');
 
-exports.onCreateNode = ({node, actions, getNode}) => {
+async function onCreateNode({node, actions, getNode, loadNodeContent}) {
+  if (node.relativePath === 'docs/_config.yml') {
+    const value = await loadNodeContent(node);
+    actions.createNodeField({
+      name: 'raw',
+      node,
+      value
+    });
+  }
+
   if (['MarkdownRemark', 'Mdx'].includes(node.internal.type)) {
-    let value = createFilePath({
+    let version = 'default';
+    let slug = createFilePath({
       node,
       getNode
     });
@@ -12,22 +23,58 @@ exports.onCreateNode = ({node, actions, getNode}) => {
     const parent = getNode(node.parent);
     if (parent.gitRemote___NODE) {
       const gitRemote = getNode(parent.gitRemote___NODE);
-      value = value.replace(
-        /^\/docs\/source\//,
-        getVersionBasePath(gitRemote.sourceInstanceName)
-      );
+      version = gitRemote.sourceInstanceName;
+      slug = slug.replace(/^\/docs\/source/, getVersionBasePath(version));
     }
+
+    actions.createNodeField({
+      name: 'version',
+      node,
+      value: version
+    });
 
     actions.createNodeField({
       name: 'slug',
       node,
-      value
+      value: slug
     });
   }
-};
+}
+
+exports.onCreateNode = onCreateNode;
 
 function getPageFromEdge({node}) {
   return node.childMarkdownRemark || node.childMdx;
+}
+
+function getSidebarContents(sidebarCategories, edges, version) {
+  return Object.keys(sidebarCategories).map(key => ({
+    title: key === 'null' ? null : key,
+    pages: sidebarCategories[key]
+      .map(path => {
+        const edge = edges.find(edge => {
+          const {relativePath} = edge.node;
+          const {fields} = getPageFromEdge(edge);
+          return (
+            fields.version === version &&
+            relativePath
+              .slice(0, relativePath.lastIndexOf('.'))
+              .replace(/^docs\/source\//, '') === path
+          );
+        });
+
+        if (!edge) {
+          return null;
+        }
+
+        const {frontmatter, fields} = getPageFromEdge(edge);
+        return {
+          title: frontmatter.title,
+          path: fields.slug
+        };
+      })
+      .filter(Boolean)
+  }));
 }
 
 const pageFragment = `
@@ -39,6 +86,7 @@ const pageFragment = `
   }
   fields {
     slug
+    version
   }
 `;
 
@@ -63,7 +111,6 @@ exports.createPages = async ({actions, graphql}, options) => {
   `);
 
   const {
-    contentDir,
     githubRepo,
     sidebarCategories,
     spectrumPath,
@@ -71,42 +118,57 @@ exports.createPages = async ({actions, graphql}, options) => {
     versions = {},
     defaultVersion
   } = options;
-  const sidebarContents = Object.keys(sidebarCategories).map(key => ({
-    title: key === 'null' ? null : key,
-    pages: sidebarCategories[key]
-      .map(path => {
-        const edge = data.allFile.edges.find(edge => {
-          const {relativePath} = edge.node;
-          return relativePath.slice(0, relativePath.lastIndexOf('.')) === path;
-        });
 
-        if (!edge) {
-          return null;
+  const {edges} = data.allFile;
+  const sidebarContents = {
+    default: getSidebarContents(sidebarCategories, edges, 'default')
+  };
+
+  const versionKeys = [];
+  for (const version in versions) {
+    versionKeys.push(version);
+    const response = await graphql(`
+      {
+        allFile(
+          filter: {
+            relativePath: {eq: "docs/_config.yml"}
+            gitRemote: {sourceInstanceName: {eq: "${version}"}}
+          }
+        ) {
+          edges {
+            node {
+              fields {
+                raw
+              }
+            }
+          }
         }
+      }
+    `);
 
-        const {frontmatter, fields} = getPageFromEdge(edge);
-        return {
-          title: frontmatter.title,
-          path: fields.slug
-        };
-      })
-      .filter(Boolean)
-  }));
+    const [{node}] = response.data.allFile.edges;
+    const {sidebar_categories} = jsYaml.load(node.fields.raw);
+    sidebarContents[version] = getSidebarContents(
+      sidebar_categories,
+      edges,
+      version
+    );
+  }
 
   const template = require.resolve('./src/components/template');
-  data.allFile.edges.forEach(edge => {
+  edges.forEach(edge => {
     const page = getPageFromEdge(edge);
     actions.createPage({
       path: page.fields.slug,
       component: template,
       context: {
         id: edge.node.id,
-        filePath: path.join(contentDir, edge.node.relativePath),
-        sidebarContents,
+        filePath: path.join('docs/source', edge.node.relativePath),
+        sidebarContents: sidebarContents[page.fields.version],
         githubRepo,
         spectrumPath,
         typescriptApiBox,
-        versions: Object.keys(versions), // only send version labels to client
+        versions: versionKeys, // only need to send version labels to client
         defaultVersion
       }
     });

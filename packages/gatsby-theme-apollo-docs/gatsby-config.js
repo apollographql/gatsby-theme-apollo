@@ -19,7 +19,6 @@ module.exports = ({
   description,
   root,
   githubRepo,
-  contentDir,
   versions = {}
 }) => ({
   __experimentalThemes: [
@@ -67,7 +66,7 @@ module.exports = ({
         name: key,
         remote: `https://github.com/${githubRepo}`,
         branch: versions[key],
-        patterns: `${contentDir}/**`
+        patterns: 'docs/**'
       }
     }))
   ]
