@@ -33,17 +33,18 @@ export default function SidebarContent(props) {
             useLink
             isPathActive={props.isPathActive}
             options={[
-              ...props.versions.map(version => ({
-                text: getVersionLabel(version),
-                value: getVersionBasePath(version)
-              })),
               {
                 text: props.defaultVersion
                   ? getVersionLabel(props.defaultVersion)
                   : 'Latest',
                 value: '/'
               }
-            ]}
+            ].concat(
+              props.versions.map(version => ({
+                text: getVersionLabel(version),
+                value: getVersionBasePath(version)
+              }))
+            )}
           />
         )}
       </SidebarContentHeader>
