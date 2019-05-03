@@ -146,7 +146,9 @@ export default class Template extends PureComponent {
       githubRepo,
       spectrumPath,
       filePath,
-      typescriptApiBox
+      typescriptApiBox,
+      versions,
+      defaultVersion
     } = this.props.pageContext;
 
     const [owner, repo] = githubRepo.split('/');
@@ -170,6 +172,9 @@ export default class Template extends PureComponent {
                   title={subtitle}
                   pathname={pathname}
                   contents={sidebarContents}
+                  versions={versions}
+                  defaultVersion={defaultVersion}
+                  isPathActive={this.isPathActive}
                 />
               </Sidebar>
               <Main ref={this.main} onScroll={this.onScroll} tabIndex={0}>

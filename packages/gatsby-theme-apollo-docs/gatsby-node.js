@@ -1,5 +1,6 @@
 const path = require('path');
 const {createFilePath} = require('gatsby-source-filesystem');
+const {getVersionBasePath} = require('./src/utils');
 
 exports.onCreateNode = ({node, actions, getNode}) => {
   if (['MarkdownRemark', 'Mdx'].includes(node.internal.type)) {
@@ -13,7 +14,7 @@ exports.onCreateNode = ({node, actions, getNode}) => {
       const gitRemote = getNode(parent.gitRemote___NODE);
       value = value.replace(
         /^\/docs\/source\//,
-        `/v${gitRemote.sourceInstanceName}/`
+        getVersionBasePath(gitRemote.sourceInstanceName)
       );
     }
 
@@ -66,7 +67,9 @@ exports.createPages = async ({actions, graphql}, options) => {
     githubRepo,
     sidebarCategories,
     spectrumPath,
-    typescriptApiBox
+    typescriptApiBox,
+    versions = {},
+    defaultVersion
   } = options;
   const sidebarContents = Object.keys(sidebarCategories).map(key => ({
     title: key === 'null' ? null : key,
@@ -102,7 +105,9 @@ exports.createPages = async ({actions, graphql}, options) => {
         sidebarContents,
         githubRepo,
         spectrumPath,
-        typescriptApiBox
+        typescriptApiBox,
+        versions: Object.keys(versions), // only send version labels to client
+        defaultVersion
       }
     });
   });
