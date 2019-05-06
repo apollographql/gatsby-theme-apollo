@@ -33,7 +33,7 @@ const BodyContent = styled.div({
   },
   [['h2', 'h3', 'h4']]: {
     'a svg': {
-      fill: 'currentColor'
+      fill: colors.primary
     },
     '&[id]::before': {
       // inspired by https://css-tricks.com/hash-tag-links-padding/
