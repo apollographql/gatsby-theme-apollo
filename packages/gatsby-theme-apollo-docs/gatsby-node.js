@@ -51,7 +51,18 @@ function getSidebarContents(sidebarCategories, edges, version) {
   return Object.keys(sidebarCategories).map(key => ({
     title: key === 'null' ? null : key,
     pages: sidebarCategories[key]
-      .map(path => {
+      .map(linkPath => {
+        const match = linkPath.match(
+          /^\[([\w\s\d]+)\]\((https?:\/\/[\w.]+)\)$/
+        );
+        if (match) {
+          return {
+            anchor: true,
+            title: match[1],
+            path: match[2]
+          };
+        }
+
         const edge = edges.find(edge => {
           const {relativePath} = edge.node;
           const {fields} = getPageFromEdge(edge);
@@ -59,7 +70,7 @@ function getSidebarContents(sidebarCategories, edges, version) {
             fields.version === version &&
             relativePath
               .slice(0, relativePath.lastIndexOf('.'))
-              .replace(/^docs\/source\//, '') === path
+              .replace(/^docs\/source\//, '') === linkPath
           );
         });
 
