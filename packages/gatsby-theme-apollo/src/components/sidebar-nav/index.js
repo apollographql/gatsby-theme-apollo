@@ -177,7 +177,11 @@ export default class SidebarNav extends Component {
               key={title}
               title={title}
               path={path}
-              expanded={Boolean(this.state.sidebarState[getId(title)])}
+              isFirst={!index}
+              expanded={
+                Boolean(this.state.sidebarState[getId(title)]) ||
+                this.props.alwaysExpanded
+              }
               active={pages.some(this.isPageSelected)}
               onClick={this.props.alwaysExpanded ? null : this.toggleCategory}
             >

@@ -7,17 +7,14 @@ import {MdExpandLess, MdExpandMore} from 'react-icons/md';
 import {css} from '@emotion/core';
 import {smallCaps} from '../../utils/typography';
 
-const Container = styled.div({
-  borderTop: `1px solid ${colors.divider}`
-});
-
 const iconSize = 20;
+const headingPadding = 16;
 const headingStyles = css({
   display: 'flex',
   alignItems: 'center',
   width: '100%',
   marginBottom: 0,
-  padding: 16,
+  padding: headingPadding,
   paddingLeft: 0,
   border: 0,
   color: colors.text2,
@@ -37,6 +34,11 @@ const headingStyles = css({
     fill: 'currentColor'
   }
 });
+
+const Container = styled.div(props => ({
+  borderTop: !props.first && `1px solid ${colors.divider}`,
+  marginTop: props.first && headingPadding / -2
+}));
 
 const StyledButton = styled.button(headingStyles, {
   '&.active': {
@@ -61,6 +63,7 @@ export default class Category extends Component {
     expanded: PropTypes.bool.isRequired,
     children: PropTypes.node.isRequired,
     active: PropTypes.bool.isRequired,
+    isFirst: PropTypes.bool.isRequired,
     onClick: PropTypes.func
   };
 
@@ -86,7 +89,7 @@ export default class Category extends Component {
 
   render() {
     return (
-      <Container>
+      <Container first={this.props.isFirst}>
         {!this.props.onClick && this.props.path ? (
           <StyledLink to={this.props.path}>{this.renderContents()}</StyledLink>
         ) : (
