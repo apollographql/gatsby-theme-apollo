@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 import {MdChevronLeft, MdChevronRight} from 'react-icons/md';
 import {size} from 'polished';
+import {smallCaps} from '../utils/typography';
 
 const Container = styled.nav({
   display: 'flex',
@@ -38,10 +39,8 @@ const LinkText = styled.div(({align = 'left'}) => {
   };
 });
 
-const LinkHeading = styled.div({
-  fontSize: 12,
-  letterSpacing: 2,
-  textTransform: 'uppercase'
+const LinkHeading = styled.div(smallCaps, {
+  fontSize: 12
 });
 
 const LinkTitle = styled.div({

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import {colors} from 'gatsby-theme-apollo';
+import {colors, smallCaps} from 'gatsby-theme-apollo';
 
 export const ButtonWrapper = styled.div({
   display: 'flex',
@@ -9,16 +9,13 @@ export const ButtonWrapper = styled.div({
   margin: '0 auto 24px'
 });
 
-export const Button = styled.a({
+export const Button = styled.a(smallCaps, {
   padding: '12px 24px',
   border: '2px solid transparent',
   borderRadius: '3em',
   fontSize: 14,
   color: 'white',
-  textTransform: 'uppercase',
   textDecoration: 'none',
-  letterSpacing: '0.1em',
-  textIndent: '0.1em',
   backgroundColor: colors.secondary
 });
 

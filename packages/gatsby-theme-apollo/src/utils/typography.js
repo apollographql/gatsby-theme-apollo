@@ -4,6 +4,11 @@ import colors from './colors';
 const defaultFont = 'Source Sans Pro';
 const sansSerif = [defaultFont, 'Helvetica', 'sans-serif'];
 
+export const smallCaps = {
+  letterSpacing: 2,
+  textTransform: 'uppercase'
+};
+
 export default new Typography({
   bodyColor: colors.text2,
   headerColor: colors.text1,

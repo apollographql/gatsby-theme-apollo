@@ -6,6 +6,7 @@ import store from 'store';
 import styled from '@emotion/styled';
 import {Link, withPrefix} from 'gatsby';
 import {MdUnfoldLess, MdUnfoldMore} from 'react-icons/md';
+import {smallCaps} from '../../utils/typography';
 
 const StyledList = styled.ul({
   marginLeft: 0,
@@ -31,7 +32,7 @@ const StyledListItem = styled.li({
   }
 });
 
-const ExpandAll = styled.button(listItemStyles, {
+const ExpandAll = styled.button(listItemStyles, smallCaps, {
   display: 'flex',
   alignItems: 'center',
   marginBottom: 12,
@@ -39,8 +40,6 @@ const ExpandAll = styled.button(listItemStyles, {
   border: 0,
   fontSize: 12,
   lineHeight: 1,
-  letterSpacing: 2,
-  textTransform: 'uppercase',
   background: 'none',
   outline: 'none',
   cursor: 'pointer',

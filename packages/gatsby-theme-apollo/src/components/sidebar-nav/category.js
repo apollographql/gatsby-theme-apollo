@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 import {MdExpandLess, MdExpandMore} from 'react-icons/md';
 import {css} from '@emotion/core';
+import {smallCaps} from '../../utils/typography';
 
 const Container = styled.div({
   borderTop: `1px solid ${colors.divider}`
@@ -25,8 +26,7 @@ const headingStyles = css({
   h6: {
     margin: 0,
     fontWeight: 'bold',
-    textTransform: 'uppercase',
-    letterSpacing: 2,
+    ...smallCaps,
     color: 'inherit'
   },
   svg: {

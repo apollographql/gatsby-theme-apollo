@@ -2,7 +2,7 @@
 import React, {Component, Fragment, createRef} from 'react';
 import styled from '@emotion/styled';
 import {MdClose} from 'react-icons/md';
-import {breakpoints, colors} from 'gatsby-theme-apollo';
+import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo';
 import {css} from '@emotion/core';
 import {position, size, transparentize} from 'polished';
 
@@ -83,8 +83,7 @@ const Container = styled.div(responsiveStyles, {
         borderBottom: 0,
         fontSize: 14,
         color: 'inherit',
-        textTransform: 'uppercase',
-        letterSpacing: 2
+        ...smallCaps
       },
       [['&--subcategory-column', '&--content']]: {
         padding: 0,

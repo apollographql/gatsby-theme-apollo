@@ -6,7 +6,7 @@ import remark from 'remark';
 import remark2react from 'remark-react';
 import styled from '@emotion/styled';
 import withProps from 'recompose/withProps';
-import {colors} from 'gatsby-theme-apollo';
+import {colors, smallCaps} from 'gatsby-theme-apollo';
 
 const Container = styled.div({
   border: `1px solid ${colors.divider}`,
@@ -20,9 +20,24 @@ const Header = styled.div({
   backgroundColor: colors.background
 });
 
+const MainHeading = styled.h4({
+  marginBottom: 0
+});
+
+const StyledCode = styled.code({
+  marginLeft: '-0.3em'
+});
+
+const Subheading = styled.h6({
+  marginTop: 12,
+  marginBottom: 0
+});
+
 const Body = styled.div({
   padding: '1.25rem'
 });
+
+const BodySubheading = styled.h6(smallCaps);
 
 // function _link(id, name) {
 //   return `<a href="#${id}">${name || id}</a>`;
@@ -360,11 +375,13 @@ export default class TypescriptApiBox extends Component {
     return (
       <Container>
         <Header>
-          <h3 title={args.name} className="title-api selflink" id={args.id}>
-            <a href={`#${args.id}`}>{args.signature}</a>
-          </h3>
-          <div className="subtext-api">
-            {args.filepath && (
+          <MainHeading title={args.name} id={args.id}>
+            <StyledCode className="language-">
+              <a href={`#${args.id}`}>{args.signature}</a>
+            </StyledCode>
+          </MainHeading>
+          {args.filepath && (
+            <Subheading>
               <a
                 href={`https://github.com/${args.repo}/blob/master/${
                   args.filepath
@@ -374,15 +391,15 @@ export default class TypescriptApiBox extends Component {
               >
                 ({args.filepath}, line {args.lineno})
               </a>
-            )}
-          </div>
+            </Subheading>
+          )}
         </Header>
         <Body>
           {args.summary && mdToReact(args.summary)}
           {args.type && <div className="type">{args.type}</div>}
           {args.groups.map((group, index) => (
             <Fragment key={index}>
-              <h4 className="subheading">{group.name}</h4>
+              <BodySubheading>{group.name}</BodySubheading>
               <dl className="args">
                 {group.members.map((member, index) => (
                   <Fragment key={index}>
