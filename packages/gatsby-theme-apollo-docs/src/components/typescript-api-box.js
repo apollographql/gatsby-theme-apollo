@@ -361,14 +361,11 @@ export default class TypescriptApiBox extends Component {
       <Container>
         <Header>
           <h3 title={args.name} className="title-api selflink" id={args.id}>
-            <a href={`#${args.id}`} className="link primary">
-              {args.signature}
-            </a>
+            <a href={`#${args.id}`}>{args.signature}</a>
           </h3>
           <div className="subtext-api">
             {args.filepath && (
               <a
-                className="src-code link secondary"
                 href={`https://github.com/${args.repo}/blob/master/${
                   args.filepath
                 }#L${args.lineno}`}
