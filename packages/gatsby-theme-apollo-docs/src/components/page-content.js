@@ -15,34 +15,6 @@ const Container = styled.div({
   maxWidth: 1200
 });
 
-// TODO: replace with components in MDX
-// const documentationButtons = {
-//   '.documentation-buttons': {
-//     display: 'flex',
-//     justifyContent: 'space-evenly',
-//     width: '100%',
-//     maxWidth: 640,
-//     margin: '0 auto 24px',
-//     '.btn.default': {
-//       padding: '12px 24px',
-//       border: '2px solid transparent',
-//       borderRadius: '3em',
-//       fontSize: 14,
-//       color: 'white',
-//       textTransform: 'uppercase',
-//       textDecoration: 'none',
-//       letterSpacing: '0.1em',
-//       textIndent: '0.1em',
-//       backgroundColor: colors.secondary,
-//       '&.hollow': {
-//         borderColor: colors.secondary,
-//         color: colors.secondary,
-//         backgroundColor: 'transparent'
-//       }
-//     }
-//   }
-// };
-
 const MainContent = styled.main({
   flexGrow: 1,
   width: 0,
@@ -50,7 +22,9 @@ const MainContent = styled.main({
 });
 
 const BodyContent = styled.div({
-  'a[href]': {
+  // style all anchors with an href and no prior classes
+  // this helps avoid anchors with names and styled buttons
+  'a[href]:not([class])': {
     color: colors.primary,
     textDecoration: 'none',
     ':hover': {
