@@ -28,7 +28,7 @@ export default function SidebarContent(props) {
         <SidebarContentHeaderText className="title-sidebar">
           {props.title}
         </SidebarContentHeaderText>
-        {Array.isArray(props.versions) && (
+        {Array.isArray(props.versions) && props.versions.length > 1 && (
           <SelectLink
             useLink
             isPathActive={props.isPathActive}
