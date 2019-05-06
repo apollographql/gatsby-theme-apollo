@@ -6,14 +6,16 @@ export const ButtonWrapper = styled.div({
   justifyContent: 'space-evenly',
   width: '100%',
   maxWidth: 640,
-  margin: '0 auto 24px'
+  margin: '0 auto',
+  marginBottom: 24
 });
 
 export const Button = styled.a(smallCaps, {
   padding: '12px 24px',
   border: '2px solid transparent',
-  borderRadius: '3em',
+  borderRadius: 1000,
   fontSize: 14,
+  fontWeight: 'bold',
   color: 'white',
   textDecoration: 'none',
   backgroundColor: colors.secondary
