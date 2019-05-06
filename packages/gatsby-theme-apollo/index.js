@@ -16,6 +16,6 @@ export {
 } from './src/components/responsive-sidebar';
 export {default as Sidebar} from './src/components/sidebar';
 export {default as SidebarNav} from './src/components/sidebar-nav';
-export {default as breakpoints} from './src/util/breakpoints';
-export {default as colors} from './src/util/colors';
-export {default as codeBlockStyles} from './src/util/code-block-styles';
+export {default as breakpoints} from './src/utils/breakpoints';
+export {default as colors} from './src/utils/colors';
+export {default as codeBlockStyles} from './src/utils/code-block-styles';

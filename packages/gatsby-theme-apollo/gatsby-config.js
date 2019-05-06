@@ -10,7 +10,7 @@ module.exports = {
       options: {
         pathToConfigModule: path.relative(
           process.cwd(),
-          require.resolve('./src/util/typography.js')
+          require.resolve('./src/utils/typography.js')
         )
       }
     }

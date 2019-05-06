@@ -1,7 +1,7 @@
 import Category from './category';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import colors from '../../util/colors';
+import colors from '../../utils/colors';
 import store from 'store';
 import styled from '@emotion/styled';
 import {Link, withPrefix} from 'gatsby';

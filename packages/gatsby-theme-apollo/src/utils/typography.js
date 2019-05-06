@@ -1,7 +1,8 @@
 import Typography from 'typography';
 import colors from './colors';
 
-const sansSerif = ['Source Sans Pro', 'Helvetica', 'sans-serif'];
+const defaultFont = 'Source Sans Pro';
+const sansSerif = [defaultFont, 'Helvetica', 'sans-serif'];
 
 export default new Typography({
   bodyColor: colors.text2,
@@ -9,7 +10,7 @@ export default new Typography({
   scaleRatio: 2.5,
   googleFonts: [
     {
-      name: 'Source Sans Pro',
+      name: defaultFont,
       styles: ['400', '600']
     }
   ],
@@ -26,7 +27,7 @@ export default new Typography({
     hr: {
       backgroundColor: colors.divider
     },
-    [['h1', 'h2', 'h3', 'h4']]: {
+    [['h1', 'h2', 'h3', 'h4', 'h6']]: {
       fontWeight: 400
     },
     [['h4', 'p', 'li']]: {

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import colors from '../../util/colors';
+import colors from '../../utils/colors';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 import {MdExpandLess, MdExpandMore} from 'react-icons/md';
@@ -24,6 +24,7 @@ const headingStyles = css({
   outline: 'none',
   h6: {
     margin: 0,
+    fontWeight: 'bold',
     textTransform: 'uppercase',
     letterSpacing: 2,
     color: 'inherit'
