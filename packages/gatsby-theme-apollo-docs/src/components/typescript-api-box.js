@@ -25,7 +25,8 @@ const MainHeading = styled.h4({
 });
 
 const StyledCode = styled.code({
-  marginLeft: '-0.3em'
+  padding: '0 !important',
+  background: 'none !important'
 });
 
 const Subheading = styled.h6({
@@ -37,11 +38,22 @@ const Body = styled.div({
   padding: '1.25rem'
 });
 
-const BodySubheading = styled.h6(smallCaps);
+const BodySubheading = styled.h6(smallCaps, {
+  fontWeight: 'bold'
+});
 
-// function _link(id, name) {
-//   return `<a href="#${id}">${name || id}</a>`;
-// }
+const StyledTerm = styled.dt({
+  marginBottom: 8,
+  fontFamily: "'Source Code Pro', monospace",
+  fontWeight: 'normal'
+});
+
+const StyledDescription = styled.dd({
+  fontSize: '0.5em',
+  [['p', 'li']]: {
+    fontSize: '1rem'
+  }
+});
 
 function _summary(rawData) {
   if (rawData.comment) {
@@ -396,19 +408,20 @@ export default class TypescriptApiBox extends Component {
         </Header>
         <Body>
           {args.summary && mdToReact(args.summary)}
-          {args.type && <div className="type">{args.type}</div>}
+          {args.type && <div>{args.type}</div>}
           {args.groups.map((group, index) => (
             <Fragment key={index}>
               <BodySubheading>{group.name}</BodySubheading>
-              <dl className="args">
+              <dl>
                 {group.members.map((member, index) => (
                   <Fragment key={index}>
-                    <dt>
-                      <span className="name">{member.name}</span>
-                      <span className="type">{member.type}</span>
-                    </dt>
+                    <StyledTerm>
+                      {member.name} {member.type}
+                    </StyledTerm>
                     {member.description && (
-                      <dd>{mdToReact(member.description)}</dd>
+                      <StyledDescription>
+                        {mdToReact(member.description)}
+                      </StyledDescription>
                     )}
                   </Fragment>
                 ))}
