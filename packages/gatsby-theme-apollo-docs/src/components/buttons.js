@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import {Link} from 'gatsby';
 import {colors, smallCaps} from 'gatsby-theme-apollo';
 
 export const ButtonWrapper = styled.div({
@@ -10,7 +11,7 @@ export const ButtonWrapper = styled.div({
   marginBottom: 24
 });
 
-export const Button = styled.a(smallCaps, {
+export const Button = styled(Link)(smallCaps, {
   padding: '12px 24px',
   border: '2px solid transparent',
   borderRadius: 1000,
