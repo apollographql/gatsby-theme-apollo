@@ -409,25 +409,27 @@ export default class TypescriptApiBox extends Component {
         <Body>
           {args.summary && mdToReact(args.summary)}
           {args.type && <div>{args.type}</div>}
-          {args.groups.map((group, index) => (
-            <Fragment key={index}>
-              <BodySubheading>{group.name}</BodySubheading>
-              <dl>
-                {group.members.map((member, index) => (
-                  <Fragment key={index}>
-                    <StyledTerm>
-                      {member.name} {member.type}
-                    </StyledTerm>
-                    {member.description && (
-                      <StyledDescription>
-                        {mdToReact(member.description)}
-                      </StyledDescription>
-                    )}
-                  </Fragment>
-                ))}
-              </dl>
-            </Fragment>
-          ))}
+          {args.groups
+            .filter(group => group.members.length)
+            .map((group, index) => (
+              <Fragment key={index}>
+                <BodySubheading>{group.name}</BodySubheading>
+                <dl>
+                  {group.members.map((member, index) => (
+                    <Fragment key={index}>
+                      <StyledTerm>
+                        {member.name} {member.type}
+                      </StyledTerm>
+                      {member.description && (
+                        <StyledDescription>
+                          {mdToReact(member.description)}
+                        </StyledDescription>
+                      )}
+                    </Fragment>
+                  ))}
+                </dl>
+              </Fragment>
+            ))}
         </Body>
       </Container>
     );
