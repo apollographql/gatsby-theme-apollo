@@ -100,7 +100,7 @@ export default class SidebarNav extends Component {
   };
 
   isCategorySelected = ({path, pages}) =>
-    this.isPageSelected({path}) || pages.some(this.isPageSelected);
+    path ? this.isPageSelected({path}) : pages.some(this.isPageSelected);
 
   toggleCategory = title => {
     this.setState(prevState => {
