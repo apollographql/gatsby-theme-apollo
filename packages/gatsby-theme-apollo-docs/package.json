@@ -16,13 +16,7 @@
     "gatsby-theme-apollo": "^1.0.0-alpha.3",
     "gatsby-transformer-remark": "^2.3.8",
     "js-yaml": "^3.13.1",
-    "polished": "^2.3.3",
     "prismjs": "^1.15.0",
-    "prop-types": "^15.6.2",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-helmet": "^5.2.0",
-    "react-icons": "^3.3.0",
     "recompose": "^0.30.0",
     "remark": "^10.0.1",
     "remark-react": "^5.0.1"
