@@ -4,12 +4,11 @@ import colors from '../../utils/colors';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 import {MdExpandLess, MdExpandMore} from 'react-icons/md';
-import {css} from '@emotion/core';
 import {smallCaps} from '../../utils/typography';
 
 const iconSize = 20;
 const headingPadding = 16;
-const headingStyles = css({
+const headingStyles = {
   display: 'flex',
   alignItems: 'center',
   width: '100%',
@@ -32,8 +31,11 @@ const headingStyles = css({
     height: iconSize,
     marginLeft: 'auto',
     fill: 'currentColor'
+  },
+  '&.active': {
+    color: colors.primary
   }
-});
+};
 
 const Container = styled.div(props => ({
   borderTop: !props.first && `1px solid ${colors.divider}`,
@@ -41,9 +43,6 @@ const Container = styled.div(props => ({
 }));
 
 const StyledButton = styled.button(headingStyles, {
-  '&.active': {
-    color: colors.primary
-  },
   ':not([disabled])': {
     cursor: 'pointer',
     ':hover': {
@@ -88,16 +87,17 @@ export default class Category extends Component {
   }
 
   render() {
+    const contents = this.renderContents();
+    const className = this.props.active && 'active';
     return (
       <Container first={this.props.isFirst}>
         {!this.props.onClick && this.props.path ? (
-          <StyledLink to={this.props.path}>{this.renderContents()}</StyledLink>
+          <StyledLink className={className} to={this.props.path}>
+            {contents}
+          </StyledLink>
         ) : (
-          <StyledButton
-            className={this.props.active && 'active'}
-            onClick={this.onClick}
-          >
-            {this.renderContents()}
+          <StyledButton className={className} onClick={this.onClick}>
+            {contents}
           </StyledButton>
         )}
         {this.props.expanded && this.props.children}

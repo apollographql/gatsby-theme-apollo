@@ -99,7 +99,8 @@ export default class SidebarNav extends Component {
     return prefixedPath === pathname;
   };
 
-  isCategorySelected = ({pages}) => pages.some(this.isPageSelected);
+  isCategorySelected = ({path, pages}) =>
+    this.isPageSelected({path}) || pages.some(this.isPageSelected);
 
   toggleCategory = title => {
     this.setState(prevState => {
@@ -182,7 +183,7 @@ export default class SidebarNav extends Component {
                 Boolean(this.state.sidebarState[getId(title)]) ||
                 this.props.alwaysExpanded
               }
-              active={pages.some(this.isPageSelected)}
+              active={this.isCategorySelected({pages, path})}
               onClick={this.props.alwaysExpanded ? null : this.toggleCategory}
             >
               {contents}
