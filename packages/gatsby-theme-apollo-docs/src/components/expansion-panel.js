@@ -116,22 +116,27 @@ export default function ExpansionPanel() {
           <Icon size={iconSize} />
           Panel Item
         </StyledButton>
-        <Content>
-          <p>List Title or Main Text</p>
-          <StyledList>
-            {items.map((item, index) => {
-              const number = index + 1;
-              return (
-                <ExpansionPanelListItem key={index} number={number.toString()}>
-                  {item}
-                </ExpansionPanelListItem>
-              );
-            })}
-            <ExpansionPanelListItem number={<MdCheck size={16} />}>
-              You&apos;re done!
-            </ExpansionPanelListItem>
-          </StyledList>
-        </Content>
+        {expanded && (
+          <Content>
+            <p>List Title or Main Text</p>
+            <StyledList>
+              {items.map((item, index) => {
+                const number = index + 1;
+                return (
+                  <ExpansionPanelListItem
+                    key={index}
+                    number={number.toString()}
+                  >
+                    {item}
+                  </ExpansionPanelListItem>
+                );
+              })}
+              <ExpansionPanelListItem number={<MdCheck size={16} />}>
+                You&apos;re done!
+              </ExpansionPanelListItem>
+            </StyledList>
+          </Content>
+        )}
       </InnerContainer>
     </Container>
   );
