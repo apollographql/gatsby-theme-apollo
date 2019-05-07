@@ -19,6 +19,7 @@
     "prismjs": "^1.15.0",
     "recompose": "^0.30.0",
     "remark": "^10.0.1",
-    "remark-react": "^5.0.1"
+    "remark-react": "^5.0.1",
+    "striptags": "^3.1.1"
   }
 }

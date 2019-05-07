@@ -3,6 +3,7 @@ import React, {Fragment} from 'react';
 import Slugger from 'github-slugger';
 import nest from 'recompose/nest';
 import path from 'path';
+import striptags from 'striptags';
 import styled from '@emotion/styled';
 import {FaGithub} from 'react-icons/fa';
 import {PageNav, breakpoints, colors, headerHeight} from 'gatsby-theme-apollo';
@@ -142,9 +143,7 @@ export default function PageContent(props) {
             <AsideHeading>In this section</AsideHeading>
             <AsideList>
               {props.headings.map(({value}) => {
-                const div = document.createElement('div');
-                div.innerHTML = value;
-                const text = div.textContent || div.innerText || '';
+                const text = striptags(value);
                 const slug = slugger.slug(text);
                 return (
                   <AsideListItem
