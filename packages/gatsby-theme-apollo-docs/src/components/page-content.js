@@ -30,6 +30,9 @@ const BodyContent = styled.div({
     textDecoration: 'none',
     ':hover': {
       textDecoration: 'underline'
+    },
+    code: {
+      color: 'inherit'
     }
   },
   [['h2', 'h3', 'h4']]: {
