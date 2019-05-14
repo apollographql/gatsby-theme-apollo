@@ -32,19 +32,11 @@ module.exports = {
         root: __dirname,
         subtitle: 'Apollo Server',
         description: 'A guide to using Apollo Server',
-        contentDir: 'docs/source',
         githubRepo: 'apollographql/apollo-server',
-        versions: [
-          {
-            value: '1',
-            ref: 'origin/version-1'
-          },
-          {
-            value: '2',
-            ref: 'HEAD',
-            default: true
-          }
-        ],
+        defaultVersion: '2',
+        versions: {
+          1: 'origin/version-1'
+        },
         sidebarCategories: {
           null: [
             'index',
@@ -68,7 +60,6 @@ module.exports = {
 | root              | string | Must be `__dirname`                                                                   |
 | subtitle          | string | The title that gets rendered above the sidebar navigation                             |
 | description       | string | The site description for SEO and social (FB, Twitter) tags                            |
-| contentDir        | string | The directory, relative to the repo root, where the markdown files live               |
 | githubRepo        | string | The owner and name of the content repository on GitHub                                |
 | spectrumPath      | string | The path to be appended to Spectrum links                                             |
 | versions          | array  | An array of objects representing the versions that the website should generate        |
@@ -76,27 +67,18 @@ module.exports = {
 
 ### versions
 
-If omitted, only one version of docs will be built, based on the state of HEAD in the theme consumer repository. This is helpful for creating deploy previews for docs pages.
-
-If used, the `versions` option expects an array of objects. Each object requires a `value` and `ref` property, and an optional `default` property. The `value` is what will show up in the version dropdown, and the `ref` should be a commit SHA, branch name. For the default branch, `HEAD` is probably the best `ref` to use.
+If omitted, only one version of docs will be built, based on the files in the theme consumer repository. If provided, the `versions` option expects an object mapping older versions' labels to their respective git branch. The current filesystem will still determine the "default" version. The default label for this version is "Latest", but is configurable by the `defaultVersion` option.
 
 ```js
-versions: [
-  {
-    value: '2.4',
-    ref: 'origin/version-2.4'
-  },
-  {
-    value: '2.5',
-    ref: 'HEAD',
-    default: true
-  }
-]
+defaultVersion: '2.5',
+versions: {
+  '2.4': 'version-2.4'
+}
 ```
 
 ### sidebarCategories
 
-The `sidebarCategories` option is an object keyed by category titles. Each entry in the object is an array of page paths. The path should resemble the location of a markdown file in the git repository, relative to the directory specified by the `contentDir` theme option, and without the _.md_ extension. Sidebar navigation items that are **not** a member of a category live under the `null` key.
+The `sidebarCategories` option is an object keyed by category titles. Each entry in the object is an array of page paths. The path should resemble the location of a markdown file in the git repository, relative to the directory specified by the `contentDir` theme option, and without the _.md_ extension. Sidebar navigation items that are **not** a member of a category live under the `null` key. To add an external link to your sidebar, your can provide a string formatted like a markdown link.
 
 ```js
 {
@@ -109,6 +91,9 @@ The `sidebarCategories` option is an object keyed by category titles. Each entry
     'features/mocking',
     'features/errors',
     'features/data-sources'
+  ],
+  External: [
+    '[Principled GraphQL](https://principledgraphql.com/)'
   ]
 }
 ```
