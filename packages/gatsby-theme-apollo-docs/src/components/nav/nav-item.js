@@ -97,8 +97,8 @@ export default function NavItem(props) {
       {props.subpages && (
         <Fragment>
           <Subpages>
-            {props.subpages.map(({value, text}) => (
-              <SubpageAnchor key={value} href={value}>
+            {props.subpages.map(({href, text}) => (
+              <SubpageAnchor key={href} href={href}>
                 {text}
               </SubpageAnchor>
             ))}

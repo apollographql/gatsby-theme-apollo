@@ -70,6 +70,7 @@ function generateNavItems(config) {
     ([value, {text, matchRegex, subpages}]) => ({
       value,
       text,
+      href: value.charAt('/') ? `https://www.apollographql.com${value}` : value,
       matchRegex,
       subpages: subpages && Object.entries(subpages).map(generateSubpage)
     })
@@ -80,7 +81,7 @@ export const navItems = generateNavItems(navConfig);
 export default function Nav(props) {
   return (
     <Container>
-      {navItems.map(({value, text, matchRegex, subpages}) => {
+      {navItems.map(({value, href, text, matchRegex, subpages}) => {
         let isActive = matchRegex
           ? matchRegex.test(props.pathname)
           : props.isPathActive(value);
@@ -93,7 +94,7 @@ export default function Nav(props) {
         return (
           <NavItem
             key={value}
-            href={value}
+            href={href}
             subpages={subpages}
             active={isActive}
           >
