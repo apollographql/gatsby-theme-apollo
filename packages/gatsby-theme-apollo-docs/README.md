@@ -1,6 +1,6 @@
 # gatsby-theme-apollo-docs
 
-This is an entirely configuration-based Gatsby theme that generates a documentation website based on a series of markdown files.
+This is an entirely configuration-based Gatsby theme that generates a documentation website based on a series of Markdown or MDX files.
 
 ## Table of contents
 
@@ -78,7 +78,7 @@ versions: {
 
 ### sidebarCategories
 
-The `sidebarCategories` option is an object keyed by category titles. Each entry in the object is an array of page paths. The path should resemble the location of a markdown file in the git repository, relative to the directory specified by the `contentDir` theme option, and without the _.md_ extension. Sidebar navigation items that are **not** a member of a category live under the `null` key. To add an external link to your sidebar, your can provide a string formatted like a markdown link.
+The `sidebarCategories` option is an object keyed by category titles. Each entry in the object is an array of page paths. The path should resemble the location of a Markdown/MDX file in the git repository, relative to `docs/source`, and without the _.md_ extension. Sidebar navigation items that are **not** a member of a category live under the `null` key. To add an external link to your sidebar, your can provide a string formatted like a Markdown link.
 
 ```js
 {
@@ -100,7 +100,7 @@ The `sidebarCategories` option is an object keyed by category titles. Each entry
 
 ## Creating pages
 
-Create markdown files in your `contentDir` (typically _source_) to generate pages. Your markdown files should contain some frontmatter defining their titles and descriptions.
+This theme generates pages based on Markdown or MDX files in the `docs/source` directory of a repo. Your Markdown/MDX files should contain some frontmatter defining their titles and descriptions.
 
 ```markdown
 ---
@@ -111,7 +111,7 @@ description: What is Apollo Server and what does it do?
 Apollo Server is the best way to quickly build a production-ready, self-documenting API for GraphQL clients, using data from any source.
 ```
 
-Page URLs will be derived from the file paths of your markdown. You can nest markdown files within directories to create pages with additional path segments.
+Page URLs will be derived from the file paths of your Markdown. You can nest Markdown files within directories to create pages with additional path segments.
 
 ## Older versions
 
@@ -185,7 +185,7 @@ sidebar_categories:
     - mutations
 github_repo: apollographql/apollo-ios
 root: /docs/ios/ # called `pathPrefix` in gatsby-config.js
-content_root: docs/source # called `contentDir` in gatsby-config.js
+content_root: docs/source # not needed
 url: https://www.apollographql.com/docs/ios/ # not needed
 public_dir: public/docs/ios # not needed
 ```
@@ -202,7 +202,6 @@ module.exports = {
         root: __dirname, // <-- this is the only new property added
         subtitle: 'Apollo iOS Guide',
         description: 'A guide to using Apollo with iOS',
-        contentDir: 'docs/source',
         githubRepo: 'apollographql/apollo-ios',
         sidebarCategories: {
           null: [
