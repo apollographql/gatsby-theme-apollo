@@ -58,9 +58,13 @@ const navConfig = {
   }
 };
 
+function formatValue(value) {
+  return value.charAt('/') ? `https://www.apollographql.com${value}` : value;
+}
+
 function generateSubpage([value, text]) {
   return {
-    value,
+    value: formatValue(value),
     text
   };
 }
@@ -68,9 +72,8 @@ function generateSubpage([value, text]) {
 function generateNavItems(config) {
   return Object.entries(config).map(
     ([value, {text, matchRegex, subpages}]) => ({
-      value,
       text,
-      href: value.charAt('/') ? `https://www.apollographql.com${value}` : value,
+      value: formatValue(value),
       matchRegex,
       subpages: subpages && Object.entries(subpages).map(generateSubpage)
     })
@@ -78,10 +81,11 @@ function generateNavItems(config) {
 }
 
 export const navItems = generateNavItems(navConfig);
+
 export default function Nav(props) {
   return (
     <Container>
-      {navItems.map(({value, href, text, matchRegex, subpages}) => {
+      {navItems.map(({value, text, matchRegex, subpages}) => {
         let isActive = matchRegex
           ? matchRegex.test(props.pathname)
           : props.isPathActive(value);
@@ -94,7 +98,7 @@ export default function Nav(props) {
         return (
           <NavItem
             key={value}
-            href={href}
+            href={value}
             subpages={subpages}
             active={isActive}
           >
