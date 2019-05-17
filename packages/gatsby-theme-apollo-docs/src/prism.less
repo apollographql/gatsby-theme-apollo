@@ -1,3 +1,56 @@
+/* from https://www.gatsbyjs.org/packages/gatsby-remark-prismjs/#include-css */
+
+.gatsby-highlight-code-line {
+  background-color: @color-background2;
+  display: block;
+  margin-right: -1em;
+  margin-left: -3.5em;
+  padding-right: 1em;
+  padding-left: 3.5em;
+}
+
+/**
+ * Add back the container background-color, border-radius, padding, margin
+ * and overflow that we removed from <pre>.
+ */
+.gatsby-highlight {
+  background: @color-background;
+  border: 1px solid @color-divider;
+  border-radius: 4px;
+  margin: 0.5em 0 1.45em;
+  padding: 1em;
+  overflow: auto;
+}
+
+/**
+ * Remove the default PrismJS theme background-color, border-radius, margin,
+ * padding and overflow.
+ * 1. Make the element just wide enough to fit its content.
+ * 2. Always fill the visible space in .gatsby-highlight.
+ * 3. Adjust the position of the line numbers
+ */
+.gatsby-highlight pre[class*="language-"] {
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  overflow: initial;
+  float: left; /* 1 */
+  min-width: 100%; /* 2 */
+}
+
+/* Adjust the position of the line numbers */
+.gatsby-highlight pre[class*="language-"].line-numbers {
+  padding-left: 2.5em;
+}
+
+.gatsby-highlight pre[class*="language-"].line-numbers .line-numbers-rows {
+  border-right: none;
+}
+
+.gatsby-highlight pre[class*="language-"].line-numbers .line-numbers-rows > span:before {
+  color: @color-text4;
+}
+
 /* Generated with http://k88hudson.github.io/syntax-highlighting-theme-generator/www */
 /* http://k88hudson.github.io/react-markdocs */
 /**
@@ -12,7 +65,7 @@
 */
 pre[class*="language-"],
 code[class*="language-"] {
-  color: #343c5a;
+  color: @color-text1;
   font-size: 16px;
   text-shadow: none;
   font-family: 'Source Code Pro', monospace;
@@ -30,13 +83,6 @@ code[class*="language-"] {
   -ms-hyphens: none;
   hyphens: none;
 }
-pre[class*="language-"]::selection,
-code[class*="language-"]::selection,
-pre[class*="language-"]::mozselection,
-code[class*="language-"]::mozselection {
-  text-shadow: none;
-  background: #b3d4fc;
-}
 @media print {
   pre[class*="language-"],
   code[class*="language-"] {
@@ -47,14 +93,14 @@ pre[class*="language-"] {
   padding: 1em;
   margin: .5em 0;
   overflow: auto;
-  background: #f7f8fa;
+  background: @color-background;
 }
 :not(pre) > code[class*="language-"] {
   padding: .1em .3em;
   border-radius: .3em;
   font-size: 0.9em;
-  color: #e535ab;
-  background: #f3f4f6;
+  color: @color-secondary;
+  background: @color-background2;
 }
 /*********************************************************
 * Tokens
@@ -66,10 +112,10 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #9496aa;
+  color: @color-text3;
 }
 .token.punctuation {
-  color: #747790;
+  color: @color-text2;
 }
 .token.property,
 .token.tag,
@@ -78,7 +124,7 @@ pre[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #e535ab;
+  color: @color-secondary;
 }
 .token.selector,
 .token.attr-name,
@@ -86,7 +132,7 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #009f97;
+  color: @color-tertiary;
 }
 .token.operator,
 .token.entity,
@@ -99,16 +145,16 @@ pre[class*="language-"] {
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: #220a82;
+  color: @color-primary;
 }
 .token.class-name,
 .token.function {
-  color: #e535ab;
+  color: @color-secondary;
 }
 .token.regex,
 .token.important,
 .token.variable {
-  color: #ee9900;
+  color: @color-warning;
 }
 .token.important,
 .token.bold {

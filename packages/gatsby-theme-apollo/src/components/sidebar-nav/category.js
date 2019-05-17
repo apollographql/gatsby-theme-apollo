@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import colors from '../../utils/colors';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 import {MdExpandLess, MdExpandMore} from 'react-icons/md';
+import {colors} from '../../utils/colors';
 import {smallCaps} from '../../utils/typography';
 
 const iconSize = 20;

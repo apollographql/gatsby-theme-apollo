@@ -1,6 +1,6 @@
 import breakpoints from '../utils/breakpoints';
-import colors from '../utils/colors';
 import styled from '@emotion/styled';
+import {colors} from '../utils/colors';
 
 export const headerHeight = 64;
 const Header = styled.header({

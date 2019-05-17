@@ -1,14 +1,16 @@
-import {colors} from '@apollo/space-kit';
+const {colors} = require('@apollo/space-kit');
 
-export default {
+exports.colors = {
   primary: colors.indigo.dark,
   secondary: colors.pink.base,
   tertiary: colors.teal.base,
   divider: colors.silver.dark,
   background: colors.silver.light,
-  text1: colors.black.light,
-  text2: colors.grey.darker,
-  text3: colors.grey.base,
-  text4: colors.grey.lighter,
+  background2: colors.silver.base,
+  text1: colors.black.lighter,
+  text2: colors.grey.dark,
+  text3: colors.grey.light,
+  text4: colors.silver.darker,
+  warning: colors.yellow.base,
   hoverOpacity: 0.8
 };

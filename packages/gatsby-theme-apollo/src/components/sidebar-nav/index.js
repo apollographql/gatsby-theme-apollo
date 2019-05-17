@@ -1,11 +1,11 @@
 import Category from './category';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import colors from '../../utils/colors';
 import store from 'store';
 import styled from '@emotion/styled';
 import {Link, withPrefix} from 'gatsby';
 import {MdUnfoldLess, MdUnfoldMore} from 'react-icons/md';
+import {colors} from '../../utils/colors';
 import {smallCaps} from '../../utils/typography';
 
 const StyledList = styled.ul({

@@ -1,5 +1,4 @@
-import '../styles/gatsby-prism.css';
-import '../styles/prism-theme.css';
+import '../prism.less';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import MDXRenderer from 'gatsby-mdx/mdx-renderer';
 import Nav, {navItems} from './nav';

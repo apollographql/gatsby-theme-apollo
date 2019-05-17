@@ -3,9 +3,9 @@ import LogoTitle from './logo-title';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import breakpoints from '../utils/breakpoints';
-import colors from '../utils/colors';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
+import {colors} from '../utils/colors';
 import {transparentize} from 'polished';
 
 const Container = styled.aside({

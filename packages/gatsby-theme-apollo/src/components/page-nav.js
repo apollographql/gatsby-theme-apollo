@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import breakpoints from '../utils/breakpoints';
-import colors from '../utils/colors';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 import {MdChevronLeft, MdChevronRight} from 'react-icons/md';
+import {colors} from '../utils/colors';
 import {size} from 'polished';
 import {smallCaps} from '../utils/typography';
 
