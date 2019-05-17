@@ -264,7 +264,7 @@ Check out [this CodeSandbox](https://codesandbox.io/s/mq7p0z3wmj) for a full com
 
 ### colors
 
-A mapping of named keys and their corresponding hex color codes. You can use this object to write CSS-in-JS rules like this:
+An object mapping semantic names to hex strings. All of these colors are drawn from [Space Kit](https://github.com/apollographql/space-kit#colors). You can use this utility to write CSS-in-JS rules like this:
 
 ```js
 import {colors} from 'gatsby-theme-apollo';
@@ -274,18 +274,6 @@ const StyledButton = styled.button({
   background: colors.background
 });
 ```
-
-| Key        | Value                                                            |
-| ---------- | ---------------------------------------------------------------- |
-| primary    | ![#220a82](https://placehold.it/15/220a82/000000?text=+) #220a82 |
-| secondary  | ![#e535ab](https://placehold.it/15/e535ab/000000?text=+) #e535ab |
-| tertiary   | ![#009f97](https://placehold.it/15/009f97/000000?text=+) #009f97 |
-| divider    | ![#d8d9e0](https://placehold.it/15/d8d9e0/000000?text=+) #d8d9e0 |
-| background | ![#f7f8fa](https://placehold.it/15/f7f8fa/000000?text=+) #f7f8fa |
-| text1      | ![#343c5a](https://placehold.it/15/343c5a/000000?text=+) #343c5a |
-| text2      | ![#747790](https://placehold.it/15/747790/000000?text=+) #747790 |
-| text3      | ![#9496aa](https://placehold.it/15/9496aa/000000?text=+) #9496aa |
-| text4      | ![#afb1c0](https://placehold.it/15/afb1c0/000000?text=+) #afb1c0 |
 
  ### breakpoints
 
