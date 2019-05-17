@@ -1,44 +1,71 @@
 html {
+  font-size: 100%;
+  line-height: 1.45;
   overflow-y: auto;
 }
 
 body {
+  color: @color-text2;
+}
+
+@default-margin: 1.45rem;
+
+h1, h2, h3, h4, h5, h6, p, ul, ol {
+  margin: 0;
+  margin-bottom: @default-margin;
+}
+
+h4, h5 {
+  margin-bottom: 1.0875rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1;
   color: @color-text1;
 }
 
-form {
-  margin-bottom: 0;
-}
-
-hr {
-  height: 1px;
-  border: none;
-  background-color: @color-divider
-}
-
 h1, h2, h3, h4, h6 {
-  font-weight: 400
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 1.73286rem;
+}
+
+h3 {
+  font-size: 1.4427rem;
 }
 
 h4, p, li {
   font-size: 1.125rem
 }
 
-p {
-  line-height: 1.7;
-}
-
-h4 {
-  margin-bottom: 1.45rem;
-}
-
 h5 {
-  margin-bottom: 1.45rem;
   font-size: 1rem;
 }
 
 h6 {
   font-size: 0.875rem;
+}
+
+p {
+  line-height: 1.7;
+}
+
+ul, ol {
+  margin-left: @default-margin;
+  padding: 0;
+}
+
+li {
+  margin-bottom: @default-margin / 2;
+  > ul, > ol {
+    margin-top: @default-margin / 2;
+  }
 }
 
 blockquote {
@@ -49,4 +76,15 @@ blockquote {
 
 blockquote > p {
   font-size: inherit;
+}
+
+form {
+  margin-bottom: 0;
+}
+
+hr {
+  height: 1px;
+  margin-bottom: calc(@default-margin - 1px);
+  border: none;
+  background-color: @color-divider
 }

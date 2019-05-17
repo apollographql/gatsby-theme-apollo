@@ -3,7 +3,7 @@ const {colors} = require('@apollo/space-kit');
 exports.colors = {
   primary: colors.indigo.dark,
   secondary: colors.pink.base,
-  tertiary: colors.teal.base,
+  tertiary: colors.teal.dark,
   divider: colors.silver.dark,
   background: colors.silver.light,
   background2: colors.silver.base,
