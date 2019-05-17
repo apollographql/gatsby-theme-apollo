@@ -1,6 +1,3 @@
-const mapKeys = require('lodash/mapKeys');
-const {colors} = require('gatsby-theme-apollo/src/utils/colors');
-
 const gatsbyRemarkPlugins = [
   'gatsby-remark-autolink-headers',
   {
@@ -61,12 +58,6 @@ module.exports = ({
       resolve: 'gatsby-mdx',
       options: {
         gatsbyRemarkPlugins
-      }
-    },
-    {
-      resolve: 'gatsby-plugin-less',
-      options: {
-        modifyVars: mapKeys(colors, (value, key) => `color-${key}`)
       }
     },
     ...Object.keys(versions).map(key => ({

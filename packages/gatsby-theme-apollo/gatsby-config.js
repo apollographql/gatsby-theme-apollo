@@ -1,4 +1,5 @@
-const path = require('path');
+const mapKeys = require('lodash/mapKeys');
+const {colors} = require('./src/utils/colors');
 
 module.exports = {
   plugins: [
@@ -6,12 +7,9 @@ module.exports = {
     'gatsby-plugin-emotion',
     'gatsby-plugin-react-helmet',
     {
-      resolve: 'gatsby-plugin-typography',
+      resolve: 'gatsby-plugin-less',
       options: {
-        pathToConfigModule: path.relative(
-          process.cwd(),
-          require.resolve('./src/utils/typography.js')
-        )
+        modifyVars: mapKeys(colors, (value, key) => `color-${key}`)
       }
     }
   ]
