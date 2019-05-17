@@ -3,7 +3,7 @@
   "version": "1.0.0-alpha.10",
   "main": "index.js",
   "dependencies": {
-    "@apollo/space-kit": "0.0.7",
+    "@apollo/space-kit": "0.0.8",
     "@emotion/core": "^10.0.7",
     "@emotion/styled": "^10.0.7",
     "@svgr/webpack": "^4.2.0",
