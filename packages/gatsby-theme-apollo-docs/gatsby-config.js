@@ -11,7 +11,8 @@ const gatsbyRemarkPlugins = [
     options: {
       showLineNumbers: true
     }
-  }
+  },
+  'gatsby-remark-check-links'
 ];
 
 module.exports = ({
