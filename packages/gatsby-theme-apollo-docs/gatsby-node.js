@@ -138,6 +138,8 @@ exports.createPages = async ({actions, graphql}, options) => {
   const versionKeys = [];
   for (const version in versions) {
     versionKeys.push(version);
+
+    // grab the old YAML config file for each older version
     const response = await graphql(`
       {
         allFile(
