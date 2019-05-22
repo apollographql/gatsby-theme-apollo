@@ -51,6 +51,9 @@ const BodyContent = styled.div({
     ':not(:first-child)': {
       marginTop: 56
     }
+  },
+  img: {
+    maxWidth: '100%'
   }
 });
 
