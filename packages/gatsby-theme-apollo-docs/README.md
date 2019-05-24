@@ -55,15 +55,19 @@ module.exports = {
 };
 ```
 
-| Option name       | Type   | Description                                                                           |
-| ----------------- | ------ | ------------------------------------------------------------------------------------- |
-| root              | string | Must be `__dirname`                                                                   |
-| subtitle          | string | The title that gets rendered above the sidebar navigation                             |
-| description       | string | The site description for SEO and social (FB, Twitter) tags                            |
-| githubRepo        | string | The owner and name of the content repository on GitHub                                |
-| spectrumPath      | string | The path to be appended to Spectrum links                                             |
-| versions          | array  | An array of objects representing the versions that the website should generate        |
-| sidebarCategories | object | An object mapping categories to page paths ([described below](#sidebarCategories))    |
+| Option name          | Type   | Description                                                                    |
+| -------------------- | ------ | ------------------------------------------------------------------------------ |
+| root                 | string | Must be `__dirname`                                                            |
+| subtitle             | string | The title that gets rendered above the sidebar navigation                      |
+| description          | string | The site description for SEO and social (FB, Twitter) tags                     |
+| githubRepo           | string | The owner and name of the content repository on GitHub                         |
+| spectrumPath         | string | The path to be appended to Spectrum links                                      |
+| versions             | array  | An array of objects representing the versions that the website should generate |
+| sidebarCategories    | object | An object mapping categories to page paths ([described below][])               |
+| checkLinksExceptions | array  | An array of strings passed to [`gastby-remark-check-links`][]                  |
+
+[described below]: #sidebarCategories
+[`gastby-remark-check-links`]: https://github.com/trevorblades/gatsby-remark-check-links#making-exceptions
 
 ### versions
 
