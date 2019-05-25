@@ -15,7 +15,7 @@ This repo contains [Gatsby](https://gatsbyjs.org) themes that we use to create w
 First, install `gatsby` and the theme that you want to use. This example will be using the base theme, `gatsby-theme-apollo`.
 
 ```bash
-npm install gatsby gatsby-theme-apollo
+$ npm install gatsby gatsby-theme-apollo
 ```
 
 Using a Gatsby theme is really easy! Simply configure your theme under the `__experimentalThemes` property in your Gatsby config. The only required option here is `root`, which should always be `__dirname`. It's also a good idea to give your site a `title` and `description`, as defined under the `siteMetadata` property in the config.
@@ -72,10 +72,10 @@ module.exports = {
 Now, when you run `npx gatsby bulid --prefix-paths`, all pages, references to static assets, and links between pages will be prefixed with your custom path. That means that if you made a page with the path _/about_, it will live at _/**YOUR_PATH_PREFIX**/about_. In order for this to work within our server configuration, your website files also must exist in a directory with the same name. Here's how this sequence of events would look if you ran commands in your terminal:
 
 ```bash
-npx gatsby build --prefix-paths
-mkdir -p YOUR_PATH_PREFIX
-mv public/* YOUR_PATH_PREFIX
-mv YOUR_PATH_PREFIX public/
+$ npx gatsby build --prefix-paths
+$ mkdir -p YOUR_PATH_PREFIX
+$ mv public/* YOUR_PATH_PREFIX
+$ mv YOUR_PATH_PREFIX public/
 ```
 
 We use [Netlify](https://netlify.com) to deploy our websites, so to express this slightly more complicated build process to them, create a _netlify.toml_ file that follows this pattern:

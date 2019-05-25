@@ -16,7 +16,7 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 ## Installation
 
 ```bash
-npm install gatsby gatsby-theme-apollo-docs
+$ npm install gatsby gatsby-theme-apollo-docs
 ```
 
 ## Configuration
