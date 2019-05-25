@@ -69,7 +69,7 @@ const ListItemNumber = styled.div(size(lineItemNumberSize), {
   left: lineItemNumberSize / -2
 });
 
-const StyledList = styled.ul({
+export const ExpansionPanelList = styled.ul({
   marginLeft: lineItemNumberOffset,
   borderLeft: `1px solid ${colors.primary}`,
   listStyle: 'none'
@@ -83,30 +83,29 @@ const StyledListItem = styled.li({
   position: 'relative',
   ':not(:last-child)': {
     marginBottom: 28
+  },
+  h4: {
+    lineHeight: 1.3
   }
 });
 
-function ExpansionPanelListItem(props) {
+export function ExpansionPanelListItem(props) {
   return (
     <StyledListItem>
-      <ListItemNumber>{props.number}</ListItemNumber>
+      <ListItemNumber>
+        {props.number === 'check' ? <MdCheck size={16} /> : props.number}
+      </ListItemNumber>
       {props.children}
     </StyledListItem>
   );
 }
 
 ExpansionPanelListItem.propTypes = {
-  number: PropTypes.node.isRequired,
+  number: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired
 };
 
-const items = [
-  'Numbered list item',
-  'Numbered list item',
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam feugiat velit at metus lacinia congue. Morbi vel aliquam eros. Nulla finibus, leo non tristique viverra, nulla dui mattis nunc, aliquam aliquet est tellus non eros. Maecenas posuere ut nisl id imperdiet. Cras lacinia, libero gravida tincidunt convallis, justo lacus convallis justo, sed blandit justo augue sed tellus. Suspendisse sit amet ante sit amet neque vestibulum viverra.'
-];
-
-export default function ExpansionPanel() {
+export default function ExpansionPanel(props) {
   const [expanded, setExpanded] = useState(false);
   const Icon = expanded ? MdExpandLess : MdExpandMore;
   return (
@@ -114,30 +113,15 @@ export default function ExpansionPanel() {
       <InnerContainer>
         <StyledButton onClick={() => setExpanded(!expanded)}>
           <Icon size={iconSize} />
-          Panel Item
+          {props.title}
         </StyledButton>
-        {expanded && (
-          <Content>
-            <p>List Title or Main Text</p>
-            <StyledList>
-              {items.map((item, index) => {
-                const number = index + 1;
-                return (
-                  <ExpansionPanelListItem
-                    key={index}
-                    number={number.toString()}
-                  >
-                    {item}
-                  </ExpansionPanelListItem>
-                );
-              })}
-              <ExpansionPanelListItem number={<MdCheck size={16} />}>
-                You&apos;re done!
-              </ExpansionPanelListItem>
-            </StyledList>
-          </Content>
-        )}
+        {expanded && <Content>{props.children}</Content>}
       </InnerContainer>
     </Container>
   );
 }
+
+ExpansionPanel.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired
+};
