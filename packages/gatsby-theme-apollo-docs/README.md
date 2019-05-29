@@ -133,17 +133,14 @@ A presentational component that only takes `children` and is used to render a ro
 
 A large pill-shaped button with a pink fill and white text. It functions as an internal link (using [Gatsby Link](https://www.gatsbyjs.org/docs/gatsby-link/)) and accepts all props that their `Link` component accepts.
 
-| Prop      | Type   | Description                                                                    |
-| --------- | ------ | ------------------------------------------------------------------------------ |
-| children  | node   | The content of the button                                                      |
-| to        | string | A path to another page in your site                                            |
-| variant   | string | Pass "hollow" to render the button with a pink border and text instead of fill |
+| Prop     | Type   | Description                                                                    |
+| -------- | ------ | ------------------------------------------------------------------------------ |
+| children | node   | The content of the button                                                      |
+| to       | string | A path to another page in your site                                            |
+| variant  | string | Pass "hollow" to render the button with a pink border and text instead of fill |
 
-```js
-import {
-  ButtonWrapper,
-  Button
-} from 'gatsby-theme-apollo-docs';
+```jsx
+import {ButtonWrapper, Button} from 'gatsby-theme-apollo-docs';
 
 <ButtonWrapper>
   <Button to="/tutorial/introduction">Try it out!</Button>
@@ -154,6 +151,61 @@ import {
     Learn more
   </Button>
 </ButtonWrapper>
+```
+
+### `ExpansionPanel`
+
+An expandable panel of content used to hide complex information or instructions that might be a tangent from the main topic of the content it lives within.
+
+| Prop     | Type   | Description                                                        |
+| -------- | ------ | ------------------------------------------------------------------ |
+| children | node   | The content of the panel, usually includes an `ExpansionPanelList` |
+| title    | string | The title of the panel, visible even when the panel is closed      |
+
+### `ExpansionPanelList`
+
+A wrapper element that should be used in conjunction with [`ExpansionPanelListItem`](#expansionpanellistitem) components. It renders an `li` element with some styles baked in.
+
+### `ExpansionPanelListItem`
+
+A list item for use with the `ExpansionPanelList`. It comes with a cicular area to its left to render a number, glyph, or some way to indicate progress through a set of instructions. You can write markdown within these elements if you keep everything detabbed and add an empty line between your content and the component's opening and closing tags.
+
+| Prop     | Type   | Description                                                                            |
+| -------- | ------ | -------------------------------------------------------------------------------------- |
+| children | node   | The content of the list item, usually a block of markdown                              |
+| number   | string | The number displayed to the left of the list item, or a checkmark if "check" is passed |
+
+```js
+import {
+  ExpansionPanel,
+  ExpansionPanelList,
+  ExpansionPanelListItem
+} from 'gatsby-theme-apollo-docs';
+
+<ExpansionPanel title="How to use the ExpansionPanel component">
+
+Add a line break _between_ JSX tags and content to parse the content as *markdown*
+
+<ExpansionPanelList>
+<ExpansionPanelListItem number="1">
+
+<h4>h4 works well as a heading here</h4>
+
+- markdown
+- works
+- here
+
+</ExpansionPanelListItem>
+<ExpansionPanelListItem number="check">
+
+<h4>That's it!</h4>
+
+> MDX is super fun
+
+</ExpansionPanelListItem>
+</ExpansionPanelList>
+
+</ExpansionPanel>
 ```
 
 ## Deployment
