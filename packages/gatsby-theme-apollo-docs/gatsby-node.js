@@ -122,6 +122,7 @@ exports.createPages = async ({actions, graphql}, options) => {
   `);
 
   const {
+    contentDir = 'docs/source',
     githubRepo,
     sidebarCategories,
     spectrumPath,
@@ -176,7 +177,7 @@ exports.createPages = async ({actions, graphql}, options) => {
       component: template,
       context: {
         id: edge.node.id,
-        filePath: path.join('docs/source', edge.node.relativePath),
+        filePath: path.join(contentDir, edge.node.relativePath),
         sidebarContents: sidebarContents[page.fields.version],
         githubRepo,
         spectrumPath,

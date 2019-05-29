@@ -60,6 +60,7 @@ module.exports = {
 | root                 | string | Must be `__dirname`                                                            |
 | subtitle             | string | The title that gets rendered above the sidebar navigation                      |
 | description          | string | The site description for SEO and social (FB, Twitter) tags                     |
+| contentDir           | string | The directory where docs content exists (`docs/source` by default)             |
 | githubRepo           | string | The owner and name of the content repository on GitHub                         |
 | spectrumPath         | string | The path to be appended to Spectrum links                                      |
 | versions             | array  | An array of objects representing the versions that the website should generate |
@@ -82,7 +83,7 @@ versions: {
 
 ### `sidebarCategories`
 
-The `sidebarCategories` option is an object keyed by category titles. Each entry in the object is an array of page paths. The path should resemble the location of a Markdown/MDX file in the git repository, relative to `docs/source`, and without the _.md_ extension. Sidebar navigation items that are **not** a member of a category live under the `null` key. To add an external link to your sidebar, your can provide a string formatted like a Markdown link.
+The `sidebarCategories` option is an object keyed by category titles. Each entry in the object is an array of page paths. The path should resemble the location of a Markdown/MDX file in the git repository, relative to `contentDir`, and without the _.md_ extension. Sidebar navigation items that are **not** a member of a category live under the `null` key. To add an external link to your sidebar, your can provide a string formatted like a Markdown link.
 
 ```js
 {
@@ -104,7 +105,7 @@ The `sidebarCategories` option is an object keyed by category titles. Each entry
 
 ## Creating pages
 
-This theme generates pages based on Markdown or MDX files in the `docs/source` directory of a repo. Your Markdown/MDX files should contain some frontmatter defining their titles and descriptions.
+This theme generates pages based on Markdown or MDX files in the [`contentDir`](#configuration) directory of a repo. Your Markdown/MDX files should contain some frontmatter defining their titles and descriptions.
 
 ```markdown
 ---
@@ -189,7 +190,7 @@ sidebar_categories:
     - mutations
 github_repo: apollographql/apollo-ios
 root: /docs/ios/ # called `pathPrefix` in gatsby-config.js
-content_root: docs/source # not needed
+content_root: docs/source # not required, but called `contentDir` in gatsby-config.js
 url: https://www.apollographql.com/docs/ios/ # not needed
 public_dir: public/docs/ios # not needed
 ```
