@@ -40,7 +40,6 @@ const navConfig = {
     subpages: {
       '/docs/apollo-server': 'Apollo Server',
       '/docs/graphql-tools': 'graphql-tools',
-      '/docs/graphql-tools/schema-stitching': 'Schema stitching',
       '/docs/graphql-subscriptions': 'GraphQL subscriptions'
     }
   },
