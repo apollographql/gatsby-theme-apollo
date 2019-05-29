@@ -120,7 +120,22 @@ Page URLs will be derived from the file paths of your Markdown. You can nest Mar
 
 ## Components
 
-TODO: @blades
+This theme exports React components that you can use in MDX files throughout a documentation website.
+
+### `Button`
+
+A large pill-shaped button with a pink fill and white text. It functions as an internal link (using [Gatsby Link](https://www.gatsbyjs.org/docs/gatsby-link/)) and accepts all props that their `Link` component accepts.
+
+
+
+```js
+import {ButtonWrapper, Button} from 'gatsby-theme-apollo-docs';
+
+<ButtonWrapper>
+  <Button to="/tutorial/intro/">Get started</Button>
+  <Button hollow to="/advanced/caching/">Learn about caching</Button>
+</ButtonWrapper>
+```
 
 ## Deployment
 
