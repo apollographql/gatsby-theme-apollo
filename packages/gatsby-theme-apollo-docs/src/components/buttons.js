@@ -11,14 +11,17 @@ export const ButtonWrapper = styled.div({
   marginBottom: 24
 });
 
-export const Button = styled(Link)(smallCaps, props => ({
-  padding: '12px 24px',
-  border: '2px solid',
-  borderColor: props.hollow ? colors.secondary : 'transparent',
-  borderRadius: 1000,
-  fontSize: 14,
-  fontWeight: 'bold',
-  color: props.hollow ? colors.secondary : 'white',
-  textDecoration: 'none',
-  backgroundColor: props.hollow ? 'transparent' : colors.secondary
-}));
+export const Button = styled(Link)(smallCaps, props => {
+  const hollow = props.variant === 'hollow';
+  return {
+    padding: '12px 24px',
+    border: '2px solid',
+    borderColor: hollow ? colors.secondary : 'transparent',
+    borderRadius: 1000,
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: hollow ? colors.secondary : 'white',
+    textDecoration: 'none',
+    backgroundColor: hollow ? 'transparent' : colors.secondary
+  };
+});

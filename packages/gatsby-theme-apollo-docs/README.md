@@ -133,18 +133,26 @@ A presentational component that only takes `children` and is used to render a ro
 
 A large pill-shaped button with a pink fill and white text. It functions as an internal link (using [Gatsby Link](https://www.gatsbyjs.org/docs/gatsby-link/)) and accepts all props that their `Link` component accepts.
 
-| Prop     | Type    | Description                                                      |
-| -------- | ------- | ---------------------------------------------------------------- |
-| children | node    | The content of the button                                        |
-| to       | string  | A path to another page in your site                              |
-| hollow   | boolean | Renders the button with a pink border and text instead of a fill |
+| Prop      | Type   | Description                                                                    |
+| --------- | ------ | ------------------------------------------------------------------------------ |
+| children  | node   | The content of the button                                                      |
+| to        | string | A path to another page in your site                                            |
+| variant   | string | Pass "hollow" to render the button with a pink border and text instead of fill |
 
 ```js
-import {ButtonWrapper, Button} from 'gatsby-theme-apollo-docs';
+import {
+  ButtonWrapper,
+  Button
+} from 'gatsby-theme-apollo-docs';
 
 <ButtonWrapper>
-  <Button to="/tutorial/intro/">Get started</Button>
-  <Button hollow to="/advanced/caching/">Learn about caching</Button>
+  <Button to="/tutorial/introduction">Try it out!</Button>
+  <Button
+    variant="hollow"
+    to="/intro/platform"
+  >
+    Learn more
+  </Button>
 </ButtonWrapper>
 ```
 
