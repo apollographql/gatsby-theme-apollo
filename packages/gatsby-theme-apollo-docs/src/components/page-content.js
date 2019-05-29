@@ -53,7 +53,9 @@ const BodyContent = styled.div({
     }
   },
   img: {
-    maxWidth: '100%'
+    display: 'block',
+    maxWidth: '100%',
+    margin: '0 auto'
   }
 });
 
