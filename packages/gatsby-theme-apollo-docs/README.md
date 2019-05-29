@@ -9,7 +9,7 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
   - [versions](#versions)
   - [sidebarCategories](#sidebarcategories)
 - [Creating pages](#creating-pages)
-- [Older versions](#older-versions)
+- [Components](#components)
 - [Deployment](#deployment)
 - [Migration](#migration)
 
@@ -69,7 +69,7 @@ module.exports = {
 [described below]: #sidebarCategories
 [`gastby-remark-check-links`]: https://github.com/trevorblades/gatsby-remark-check-links#making-exceptions
 
-### versions
+### `versions`
 
 If omitted, only one version of docs will be built, based on the files in the theme consumer repository. If provided, the `versions` option expects an object mapping older versions' labels to their respective git branch. The current filesystem will still determine the "default" version. The default label for this version is "Latest", but is configurable by the `defaultVersion` option.
 
@@ -80,7 +80,7 @@ versions: {
 }
 ```
 
-### sidebarCategories
+### `sidebarCategories`
 
 The `sidebarCategories` option is an object keyed by category titles. Each entry in the object is an array of page paths. The path should resemble the location of a Markdown/MDX file in the git repository, relative to `docs/source`, and without the _.md_ extension. Sidebar navigation items that are **not** a member of a category live under the `null` key. To add an external link to your sidebar, your can provide a string formatted like a Markdown link.
 
@@ -117,13 +117,13 @@ Apollo Server is the best way to quickly build a production-ready, self-document
 
 Page URLs will be derived from the file paths of your Markdown. You can nest Markdown files within directories to create pages with additional path segments.
 
-## Older versions
+## Components
 
-This theme uses [`simple-git`](https://github.com/steveukx/git-js) to look for older versions of documentation and create pages for them. If no _gatsby-config.js_ is found in the docs directory of an older version, its existing Hexo config will be used to configure its `sidebarCategories`. Only one set of documentation will be generated per major version, based on its latest published tag.
+TODO: @blades
 
 ## Deployment
 
-All docs sites will eventually be deployed into a subdirectory, as configured by the `pathPrefix` option&mdash;https://apollographql.com/docs/apollo-server, for example. [Read this guide](https://github.com/apollographql/gatsby-theme-apollo#deploying-to-a-subdirectory) to learn how to pull this off.
+All docs sites will eventually be deployed into a subdirectory, as configured by the `pathPrefix` option&mdash;/docs/apollo-server, for example. [Read this guide](../../#deploying-to-a-subdirectory) to learn more about publishing to a subdirectory.
 
 ## Migration
 
