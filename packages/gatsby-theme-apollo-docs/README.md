@@ -1,6 +1,6 @@
 # gatsby-theme-apollo-docs
 
-This is an entirely configuration-based Gatsby theme that generates a documentation website based on a series of Markdown or MDX files.
+This is an entirely configuration-based Gatsby theme that generates a documentation website based on a series of Markdown or MDX files. It also exports a series of [components](#components) that can be used within MDX pages.
 
 ## Table of contents
 
@@ -97,7 +97,7 @@ The `sidebarCategories` option is an object keyed by category titles. Each entry
     'features/errors',
     'features/data-sources'
   ],
-  External: [
+  'External links': [
     '[Principled GraphQL](https://principledgraphql.com/)'
   ]
 }
@@ -122,11 +122,22 @@ Page URLs will be derived from the file paths of your Markdown. You can nest Mar
 
 This theme exports React components that you can use in MDX files throughout a documentation website.
 
+- [`ButtonWrapper`](#buttonwrapper)
+- [`Button`](#button)
+
+### `ButtonWrapper`
+
+A presentational component that only takes `children` and is used to render a row of [`Button`](#button) components, center-aligned and with spaced out evenly.
+
 ### `Button`
 
 A large pill-shaped button with a pink fill and white text. It functions as an internal link (using [Gatsby Link](https://www.gatsbyjs.org/docs/gatsby-link/)) and accepts all props that their `Link` component accepts.
 
-
+| Prop     | Type    | Description                                                      |
+| -------- | ------- | ---------------------------------------------------------------- |
+| children | node    | The content of the button                                        |
+| to       | string  | A path to another page in your site                              |
+| hollow   | boolean | Renders the button with a pink border and text instead of a fill |
 
 ```js
 import {ButtonWrapper, Button} from 'gatsby-theme-apollo-docs';
@@ -214,7 +225,7 @@ _gatsby-config.js_
 
 ```js
 module.exports = {
-  pathPrefix: '/docs/ios',
+  pathPrefix: '/docs/ios', // similar to `root` in _config.yml
   __experimentalThemes: [
     {
       resolve: 'gatsby-theme-apollo-docs',
