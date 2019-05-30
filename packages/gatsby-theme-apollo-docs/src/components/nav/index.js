@@ -58,12 +58,14 @@ const navConfig = {
 };
 
 function formatValue(value) {
-  return value.charAt('/') ? `https://www.apollographql.com${value}` : value;
+  return value.startsWith('/')
+    ? `https://www.apollographql.com${value}`
+    : value;
 }
 
 function generateSubpage([value, text]) {
   return {
-    value: formatValue(value),
+    value,
     text
   };
 }
@@ -97,7 +99,7 @@ export default function Nav(props) {
         return (
           <NavItem
             key={value}
-            href={value}
+            href={formatValue(value)}
             subpages={subpages}
             active={isActive}
           >
