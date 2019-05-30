@@ -1,3 +1,5 @@
+import '@apollo/space-kit/reset.css';
+import '../styles.less'; // eslint-disable-line sort-imports-es6-autofix/sort-imports-es6
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';

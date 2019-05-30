@@ -1,11 +1,34 @@
 module.exports = ({
   subtitle,
   description,
-  basePath,
-  spectrumPath = '',
-  root
+  root,
+  githubRepo,
+  versions = {},
+  checkLinksExceptions
 }) => {
-  const config = {
+  const gatsbyRemarkPlugins = [
+    'gatsby-remark-autolink-headers',
+    {
+      resolve: 'gatsby-remark-copy-linked-files',
+      options: {
+        ignoreFileExtensions: []
+      }
+    },
+    {
+      resolve: 'gatsby-remark-prismjs',
+      options: {
+        showLineNumbers: true
+      }
+    },
+    {
+      resolve: 'gatsby-remark-check-links',
+      options: {
+        exceptions: checkLinksExceptions
+      }
+    }
+  ];
+
+  return {
     __experimentalThemes: [
       {
         resolve: 'gatsby-theme-apollo',
@@ -14,40 +37,46 @@ module.exports = ({
         }
       }
     ],
-    pathPrefix: basePath,
     siteMetadata: {
       title: 'Apollo Docs',
       subtitle,
-      description,
-      basePath,
-      spectrumPath
+      description
     },
     plugins: [
-      'gatsby-plugin-less',
+      {
+        resolve: 'gatsby-source-filesystem',
+        options: {
+          path: `${root}/source`,
+          name: 'docs'
+        }
+      },
+      {
+        resolve: 'gatsby-transformer-remark',
+        options: {
+          plugins: gatsbyRemarkPlugins
+        }
+      },
       {
         resolve: 'gatsby-plugin-google-analytics',
         options: {
           trackingId: 'UA-74643563-13'
         }
-      }
+      },
+      {
+        resolve: 'gatsby-mdx',
+        options: {
+          gatsbyRemarkPlugins
+        }
+      },
+      ...Object.keys(versions).map(key => ({
+        resolve: 'gatsby-source-git',
+        options: {
+          name: key,
+          remote: `https://github.com/${githubRepo}`,
+          branch: versions[key],
+          patterns: 'docs/**'
+        }
+      }))
     ]
   };
-
-  if (process.env.NODE_ENV === 'development') {
-    return {
-      ...config,
-      plugins: [
-        ...config.plugins,
-        {
-          resolve: 'gatsby-source-filesystem',
-          options: {
-            path: `${root}/source`,
-            name: 'pages'
-          }
-        }
-      ]
-    };
-  }
-
-  return config;
 };

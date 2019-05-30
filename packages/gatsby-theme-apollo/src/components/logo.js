@@ -1,1 +1,1 @@
-export {ReactComponent as default} from '../../ui/logo-small.svg';
+export {ReactComponent as default} from '@apollo/space-kit/logos/mark.svg';

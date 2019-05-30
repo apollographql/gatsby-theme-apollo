@@ -1,4 +1,4 @@
-import breakpoints from '../util/breakpoints';
+import breakpoints from '../utils/breakpoints';
 import styled from '@emotion/styled';
 
 export default styled.div({

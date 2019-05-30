@@ -1,22 +1,19 @@
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import colors from '../../util/colors';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 import {MdExpandLess, MdExpandMore} from 'react-icons/md';
-import {css} from '@emotion/core';
-
-const Container = styled.div({
-  borderTop: `1px solid ${colors.divider}`
-});
+import {colors} from '../../utils/colors';
+import {smallCaps} from '../../utils/typography';
 
 const iconSize = 20;
-const headingStyles = css({
+const headingPadding = 16;
+const headingStyles = {
   display: 'flex',
   alignItems: 'center',
   width: '100%',
   marginBottom: 0,
-  padding: 16,
+  padding: headingPadding,
   paddingLeft: 0,
   border: 0,
   color: colors.text2,
@@ -24,8 +21,8 @@ const headingStyles = css({
   outline: 'none',
   h6: {
     margin: 0,
-    textTransform: 'uppercase',
-    letterSpacing: 2,
+    fontWeight: 'bold',
+    ...smallCaps,
     color: 'inherit'
   },
   svg: {
@@ -34,13 +31,18 @@ const headingStyles = css({
     height: iconSize,
     marginLeft: 'auto',
     fill: 'currentColor'
-  }
-});
-
-const StyledButton = styled.button(headingStyles, {
+  },
   '&.active': {
     color: colors.primary
-  },
+  }
+};
+
+const Container = styled.div(props => ({
+  borderTop: !props.first && `1px solid ${colors.divider}`,
+  marginTop: props.first && headingPadding / -2
+}));
+
+const StyledButton = styled.button(headingStyles, {
   ':not([disabled])': {
     cursor: 'pointer',
     ':hover': {
@@ -60,6 +62,7 @@ export default class Category extends Component {
     expanded: PropTypes.bool.isRequired,
     children: PropTypes.node.isRequired,
     active: PropTypes.bool.isRequired,
+    isFirst: PropTypes.bool.isRequired,
     onClick: PropTypes.func
   };
 
@@ -84,16 +87,17 @@ export default class Category extends Component {
   }
 
   render() {
+    const contents = this.renderContents();
+    const className = this.props.active && 'active';
     return (
-      <Container>
+      <Container first={this.props.isFirst}>
         {!this.props.onClick && this.props.path ? (
-          <StyledLink to={this.props.path}>{this.renderContents()}</StyledLink>
+          <StyledLink className={className} to={this.props.path}>
+            {contents}
+          </StyledLink>
         ) : (
-          <StyledButton
-            className={this.props.active && 'active'}
-            onClick={this.onClick}
-          >
-            {this.renderContents()}
+          <StyledButton className={className} onClick={this.onClick}>
+            {contents}
           </StyledButton>
         )}
         {this.props.expanded && this.props.children}

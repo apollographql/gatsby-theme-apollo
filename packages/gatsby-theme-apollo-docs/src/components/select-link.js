@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import styled from '@emotion/styled';
 import {colors} from 'gatsby-theme-apollo';
-import {navigate} from 'gatsby';
+import {navigate, withPrefix} from 'gatsby';
 import {transparentize} from 'polished';
-import {withPrefix} from 'gatsby-link';
 
 const iconSize = 24;
 const Container = styled.div({

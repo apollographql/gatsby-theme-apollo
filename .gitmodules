@@ -1,3 +1,0 @@
-[submodule "ui"]
-	path = packages/gatsby-theme-apollo/ui
-	url = https://github.com/apollographql/ui

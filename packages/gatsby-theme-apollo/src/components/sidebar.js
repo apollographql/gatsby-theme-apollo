@@ -2,10 +2,10 @@ import Header from './header';
 import LogoTitle from './logo-title';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import breakpoints from '../util/breakpoints';
-import colors from '../util/colors';
+import breakpoints from '../utils/breakpoints';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
+import {colors} from '../utils/colors';
 import {transparentize} from 'polished';
 
 const Container = styled.aside({

@@ -1,43 +1,12 @@
-/* global Prism */
-import '../styles/api.less';
-import 'prismjs';
-import 'prismjs/components/prism-graphql';
-import 'prismjs/components/prism-java';
-import 'prismjs/components/prism-jsx';
-import 'prismjs/components/prism-scala';
-import 'prismjs/components/prism-swift';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/plugins/line-highlight/prism-line-highlight';
-import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
-import 'prismjs/plugins/line-numbers/prism-line-numbers';
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
-import 'prismjs/themes/prism.css';
 import PropTypes from 'prop-types';
-import React, {Fragment, PureComponent, createElement} from 'react';
-import autolinkHeadings from 'rehype-autolink-headings';
-import codeToHast from '../util/code-to-hast';
-import findHeadings from '../util/find-headings';
-import flatMap from 'lodash/flatMap';
-import mapProps from 'recompose/mapProps';
+import React, {Fragment} from 'react';
+import Slugger from 'github-slugger';
 import nest from 'recompose/nest';
 import path from 'path';
-import raw from 'rehype-raw';
-import react from 'rehype-react';
-import rehype from 'remark-rehype';
-import remark from 'remark';
-import removeBackticks from '../util/rehype-remove-backticks';
-import sanitize from 'rehype-sanitize';
-import slug from 'rehype-slug';
+import striptags from 'striptags';
 import styled from '@emotion/styled';
-import tsapibox from '../util/remark-tsapibox';
 import {FaGithub} from 'react-icons/fa';
-import {
-  PageNav,
-  breakpoints,
-  codeBlockStyles,
-  colors,
-  headerHeight
-} from 'gatsby-theme-apollo';
+import {PageNav, breakpoints, colors, headerHeight} from 'gatsby-theme-apollo';
 import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
 import {withPrefix} from 'gatsby';
 
@@ -47,51 +16,28 @@ const Container = styled.div({
   maxWidth: 1200
 });
 
-// TODO: replace with components in MDX
-const documentationButtons = {
-  '.documentation-buttons': {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    width: '100%',
-    maxWidth: 640,
-    margin: '0 auto 24px',
-    '.btn.default': {
-      padding: '12px 24px',
-      border: '2px solid transparent',
-      borderRadius: '3em',
-      fontSize: 14,
-      color: 'white',
-      textTransform: 'uppercase',
-      textDecoration: 'none',
-      letterSpacing: '0.1em',
-      textIndent: '0.1em',
-      backgroundColor: colors.secondary,
-      '&.hollow': {
-        borderColor: colors.secondary,
-        color: colors.secondary,
-        backgroundColor: 'transparent'
-      }
-    }
-  }
-};
-
-const InnerContainer = styled.div(codeBlockStyles, documentationButtons, {
+const MainContent = styled.main({
   flexGrow: 1,
-  maxWidth: '100ch',
-  overflow: 'hidden'
+  width: 0,
+  maxWidth: '100ch'
 });
 
-const ContentWrapper = styled.div({
-  'a[href]': {
+const BodyContent = styled.div({
+  // style all anchors with an href and no prior classes
+  // this helps avoid anchors with names and styled buttons
+  'a[href]:not([class])': {
     color: colors.primary,
     textDecoration: 'none',
     ':hover': {
       textDecoration: 'underline'
+    },
+    code: {
+      color: 'inherit'
     }
   },
   [['h2', 'h3', 'h4']]: {
-    'a[href]': {
-      color: 'inherit'
+    'a svg': {
+      fill: colors.primary
     },
     '&[id]::before': {
       // inspired by https://css-tricks.com/hash-tag-links-padding/
@@ -105,15 +51,19 @@ const ContentWrapper = styled.div({
     ':not(:first-child)': {
       marginTop: 56
     }
+  },
+  img: {
+    display: 'block',
+    maxWidth: '100%',
+    margin: '0 auto'
   }
 });
 
-export const sidebarWidth = 260;
-const Sidebar = styled.aside({
+const Aside = styled.aside({
   display: 'flex',
   flexDirection: 'column',
   flexShrink: 0,
-  width: sidebarWidth,
+  width: 260,
   maxHeight: `calc(100vh - ${headerHeight}px)`,
   marginTop: -36,
   marginLeft: 'auto',
@@ -132,17 +82,17 @@ const Sidebar = styled.aside({
   }
 });
 
-const SidebarHeading = styled.h4({
+const AsideHeading = styled.h4({
   fontWeight: 600
 });
 
-const SidebarList = styled.ul({
+const AsideList = styled.ul({
   marginLeft: 0,
   marginBottom: 48,
   overflow: 'auto'
 });
 
-const SidebarListItem = styled.li(props => ({
+const AsideListItem = styled.li(props => ({
   listStyle: 'none',
   fontSize: '1rem',
   color: props.active && colors.primary,
@@ -155,7 +105,7 @@ const SidebarListItem = styled.li(props => ({
   }
 }));
 
-const SidebarLink = nest(
+const AsideLink = nest(
   styled.h5({
     display: 'flex'
   }),
@@ -176,171 +126,80 @@ const SidebarLink = nest(
   })
 );
 
-function createImageComponent(owner, repo, ref, filePath, localImages) {
-  return mapProps(({alt, src}) => {
-    const isUrl = /^(https?:)?\/\//.test(src);
-    if (!isUrl) {
-      if (process.env.NODE_ENV === 'development') {
-        const relativePath = path.relative('/', src);
-        return {
-          alt,
-          src: localImages[relativePath]
-        };
-      }
-
-      const fileDir = path.dirname(filePath);
-      let paths = path.join(
-        'raw.githubusercontent.com',
-        owner,
-        repo,
-        encodeURIComponent(ref),
-        fileDir,
-        src
-      );
-
-      if (/\.svg$/.test(paths)) {
-        paths += '?sanitize=true';
-      }
-
-      return {
-        alt,
-        src: 'https://' + paths
-      };
-    }
-
-    return {
-      alt,
-      src
-    };
-  })('img');
-}
-
-export default class PageContent extends PureComponent {
-  static propTypes = {
-    content: PropTypes.string.isRequired,
-    filePath: PropTypes.string.isRequired,
-    version: PropTypes.object.isRequired,
-    pathname: PropTypes.string.isRequired,
-    docs: PropTypes.object,
-    typescriptApiBox: PropTypes.object,
-    activeHeading: PropTypes.string,
-    spectrumPath: PropTypes.string
-  };
-
-  componentDidMount() {
-    Prism.highlightAll();
-  }
-
-  render() {
-    const {owner, repo, ref, basePath, localImages} = this.props.version;
-    const ImageComponent = createImageComponent(
-      owner,
-      repo,
-      ref,
-      this.props.filePath,
-      localImages
-    );
-
-    // turn the markdown into JSX and add slug ids to the headings
-    const {contents} = remark()
-      .use(tsapibox, {
-        docs: this.props.docs,
-        typescriptApiBox: this.props.typescriptApiBox
-      })
-      .use(rehype, {
-        allowDangerousHTML: true,
-        handlers: {
-          code: codeToHast
-        }
-      })
-      .use(raw)
-      .use(slug)
-      .use(autolinkHeadings, {
-        behavior: 'wrap'
-      })
-      .use(sanitize, {
-        clobber: [],
-        attributes: {
-          '*': ['id', 'className'],
-          pre: ['data*'],
-          code: ['data*'],
-          img: ['src', 'alt'],
-          a: ['href', 'target', 'rel']
-        }
-      })
-      .use(removeBackticks)
-      .use(react, {
-        createElement,
-        components: {
-          img: ImageComponent
-        }
-      })
-      .processSync(this.props.content);
-
-    // find all of the headings within a page to generate the contents menu
-    const headings = findHeadings(contents);
-
-    const pages = flatMap(this.props.version.contents, 'pages').filter(
-      page => !page.anchor
-    );
-    const pageIndex = pages.findIndex(page => {
-      const prefixedPath = withPrefix(page.path);
-      return (
-        prefixedPath === this.props.pathname ||
-        prefixedPath === this.props.pathname.replace(/\/$/, '')
-      );
-    });
-
+export default function PageContent(props) {
+  const pageIndex = props.pages.findIndex(page => {
+    const prefixedPath = withPrefix(page.path);
     return (
-      <Container>
-        <InnerContainer>
-          <ContentWrapper className="content-wrapper">
-            {contents}
-          </ContentWrapper>
-          <PageNav
-            prevPage={pages[pageIndex - 1]}
-            nextPage={pages[pageIndex + 1]}
-          />
-        </InnerContainer>
-        <Sidebar>
-          {headings.length > 0 && (
-            <Fragment>
-              <SidebarHeading>In this section</SidebarHeading>
-              <SidebarList>
-                {headings.map(heading => (
-                  <SidebarListItem
-                    key={heading.id}
-                    active={heading.id === this.props.activeHeading}
-                  >
-                    {heading.text}
-                  </SidebarListItem>
-                ))}
-              </SidebarList>
-            </Fragment>
-          )}
-          <SidebarLink
-            href={
-              'https://' +
-              path.join(
-                'github.com',
-                owner,
-                repo,
-                'tree',
-                basePath === '/' ? 'master' : encodeURIComponent(ref),
-                this.props.filePath
-              )
-            }
-          >
-            <FaGithub /> Edit on GitHub
-          </SidebarLink>
-          <SidebarLink
-            href={`https://spectrum.chat/apollo/${this.props.spectrumPath ||
-              repo}`}
-          >
-            <SpectrumLogo /> Discuss on Spectrum
-          </SidebarLink>
-        </Sidebar>
-      </Container>
+      prefixedPath === props.pathname ||
+      prefixedPath === props.pathname.replace(/\/$/, '')
     );
-  }
+  });
+
+  const slugger = new Slugger();
+  return (
+    <Container>
+      <MainContent>
+        <BodyContent className="content-wrapper">{props.children}</BodyContent>
+        <PageNav
+          prevPage={props.pages[pageIndex - 1]}
+          nextPage={props.pages[pageIndex + 1]}
+        />
+      </MainContent>
+      <Aside>
+        {props.headings.length > 0 && (
+          <Fragment>
+            <AsideHeading>In this section</AsideHeading>
+            <AsideList>
+              {props.headings.map(({value}) => {
+                const text = striptags(value);
+                const slug = slugger.slug(text);
+                return (
+                  <AsideListItem
+                    key={slug}
+                    active={slug === props.activeHeading}
+                  >
+                    <a href={`#${slug}`}>{text}</a>
+                  </AsideListItem>
+                );
+              })}
+            </AsideList>
+          </Fragment>
+        )}
+        <AsideLink
+          href={
+            'https://' +
+            path.join(
+              'github.com',
+              props.owner,
+              props.repo,
+              'tree',
+              encodeURIComponent(props.gitRef),
+              props.filePath
+            )
+          }
+        >
+          <FaGithub /> Edit on GitHub
+        </AsideLink>
+        <AsideLink
+          href={`https://spectrum.chat/apollo/${props.spectrumPath ||
+            props.repo}`}
+        >
+          <SpectrumLogo /> Discuss on Spectrum
+        </AsideLink>
+      </Aside>
+    </Container>
+  );
 }
+
+PageContent.propTypes = {
+  children: PropTypes.node.isRequired,
+  pathname: PropTypes.string.isRequired,
+  owner: PropTypes.string.isRequired,
+  repo: PropTypes.string.isRequired,
+  gitRef: PropTypes.string.isRequired,
+  filePath: PropTypes.string.isRequired,
+  pages: PropTypes.array.isRequired,
+  headings: PropTypes.array.isRequired,
+  activeHeading: PropTypes.string,
+  spectrumPath: PropTypes.string
+};

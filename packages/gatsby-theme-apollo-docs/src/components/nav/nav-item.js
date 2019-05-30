@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
-import {boxShadow} from './search';
+import {boxShadow} from '../search';
 import {colors} from 'gatsby-theme-apollo';
 import {triangle} from 'polished';
 

@@ -1,11 +1,12 @@
 import Category from './category';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import colors from '../../util/colors';
 import store from 'store';
 import styled from '@emotion/styled';
 import {Link, withPrefix} from 'gatsby';
 import {MdUnfoldLess, MdUnfoldMore} from 'react-icons/md';
+import {colors} from '../../utils/colors';
+import {smallCaps} from '../../utils/typography';
 
 const StyledList = styled.ul({
   marginLeft: 0,
@@ -31,7 +32,7 @@ const StyledListItem = styled.li({
   }
 });
 
-const ExpandAll = styled.button(listItemStyles, {
+const ExpandAll = styled.button(listItemStyles, smallCaps, {
   display: 'flex',
   alignItems: 'center',
   marginBottom: 12,
@@ -39,8 +40,6 @@ const ExpandAll = styled.button(listItemStyles, {
   border: 0,
   fontSize: 12,
   lineHeight: 1,
-  letterSpacing: 2,
-  textTransform: 'uppercase',
   background: 'none',
   outline: 'none',
   cursor: 'pointer',
@@ -100,7 +99,8 @@ export default class SidebarNav extends Component {
     return prefixedPath === pathname;
   };
 
-  isCategorySelected = ({pages}) => pages.some(this.isPageSelected);
+  isCategorySelected = ({path, pages}) =>
+    path ? this.isPageSelected({path}) : pages.some(this.isPageSelected);
 
   toggleCategory = title => {
     this.setState(prevState => {
@@ -178,8 +178,12 @@ export default class SidebarNav extends Component {
               key={title}
               title={title}
               path={path}
-              expanded={Boolean(this.state.sidebarState[getId(title)])}
-              active={pages.some(this.isPageSelected)}
+              isFirst={!index}
+              expanded={Boolean(
+                this.state.sidebarState[getId(title)] ||
+                  this.props.alwaysExpanded
+              )}
+              active={this.isCategorySelected({pages, path})}
               onClick={this.props.alwaysExpanded ? null : this.toggleCategory}
             >
               {contents}

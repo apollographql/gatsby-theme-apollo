@@ -3,7 +3,7 @@
   <h1 align="center">Apollo Gatsby Themes</h1>
 </div>
 
-This repo contains [Gatsby](https://gatsbyjs.org) themes that make it easy to create new websites at Apollo. In its most basic implementation, the theme provides a CSS reset, styles for regular HTML elements (`h1`, `h2`, `p`, `li`, etc.), and a handful of useful layout components.
+This repo contains [Gatsby](https://gatsbyjs.org) themes that we use to create websites at Apollo. In its most basic implementation, the theme provides a CSS reset, styles for regular HTML elements (`h1`, `h2`, `p`, `li`, etc.), and a handful of useful layout components.
 
 ## Packages
 
