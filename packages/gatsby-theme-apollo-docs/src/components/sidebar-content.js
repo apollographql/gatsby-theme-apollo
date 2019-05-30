@@ -58,6 +58,6 @@ SidebarContent.propTypes = {
   contents: PropTypes.array.isRequired,
   pathname: PropTypes.string.isRequired,
   isPathActive: PropTypes.func.isRequired,
-  defaultVersion: PropTypes.string,
+  defaultVersion: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   versions: PropTypes.array.isRequired
 };
