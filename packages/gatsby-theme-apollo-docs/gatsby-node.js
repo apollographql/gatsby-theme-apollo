@@ -13,7 +13,7 @@ async function onCreateNode({node, actions, getNode, loadNodeContent}) {
     });
   }
 
-  if (['MarkdownRemark', 'Mdx'].includes(node.internal.type)) {
+  if (node.internal.type === 'Mdx') {
     let version = 'default';
     let slug = createFilePath({
       node,
@@ -43,10 +43,6 @@ async function onCreateNode({node, actions, getNode, loadNodeContent}) {
 
 exports.onCreateNode = onCreateNode;
 
-function getPageFromEdge({node}) {
-  return node.childMarkdownRemark || node.childMdx;
-}
-
 function getSidebarContents(sidebarCategories, edges, version) {
   return Object.keys(sidebarCategories).map(key => ({
     title: key === 'null' ? null : key,
@@ -64,12 +60,11 @@ function getSidebarContents(sidebarCategories, edges, version) {
         }
 
         const edge = edges.find(edge => {
-          const {relativePath} = edge.node;
-          const {fields} = getPageFromEdge(edge);
+          const {fields, parent} = edge.node;
           return (
             fields.version === version &&
-            relativePath
-              .slice(0, relativePath.lastIndexOf('.'))
+            parent.relativePath
+              .slice(0, parent.relativePath.lastIndexOf('.'))
               .replace(/^docs\/source\//, '') === linkPath
           );
         });
@@ -78,7 +73,7 @@ function getSidebarContents(sidebarCategories, edges, version) {
           return null;
         }
 
-        const {frontmatter, fields} = getPageFromEdge(edge);
+        const {frontmatter, fields} = edge.node;
         return {
           title: frontmatter.title,
           path: fields.slug
@@ -88,32 +83,24 @@ function getSidebarContents(sidebarCategories, edges, version) {
   }));
 }
 
-const pageFragment = `
-  internal {
-    type
-  }
-  frontmatter {
-    title
-  }
-  fields {
-    slug
-    version
-  }
-`;
-
 exports.createPages = async ({actions, graphql}, options) => {
   const {data} = await graphql(`
     {
-      allFile(filter: {extension: {in: ["md", "mdx"]}}) {
+      allMdx {
         edges {
           node {
             id
-            relativePath
-            childMarkdownRemark {
-              ${pageFragment}
+            parent {
+              ... on File {
+                relativePath
+              }
             }
-            childMdx {
-              ${pageFragment}
+            frontmatter {
+              title
+            }
+            fields {
+              slug
+              version
             }
           }
         }
@@ -131,7 +118,7 @@ exports.createPages = async ({actions, graphql}, options) => {
     defaultVersion
   } = options;
 
-  const {edges} = data.allFile;
+  const {edges} = data.allMdx;
   const sidebarContents = {
     default: getSidebarContents(sidebarCategories, edges, 'default')
   };
@@ -169,18 +156,28 @@ exports.createPages = async ({actions, graphql}, options) => {
     );
   }
 
+  const [owner, repo] = githubRepo.split('/');
   const template = require.resolve('./src/components/template');
   edges.forEach(edge => {
-    const page = getPageFromEdge(edge);
+    const {id, fields, parent} = edge.node;
     actions.createPage({
-      path: page.fields.slug,
+      path: fields.slug,
       component: template,
       context: {
-        id: edge.node.id,
-        filePath: path.join(contentDir, edge.node.relativePath),
-        sidebarContents: sidebarContents[page.fields.version],
-        githubRepo,
-        spectrumPath,
+        id,
+        sidebarContents: sidebarContents[fields.version],
+        githubUrl:
+          'https://' +
+          path.join(
+            'github.com',
+            owner,
+            repo,
+            'tree',
+            'master',
+            contentDir,
+            parent.relativePath
+          ),
+        spectrumPath: spectrumPath || repo,
         typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
         defaultVersion

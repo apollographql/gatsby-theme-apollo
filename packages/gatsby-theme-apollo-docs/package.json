@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo-docs",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "index.js",
   "dependencies": {
     "@mdx-js/mdx": "^1.0.0-rc.4",
@@ -15,7 +15,6 @@
     "gatsby-source-filesystem": "^2.0.29",
     "gatsby-source-git": "^1.0.1",
     "gatsby-theme-apollo": "^1.0.0-alpha.12",
-    "gatsby-transformer-remark": "^2.3.8",
     "js-yaml": "^3.13.1",
     "prismjs": "^1.15.0",
     "recompose": "^0.30.0",

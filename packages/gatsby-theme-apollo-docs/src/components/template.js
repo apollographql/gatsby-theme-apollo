@@ -137,25 +137,21 @@ export default class Template extends PureComponent {
 
   render() {
     const {pathname} = this.props.location;
-    const {file, site} = this.props.data;
-    const {frontmatter, headings} = file.childMarkdownRemark || file.childMdx;
+    const {mdx, site} = this.props.data;
     const {title, description, subtitle} = site.siteMetadata;
     const {
       sidebarContents,
-      githubRepo,
+      githubUrl,
       spectrumPath,
-      filePath,
       typescriptApiBox,
       versions,
       defaultVersion
     } = this.props.pageContext;
-
-    const [owner, repo] = githubRepo.split('/');
     return (
       <Layout>
         <SEO
-          title={frontmatter.title}
-          description={frontmatter.description || description}
+          title={mdx.frontmatter.title}
+          description={mdx.frontmatter.description || description}
           siteName={title}
         />
         <ResponsiveSidebar>
@@ -191,34 +187,21 @@ export default class Template extends PureComponent {
                   <Nav pathname={pathname} isPathActive={this.isPathActive} />
                 </DesktopHeader>
                 <StyledContentWrapper>
-                  <PageHeader {...frontmatter} />
+                  <PageHeader {...mdx.frontmatter} />
                   <hr />
                   <PageContent
-                    owner={owner}
-                    repo={repo}
-                    gitRef="master"
                     pathname={pathname}
                     pages={sidebarContents
                       .reduce((acc, {pages}) => acc.concat(pages), [])
                       .filter(page => !page.anchor)}
-                    headings={headings}
+                    headings={mdx.headings}
+                    githubUrl={githubUrl}
                     spectrumPath={spectrumPath}
-                    filePath={filePath}
                     activeHeading={this.state.activeHeading}
                   >
-                    {file.childMdx ? (
-                      <TypescriptApiBoxContext.Provider
-                        value={typescriptApiBox}
-                      >
-                        <MDXRenderer>{file.childMdx.code.body}</MDXRenderer>
-                      </TypescriptApiBoxContext.Provider>
-                    ) : (
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: file.childMarkdownRemark.html
-                        }}
-                      />
-                    )}
+                    <TypescriptApiBoxContext.Provider value={typescriptApiBox}>
+                      <MDXRenderer>{mdx.code.body}</MDXRenderer>
+                    </TypescriptApiBoxContext.Provider>
                   </PageContent>
                 </StyledContentWrapper>
               </Main>
@@ -239,28 +222,16 @@ export const pageQuery = graphql`
         subtitle
       }
     }
-    file(id: {eq: $id}) {
-      childMarkdownRemark {
-        frontmatter {
-          title
-          description
-        }
-        headings(depth: h2) {
-          value
-        }
-        html
+    mdx(id: {eq: $id}) {
+      frontmatter {
+        title
+        description
       }
-      childMdx {
-        frontmatter {
-          title
-          description
-        }
-        headings(depth: h2) {
-          value
-        }
-        code {
-          body
-        }
+      headings(depth: h2) {
+        value
+      }
+      code {
+        body
       }
     }
   }
