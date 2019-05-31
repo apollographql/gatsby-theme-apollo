@@ -42,6 +42,10 @@ const StyledContentWrapper = styled(ContentWrapper)({
   paddingBottom: 0
 });
 
+const components = {
+  pre: CodeBlock
+};
+
 export default class Template extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
@@ -202,7 +206,7 @@ export default class Template extends PureComponent {
                     activeHeading={this.state.activeHeading}
                   >
                     <TypescriptApiBoxContext.Provider value={typescriptApiBox}>
-                      <MDXProvider components={{pre: CodeBlock}}>
+                      <MDXProvider components={components}>
                         <MDXRenderer>{mdx.code.body}</MDXRenderer>
                       </MDXProvider>
                     </TypescriptApiBoxContext.Provider>
