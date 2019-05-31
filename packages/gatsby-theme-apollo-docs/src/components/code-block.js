@@ -6,12 +6,7 @@ import {colors, smallCaps} from 'gatsby-theme-apollo';
 const Container = styled.div({
   margin: '0.5em 0 1.45em',
   border: `1px solid ${colors.divider}`,
-  borderRadius: 4,
-  '.gatsby-highlight': {
-    margin: 0,
-    border: 0,
-    borderRadius: 0
-  }
+  borderRadius: 4
 });
 
 const Header = styled.div({
@@ -48,14 +43,20 @@ const StyledButton = styled.button(smallCaps, {
   }
 });
 
-export function CodeBlock(props) {
+const InnerContainer = styled.div({
+  padding: '1em',
+  backgroundColor: colors.background,
+  overflow: 'auto'
+});
+
+export default function CodeBlock(props) {
   const code = useRef();
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
     setCopied(false);
     const result = await navigator.permissions.query({name: 'clipboard-write'});
-    if (result.state === 'granted' || result.state === 'prompt') {
+    if (['granted', 'prompt'].includes(result.state)) {
       await navigator.clipboard.writeText(code.current.innerText);
       setCopied(true);
     }
@@ -70,12 +71,17 @@ export function CodeBlock(props) {
         {copied && <CopiedMessage>Copied!</CopiedMessage>}
         <StyledButton onClick={handleCopy}>Copy</StyledButton>
       </Header>
-      <div ref={code}>{props.children}</div>
+      <InnerContainer>
+        <pre className={props.className} ref={code}>
+          {props.children}
+        </pre>
+      </InnerContainer>
     </Container>
   );
 }
 
 CodeBlock.propTypes = {
+  className: PropTypes.string,
   filename: PropTypes.string,
   children: PropTypes.node.isRequired
 };

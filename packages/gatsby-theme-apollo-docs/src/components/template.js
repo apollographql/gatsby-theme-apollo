@@ -1,5 +1,6 @@
 import '../prism.less';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+import CodeBlock from './code-block';
 import MDXRenderer from 'gatsby-mdx/mdx-renderer';
 import Nav, {navItems} from './nav';
 import PageContent from './page-content';
@@ -22,6 +23,7 @@ import {
   ResponsiveSidebar,
   Sidebar
 } from 'gatsby-theme-apollo';
+import {MDXProvider} from '@mdx-js/react';
 import {TypescriptApiBoxContext} from './typescript-api-box';
 import {graphql} from 'gatsby';
 
@@ -200,7 +202,9 @@ export default class Template extends PureComponent {
                     activeHeading={this.state.activeHeading}
                   >
                     <TypescriptApiBoxContext.Provider value={typescriptApiBox}>
-                      <MDXRenderer>{mdx.code.body}</MDXRenderer>
+                      <MDXProvider components={{pre: CodeBlock}}>
+                        <MDXRenderer>{mdx.code.body}</MDXRenderer>
+                      </MDXProvider>
                     </TypescriptApiBoxContext.Provider>
                   </PageContent>
                 </StyledContentWrapper>
