@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useRef, useState} from 'react';
+import React, {createContext, useRef, useState} from 'react';
 import styled from '@emotion/styled';
 import {colors, smallCaps} from 'gatsby-theme-apollo';
 
@@ -49,6 +49,10 @@ const InnerContainer = styled.div({
   overflow: 'auto'
 });
 
+export const CodeBlockContext = createContext({
+  filename: ''
+});
+
 export default function CodeBlock(props) {
   const code = useRef();
   const [copied, setCopied] = useState(false);
@@ -66,7 +70,9 @@ export default function CodeBlock(props) {
     <Container>
       <Header>
         <StyledHeading>
-          <code>{props.filename}</code>
+          <CodeBlockContext.Consumer>
+            {({filename}) => <code>{filename}</code>}
+          </CodeBlockContext.Consumer>
         </StyledHeading>
         {copied && <CopiedMessage>Copied!</CopiedMessage>}
         <StyledButton onClick={handleCopy}>Copy</StyledButton>
@@ -82,6 +88,5 @@ export default function CodeBlock(props) {
 
 CodeBlock.propTypes = {
   className: PropTypes.string,
-  filename: PropTypes.string,
   children: PropTypes.node.isRequired
 };
