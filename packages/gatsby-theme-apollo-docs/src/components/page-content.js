@@ -47,7 +47,7 @@ const BodyContent = styled.div({
     ':not(:hover) a svg': {
       visibility: 'hidden'
     },
-    a: {
+    'a.anchor': {
       float: 'left',
       marginLeft: -20,
       paddingRight: 4,
