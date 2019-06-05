@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import styled from '@emotion/styled';
+import {CODE_BLOCK_HEADER_HEIGHT} from './code-block';
 import {FaJs, FaReact} from 'react-icons/fa';
 import {GiFishingHook} from 'react-icons/gi';
 import {colors} from 'gatsby-theme-apollo';
@@ -17,7 +18,7 @@ const Buttons = styled.div({
   borderTopRightRadius: 0,
   overflow: 'hidden',
   position: 'absolute',
-  top: 57,
+  top: CODE_BLOCK_HEADER_HEIGHT,
   right: 16
 });
 

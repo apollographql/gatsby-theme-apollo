@@ -10,11 +10,13 @@ const Container = styled.div({
   borderRadius: 4
 });
 
+const headerBorderWidth = 1;
+const headerVerticalPadding = 12;
 const Header = styled.div({
   display: 'flex',
   alignItems: 'center',
-  padding: '12px 16px',
-  borderBottom: `1px solid ${colors.divider}`
+  padding: `${headerVerticalPadding}px 16px`,
+  borderBottom: `${headerBorderWidth}px solid ${colors.divider}`
 });
 
 const StyledHeading = styled.h5({
@@ -28,12 +30,16 @@ const CopiedMessage = styled.span({
   color: colors.text3
 });
 
+const buttonBorderWidth = 1;
+const buttonFontSize = 14;
+const buttonLineHeight = 1;
+const buttonVerticalPadding = 8;
 const StyledButton = styled.button(smallCaps, {
-  padding: '8px 16px',
-  border: `1px solid ${colors.primary}`,
+  padding: `${buttonVerticalPadding}px 16px`,
+  border: `${buttonBorderWidth}px solid ${colors.primary}`,
   borderRadius: 4,
-  fontSize: 14,
-  lineHeight: 1,
+  fontSize: buttonFontSize,
+  lineHeight: buttonLineHeight,
   fontWeight: 600,
   color: colors.primary,
   backgroundColor: 'white',
@@ -53,6 +59,13 @@ const InnerContainer = styled.div({
 export const CodeBlockContext = createContext({
   filename: ''
 });
+
+export const CODE_BLOCK_HEADER_HEIGHT =
+  headerVerticalPadding * 2 +
+  headerBorderWidth +
+  buttonFontSize * buttonLineHeight +
+  buttonVerticalPadding * 2 +
+  buttonBorderWidth * 2;
 
 export default function CodeBlock(props) {
   const code = useRef();
