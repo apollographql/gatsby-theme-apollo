@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {createContext, useRef, useState} from 'react';
+import clipboard from 'clipboard-polyfill';
 import styled from '@emotion/styled';
 import {colors, smallCaps} from 'gatsby-theme-apollo';
 
@@ -59,11 +60,8 @@ export default function CodeBlock(props) {
 
   async function handleCopy() {
     setCopied(false);
-    const result = await navigator.permissions.query({name: 'clipboard-write'});
-    if (['granted', 'prompt'].includes(result.state)) {
-      await navigator.clipboard.writeText(code.current.innerText);
-      setCopied(true);
-    }
+    await clipboard.writeText(code.current.innerText);
+    setCopied(true);
   }
 
   return (
