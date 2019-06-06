@@ -143,7 +143,7 @@ export default function PageContent(props) {
     const prefixedPath = withPrefix(page.path);
     return (
       prefixedPath === props.pathname ||
-      prefixedPath === props.pathname.replace(/\/$/, '')
+      prefixedPath.replace(/\/$/, '') === props.pathname
     );
   });
 
