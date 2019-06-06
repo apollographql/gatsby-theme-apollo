@@ -51,6 +51,12 @@ module.exports = ({
         }
       },
       {
+        resolve: 'gatsby-transformer-remark',
+        options: {
+          plugins: gatsbyRemarkPlugins
+        }
+      },
+      {
         resolve: 'gatsby-plugin-google-analytics',
         options: {
           trackingId: 'UA-74643563-13'
@@ -59,7 +65,6 @@ module.exports = ({
       {
         resolve: 'gatsby-mdx',
         options: {
-          extensions: ['.mdx', '.md'],
           gatsbyRemarkPlugins
         }
       },
