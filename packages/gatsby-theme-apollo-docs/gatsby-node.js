@@ -169,18 +169,29 @@ exports.createPages = async ({actions, graphql}, options) => {
     );
   }
 
+  const [owner, repo] = githubRepo.split('/');
   const template = require.resolve('./src/components/template');
   edges.forEach(edge => {
-    const page = getPageFromEdge(edge);
+    const {id, relativePath} = edge.node;
+    const {fields} = getPageFromEdge(edge);
     actions.createPage({
-      path: page.fields.slug,
+      path: fields.slug,
       component: template,
       context: {
-        id: edge.node.id,
-        filePath: path.join(contentDir, edge.node.relativePath),
-        sidebarContents: sidebarContents[page.fields.version],
-        githubRepo,
-        spectrumPath,
+        id,
+        sidebarContents: sidebarContents[fields.version],
+        githubUrl:
+          'https://' +
+          path.join(
+            'github.com',
+            owner,
+            repo,
+            'tree',
+            'master',
+            contentDir,
+            relativePath
+          ),
+        spectrumPath: spectrumPath || repo,
         typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
         defaultVersion

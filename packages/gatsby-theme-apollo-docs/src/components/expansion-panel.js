@@ -105,7 +105,7 @@ ExpansionPanelListItem.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-export default function ExpansionPanel(props) {
+export function ExpansionPanel(props) {
   const [expanded, setExpanded] = useState(false);
   const Icon = expanded ? MdExpandLess : MdExpandMore;
   return (

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import Slugger from 'github-slugger';
 import nest from 'recompose/nest';
-import path from 'path';
 import striptags from 'striptags';
 import styled from '@emotion/styled';
 import {FaGithub} from 'react-icons/fa';
@@ -35,10 +34,7 @@ const BodyContent = styled.div({
       color: 'inherit'
     }
   },
-  [['h2', 'h3', 'h4']]: {
-    'a svg': {
-      fill: colors.primary
-    },
+  [['h1', 'h2', 'h3', 'h4', 'h5', 'h6']]: {
     '&[id]::before': {
       // inspired by https://css-tricks.com/hash-tag-links-padding/
       content: "''",
@@ -48,6 +44,19 @@ const BodyContent = styled.div({
       visibility: 'hidden',
       pointerEvents: 'none'
     },
+    ':not(:hover) a svg': {
+      visibility: 'hidden'
+    },
+    'a.anchor': {
+      ':hover': {
+        opacity: colors.hoverOpacity
+      },
+      svg: {
+        fill: colors.primary
+      }
+    }
+  },
+  [['h2', 'h3', 'h4']]: {
     ':not(:first-child)': {
       marginTop: 56
     }
@@ -131,7 +140,7 @@ export default function PageContent(props) {
     const prefixedPath = withPrefix(page.path);
     return (
       prefixedPath === props.pathname ||
-      prefixedPath === props.pathname.replace(/\/$/, '')
+      prefixedPath.replace(/\/$/, '') === props.pathname
     );
   });
 
@@ -165,25 +174,10 @@ export default function PageContent(props) {
             </AsideList>
           </Fragment>
         )}
-        <AsideLink
-          href={
-            'https://' +
-            path.join(
-              'github.com',
-              props.owner,
-              props.repo,
-              'tree',
-              encodeURIComponent(props.gitRef),
-              props.filePath
-            )
-          }
-        >
+        <AsideLink href={props.githubUrl}>
           <FaGithub /> Edit on GitHub
         </AsideLink>
-        <AsideLink
-          href={`https://spectrum.chat/apollo/${props.spectrumPath ||
-            props.repo}`}
-        >
+        <AsideLink href={`https://spectrum.chat/apollo/${props.spectrumPath}`}>
           <SpectrumLogo /> Discuss on Spectrum
         </AsideLink>
       </Aside>
@@ -194,10 +188,7 @@ export default function PageContent(props) {
 PageContent.propTypes = {
   children: PropTypes.node.isRequired,
   pathname: PropTypes.string.isRequired,
-  owner: PropTypes.string.isRequired,
-  repo: PropTypes.string.isRequired,
-  gitRef: PropTypes.string.isRequired,
-  filePath: PropTypes.string.isRequired,
+  githubUrl: PropTypes.string.isRequired,
   pages: PropTypes.array.isRequired,
   headings: PropTypes.array.isRequired,
   activeHeading: PropTypes.string,
