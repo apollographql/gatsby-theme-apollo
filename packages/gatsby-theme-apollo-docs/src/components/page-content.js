@@ -48,9 +48,6 @@ const BodyContent = styled.div({
       visibility: 'hidden'
     },
     'a.anchor': {
-      float: 'left',
-      marginLeft: -20,
-      paddingRight: 4,
       ':hover': {
         opacity: colors.hoverOpacity
       },
