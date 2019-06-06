@@ -11,6 +11,7 @@ import SEO from './seo';
 import Search from './search';
 import SelectLink from './select-link';
 import SidebarContent from './sidebar-content';
+import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
 import {
   ContentWrapper,
@@ -45,6 +46,11 @@ const StyledContentWrapper = styled(ContentWrapper)({
 const components = {
   pre: CodeBlock
 };
+
+const renderAst = new rehypeReact({
+  createElement: React.createElement,
+  components
+}).Compiler;
 
 export default class Template extends PureComponent {
   static propTypes = {
@@ -215,11 +221,7 @@ export default class Template extends PureComponent {
                         </MDXProvider>
                       </TypescriptApiBoxContext.Provider>
                     ) : (
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: file.childMarkdownRemark.html
-                        }}
-                      />
+                      renderAst(file.childMarkdownRemark.htmlAst)
                     )}
                   </PageContent>
                 </StyledContentWrapper>
@@ -250,7 +252,7 @@ export const pageQuery = graphql`
         headings(depth: h2) {
           value
         }
-        html
+        htmlAst
       }
       childMdx {
         frontmatter {
