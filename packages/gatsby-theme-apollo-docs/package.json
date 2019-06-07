@@ -19,6 +19,7 @@
     "gatsby-transformer-remark": "^2.3.12",
     "js-yaml": "^3.13.1",
     "prismjs": "^1.15.0",
+    "react-use": "^9.4.0",
     "recompose": "^0.30.0",
     "rehype-react": "^3.1.0",
     "remark": "^10.0.1",

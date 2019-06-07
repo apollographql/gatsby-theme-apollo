@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
-import Slugger from 'github-slugger';
+import React, {useRef, useState} from 'react';
+import SectionNav from './section-nav';
 import nest from 'recompose/nest';
-import striptags from 'striptags';
 import styled from '@emotion/styled';
+import useMount from 'react-use/lib/useMount';
 import {FaGithub} from 'react-icons/fa';
 import {PageNav, breakpoints, colors, headerHeight} from 'gatsby-theme-apollo';
 import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
@@ -91,29 +91,6 @@ const Aside = styled.aside({
   }
 });
 
-const AsideHeading = styled.h4({
-  fontWeight: 600
-});
-
-const AsideList = styled.ul({
-  marginLeft: 0,
-  marginBottom: 48,
-  overflow: 'auto'
-});
-
-const AsideListItem = styled.li(props => ({
-  listStyle: 'none',
-  fontSize: '1rem',
-  color: props.active && colors.primary,
-  a: {
-    color: 'inherit',
-    textDecoration: 'none',
-    ':hover': {
-      opacity: colors.hoverOpacity
-    }
-  }
-}));
-
 const AsideLink = nest(
   styled.h5({
     display: 'flex'
@@ -136,6 +113,34 @@ const AsideLink = nest(
 );
 
 export default function PageContent(props) {
+  const contentRef = useRef(null);
+  const [imagesToLoad, setImagesToLoad] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
+
+  useMount(() => {
+    if (props.hash) {
+      const hashElement = contentRef.current.querySelector(props.hash);
+      if (hashElement) {
+        hashElement.scrollIntoView();
+      }
+    }
+
+    let toLoad = 0;
+    const images = contentRef.current.querySelectorAll('img');
+    images.forEach(image => {
+      if (!image.complete) {
+        image.addEventListener('load', handleImageLoad);
+        toLoad++;
+      }
+    });
+
+    setImagesToLoad(toLoad);
+  });
+
+  function handleImageLoad() {
+    setImagesLoaded(prevImagesLoaded => prevImagesLoaded + 1);
+  }
+
   const pageIndex = props.pages.findIndex(page => {
     const prefixedPath = withPrefix(page.path);
     return (
@@ -144,11 +149,12 @@ export default function PageContent(props) {
     );
   });
 
-  const slugger = new Slugger();
   return (
     <Container>
       <MainContent>
-        <BodyContent className="content-wrapper">{props.children}</BodyContent>
+        <BodyContent ref={contentRef} className="content-wrapper">
+          {props.children}
+        </BodyContent>
         <PageNav
           prevPage={props.pages[pageIndex - 1]}
           nextPage={props.pages[pageIndex + 1]}
@@ -156,23 +162,12 @@ export default function PageContent(props) {
       </MainContent>
       <Aside>
         {props.headings.length > 0 && (
-          <Fragment>
-            <AsideHeading>In this section</AsideHeading>
-            <AsideList>
-              {props.headings.map(({value}) => {
-                const text = striptags(value);
-                const slug = slugger.slug(text);
-                return (
-                  <AsideListItem
-                    key={slug}
-                    active={slug === props.activeHeading}
-                  >
-                    <a href={`#${slug}`}>{text}</a>
-                  </AsideListItem>
-                );
-              })}
-            </AsideList>
-          </Fragment>
+          <SectionNav
+            headings={props.headings}
+            mainRef={props.mainRef}
+            contentRef={contentRef}
+            imagesLoaded={imagesLoaded === imagesToLoad}
+          />
         )}
         <AsideLink href={props.githubUrl}>
           <FaGithub /> Edit on GitHub
@@ -190,7 +185,8 @@ PageContent.propTypes = {
   pathname: PropTypes.string.isRequired,
   githubUrl: PropTypes.string.isRequired,
   pages: PropTypes.array.isRequired,
+  hash: PropTypes.string.isRequired,
+  mainRef: PropTypes.object.isRequired,
   headings: PropTypes.array.isRequired,
-  activeHeading: PropTypes.string,
   spectrumPath: PropTypes.string
 };
