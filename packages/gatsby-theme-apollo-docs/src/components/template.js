@@ -71,6 +71,11 @@ export default function Template(props) {
     versions,
     defaultVersion
   } = props.pageContext;
+
+  const pages = sidebarContents
+    .reduce((acc, {pages}) => acc.concat(pages), [])
+    .filter(page => !page.anchor);
+
   return (
     <Layout>
       <SEO
@@ -115,9 +120,7 @@ export default function Template(props) {
                 <hr />
                 <PageContent
                   pathname={pathname}
-                  pages={sidebarContents
-                    .reduce((acc, {pages}) => acc.concat(pages), [])
-                    .filter(page => !page.anchor)}
+                  pages={pages}
                   headings={headings}
                   hash={hash}
                   githubUrl={githubUrl}
