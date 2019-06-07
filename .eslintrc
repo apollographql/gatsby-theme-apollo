@@ -1,4 +1,9 @@
 {
   "extends": "@trevorblades/eslint-config/react",
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "plugins": ["react-hooks"],
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  }
 }
