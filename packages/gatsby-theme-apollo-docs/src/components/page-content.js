@@ -119,7 +119,9 @@ export default function PageContent(props) {
 
   useMount(() => {
     if (props.hash) {
-      const hashElement = contentRef.current.querySelector(props.hash);
+      // turn numbers at the beginning of the hash to unicode
+      const hash = props.hash.replace(/^#(\d)/, '#\\3$1 ');
+      const hashElement = contentRef.current.querySelector(hash);
       if (hashElement) {
         hashElement.scrollIntoView();
       }
