@@ -179,17 +179,21 @@ export default class Search extends Component {
 
   input = createRef();
 
+  search = null;
+
   componentDidMount() {
     window.addEventListener('keydown', this.onKeyDown, true);
 
-    this.search = docsearch({
-      apiKey: '768e823959d35bbd51e4b2439be13fb7',
-      indexName: 'apollodata',
-      inputSelector: '#input',
-      autocompleteOptions: {
-        openOnFocus: true
-      }
-    });
+    if (typeof docsearch !== 'undefined') {
+      this.search = docsearch({
+        apiKey: '768e823959d35bbd51e4b2439be13fb7',
+        indexName: 'apollodata',
+        inputSelector: '#input',
+        autocompleteOptions: {
+          openOnFocus: true
+        }
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -215,7 +219,9 @@ export default class Search extends Component {
 
   reset = () => {
     this.setState({value: ''});
-    this.search.autocomplete.autocomplete.setVal('');
+    if (this.search) {
+      this.search.autocomplete.autocomplete.setVal('');
+    }
   };
 
   render() {
