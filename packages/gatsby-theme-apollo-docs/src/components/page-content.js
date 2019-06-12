@@ -48,7 +48,11 @@ const table = {
     textAlign: 'inherit'
   },
   td: {
-    verticalAlign: 'top'
+    verticalAlign: 'top',
+    code: {
+      whiteSpace: 'normal',
+      wordBreak: 'break-word'
+    }
   }
 };
 
