@@ -65,9 +65,7 @@ export default function CodeBlock(props) {
             {({filename}) => <code>{filename}</code>}
           </CodeBlockContext.Consumer>
         </StyledHeading>
-        <Button color="branded" onClick={handleCopy}>
-          {copied ? 'Copied!' : 'Copy'}
-        </Button>
+        <Button onClick={handleCopy}>{copied ? 'Copied!' : 'Copy'}</Button>
       </Header>
       <InnerContainer>
         <pre className={props.className} ref={code}>
