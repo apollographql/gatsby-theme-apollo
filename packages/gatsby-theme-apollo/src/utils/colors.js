@@ -12,5 +12,8 @@ exports.colors = {
   text3: colors.grey.light,
   text4: colors.silver.darker,
   warning: colors.yellow.base,
+  shadow: colors.black.darker,
+  highlight: colors.blue.base,
+  highlight2: colors.blue.lighter,
   hoverOpacity: 0.8
 };
