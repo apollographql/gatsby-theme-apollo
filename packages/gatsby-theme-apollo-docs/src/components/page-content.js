@@ -5,7 +5,13 @@ import nest from 'recompose/nest';
 import styled from '@emotion/styled';
 import useMount from 'react-use/lib/useMount';
 import {FaGithub} from 'react-icons/fa';
-import {PageNav, breakpoints, colors, headerHeight} from 'gatsby-theme-apollo';
+import {
+  PageNav,
+  breakpoints,
+  colors,
+  headerHeight,
+  smallCaps
+} from 'gatsby-theme-apollo';
 import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
 import {withPrefix} from 'gatsby';
 
@@ -20,6 +26,31 @@ const MainContent = styled.main({
   width: 0,
   maxWidth: '100ch'
 });
+
+const tableBorder = `1px solid ${colors.divider}`;
+const table = {
+  marginBottom: '1.45rem',
+  border: tableBorder,
+  borderSpacing: 0,
+  borderRadius: 4,
+  [['th', 'td']]: {
+    padding: 16,
+    borderBottom: tableBorder
+  },
+  'tbody tr:last-child td': {
+    border: 0
+  },
+  th: {
+    ...smallCaps,
+    fontSize: 13,
+    fontWeight: 'normal',
+    color: colors.text3,
+    textAlign: 'inherit'
+  },
+  td: {
+    verticalAlign: 'top'
+  }
+};
 
 const BodyContent = styled.div({
   // style all anchors with an href and no prior classes
@@ -65,7 +96,8 @@ const BodyContent = styled.div({
     display: 'block',
     maxWidth: '100%',
     margin: '0 auto'
-  }
+  },
+  table
 });
 
 const Aside = styled.aside({
