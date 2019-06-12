@@ -57,8 +57,7 @@ function getStylesForSize(size) {
       return {
         minWidth: 112,
         padding: '12px 24px',
-        fontSize: 18,
-        lineHeight: 1
+        fontSize: 17
       };
     case 'small':
       return {

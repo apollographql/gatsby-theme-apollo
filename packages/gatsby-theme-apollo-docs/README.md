@@ -129,27 +129,32 @@ This theme exports React components that you can use in MDX files throughout a d
 
 A presentational component that only takes `children` and is used to render a row of [`Button`](#button) components, center-aligned and with spaced out evenly.
 
-### `Button`
+### `ButtonLink`
 
-A large pill-shaped button with a pink fill and white text. It functions as an internal link (using [Gatsby Link](https://www.gatsbyjs.org/docs/gatsby-link/)) and accepts all props that their `Link` component accepts.
+A button that functions as an internal link (using [Gatsby Link](https://www.gatsbyjs.org/docs/gatsby-link/)) and accepts all props that their `Link` component accepts.
 
-| Prop     | Type   | Description                                                                    |
-| -------- | ------ | ------------------------------------------------------------------------------ |
-| children | node   | The content of the button                                                      |
-| to       | string | A path to another page in your site                                            |
-| variant  | string | Pass "hollow" to render the button with a pink border and text instead of fill |
+| Prop     | Type   | Description                         |
+| -------- | ------ | ----------------------------------- |
+| children | node   | The content of the button           |
+| to       | string | A path to another page in your site |
 
 ```jsx
-import {ButtonWrapper, Button} from 'gatsby-theme-apollo-docs';
+import {ButtonWrapper, ButtonLink} from 'gatsby-theme-apollo-docs';
 
 <ButtonWrapper>
-  <Button to="/tutorial/introduction">Try it out!</Button>
-  <Button
-    variant="hollow"
+  <ButtonLink
+    size="large"
+    color="branded"
+    to="/tutorial/introduction"
+  >
+    Try it out!
+  </ButtonLink>
+  <ButtonLink
+    size="large"
     to="/intro/platform"
   >
     Learn more
-  </Button>
+  </ButtonLink>
 </ButtonWrapper>
 ```
 
