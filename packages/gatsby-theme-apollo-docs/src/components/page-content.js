@@ -44,7 +44,7 @@ const table = {
     ...smallCaps,
     fontSize: 13,
     fontWeight: 'normal',
-    color: colors.text3,
+    color: colors.text2,
     textAlign: 'inherit'
   },
   td: {
