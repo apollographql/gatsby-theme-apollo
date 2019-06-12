@@ -50,8 +50,7 @@ const table = {
   td: {
     verticalAlign: 'top',
     code: {
-      whiteSpace: 'normal',
-      wordBreak: 'break-word'
+      whiteSpace: 'normal'
     }
   }
 };
