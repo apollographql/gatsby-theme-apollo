@@ -36,13 +36,8 @@ const baseButtonStyles = {
   lineHeight: 'calc(1em + 1px)',
   fontWeight: 600,
   letterSpacing: '0.02em',
-  color: colors.text1,
-  backgroundColor: colors.background2,
   outline: 'none',
   cursor: 'pointer',
-  ':not(:active):hover': {
-    backgroundColor: darken(0.05, colors.background2)
-  },
   ':active': {
     boxShadow: getButtonShadow('active')
   },
@@ -51,7 +46,7 @@ const baseButtonStyles = {
   }
 };
 
-function getStylesForSize(size) {
+export function getStylesForSize(size) {
   switch (size) {
     case 'large':
       return {
@@ -61,7 +56,7 @@ function getStylesForSize(size) {
       };
     case 'small':
       return {
-        minWidth: 76,
+        minWidth: 80,
         padding: '7px 16px',
         fontSize: 13
       };
@@ -82,7 +77,7 @@ function getColors(color) {
   };
 }
 
-function getButtonStyles(props) {
+export function getButtonStyles(props) {
   const {color, backgroundColor} = getColors(props.color);
   return {
     ...baseButtonStyles,
