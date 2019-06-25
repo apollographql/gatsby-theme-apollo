@@ -20,10 +20,11 @@ const Header = styled.div({
   borderBottom: `1px solid ${colors.divider}`
 });
 
-const StyledHeading = styled.h5({
-  margin: 0,
+const Filename = styled.code({
+  marginLeft: 8,
   marginRight: 'auto',
-  color: colors.text2
+  color: colors.text2,
+  fontSize: 15
 });
 
 const StyledSelect = styled(Select)({
@@ -51,11 +52,9 @@ export default function CodeBlock(props) {
   return (
     <Container>
       <Header>
-        <StyledHeading>
-          <CodeBlockContext.Consumer>
-            {({filename}) => <code>{filename}</code>}
-          </CodeBlockContext.Consumer>
-        </StyledHeading>
+        <CodeBlockContext.Consumer>
+          {({filename}) => <Filename>{filename}</Filename>}
+        </CodeBlockContext.Consumer>
         <MultiCodeBlockContext.Consumer>
           {({languages, onLanguageChange, activeIndex}) =>
             languages && (
