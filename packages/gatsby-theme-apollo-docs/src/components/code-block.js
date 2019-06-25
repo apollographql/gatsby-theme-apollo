@@ -1,7 +1,7 @@
-import * as clipboard from 'clipboard-polyfill';
 import PropTypes from 'prop-types';
-import React, {createContext, useRef, useState} from 'react';
+import React, {createContext, useRef} from 'react';
 import styled from '@emotion/styled';
+import useCopyToClipboard from 'react-use/lib/useCopyToClipboard';
 import {Button} from './buttons';
 import {MultiCodeBlockContext} from './multi-code-block';
 import {Select} from './select';
@@ -42,12 +42,10 @@ export const CodeBlockContext = createContext({
 
 export default function CodeBlock(props) {
   const code = useRef();
-  const [copied, setCopied] = useState(false);
+  const [copied, copyToClipboard] = useCopyToClipboard();
 
-  async function handleCopy() {
-    setCopied(false);
-    await clipboard.writeText(code.current.innerText);
-    setCopied(true);
+  function handleCopy() {
+    copyToClipboard(code.current.innerText);
   }
 
   return (
