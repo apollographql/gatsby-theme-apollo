@@ -31,6 +31,8 @@ export default function SidebarContent(props) {
         {props.versions.length > 0 && (
           <SelectLink
             useLink
+            size="small"
+            variant="hidden"
             isPathActive={props.isPathActive}
             options={[
               {

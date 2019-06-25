@@ -32,21 +32,54 @@ function getButtonShadow(state) {
 const baseButtonStyles = {
   border: 'none',
   borderRadius: 4,
-  boxShadow: getButtonShadow(),
   lineHeight: 'calc(1em + 1px)',
   fontWeight: 600,
   letterSpacing: '0.02em',
   outline: 'none',
-  cursor: 'pointer',
-  ':active': {
-    boxShadow: getButtonShadow('active')
-  },
-  ':focus': {
-    boxShadow: getButtonShadow('focused')
-  }
+  cursor: 'pointer'
 };
 
-export function getStylesForSize(size) {
+function getStylesForVariant(variant, color) {
+  const isBranded = color === 'branded';
+  switch (variant) {
+    case 'hidden':
+      return {
+        color: isBranded ? colors.highlight : colors.text2,
+        background: 'none',
+        ':active': {
+          backgroundColor: isBranded ? colors.highlight2 : colors.background2
+        },
+        ':not(:active)': {
+          ':hover': {
+            backgroundColor: isBranded ? colors.highlight3 : colors.background
+          },
+          ':focus': {
+            boxShadow: getButtonShadow('focused'),
+            backgroundColor: 'white'
+          }
+        }
+      };
+    default: {
+      const backgroundColor = isBranded ? colors.primary : colors.background2;
+      return {
+        color: isBranded ? 'white' : colors.text2,
+        backgroundColor,
+        boxShadow: getButtonShadow(),
+        ':active': {
+          boxShadow: getButtonShadow('active')
+        },
+        ':focus': {
+          boxShadow: getButtonShadow('focused')
+        },
+        ':not(:active):hover': {
+          backgroundColor: darken(0.05, backgroundColor)
+        }
+      };
+    }
+  }
+}
+
+function getStylesForSize(size) {
   switch (size) {
     case 'large':
       return {
@@ -57,7 +90,7 @@ export function getStylesForSize(size) {
     case 'small':
       return {
         minWidth: 80,
-        padding: '7px 16px',
+        padding: '8px 16px',
         fontSize: 13
       };
     default:
@@ -69,37 +102,26 @@ export function getStylesForSize(size) {
   }
 }
 
-function getColors(color) {
-  const isBranded = color === 'branded';
-  return {
-    color: isBranded ? 'white' : colors.text1,
-    backgroundColor: isBranded ? colors.primary : colors.background2
-  };
-}
-
 export function getButtonStyles(props) {
-  const {color, backgroundColor} = getColors(props.color);
   return {
     ...baseButtonStyles,
     ...getStylesForSize(props.size),
-    color,
-    backgroundColor,
-    ':not(:active):hover': {
-      backgroundColor: darken(0.05, backgroundColor)
-    }
+    ...getStylesForVariant(props.variant, props.color)
   };
 }
 
 export const Button = styled.button(getButtonStyles);
 
 Button.propTypes = {
-  size: PropTypes.oneOf(['default', 'small', 'large']),
-  color: PropTypes.oneOf(['default', 'branded'])
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  color: PropTypes.oneOf(['standard', 'branded']),
+  variant: PropTypes.oneOf(['standard', 'hidden'])
 };
 
 Button.defaultProps = {
-  size: 'default',
-  color: 'default'
+  size: 'medium',
+  color: 'standard',
+  variant: 'standard'
 };
 
 export const ButtonLink = styled(Link)(getButtonStyles, {

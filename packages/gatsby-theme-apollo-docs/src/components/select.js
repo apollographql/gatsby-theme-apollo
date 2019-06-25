@@ -2,13 +2,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from '@emotion/styled';
 import {MdKeyboardArrowDown} from 'react-icons/md';
-import {getButtonStyles, getStylesForSize} from './buttons';
+import {getButtonStyles} from './buttons';
 import {size} from 'polished';
 
 const Container = styled.div(props => {
-  const {fontSize} = getStylesForSize(props.size);
+  const {fontSize, color} = getButtonStyles(props);
   return {
     fontSize,
+    color,
     position: 'relative'
   };
 });
@@ -29,7 +30,13 @@ const StyledIcon = styled(MdKeyboardArrowDown)(size('1.5em'), {
 
 export function Select({className, style, ...props}) {
   return (
-    <Container className={className} style={style} size={props.size}>
+    <Container
+      className={className}
+      style={style}
+      size={props.size}
+      variant={props.variant}
+      color={props.color}
+    >
       <StyledSelect {...props} />
       <StyledIcon />
     </Container>
@@ -38,6 +45,8 @@ export function Select({className, style, ...props}) {
 
 Select.propTypes = {
   size: PropTypes.string,
+  variant: PropTypes.string,
+  color: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object
 };

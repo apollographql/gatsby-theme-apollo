@@ -61,6 +61,7 @@ export default function CodeBlock(props) {
             languages && (
               <StyledSelect
                 size="small"
+                variant="hidden"
                 value={activeIndex}
                 onChange={onLanguageChange}
               >
@@ -74,7 +75,7 @@ export default function CodeBlock(props) {
           }
         </MultiCodeBlockContext.Consumer>
         <Button size="small" onClick={handleCopy}>
-          {copied ? 'Copied!' : 'Copy'}
+          {copied.value ? 'Copied!' : 'Copy'}
         </Button>
       </Header>
       <InnerContainer>
