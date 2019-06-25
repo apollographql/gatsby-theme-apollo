@@ -9,7 +9,7 @@ const SidebarContentHeader = styled.h4({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  paddingRight: 16,
+  paddingRight: 12,
   color: colors.primary
 });
 
