@@ -16,7 +16,7 @@ const Container = styled.div({
 const Header = styled.div({
   display: 'flex',
   alignItems: 'center',
-  padding: 12,
+  padding: 10,
   borderBottom: `1px solid ${colors.divider}`
 });
 
@@ -31,7 +31,7 @@ const StyledSelect = styled(Select)({
 });
 
 const InnerContainer = styled.div({
-  padding: '1em',
+  padding: 15,
   backgroundColor: colors.background,
   overflow: 'auto'
 });
