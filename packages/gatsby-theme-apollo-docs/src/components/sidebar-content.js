@@ -9,7 +9,7 @@ const SidebarContentHeader = styled.h4({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  paddingRight: 16,
+  paddingRight: 12,
   color: colors.primary
 });
 
@@ -31,6 +31,8 @@ export default function SidebarContent(props) {
         {props.versions.length > 0 && (
           <SelectLink
             useLink
+            size="small"
+            variant="hidden"
             isPathActive={props.isPathActive}
             options={[
               {

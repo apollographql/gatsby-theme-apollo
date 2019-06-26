@@ -105,11 +105,7 @@ export default function Template(props) {
               <MobileHeader>
                 <MenuButton onClick={openSidebar} />
                 <StyledLogoTitle />
-                <SelectLink
-                  large
-                  options={navItems}
-                  isPathActive={isPathActive}
-                />
+                <SelectLink options={navItems} isPathActive={isPathActive} />
               </MobileHeader>
               <DesktopHeader>
                 <Search />

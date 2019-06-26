@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo",
-  "version": "1.0.0-alpha.15",
+  "version": "1.0.0-alpha.16",
   "main": "index.js",
   "dependencies": {
     "@apollo/space-kit": "0.0.8",
