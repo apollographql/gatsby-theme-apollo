@@ -73,7 +73,7 @@ export default function CodeBlock(props) {
             )
           }
         </MultiCodeBlockContext.Consumer>
-        <Button size="small" onClick={handleCopy}>
+        <Button variant="hidden" size="small" onClick={handleCopy}>
           {copied.value ? 'Copied!' : 'Copy'}
         </Button>
       </Header>
