@@ -36,7 +36,10 @@ const baseButtonStyles = {
   fontWeight: 600,
   letterSpacing: '0.02em',
   outline: 'none',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  transitionProperty: 'background-color, box-shadow',
+  transitionDuration: '200ms',
+  transitionTimingFunction: 'ease-out'
 };
 
 function getStylesForVariant(variant, color) {
