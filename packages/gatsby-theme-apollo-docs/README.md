@@ -122,21 +122,24 @@ Page URLs will be derived from the file paths of your Markdown. You can nest Mar
 
 This theme exports React components that you can use in MDX files throughout a documentation website.
 
-- [`ButtonWrapper`](#buttonwrapper)
 - [`Button`](#button)
+- [`ButtonLink`](#buttonlink)
+- [`ButtonWrapper`](#buttonwrapper)
 
-### `ButtonWrapper`
+### Button
 
-A presentational component that only takes `children` and is used to render a row of [`Button`](#button) components, center-aligned and with spaced out evenly.
+A button that follows our [Space Kit](https://github.com/apollographql/space-kit) design system. See [the project in Zeplin](https://app.zeplin.io/project/5c7dcb5ab4e654bca8cde54d/screen/5cc9f226cbd69a34a84890ae) for a visual look at the different button variations.
+
+| Prop     | Type   | Default value | Description                          |
+| -------- | ------ | ------------- | ------------------------------------ |
+| children | node   | N/A           | The content of the button            |
+| size     | string | "medium"      | One of "small", "medium", or "large" |
+| color    | string | "standard"    | Either "standard" or "branded"       |
+| variant  | string | "standard"    | Either "standard" or "hidden"        |
 
 ### `ButtonLink`
 
-A button that functions as an internal link (using [Gatsby Link](https://www.gatsbyjs.org/docs/gatsby-link/)) and accepts all props that their `Link` component accepts.
-
-| Prop     | Type   | Description                         |
-| -------- | ------ | ----------------------------------- |
-| children | node   | The content of the button           |
-| to       | string | A path to another page in your site |
+A button that functions as an internal link using [Gatsby Link](https://www.gatsbyjs.org/docs/gatsby-link/). It accepts all props that the [`Button`](#button) and [`Link`]((https://www.gatsbyjs.org/docs/gatsby-link/)) components accept.
 
 ```jsx
 import {ButtonWrapper, ButtonLink} from 'gatsby-theme-apollo-docs';
@@ -157,6 +160,10 @@ import {ButtonWrapper, ButtonLink} from 'gatsby-theme-apollo-docs';
   </ButtonLink>
 </ButtonWrapper>
 ```
+
+### `ButtonWrapper`
+
+A presentational component that only takes `children` and is designed to render a row of [`Button`](#button) or [`ButtonLink`](#buttonlink) components, center-aligned and evenly spaced.
 
 ### `ExpansionPanel`
 
