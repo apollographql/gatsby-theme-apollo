@@ -2,8 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import SelectLink from './select-link';
 import styled from '@emotion/styled';
+import {
+  GA_EVENT_CATEGORY_SIDEBAR,
+  getVersionBasePath,
+  trackEvent
+} from '../utils';
 import {SidebarNav, colors} from 'gatsby-theme-apollo';
-import {getVersionBasePath} from '../utils';
 
 const SidebarContentHeader = styled.h4({
   display: 'flex',
@@ -19,6 +23,23 @@ const SidebarContentHeaderText = styled.span({
 
 function getVersionLabel(version) {
   return `Version ${version}`;
+}
+
+function handleToggleAll(expanded) {
+  trackEvent({
+    eventCategory: GA_EVENT_CATEGORY_SIDEBAR,
+    eventAction: 'toggle all',
+    eventLabel: expanded ? 'expand' : 'collapse'
+  });
+}
+
+function handleToggleCategory(title, expanded) {
+  trackEvent({
+    eventCategory: GA_EVENT_CATEGORY_SIDEBAR,
+    eventAction: 'toggle category',
+    eventLabel: title,
+    eventValue: Number(expanded)
+  });
 }
 
 export default function SidebarContent(props) {
@@ -50,7 +71,12 @@ export default function SidebarContent(props) {
           />
         )}
       </SidebarContentHeader>
-      <SidebarNav contents={props.contents} pathname={props.pathname} />
+      <SidebarNav
+        contents={props.contents}
+        pathname={props.pathname}
+        onToggleAll={handleToggleAll}
+        onToggleCategory={handleToggleCategory}
+      />
     </div>
   );
 }

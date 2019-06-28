@@ -1,8 +1,7 @@
-/* global ga */
 import PropTypes from 'prop-types';
 import React, {createContext, useState} from 'react';
 import styled from '@emotion/styled';
-import {GA_EVENT_CATEGORY_CODE_BLOCK} from '../utils';
+import {GA_EVENT_CATEGORY_CODE_BLOCK, trackEvent} from '../utils';
 
 const Container = styled.div({
   position: 'relative'
@@ -19,13 +18,11 @@ export function MultiCodeBlock(props) {
 
   function handleLanguageChange(event) {
     setActiveIndex(event.target.value);
-    if (typeof ga !== 'undefined') {
-      ga('send', 'event', {
-        eventCategory: GA_EVENT_CATEGORY_CODE_BLOCK,
-        eventAction: 'change language',
-        eventLabel: languages[event.target.value]
-      });
-    }
+    trackEvent({
+      eventCategory: GA_EVENT_CATEGORY_CODE_BLOCK,
+      eventAction: 'change language',
+      eventLabel: languages[event.target.value]
+    });
   }
 
   const languages = props.children.map(child => child.props['data-language']);

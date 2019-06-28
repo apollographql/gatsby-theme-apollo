@@ -1,10 +1,9 @@
-/* global ga */
 import PropTypes from 'prop-types';
 import React, {createContext, useRef} from 'react';
 import styled from '@emotion/styled';
 import useCopyToClipboard from 'react-use/lib/useCopyToClipboard';
 import {Button} from './buttons';
-import {GA_EVENT_CATEGORY_CODE_BLOCK} from '../utils';
+import {GA_EVENT_CATEGORY_CODE_BLOCK, trackEvent} from '../utils';
 import {MultiCodeBlockContext} from './multi-code-block';
 import {Select} from './select';
 import {colors} from 'gatsby-theme-apollo';
@@ -49,12 +48,10 @@ export default function CodeBlock(props) {
 
   function handleCopy() {
     copyToClipboard(code.current.innerText);
-    if (typeof ga !== 'undefined') {
-      ga('send', 'event', {
-        eventCategory: GA_EVENT_CATEGORY_CODE_BLOCK,
-        eventAction: 'copy'
-      });
-    }
+    trackEvent({
+      eventCategory: GA_EVENT_CATEGORY_CODE_BLOCK,
+      eventAction: 'copy'
+    });
   }
 
   return (

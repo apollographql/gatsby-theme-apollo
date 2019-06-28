@@ -82,7 +82,9 @@ export default class SidebarNav extends Component {
   static propTypes = {
     alwaysExpanded: PropTypes.bool,
     contents: PropTypes.array.isRequired,
-    pathname: PropTypes.string.isRequired
+    pathname: PropTypes.string.isRequired,
+    onToggleAll: PropTypes.func,
+    onToggleCategory: PropTypes.func
   };
 
   get allExpanded() {
@@ -111,10 +113,12 @@ export default class SidebarNav extends Component {
         [id]: expanded
       };
 
+      if (this.props.onToggleCategory) {
+        this.props.onToggleCategory(title, expanded);
+      }
+
       setSidebarState(sidebarState);
-      return {
-        sidebarState
-      };
+      return {sidebarState};
     });
   };
 
@@ -130,6 +134,9 @@ export default class SidebarNav extends Component {
 
     setSidebarState(sidebarState);
     this.setState({sidebarState});
+    if (this.props.onToggleAll) {
+      this.props.onToggleAll(expanded);
+    }
   };
 
   renderPages(pages) {

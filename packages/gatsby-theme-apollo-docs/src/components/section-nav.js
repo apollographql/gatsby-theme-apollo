@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import useScroll from 'react-use/lib/useScroll';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import {colors} from 'gatsby-theme-apollo';
+import {trackEvent} from '../utils';
 
 const AsideHeading = styled.h4({
   fontWeight: 600
@@ -29,6 +30,14 @@ const AsideListItem = styled.li(props => ({
     }
   }
 }));
+
+function handleHeadingClick(event) {
+  trackEvent({
+    eventCategory: 'Section Nav',
+    eventAction: 'heading click',
+    eventLabel: event.target.innerText
+  });
+}
 
 export default function SectionNav(props) {
   const {y} = useScroll(props.mainRef);
@@ -76,7 +85,9 @@ export default function SectionNav(props) {
           const slug = slugger.slug(text);
           return (
             <AsideListItem key={slug} active={slug === activeHeading}>
-              <a href={`#${slug}`}>{text}</a>
+              <a href={`#${slug}`} onClick={handleHeadingClick}>
+                {text}
+              </a>
             </AsideListItem>
           );
         })}
