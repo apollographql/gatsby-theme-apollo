@@ -7,17 +7,26 @@ import {
   getVersionBasePath,
   trackEvent
 } from '../utils';
-import {SidebarNav, colors} from 'gatsby-theme-apollo';
+import {SidebarNav, colors, headerHeight} from 'gatsby-theme-apollo';
 
-const SidebarContentHeader = styled.h4({
+const headerPadding = 4;
+const ContentHeader = styled.h4({
+  color: colors.primary,
+  backgroundColor: 'rgba(255, 255, 255, 0.85)',
+  position: 'sticky',
+  top: headerHeight
+});
+
+const HeaderInner = styled.span({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  paddingRight: 12,
-  color: colors.primary
+  margin: `-${headerPadding}px 0`,
+  padding: `${headerPadding}px 0`,
+  paddingRight: 10
 });
 
-const SidebarContentHeaderText = styled.span({
+const HeaderText = styled.span({
   lineHeight: 1.5
 });
 
@@ -45,32 +54,32 @@ function handleToggleCategory(title, expanded) {
 export default function SidebarContent(props) {
   return (
     <div className="sidebar">
-      <SidebarContentHeader>
-        <SidebarContentHeaderText className="title-sidebar">
-          {props.title}
-        </SidebarContentHeaderText>
-        {props.versions.length > 0 && (
-          <SelectLink
-            useLink
-            size="small"
-            variant="hidden"
-            isPathActive={props.isPathActive}
-            options={[
-              {
-                text: props.defaultVersion
-                  ? getVersionLabel(props.defaultVersion)
-                  : 'Latest',
-                value: '/'
-              }
-            ].concat(
-              props.versions.map(version => ({
-                text: getVersionLabel(version),
-                value: getVersionBasePath(version)
-              }))
-            )}
-          />
-        )}
-      </SidebarContentHeader>
+      <ContentHeader>
+        <HeaderInner>
+          <HeaderText className="title-sidebar">{props.title}</HeaderText>
+          {props.versions.length > 0 && (
+            <SelectLink
+              useLink
+              size="small"
+              variant="hidden"
+              isPathActive={props.isPathActive}
+              options={[
+                {
+                  text: props.defaultVersion
+                    ? getVersionLabel(props.defaultVersion)
+                    : 'Latest',
+                  value: '/'
+                }
+              ].concat(
+                props.versions.map(version => ({
+                  text: getVersionLabel(version),
+                  value: getVersionBasePath(version)
+                }))
+              )}
+            />
+          )}
+        </HeaderInner>
+      </ContentHeader>
       <SidebarNav
         contents={props.contents}
         pathname={props.pathname}
