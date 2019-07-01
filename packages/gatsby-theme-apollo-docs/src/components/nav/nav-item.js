@@ -37,6 +37,7 @@ const SubpagesTriangleInner = styled(SubpagesTriangle)({
   bottom: -2
 });
 
+const subpageElements = [Subpages, SubpagesTriangle, SubpagesTriangleInner];
 const Container = styled.div(props => ({
   marginRight: 24,
   borderBottom: `2px solid ${props.active ? colors.secondary : 'transparent'}`,
@@ -54,13 +55,19 @@ const Container = styled.div(props => ({
       }
     }
   },
-  ':not(:hover)': {
-    [[Subpages, SubpagesTriangle, SubpagesTriangleInner]]: {
-      display: 'none'
-    }
+  [subpageElements]: {
+    opacity: 0,
+    visibility: 'hidden',
+    transitionProperty: 'opacity, visibility',
+    transitionDuration: '200ms',
+    transitionTimingFunction: 'ease-in-out'
   },
   ':hover': {
-    zIndex: 1
+    zIndex: 1,
+    [subpageElements]: {
+      opacity: 1,
+      visibility: 'visible'
+    }
   }
 }));
 
