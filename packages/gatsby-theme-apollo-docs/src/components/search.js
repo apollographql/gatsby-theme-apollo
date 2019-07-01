@@ -2,7 +2,12 @@
 import React, {Component, Fragment, createRef} from 'react';
 import styled from '@emotion/styled';
 import {MdClose} from 'react-icons/md';
-import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo';
+import {
+  breakpoints,
+  colors,
+  headerHeight,
+  smallCaps
+} from 'gatsby-theme-apollo';
 import {css} from '@emotion/core';
 import {position, size, transparentize} from 'polished';
 
@@ -39,6 +44,7 @@ const Container = styled.div(responsiveStyles, {
   marginLeft: 40,
   color: colors.text2,
   position: 'relative',
+  zIndex: 1,
   '.algolia-autocomplete': {
     width: '100%',
     '.ds-dropdown-menu': {
@@ -50,6 +56,7 @@ const Container = styled.div(responsiveStyles, {
         display: 'none'
       },
       '[class^=ds-dataset-]': {
+        maxHeight: `calc(100vh - ${headerHeight}px - 32px)`,
         padding: 0,
         border,
         borderRadius: 'inherit'
@@ -131,7 +138,8 @@ const StyledInput = styled.input(props => ({
   boxShadow: props.resultsShown ? boxShadow : 'none',
   fontSize: 14,
   background: 'white',
-  outline: 'none'
+  outline: 'none',
+  appearance: 'none'
 }));
 
 const Overlay = styled.div(
@@ -146,7 +154,8 @@ const Overlay = styled.div(
     backgroundColor: transparentize(0.5, colors.text2),
     transitionProperty: 'opacity, visibility',
     transitionDuration: '150ms',
-    transitionTimingFunction: 'ease-in-out'
+    transitionTimingFunction: 'ease-in-out',
+    zIndex: 1
   }
 );
 
@@ -189,6 +198,7 @@ export default class Search extends Component {
         apiKey: '768e823959d35bbd51e4b2439be13fb7',
         indexName: 'apollodata',
         inputSelector: '#input',
+        // debug: true, // keeps the results list open
         autocompleteOptions: {
           openOnFocus: true
         }
@@ -234,7 +244,6 @@ export default class Search extends Component {
           <StyledInput
             ref={this.input}
             id="input"
-            type="search"
             onFocus={this.onFocus}
             onBlur={this.onBlur}
             onChange={this.onChange}
