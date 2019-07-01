@@ -156,7 +156,7 @@ export default function PageContent(props) {
     if (props.hash) {
       // turn numbers at the beginning of the hash to unicode
       // see https://stackoverflow.com/a/20306237/8190832
-      const hash = props.hash.replace(/^#(\d)/, '#\\3$1 ');
+      const hash = props.hash.toLowerCase().replace(/^#(\d)/, '#\\3$1 ');
       const hashElement = contentRef.current.querySelector(hash);
       if (hashElement) {
         hashElement.scrollIntoView();
