@@ -126,6 +126,10 @@ const Aside = styled.aside({
   }
 });
 
+const AsideHeading = styled.h4({
+  fontWeight: 600
+});
+
 const AsideLink = nest(
   styled.h5({
     display: 'flex'
@@ -199,6 +203,7 @@ export default function PageContent(props) {
         />
       </MainContent>
       <Aside>
+        <AsideHeading>{props.title}</AsideHeading>
         {props.headings.length > 0 && (
           <SectionNav
             headings={props.headings}
@@ -224,6 +229,7 @@ PageContent.propTypes = {
   githubUrl: PropTypes.string.isRequired,
   pages: PropTypes.array.isRequired,
   hash: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   mainRef: PropTypes.object.isRequired,
   headings: PropTypes.array.isRequired,
   spectrumPath: PropTypes.string

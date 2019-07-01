@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Slugger from 'github-slugger';
 import striptags from 'striptags';
 import styled from '@emotion/styled';
@@ -8,17 +8,13 @@ import useWindowSize from 'react-use/lib/useWindowSize';
 import {colors} from 'gatsby-theme-apollo';
 import {trackEvent} from '../utils';
 
-const AsideHeading = styled.h4({
-  fontWeight: 600
-});
-
-const AsideList = styled.ul({
+const StyledList = styled.ul({
   marginLeft: 0,
   marginBottom: 48,
   overflow: 'auto'
 });
 
-const AsideListItem = styled.li(props => ({
+const StyledListItem = styled.li(props => ({
   listStyle: 'none',
   fontSize: '1rem',
   color: props.active && colors.primary,
@@ -77,22 +73,19 @@ export default function SectionNav(props) {
 
   const slugger = new Slugger();
   return (
-    <Fragment>
-      <AsideHeading>In this section</AsideHeading>
-      <AsideList>
-        {props.headings.map(({value}) => {
-          const text = striptags(value);
-          const slug = slugger.slug(text);
-          return (
-            <AsideListItem key={slug} active={slug === activeHeading}>
-              <a href={`#${slug}`} onClick={handleHeadingClick}>
-                {text}
-              </a>
-            </AsideListItem>
-          );
-        })}
-      </AsideList>
-    </Fragment>
+    <StyledList>
+      {props.headings.map(({value}) => {
+        const text = striptags(value);
+        const slug = slugger.slug(text);
+        return (
+          <StyledListItem key={slug} active={slug === activeHeading}>
+            <a href={`#${slug}`} onClick={handleHeadingClick}>
+              {text}
+            </a>
+          </StyledListItem>
+        );
+      })}
+    </StyledList>
   );
 }
 

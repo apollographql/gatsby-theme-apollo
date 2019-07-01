@@ -115,6 +115,7 @@ export default function Template(props) {
                 <PageHeader {...frontmatter} />
                 <hr />
                 <PageContent
+                  title={frontmatter.title}
                   pathname={pathname}
                   pages={pages}
                   headings={headings}
