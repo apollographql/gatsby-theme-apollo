@@ -125,6 +125,9 @@ This theme exports React components that you can use in MDX files throughout a d
 - [`Button`](#button)
 - [`ButtonLink`](#buttonlink)
 - [`ButtonWrapper`](#buttonwrapper)
+- [`ExpansionPanel`](#expansionpanel)
+- [`ExpansionPanelList`](#expansionpanellist)
+- [`ExpansionPanelListItem`](#expansionpanellistitem)
 
 ### Button
 
