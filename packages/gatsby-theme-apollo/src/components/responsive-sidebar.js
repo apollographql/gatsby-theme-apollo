@@ -1,53 +1,45 @@
 import PropTypes from 'prop-types';
-import {Component, createRef} from 'react';
+import useKey from 'react-use/lib/useKey';
 import {findDOMNode} from 'react-dom';
+import {useRef, useState} from 'react';
 
-export default class ResponsiveSidebar extends Component {
-  static propTypes = {
-    children: PropTypes.func.isRequired
-  };
+export default function ResponsiveSidebar(props) {
+  const sidebarRef = useRef(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  state = {
-    sidebarOpen: false
-  };
+  useKey(
+    event =>
+      sidebarOpen &&
+      (event.key === 'Escape' || event.key === 'Esc' || event.keyCode === 27),
+    closeSidebar
+  );
 
-  sidebar = createRef();
-
-  componentDidMount() {
-    window.addEventListener('keydown', this.onKeyDown);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onKeyDown);
-  }
-
-  onKeyDown = event => {
-    // close the sidebar when esc key is pressed
-    if (this.state.sidebarOpen && event.keyCode === 27) {
-      this.closeSidebar();
-    }
-  };
-
-  onWrapperClick = event => {
+  function handleWrapperClick() {
     if (
-      this.state.sidebarOpen &&
+      sidebarOpen &&
       // eslint-disable-next-line react/no-find-dom-node
-      !findDOMNode(this.sidebar.current).contains(event.target)
+      !findDOMNode(sidebarRef.current).contains(event.target)
     ) {
-      this.closeSidebar();
+      closeSidebar();
     }
-  };
-
-  openSidebar = () => this.setState({sidebarOpen: true});
-
-  closeSidebar = () => this.setState({sidebarOpen: false});
-
-  render() {
-    return this.props.children({
-      sidebarOpen: this.state.sidebarOpen,
-      openSidebar: this.openSidebar,
-      onWrapperClick: this.onWrapperClick,
-      sidebarRef: this.sidebar
-    });
   }
+
+  function openSidebar() {
+    setSidebarOpen(true);
+  }
+
+  function closeSidebar() {
+    setSidebarOpen(false);
+  }
+
+  return props.children({
+    sidebarOpen,
+    openSidebar,
+    onWrapperClick: handleWrapperClick,
+    sidebarRef
+  });
 }
+
+ResponsiveSidebar.propTypes = {
+  children: PropTypes.func.isRequired
+};

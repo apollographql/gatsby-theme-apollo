@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {Component, Fragment} from 'react';
+import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
 import {MdExpandLess, MdExpandMore} from 'react-icons/md';
@@ -55,53 +55,45 @@ const StyledLink = styled(Link)(headingStyles, {
   textDecoration: 'none'
 });
 
-export default class Category extends Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    path: PropTypes.string,
-    expanded: PropTypes.bool.isRequired,
-    children: PropTypes.node.isRequired,
-    active: PropTypes.bool.isRequired,
-    isFirst: PropTypes.bool.isRequired,
-    onClick: PropTypes.func
-  };
+export default function Category(props) {
+  const Icon = props.expanded ? MdExpandLess : MdExpandMore;
+  const contents = (
+    <Fragment>
+      <h6>{props.title}</h6>
+      <Icon
+        style={{
+          visibility: props.onClick ? 'visible' : 'hidden'
+        }}
+      />
+    </Fragment>
+  );
 
-  onClick = () => {
-    if (this.props.onClick) {
-      this.props.onClick(this.props.title);
-    }
-  };
-
-  renderContents() {
-    const Icon = this.props.expanded ? MdExpandLess : MdExpandMore;
-    return (
-      <Fragment>
-        <h6>{this.props.title}</h6>
-        <Icon
-          style={{
-            visibility: this.props.onClick ? 'visible' : 'hidden'
-          }}
-        />
-      </Fragment>
-    );
-  }
-
-  render() {
-    const contents = this.renderContents();
-    const className = this.props.active && 'active';
-    return (
-      <Container first={this.props.isFirst}>
-        {!this.props.onClick && this.props.path ? (
-          <StyledLink className={className} to={this.props.path}>
-            {contents}
-          </StyledLink>
-        ) : (
-          <StyledButton className={className} onClick={this.onClick}>
-            {contents}
-          </StyledButton>
-        )}
-        {this.props.expanded && this.props.children}
-      </Container>
-    );
-  }
+  const className = props.active && 'active';
+  return (
+    <Container first={props.isFirst}>
+      {!props.onClick && props.path ? (
+        <StyledLink className={className} to={props.path}>
+          {contents}
+        </StyledLink>
+      ) : (
+        <StyledButton
+          className={className}
+          onClick={props.onClick ? () => props.onClick(props.title) : null}
+        >
+          {contents}
+        </StyledButton>
+      )}
+      {props.expanded && props.children}
+    </Container>
+  );
 }
+
+Category.propTypes = {
+  title: PropTypes.string.isRequired,
+  path: PropTypes.string,
+  expanded: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
+  active: PropTypes.bool.isRequired,
+  isFirst: PropTypes.bool.isRequired,
+  onClick: PropTypes.func
+};

@@ -1,7 +1,7 @@
 import Header from './header';
 import LogoTitle from './logo-title';
 import PropTypes from 'prop-types';
-import React, {Component, Fragment} from 'react';
+import React, {Fragment} from 'react';
 import breakpoints from '../utils/breakpoints';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
@@ -49,36 +49,30 @@ const Content = styled.div({
   paddingRight: 0
 });
 
-export default class Sidebar extends Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    open: PropTypes.bool,
-    noLogo: PropTypes.bool,
-    responsive: PropTypes.bool
-  };
+export default function Sidebar(props) {
+  const content = (
+    <Fragment>
+      <StyledHeader>
+        <StyledLink to="/">
+          <LogoTitle noLogo={props.noLogo} />
+        </StyledLink>
+      </StyledHeader>
+      <Content>{props.children}</Content>
+    </Fragment>
+  );
 
-  renderContent() {
+  if (props.responsive) {
     return (
-      <Fragment>
-        <StyledHeader>
-          <StyledLink to="/">
-            <LogoTitle noLogo={this.props.noLogo} />
-          </StyledLink>
-        </StyledHeader>
-        <Content>{this.props.children}</Content>
-      </Fragment>
+      <ResponsiveContainer open={props.open}>{content}</ResponsiveContainer>
     );
   }
 
-  render() {
-    if (this.props.responsive) {
-      return (
-        <ResponsiveContainer open={this.props.open}>
-          {this.renderContent()}
-        </ResponsiveContainer>
-      );
-    }
-
-    return <Container>{this.renderContent()}</Container>;
-  }
+  return <Container>{content}</Container>;
 }
+
+Sidebar.propTypes = {
+  children: PropTypes.node.isRequired,
+  open: PropTypes.bool,
+  noLogo: PropTypes.bool,
+  responsive: PropTypes.bool
+};
