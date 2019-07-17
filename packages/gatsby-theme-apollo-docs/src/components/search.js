@@ -174,10 +174,6 @@ const ResetButton = styled.button(verticalAlign, size(20), {
   }
 });
 
-function preventDefault(event) {
-  event.preventDefault();
-}
-
 export default class Search extends Component {
   state = {
     focused: false,
@@ -252,7 +248,10 @@ export default class Search extends Component {
             resultsShown={resultsShown}
           />
           {resultsShown && (
-            <ResetButton onMouseDown={preventDefault} onClick={this.reset}>
+            <ResetButton
+              onMouseDown={() => event.preventDefault()}
+              onClick={this.reset}
+            >
               <MdClose />
             </ResetButton>
           )}
