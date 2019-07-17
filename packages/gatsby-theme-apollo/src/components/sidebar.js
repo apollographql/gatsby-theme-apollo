@@ -49,7 +49,7 @@ const Content = styled.div({
   paddingRight: 0
 });
 
-function Sidebar(props, ref) {
+const Sidebar = React.forwardRef((props, ref) => {
   const content = (
     <Fragment>
       <StyledHeader>
@@ -70,8 +70,9 @@ function Sidebar(props, ref) {
   }
 
   return <Container>{content}</Container>;
-}
+});
 
+Sidebar.displayName = 'Sidebar';
 Sidebar.propTypes = {
   children: PropTypes.node.isRequired,
   open: PropTypes.bool,
@@ -79,4 +80,4 @@ Sidebar.propTypes = {
   responsive: PropTypes.bool
 };
 
-export default React.forwardRef(Sidebar);
+export default Sidebar;
