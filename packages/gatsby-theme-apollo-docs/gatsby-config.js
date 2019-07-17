@@ -53,7 +53,7 @@ module.exports = ({
       {
         resolve: 'gatsby-transformer-remark',
         options: {
-          plugins: gatsbyRemarkPlugins
+          plugins: ['gatsby-remark-typescript', ...gatsbyRemarkPlugins]
         }
       },
       {
