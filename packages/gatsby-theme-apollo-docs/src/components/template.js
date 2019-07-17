@@ -1,7 +1,7 @@
 import '../prism.less';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import CodeBlock from './code-block';
-import MDXRenderer from 'gatsby-mdx/mdx-renderer';
+import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer';
 import Nav, {navItems} from './nav';
 import PageContent from './page-content';
 import PageHeader from './page-header';
