@@ -127,7 +127,7 @@ export default function Template(props) {
                   {file.childMdx ? (
                     <TypescriptApiBoxContext.Provider value={typescriptApiBox}>
                       <MDXProvider components={components}>
-                        <MDXRenderer>{file.childMdx.code.body}</MDXRenderer>
+                        <MDXRenderer>{file.childMdx.body}</MDXRenderer>
                       </MDXProvider>
                     </TypescriptApiBoxContext.Provider>
                   ) : (
@@ -177,9 +177,7 @@ export const pageQuery = graphql`
         headings(depth: h2) {
           value
         }
-        code {
-          body
-        }
+        body
       }
     }
   }

@@ -81,6 +81,9 @@ const StyledListItem = styled.li({
   fontSize: '1rem',
   lineHeight: 1.5,
   position: 'relative',
+  ':first-of-type h4': {
+    marginTop: 0
+  },
   ':not(:last-child)': {
     marginBottom: 28
   },

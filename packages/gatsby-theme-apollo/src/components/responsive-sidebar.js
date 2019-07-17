@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import useKey from 'react-use/lib/useKey';
-import {findDOMNode} from 'react-dom';
 import {useRef, useState} from 'react';
 
 export default function ResponsiveSidebar(props) {
@@ -15,11 +14,7 @@ export default function ResponsiveSidebar(props) {
   );
 
   function handleWrapperClick() {
-    if (
-      sidebarOpen &&
-      // eslint-disable-next-line react/no-find-dom-node
-      !findDOMNode(sidebarRef.current).contains(event.target)
-    ) {
+    if (sidebarOpen && !sidebarRef.current.contains(event.target)) {
       closeSidebar();
     }
   }

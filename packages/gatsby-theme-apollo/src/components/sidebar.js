@@ -49,7 +49,7 @@ const Content = styled.div({
   paddingRight: 0
 });
 
-export default function Sidebar(props) {
+function Sidebar(props, ref) {
   const content = (
     <Fragment>
       <StyledHeader>
@@ -63,7 +63,9 @@ export default function Sidebar(props) {
 
   if (props.responsive) {
     return (
-      <ResponsiveContainer open={props.open}>{content}</ResponsiveContainer>
+      <ResponsiveContainer ref={ref} open={props.open}>
+        {content}
+      </ResponsiveContainer>
     );
   }
 
@@ -76,3 +78,5 @@ Sidebar.propTypes = {
   noLogo: PropTypes.bool,
   responsive: PropTypes.bool
 };
+
+export default React.forwardRef(Sidebar);
