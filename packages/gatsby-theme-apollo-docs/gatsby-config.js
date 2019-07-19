@@ -65,7 +65,15 @@ module.exports = ({
       {
         resolve: 'gatsby-plugin-mdx',
         options: {
-          gatsbyRemarkPlugins: ['gatsby-remark-typescript', ...remarkPlugins]
+          gatsbyRemarkPlugins: [
+            {
+              resolve: 'gatsby-remark-typescript',
+              options: {
+                wrapper: 'MultiCodeBlock'
+              }
+            },
+            ...remarkPlugins
+          ]
         }
       },
       ...Object.keys(versions).map(key => ({
