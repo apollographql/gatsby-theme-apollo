@@ -15,7 +15,7 @@
     "gatsby-source-filesystem": "^2.0.29",
     "gatsby-source-git": "^1.0.1",
     "gatsby-theme-apollo": "^1.1.0-alpha.2",
-    "gatsby-transformer-remark": "^2.3.12",
+    "gatsby-transformer-remark": "^2.6.7",
     "js-yaml": "^3.13.1",
     "prismjs": "^1.15.0",
     "recompose": "^0.30.0",
