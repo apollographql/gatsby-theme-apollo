@@ -6,7 +6,7 @@ module.exports = ({
   versions = {},
   checkLinksExceptions
 }) => {
-  const remarkPlugins = [
+  const gatsbyRemarkPlugins = [
     'gatsby-remark-autolink-headers',
     {
       resolve: 'gatsby-remark-copy-linked-files',
@@ -53,7 +53,7 @@ module.exports = ({
       {
         resolve: 'gatsby-transformer-remark',
         options: {
-          plugins: remarkPlugins
+          plugins: gatsbyRemarkPlugins
         }
       },
       {
@@ -65,14 +65,14 @@ module.exports = ({
       {
         resolve: 'gatsby-plugin-mdx',
         options: {
-          gatsbyRemarkPlugins: [
+          gatsbygatsbyRemarkPlugins: [
             {
               resolve: 'gatsby-remark-typescript',
               options: {
                 wrapperComponent: 'MultiCodeBlock'
               }
             },
-            ...remarkPlugins
+            ...gatsbyRemarkPlugins
           ]
         }
       },
