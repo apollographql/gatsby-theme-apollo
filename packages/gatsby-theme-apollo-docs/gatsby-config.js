@@ -65,7 +65,7 @@ module.exports = ({
       {
         resolve: 'gatsby-plugin-mdx',
         options: {
-          gatsbygatsbyRemarkPlugins: [
+          gatsbyRemarkPlugins: [
             {
               resolve: 'gatsby-remark-typescript',
               options: {
