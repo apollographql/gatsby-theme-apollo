@@ -69,7 +69,7 @@ module.exports = ({
             {
               resolve: 'gatsby-remark-typescript',
               options: {
-                wrapper: 'MultiCodeBlock'
+                wrapperComponent: 'MultiCodeBlock'
               }
             },
             ...remarkPlugins
