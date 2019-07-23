@@ -1,9 +1,11 @@
 module.exports = ({
+  root,
+  siteName,
   subtitle,
   description,
-  root,
   githubRepo,
   versions = {},
+  trackingId,
   checkLinksOptions
 }) => {
   const gatsbyRemarkPlugins = [
@@ -38,7 +40,7 @@ module.exports = ({
       }
     ],
     siteMetadata: {
-      title: 'Apollo Docs',
+      title: siteName,
       subtitle,
       description
     },
@@ -59,7 +61,7 @@ module.exports = ({
       {
         resolve: 'gatsby-plugin-google-analytics',
         options: {
-          trackingId: 'UA-74643563-13'
+          trackingId
         }
       },
       {

@@ -2,7 +2,7 @@ import '../prism.less';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import CodeBlock from './code-block';
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer';
-import Nav, {navItems} from './nav';
+import Nav from './nav';
 import PageContent from './page-content';
 import PageHeader from './page-header';
 import PropTypes from 'prop-types';
@@ -69,7 +69,11 @@ export default function Template(props) {
     spectrumPath,
     typescriptApiBox,
     versions,
-    defaultVersion
+    defaultVersion,
+    algoliaApiKey,
+    algoliaIndexName,
+    navItems,
+    baseUrl
   } = props.pageContext;
 
   const pages = sidebarContents
@@ -108,8 +112,13 @@ export default function Template(props) {
                 <SelectLink options={navItems} isPathActive={isPathActive} />
               </MobileHeader>
               <DesktopHeader>
-                <Search />
-                <Nav pathname={pathname} isPathActive={isPathActive} />
+                <Search apiKey={algoliaApiKey} indexName={algoliaIndexName} />
+                <Nav
+                  items={navItems}
+                  baseUrl={baseUrl}
+                  pathname={pathname}
+                  isPathActive={isPathActive}
+                />
               </DesktopHeader>
               <StyledContentWrapper>
                 <PageHeader {...frontmatter} />
