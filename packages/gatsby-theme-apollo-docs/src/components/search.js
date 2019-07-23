@@ -1,4 +1,5 @@
 /* global docsearch */
+import PropTypes from 'prop-types';
 import React, {Component, Fragment, createRef} from 'react';
 import styled from '@emotion/styled';
 import {MdClose} from 'react-icons/md';
@@ -175,6 +176,11 @@ const ResetButton = styled.button(verticalAlign, size(20), {
 });
 
 export default class Search extends Component {
+  static propTypes = {
+    apiKey: PropTypes.string.isRequired,
+    indexName: PropTypes.string.isRequired
+  };
+
   state = {
     focused: false,
     value: ''
@@ -191,8 +197,8 @@ export default class Search extends Component {
 
     if (typeof docsearch !== 'undefined') {
       this.search = docsearch({
-        apiKey: '768e823959d35bbd51e4b2439be13fb7',
-        indexName: 'apollodata',
+        apiKey: this.props.apiKey,
+        indexName: this.props.indexName,
         inputSelector: '#input',
         // debug: true, // keeps the results list open
         autocompleteOptions: {
