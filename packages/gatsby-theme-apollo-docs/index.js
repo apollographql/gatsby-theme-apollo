@@ -10,3 +10,4 @@ export {
   ExpansionPanelList,
   ExpansionPanelListItem
 } from './src/components/expansion-panel';
+export {defaultOptions} from './src/default-options';
