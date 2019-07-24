@@ -1,5 +1,5 @@
 export {
-  default as TypescriptApiBox,
+  TypescriptApiBox,
   TypescriptApiBoxContext
 } from './src/components/typescript-api-box';
 export {MultiCodeBlock} from './src/components/multi-code-block';

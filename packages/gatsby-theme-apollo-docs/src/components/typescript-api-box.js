@@ -103,7 +103,7 @@ function mdToReact(text) {
     .processSync(sanitized).contents;
 }
 
-export default class TypescriptApiBox extends Component {
+export class TypescriptApiBox extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired
   };
