@@ -4,7 +4,7 @@ const {createFilePath} = require('gatsby-source-filesystem');
 const {getVersionBasePath} = require('./src/utils');
 
 async function onCreateNode({node, actions, getNode, loadNodeContent}) {
-  if (node.relativePath === 'docs/_config.yml') {
+  if (configPaths.includes(node.relativePath)) {
     const value = await loadNodeContent(node);
     actions.createNodeField({
       name: 'raw',
@@ -88,6 +88,36 @@ function getSidebarContents(sidebarCategories, edges, version) {
   }));
 }
 
+const configPaths = [
+  'docs/gatsby-config.js', // new gatsby config
+  'docs/_config.yml' // old hexo config
+];
+
+function getVersionSidebarCategories(gatsbyConfig, hexoConfig) {
+  if (gatsbyConfig) {
+    const trimmed = gatsbyConfig.slice(
+      gatsbyConfig.indexOf('sidebarCategories')
+    );
+
+    const json = trimmed
+      .slice(0, trimmed.indexOf('}'))
+      // wrap object keys in double quotes
+      .replace(/['"]?(\w[\w\s]+)['"]?:/g, '"$1":')
+      // replace single-quoted array values with double quoted ones
+      .replace(/'([\w-/.]+)'/g, '"$1"')
+      // remove trailing commas
+      .trim()
+      .replace(/,\s*\]/g, ']')
+      .replace(/,\s*$/, '');
+
+    const {sidebarCategories} = JSON.parse(`{${json}}}`);
+    return sidebarCategories;
+  }
+
+  const {sidebar_categories} = jsYaml.load(hexoConfig);
+  return sidebar_categories;
+}
+
 const pageFragment = `
   internal {
     type
@@ -140,30 +170,29 @@ exports.createPages = async ({actions, graphql}, options) => {
   for (const version in versions) {
     versionKeys.push(version);
 
-    // grab the old YAML config file for each older version
-    const response = await graphql(`
-      {
-        allFile(
-          filter: {
-            relativePath: {eq: "docs/_config.yml"}
-            gitRemote: {sourceInstanceName: {eq: "${version}"}}
-          }
-        ) {
-          edges {
-            node {
+    // grab the old config files for each older version
+    const configs = await Promise.all(
+      configPaths.map(async configPath => {
+        const response = await graphql(`
+          {
+            file(
+              relativePath: {eq: "${configPath}"}
+              gitRemote: {sourceInstanceName: {eq: "${version}"}}
+            ) {
               fields {
                 raw
               }
             }
           }
-        }
-      }
-    `);
+        `);
 
-    const [{node}] = response.data.allFile.edges;
-    const {sidebar_categories} = jsYaml.load(node.fields.raw);
+        const {file} = response.data;
+        return file && file.fields.raw;
+      })
+    );
+
     sidebarContents[version] = getSidebarContents(
-      sidebar_categories,
+      getVersionSidebarCategories(...configs),
       edges,
       version
     );
