@@ -4,7 +4,7 @@ module.exports = ({
   root,
   githubRepo,
   versions = {},
-  checkLinksExceptions
+  checkLinksOptions
 }) => {
   const gatsbyRemarkPlugins = [
     'gatsby-remark-autolink-headers',
@@ -23,9 +23,7 @@ module.exports = ({
     },
     {
       resolve: 'gatsby-remark-check-links',
-      options: {
-        exceptions: checkLinksExceptions
-      }
+      options: checkLinksOptions
     }
   ];
 
