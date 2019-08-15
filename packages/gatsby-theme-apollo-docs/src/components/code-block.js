@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {createContext, useRef} from 'react';
+import React, {useRef} from 'react';
 import styled from '@emotion/styled';
 import useCopyToClipboard from 'react-use/lib/useCopyToClipboard';
 import {Button} from './buttons';
@@ -17,15 +17,9 @@ const Container = styled.div({
 const Header = styled.div({
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'flex-end',
   padding: 10,
   borderBottom: `1px solid ${colors.divider}`
-});
-
-const Filename = styled.code({
-  marginLeft: 8,
-  marginRight: 'auto',
-  color: colors.text2,
-  fontSize: 15
 });
 
 const StyledSelect = styled(Select)({
@@ -36,10 +30,6 @@ const InnerContainer = styled.div({
   padding: 15,
   backgroundColor: colors.background,
   overflow: 'auto'
-});
-
-export const CodeBlockContext = createContext({
-  filename: ''
 });
 
 export default function CodeBlock(props) {
@@ -57,9 +47,6 @@ export default function CodeBlock(props) {
   return (
     <Container>
       <Header>
-        <CodeBlockContext.Consumer>
-          {({filename}) => <Filename>{filename}</Filename>}
-        </CodeBlockContext.Consumer>
         <MultiCodeBlockContext.Consumer>
           {({languages, onLanguageChange, activeIndex}) =>
             languages && (

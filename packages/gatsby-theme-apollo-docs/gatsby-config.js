@@ -14,6 +14,7 @@ module.exports = ({
         ignoreFileExtensions: []
       }
     },
+    'gatsby-remark-prismjs-title',
     {
       resolve: 'gatsby-remark-prismjs',
       options: {
