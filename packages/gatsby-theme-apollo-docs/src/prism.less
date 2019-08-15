@@ -1,5 +1,18 @@
 /* from https://www.gatsbyjs.org/packages/gatsby-remark-prismjs/#include-css */
 
+@font-family-monospace: 'Source Code Pro', monospace;
+
+.gatsby-code-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: calc(-51px - 0.5em);
+  height: 50px;
+  font-size: 15px;
+  font-family: @font-family-monospace;
+  color: @color-text2;
+  padding-left: 19px;
+}
+
 .gatsby-highlight-code-line {
   background-color: @color-background2;
   display: block;
@@ -68,7 +81,7 @@ code[class*="language-"] {
   color: @color-text1;
   font-size: 15px;
   text-shadow: none;
-  font-family: 'Source Code Pro', monospace;
+  font-family: @font-family-monospace;
   direction: ltr;
   text-align: left;
   white-space: pre;
