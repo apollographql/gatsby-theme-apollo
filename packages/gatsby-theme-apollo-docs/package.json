@@ -2,6 +2,19 @@
   "name": "gatsby-theme-apollo-docs",
   "version": "2.0.0-alpha.0",
   "main": "index.js",
+  "description": "A Gatsby theme for building documentation websites",
+  "author": "Trevor Blades <blades@apollographql.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apollographql/gatsby-theme-apollo.git",
+    "directory": "packages/gatsby-theme-apollo-docs"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "apollo",
+    "docs"
+  ],
   "dependencies": {
     "@mdx-js/mdx": "^1.1.0",
     "@mdx-js/react": "^1.0.27",
