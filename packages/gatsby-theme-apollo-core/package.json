@@ -2,6 +2,13 @@
   "name": "gatsby-theme-apollo-core",
   "version": "2.0.0-alpha.0",
   "main": "index.js",
+  "description": "A theme for bootstrapping Gatsby sites at Apollo",
+  "author": "Trevor Blades <blades@apollographql.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apollographql/gatsby-theme-apollo.git",
+    "directory": "packages/gatsby-theme-apollo-core"
+  },
   "dependencies": {
     "@apollo/space-kit": "0.0.8",
     "@emotion/core": "^10.0.7",
