@@ -62,7 +62,7 @@ export default function Template(props) {
   const {hash, pathname} = props.location;
   const {file, site} = props.data;
   const {frontmatter, headings} = file.childMarkdownRemark || file.childMdx;
-  const {title, description, subtitle} = site.siteMetadata;
+  const {title, description, subtitle, twitterHandle} = site.siteMetadata;
   const {
     sidebarContents,
     githubUrl,
@@ -86,6 +86,8 @@ export default function Template(props) {
         title={frontmatter.title}
         description={frontmatter.description || description}
         siteName={title}
+        twitterHandle={twitterHandle}
+        baseUrl={baseUrl}
       />
       <ResponsiveSidebar>
         {({sidebarRef, onWrapperClick, openSidebar, sidebarOpen}) => (
