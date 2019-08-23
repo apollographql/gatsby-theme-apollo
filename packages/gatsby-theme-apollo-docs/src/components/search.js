@@ -8,7 +8,7 @@ import {
   colors,
   headerHeight,
   smallCaps
-} from 'gatsby-theme-apollo';
+} from 'gatsby-theme-apollo-core';
 import {css} from '@emotion/core';
 import {position, size, transparentize} from 'polished';
 

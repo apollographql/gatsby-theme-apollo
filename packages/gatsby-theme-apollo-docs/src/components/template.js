@@ -23,7 +23,7 @@ import {
   MobileHeader,
   ResponsiveSidebar,
   Sidebar
-} from 'gatsby-theme-apollo';
+} from 'gatsby-theme-apollo-core';
 import {MDXProvider} from '@mdx-js/react';
 import {TypescriptApiBoxContext} from './typescript-api-box';
 import {graphql} from 'gatsby';

@@ -25,7 +25,7 @@ Using a Gatsby theme is really easy! Simply configure your theme under the `__ex
 module.exports = {
   __experimentalThemes: [
     {
-      resolve: 'gatsby-theme-apollo',
+      resolve: 'gatsby-theme-apollo-core',
       options: {
         root: __dirname
       }
@@ -43,7 +43,7 @@ Now add some React components to your _src/pages_ directory, and you're off to t
 ```js
 // src/pages/index.js
 import React from 'react';
-import {Layout, LogoTitle} from 'gatsby-theme-apollo';
+import {Layout, LogoTitle} from 'gatsby-theme-apollo-core';
 
 export default function Home() {
   return (
