@@ -112,7 +112,11 @@ export default function Template(props) {
                 <SelectLink options={navItems} isPathActive={isPathActive} />
               </MobileHeader>
               <DesktopHeader>
-                <Search apiKey={algoliaApiKey} indexName={algoliaIndexName} />
+                <Search
+                  title={title}
+                  apiKey={algoliaApiKey}
+                  indexName={algoliaIndexName}
+                />
                 <Nav
                   items={navItems}
                   baseUrl={baseUrl}

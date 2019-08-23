@@ -1,6 +1,6 @@
 /* global docsearch */
 import PropTypes from 'prop-types';
-import React, {Component, Fragment, createRef} from 'react';
+import React, {Fragment, useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
 import {MdClose} from 'react-icons/md';
 import {
@@ -175,30 +175,19 @@ const ResetButton = styled.button(verticalAlign, size(20), {
   }
 });
 
-export default class Search extends Component {
-  static propTypes = {
-    apiKey: PropTypes.string.isRequired,
-    indexName: PropTypes.string.isRequired
-  };
+export default function Search(props) {
+  const [focused, setFocused] = useState(false);
+  const [value, setValue] = useState('');
+  const input = useRef(null);
+  const search = useRef(null);
 
-  state = {
-    focused: false,
-    value: ''
-  };
-
-  form = createRef();
-
-  input = createRef();
-
-  search = null;
-
-  componentDidMount() {
-    window.addEventListener('keydown', this.onKeyDown, true);
+  useEffect(() => {
+    window.addEventListener('keydown', onKeyDown, true);
 
     if (typeof docsearch !== 'undefined') {
-      this.search = docsearch({
-        apiKey: this.props.apiKey,
-        indexName: this.props.indexName,
+      search.current = docsearch({
+        apiKey: props.apiKey,
+        indexName: props.indexName,
         inputSelector: '#input',
         // debug: true, // keeps the results list open
         autocompleteOptions: {
@@ -206,64 +195,72 @@ export default class Search extends Component {
         }
       });
     }
-  }
 
-  componentWillUnmount() {
-    window.addEventListener('keydown', this.onKeyDown, true);
-  }
+    return () => {
+      window.addEventListener('keydown', onKeyDown, true);
+    };
+  }, [props.apiKey, props.indexName]);
 
-  onKeyDown = event => {
+  function onKeyDown(event) {
     // focus the input when the slash key is pressed
     if (
       event.keyCode === 191 &&
       event.target.tagName.toUpperCase() !== 'INPUT'
     ) {
       event.preventDefault();
-      this.input.current.focus();
+      input.current.focus();
     }
-  };
-
-  onChange = event => this.setState({value: event.target.value});
-
-  onFocus = () => this.setState({focused: true});
-
-  onBlur = () => this.setState({focused: false});
-
-  reset = () => {
-    this.setState({value: ''});
-    if (this.search) {
-      this.search.autocomplete.autocomplete.setVal('');
-    }
-  };
-
-  render() {
-    const {focused, value} = this.state;
-    const resultsShown = focused && value.trim();
-    return (
-      <Fragment>
-        <Overlay visible={resultsShown} />
-        <Container>
-          <StyledInput
-            ref={this.input}
-            id="input"
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            onChange={this.onChange}
-            value={this.state.value}
-            placeholder="Search Apollo Docs"
-            resultsShown={resultsShown}
-          />
-          {resultsShown && (
-            <ResetButton
-              onMouseDown={() => event.preventDefault()}
-              onClick={this.reset}
-            >
-              <MdClose />
-            </ResetButton>
-          )}
-          {!this.state.focused && !this.state.value && <Hotkey>/</Hotkey>}
-        </Container>
-      </Fragment>
-    );
   }
+
+  function onChange(event) {
+    setValue(event.target.value);
+  }
+
+  function onFocus() {
+    setFocused(true);
+  }
+  function onBlur() {
+    setFocused(false);
+  }
+
+  function reset() {
+    setValue('');
+    if (search.current) {
+      search.current.autocomplete.autocomplete.setVal('');
+    }
+  }
+
+  const resultsShown = focused && value.trim();
+  return (
+    <Fragment>
+      <Overlay visible={resultsShown} />
+      <Container>
+        <StyledInput
+          ref={input}
+          id="input"
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onChange={onChange}
+          value={value}
+          placeholder={`Search ${props.title}`}
+          resultsShown={resultsShown}
+        />
+        {resultsShown && (
+          <ResetButton
+            onMouseDown={() => event.preventDefault()}
+            onClick={reset}
+          >
+            <MdClose />
+          </ResetButton>
+        )}
+        {!focused && !value && <Hotkey>/</Hotkey>}
+      </Container>
+    </Fragment>
+  );
 }
+
+Search.propTypes = {
+  title: PropTypes.string.isRequired,
+  apiKey: PropTypes.string.isRequired,
+  indexName: PropTypes.string.isRequired
+};
