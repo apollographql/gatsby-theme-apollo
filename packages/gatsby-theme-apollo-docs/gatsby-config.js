@@ -21,6 +21,7 @@ module.exports = ({
         showLineNumbers: true
       }
     },
+    'gatsby-remark-rewrite-relative-links',
     {
       resolve: 'gatsby-remark-check-links',
       options: checkLinksOptions
@@ -75,6 +76,7 @@ module.exports = ({
           ]
         }
       },
+      'gatsby-plugin-catch-links',
       ...Object.keys(versions).map(key => ({
         resolve: 'gatsby-source-git',
         options: {
