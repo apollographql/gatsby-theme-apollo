@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import styled from '@emotion/styled';
 import {MdCheck, MdExpandLess, MdExpandMore} from 'react-icons/md';
-import {colors} from 'gatsby-theme-apollo';
+import {colors} from 'gatsby-theme-apollo-core';
 import {size, transparentize} from 'polished';
 
 const Container = styled.div({

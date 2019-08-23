@@ -37,7 +37,7 @@ $ npm install gatsby gatsby-theme-apollo
 module.exports = {
   __experimentalThemes: [
     {
-      resolve: 'gatsby-theme-apollo',
+      resolve: 'gatsby-theme-apollo-core',
       options: {
         root: __dirname
       }
@@ -55,7 +55,7 @@ module.exports = {
 All of the React components and utilities documented here are available as named exports in the `gatsby-theme-apollo` package. You can import them like this:
 
 ```js
-import {MenuButton, Sidebar, breakpoints} from 'gatsby-theme-apollo';
+import {MenuButton, Sidebar, breakpoints} from 'gatsby-theme-apollo-core';
 ```
 
 ### Layout
@@ -63,7 +63,7 @@ import {MenuButton, Sidebar, breakpoints} from 'gatsby-theme-apollo';
 `Layout` should wrap every page that gets created. It configures [React Helmet](https://github.com/nfl/react-helmet) and sets the meta description tag with data from the `siteMetadata` property in your Gatsby config. It also sets the favicon for the page to the Apollo "A" logo.
 
 ```js
-import {Layout} from 'gatsby-theme-apollo';
+import {Layout} from 'gatsby-theme-apollo-core';
 
 function MyPage() {
   return (
@@ -83,7 +83,7 @@ function MyPage() {
 A sticky header component with a white background and our brand primary, ![#220a82](https://placehold.it/15/220a82/000000?text=+) `#220a82` as the font color.
 
 ```js
-import {Layout, Header} from 'gatsby-theme-apollo';
+import {Layout, Header} from 'gatsby-theme-apollo-core';
 
 function MyPage() {
   return (
@@ -97,7 +97,7 @@ function MyPage() {
 `MobileHeader` and `DesktopHeader` components are also exported, and can be used to easily render headers with different content depending on the window size.
 
 ```js
-import {Layout, MobileHeader, DesktopHeader} from 'gatsby-theme-apollo';
+import {Layout, MobileHeader, DesktopHeader} from 'gatsby-theme-apollo-core';
 
 function MyPage() {
   return (
@@ -177,7 +177,7 @@ Each element in the array can have `title`, `path`, `pages`, and `anchor` props.
 The `SidebarNav` component gives the currently selected page an "active" style, and if it's a subpage, it will keep the currently active section expanded. To facilitate this, you must pass the current path to the `pathname` prop. Luckily, Gatsby exposes this in the `location` prop that gets passed automatically to every page!
 
 ```js
-import {Layout, Sidebar, SidebarNav} from 'gatsby-theme-apollo';
+import {Layout, Sidebar, SidebarNav} from 'gatsby-theme-apollo-core';
 
 function MyPage(props) {
   return (
@@ -211,7 +211,7 @@ import {
   ResponsiveSidebar,
   FlexWrapper,
   MenuButton
-} from 'gatsby-theme-apollo';
+} from 'gatsby-theme-apollo-core';
 
 function MyPage() {
   return (
@@ -240,7 +240,7 @@ function MyPage() {
 A component that renders an Apollo "A" logo, and the site title, as defined in the [`siteMetadata` Gatsby config option](https://www.gatsbyjs.org/docs/gatsby-config/#sitemetadata).
 
 ```js
-import {LogoTitle} from 'gatsby-theme-apollo';
+import {LogoTitle} from 'gatsby-theme-apollo-core';
 
 function MyPage() {
   return <LogoTitle />;
@@ -267,7 +267,7 @@ Check out [this CodeSandbox](https://codesandbox.io/s/mq7p0z3wmj) for a full com
 An object mapping semantic names to hex strings. All of these colors are drawn from [Space Kit](https://github.com/apollographql/space-kit#colors). You can use this utility to write CSS-in-JS rules like this:
 
 ```js
-import {colors} from 'gatsby-theme-apollo';
+import {colors} from 'gatsby-theme-apollo-core';
 
 const StyledButton = styled.button({
   color: colors.primary,
@@ -280,7 +280,7 @@ const StyledButton = styled.button({
  A mapping of size keys to media queries. This is useful for writing responsive CSS-in-JS components.
 
  ```js
- import {breakpoints} from 'gatsby-theme-apollo';
+ import {breakpoints} from 'gatsby-theme-apollo-core';
 
  const StyledMenu = styled.nav({
    fontSize: 24,

@@ -33,7 +33,7 @@ module.exports = ({
   return {
     __experimentalThemes: [
       {
-        resolve: 'gatsby-theme-apollo',
+        resolve: 'gatsby-theme-apollo-core',
         options: {
           root
         }

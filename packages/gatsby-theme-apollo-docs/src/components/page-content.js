@@ -11,7 +11,7 @@ import {
   colors,
   headerHeight,
   smallCaps
-} from 'gatsby-theme-apollo';
+} from 'gatsby-theme-apollo-core';
 import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
 import {withPrefix} from 'gatsby';
 
