@@ -230,7 +230,7 @@ exports.createPages = async ({actions, graphql}, options) => {
         defaultVersion,
         algoliaApiKey,
         algoliaIndexName,
-        navItems: generateNavItems(navConfig),
+        navItems: generateNavItems(baseUrl, navConfig),
         baseUrl
       }
     });
