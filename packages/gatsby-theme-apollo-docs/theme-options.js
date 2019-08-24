@@ -1,11 +1,11 @@
 const navConfig = {
   '/docs': {
     text: 'Platform',
-    matchRegex: /^\/docs\/(intro|platform|resources|references|$)/
+    matchRegex: '^/docs/(?!tutorial)'
   },
   '/docs/tutorial/introduction': {
     text: 'Tutorial',
-    matchRegex: /^\/docs\/tutorial/
+    matchRegex: '^/docs/tutorial'
   },
   '/docs/react': {
     text: 'Client',

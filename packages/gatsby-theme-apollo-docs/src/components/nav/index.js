@@ -20,7 +20,7 @@ export default function Nav(props) {
     <Container>
       {props.items.map(({value, text, matchRegex, subpages}) => {
         let isActive = matchRegex
-          ? matchRegex.test(props.pathname)
+          ? new RegExp(matchRegex).test(props.pathname)
           : props.isPathActive(value);
         if (!isActive && subpages) {
           isActive = subpages.some(subpage =>
