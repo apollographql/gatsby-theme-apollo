@@ -21,13 +21,22 @@ module.exports = {
 };
 ```
 
-**Required:** Shadow the theme's `client.js` file with your own Apollo client. This example uses `apollo-boost`, but you can use `apollo-client` if you have a more advanced use case. Check out the Apollo docs to learn more about [creating a client](https://www.apollographql.com/docs/react/essentials/get-started/#create-a-client) or [migrating from Apollo Boost](https://www.apollographql.com/docs/react/advanced/boost-migration/).
+**Required:** [Shadow](https://www.gatsbyjs.org/blog/2019-04-29-component-shadowing/) this theme's `client.js` file with your own Apollo client. This example uses `apollo-boost`, but you can use `apollo-client` if you have a more advanced use case. Check out the Apollo docs to learn more about [creating a client](https://www.apollographql.com/docs/react/essentials/get-started/#create-a-client) or [migrating from Apollo Boost](https://www.apollographql.com/docs/react/advanced/boost-migration/).
+
+However you decide to create your client, please ensure that:
+
+1. You provide an isomorphic `fetch` implementation as a configuration option
+2. Your client is the default export in `client.js`
 
 ```js
 // src/gatsby-theme-apollo/client.js
 import ApolloClient from 'apollo-boost';
+import fetch from 'isomorphic-fetch';
 
 const client = new ApolloClient({
-  uri: 'https://api.spacex.land/graphql/',
+  fetch,
+  uri: 'https://api.spacex.land/graphql/'
 });
+
+export default client;
 ```
