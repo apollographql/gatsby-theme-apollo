@@ -31,20 +31,18 @@ module.exports = ({
   ];
 
   return {
-    __experimentalThemes: [
-      {
-        resolve: 'gatsby-theme-apollo-core',
-        options: {
-          root
-        }
-      }
-    ],
     siteMetadata: {
       title: siteName,
       subtitle,
       description
     },
     plugins: [
+      {
+        resolve: 'gatsby-theme-apollo-core',
+        options: {
+          root
+        }
+      },
       {
         resolve: 'gatsby-source-filesystem',
         options: {
