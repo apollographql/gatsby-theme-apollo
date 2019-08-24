@@ -1,4 +1,4 @@
-# gatsby-theme-apollo
+# gatsby-theme-apollo-core
 
 This is the base theme for building Apollo-branded Gatsby sites. It contains a small amount of configuration, and a handful of components that make it easy to build consistent-looking UIs.
 
@@ -27,7 +27,7 @@ It comes with a few Gatsby plugins:
 ## Installation
 
 ```bash
-$ npm install gatsby gatsby-theme-apollo
+$ npm install gatsby gatsby-theme-apollo-core
 ```
 
 ## Configuration
@@ -52,7 +52,7 @@ module.exports = {
 
 ## Components and utilities
 
-All of the React components and utilities documented here are available as named exports in the `gatsby-theme-apollo` package. You can import them like this:
+All of the React components and utilities documented here are available as named exports in the `gatsby-theme-apollo-core` package. You can import them like this:
 
 ```js
 import {MenuButton, Sidebar, breakpoints} from 'gatsby-theme-apollo-core';
@@ -301,6 +301,44 @@ const StyledButton = styled.button({
 | sm  | @media (max-width: 600px)  |
 | md  | @media (max-width: 850px)  |
 | lg  | @media (max-width: 1120px) |
+
+## Deploying to a subdirectory
+
+In order to deploy a Gatsby site to a subdirectory, there are a few extra steps to take. First, you must provide a `pathPrefix` property in your Gatsby config. This option combined with the `--prefix-paths` option in the Gatsby CLI will handle most of the hard work. Read more about path prefixing in Gatsby [here](https://www.gatsbyjs.org/docs/path-prefix/).
+
+```js
+// gatsby-config.js
+module.exports = {
+  ...
+  pathPrefix: '/YOUR_PATH_PREFIX'
+};
+```
+
+Now, when you run `npx gatsby bulid --prefix-paths`, all pages, references to static assets, and links between pages will be prefixed with your custom path. That means that if you made a page with the path _/about_, it will live at _/**YOUR_PATH_PREFIX**/about_. In order for this to work within our server configuration, your website files also must exist in a directory with the same name. Here's how this sequence of events would look if you ran commands in your terminal:
+
+```bash
+$ npx gatsby build --prefix-paths
+$ mkdir -p YOUR_PATH_PREFIX
+$ mv public/* YOUR_PATH_PREFIX
+$ mv YOUR_PATH_PREFIX public/
+```
+
+We use [Netlify](https://netlify.com) to deploy our websites, so to express this slightly more complicated build process to them, create a _netlify.toml_ file that follows this pattern:
+
+```toml
+# netlify.toml
+[build]
+  base = "/"
+  publish = "public/"
+  command = "gatsby build --prefix-paths && mkdir -p YOUR_PATH_PREFIX && mv public/* YOUR_PATH_PREFIX && mv YOUR_PATH_PREFIX public/"
+```
+
+We use [Fly](https://fly.io) to manage our server rewrites and redirects. To point your new Netlify deployment to a page on apollographql.com, first [create a new backend](https://fly.io/sites/www-apollodata-com/backends) using your site's Netlify alias. Next, you'll need to [add _two_ rewrite rules](https://fly.io/sites/www-apollodata-com/rules):
+
+- `/YOUR_PATH_PREFIX/:page` ➡️ `/YOUR_PATH_PREFIX/$page`
+- `/YOUR_PATH_PREFIX` ➡️ `/YOUR_PATH_PREFIX`
+
+Be sure to set the priority of each of these rules to `3`, or a value lower than the top two redirect rules that apply to our website root. Once these rewrite rules take effect, your site will be live at https://apollographql.com/YOUR_PATH_PREFIX.
 
 ## Examples
 
