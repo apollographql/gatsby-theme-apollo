@@ -24,8 +24,10 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 
 ## Installation
 
+If you're using this package, you'll also need to install `gatsby` and its peer dependencies, `react` and `react-dom`. Next, install the theme:
+
 ```bash
-$ npm install gatsby gatsby-theme-apollo-docs
+$ npm install gatsby-theme-apollo-docs
 ```
 
 ## Configuration
