@@ -70,6 +70,7 @@ function getSidebarContents(sidebarCategories, edges, version) {
             fields.version === version &&
             relativePath
               .slice(0, relativePath.lastIndexOf('.'))
+              // TODO: replace docs/source with contentDir option
               .replace(/^docs\/source\//, '') === linkPath
           );
         });
