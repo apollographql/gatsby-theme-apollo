@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo-docs",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "main": "index.js",
   "dependencies": {
     "@mdx-js/mdx": "^1.1.0",
