@@ -121,7 +121,6 @@ export default function Template(props) {
                 />
                 <Nav
                   items={navItems}
-                  baseUrl={baseUrl}
                   pathname={pathname}
                   isPathActive={isPathActive}
                 />

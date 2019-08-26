@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from '@emotion/styled';
 import {breakpoints} from 'gatsby-theme-apollo-core';
-import {formatValue} from '../../utils';
 
 const Container = styled.nav({
   display: 'flex',
@@ -31,7 +30,7 @@ export default function Nav(props) {
         return (
           <NavItem
             key={value}
-            href={formatValue(props.baseUrl, value)}
+            href={value}
             subpages={subpages}
             active={isActive}
           >
@@ -45,7 +44,6 @@ export default function Nav(props) {
 
 Nav.propTypes = {
   items: PropTypes.array.isRequired,
-  baseUrl: PropTypes.string.isRequired,
   pathname: PropTypes.string.isRequired,
   isPathActive: PropTypes.func.isRequired
 };
