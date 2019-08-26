@@ -9,8 +9,6 @@ It comes with a few Gatsby plugins:
  - `gatsby-plugin-react-helmet` server renders `<head>` tags set with [React Helmet](https://github.com/nfl/react-helmet)
  - `gatsby-plugin-typography` provides a stylesheet reset and sets default styles for basic HTML elements
 
-## Table of contents
-
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Components and utilities](#components-and-utilities)
@@ -21,7 +19,7 @@ It comes with a few Gatsby plugins:
   - [ResponsiveSidebar](#responsivesidebar)
   - [LogoTitle](#logotitle)
   - [colors](#colors)
-  - [breakpoints](#breakpoints)
+- [Deploying to a subdirectory](#deploying-to-a-subdirectory)
 - [Examples](#examples)
 
 ## Installation
