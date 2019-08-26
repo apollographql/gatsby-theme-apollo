@@ -9,6 +9,12 @@
     "url": "https://github.com/apollographql/gatsby-theme-apollo.git",
     "directory": "packages/gatsby-theme-apollo"
   },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "apollo",
+    "apollo-client"
+  ],
   "peerDependencies": {
     "@apollo/react-common": ">=3.0.0",
     "gatsby": ">=2.13.80"
