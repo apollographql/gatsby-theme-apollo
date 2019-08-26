@@ -76,7 +76,6 @@ module.exports = ({
           ]
         }
       },
-      'gatsby-plugin-catch-links',
       ...Object.keys(versions).map(key => ({
         resolve: 'gatsby-source-git',
         options: {
