@@ -52,9 +52,7 @@ function getSidebarContents(sidebarCategories, edges, version) {
     title: key === 'null' ? null : key,
     pages: sidebarCategories[key]
       .map(linkPath => {
-        const match = linkPath.match(
-          /^\[([\w\s\d]+)\]\((https?:\/\/[\w.]+)\)$/
-        );
+        const match = linkPath.match(/^\[(.+)\]\((https?:\/\/.+)\)$/);
         if (match) {
           return {
             anchor: true,
