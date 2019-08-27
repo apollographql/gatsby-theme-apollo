@@ -75,6 +75,10 @@ module.exports = {
 | githubRepo        | string | The owner and name of the content repository on GitHub                                                               |
 | spectrumPath      | string | The path to be appended to Spectrum links                                                                            |
 | trackingId        | string | Your Google Analytics tracking ID                                                                                    |
+| algoliaApiKey     | string | Your [Algolia DocSearch](https://community.algolia.com/docsearch/) API key                                           |
+| algoliaIndexName  | string | The name of your DocSearch index                                                                                     |
+| baseUrl           | string | The origin where your website will be hosted (e.g. `https://www.apollographql.com`)                                  |
+| twitterHandle     | string | Your Twitter handle, without the "@"                                                                                 |
 | versions          | array  | An array of objects representing the versions that the website should generate                                       |
 | sidebarCategories | object | An object mapping categories to page paths (see [`sidebarCategories` reference](#sidebarcategories))                 |
 | navConfig         | object | An object defining the top-left navigation links (see [`navConfig` reference](#navconfig))                           |
