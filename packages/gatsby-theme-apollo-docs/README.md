@@ -35,7 +35,7 @@ You can configure `gatsby-theme-apollo-docs` for use with any set of docs using 
 // gatsby-config.js
 module.exports = {
   pathPrefix: '/docs/apollo-server',
-  __experimentalThemes: [
+  plugins: [
     {
       resolve: 'gatsby-theme-apollo-docs',
       options: {

@@ -70,13 +70,16 @@ public_dir: public/docs/ios # not needed
 _gatsby-config.js_
 
 ```js
+const themeOptions = require('gatsby-theme-apollo-docs/theme-options');
+
 module.exports = {
   pathPrefix: '/docs/ios', // similar to `root` in _config.yml
-  __experimentalThemes: [
+  plugins: [
     {
       resolve: 'gatsby-theme-apollo-docs',
       options: {
-        root: __dirname, // <-- this is the only new property added
+        ...themeOptions, // spread the default Apollo theme options
+        root: __dirname, // this is the only new property added
         subtitle: 'Apollo iOS Guide',
         description: 'A guide to using Apollo with iOS',
         githubRepo: 'apollographql/apollo-ios',
