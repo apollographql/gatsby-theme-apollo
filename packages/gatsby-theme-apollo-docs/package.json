@@ -25,7 +25,7 @@
     "gatsby-remark-copy-linked-files": "^2.0.12",
     "gatsby-remark-prismjs": "^3.2.8",
     "gatsby-remark-prismjs-title": "^1.0.0",
-    "gatsby-remark-rewrite-relative-links": "^1.0.5",
+    "gatsby-remark-rewrite-relative-links": "^1.0.6",
     "gatsby-remark-typescript": "0.0.9",
     "gatsby-source-filesystem": "^2.0.29",
     "gatsby-source-git": "^1.0.1",
