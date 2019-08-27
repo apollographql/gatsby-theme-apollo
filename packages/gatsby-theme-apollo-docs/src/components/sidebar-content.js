@@ -7,7 +7,7 @@ import {
   getVersionBasePath,
   trackEvent
 } from '../utils';
-import {SidebarNav, colors, headerHeight} from 'gatsby-theme-apollo';
+import {SidebarNav, colors, headerHeight} from 'gatsby-theme-apollo-core';
 
 const headerPadding = 4;
 const ContentHeader = styled.h4({

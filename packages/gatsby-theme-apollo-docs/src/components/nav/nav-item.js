@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
 import {boxShadow} from '../search';
-import {colors} from 'gatsby-theme-apollo';
+import {colors} from 'gatsby-theme-apollo-core';
 import {triangle} from 'polished';
 
 const Subpages = styled.div({

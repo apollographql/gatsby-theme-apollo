@@ -17,7 +17,7 @@ export default function SelectLink({options, useLink, isPathActive, ...props}) {
   options.forEach(option => {
     const path = useLink ? withPrefix(option.value) : option.value;
     const isActive = option.matchRegex
-      ? option.matchRegex.test(path)
+      ? new RegExp(option.matchRegex).test(path)
       : isPathActive(path);
     if (isActive) {
       value = option.value;

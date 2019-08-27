@@ -1,7 +1,7 @@
 const jsYaml = require('js-yaml');
 const path = require('path');
 const {createFilePath} = require('gatsby-source-filesystem');
-const {getVersionBasePath} = require('./src/utils');
+const {getVersionBasePath, generateNavItems} = require('./src/utils');
 
 async function onCreateNode({node, actions, getNode, loadNodeContent}) {
   if (configPaths.includes(node.relativePath)) {
@@ -70,6 +70,7 @@ function getSidebarContents(sidebarCategories, edges, version) {
             fields.version === version &&
             relativePath
               .slice(0, relativePath.lastIndexOf('.'))
+              // TODO: replace docs/source with contentDir option
               .replace(/^docs\/source\//, '') === linkPath
           );
         });
@@ -158,7 +159,11 @@ exports.createPages = async ({actions, graphql}, options) => {
     spectrumPath,
     typescriptApiBox,
     versions = {},
-    defaultVersion
+    defaultVersion,
+    algoliaApiKey,
+    algoliaIndexName,
+    navConfig,
+    baseUrl
   } = options;
 
   const {edges} = data.allFile;
@@ -223,7 +228,11 @@ exports.createPages = async ({actions, graphql}, options) => {
         spectrumPath: spectrumPath || repo,
         typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
-        defaultVersion
+        defaultVersion,
+        algoliaApiKey,
+        algoliaIndexName,
+        navItems: generateNavItems(baseUrl, navConfig),
+        baseUrl
       }
     });
   });

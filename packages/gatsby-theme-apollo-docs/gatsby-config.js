@@ -1,9 +1,11 @@
 module.exports = ({
+  root,
+  siteName,
   subtitle,
   description,
-  root,
   githubRepo,
   versions = {},
+  trackingId,
   checkLinksOptions
 }) => {
   const gatsbyRemarkPlugins = [
@@ -29,20 +31,18 @@ module.exports = ({
   ];
 
   return {
-    __experimentalThemes: [
-      {
-        resolve: 'gatsby-theme-apollo',
-        options: {
-          root
-        }
-      }
-    ],
     siteMetadata: {
-      title: 'Apollo Docs',
+      title: siteName,
       subtitle,
       description
     },
     plugins: [
+      {
+        resolve: 'gatsby-theme-apollo-core',
+        options: {
+          root
+        }
+      },
       {
         resolve: 'gatsby-source-filesystem',
         options: {
@@ -59,7 +59,7 @@ module.exports = ({
       {
         resolve: 'gatsby-plugin-google-analytics',
         options: {
-          trackingId: 'UA-74643563-13'
+          trackingId
         }
       },
       {

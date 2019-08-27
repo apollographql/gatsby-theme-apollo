@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import {Link} from 'gatsby';
-import {colors} from 'gatsby-theme-apollo';
+import {colors} from 'gatsby-theme-apollo-core';
 import {darken, transparentize} from 'polished';
 
 export const ButtonWrapper = styled.div({

@@ -6,7 +6,7 @@ import {Button} from './buttons';
 import {GA_EVENT_CATEGORY_CODE_BLOCK, trackEvent} from '../utils';
 import {MultiCodeBlockContext} from './multi-code-block';
 import {Select} from './select';
-import {colors} from 'gatsby-theme-apollo';
+import {colors} from 'gatsby-theme-apollo-core';
 
 const Container = styled.div({
   margin: '0.5em 0 1.45em',

@@ -2,13 +2,11 @@
 
 This is an entirely configuration-based Gatsby theme that generates a documentation website based on a series of Markdown or MDX files. It also exports a series of [components](#components) that can be used within MDX pages.
 
-## Table of contents
-
-- [Table of contents](#table-of-contents)
 - [Installation](#installation)
 - [Configuration](#configuration)
   - [`versions`](#versions)
   - [`sidebarCategories`](#sidebarcategories)
+  - [`navConfig`](#navconfig)
 - [Creating pages](#creating-pages)
 - [Components](#components)
   - [`Button`](#button)
@@ -17,24 +15,27 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
   - [`ExpansionPanel`](#expansionpanel)
   - [`ExpansionPanelList`](#expansionpanellist)
   - [`ExpansionPanelListItem`](#expansionpanellistitem)
-  - [`CodeBlockProvider`](#codeblockprovider)
   - [`MultiCodeBlock`](#multicodeblock)
 - [Deployment](#deployment)
 - [Migration](#migration)
 
 ## Installation
 
+If you're using this package, you'll also need to install `gatsby` and its peer dependencies, `react` and `react-dom`. Next, install the theme:
+
 ```bash
-$ npm install gatsby gatsby-theme-apollo-docs
+$ npm install gatsby-theme-apollo-docs
 ```
 
 ## Configuration
+
+You can configure `gatsby-theme-apollo-docs` for use with any set of docs using the provided configuration options. You may also use [component shadowing](../gatsby-theme-apollo-core#logotitle) to customize elements like the logo or color scheme.
 
 ```js
 // gatsby-config.js
 module.exports = {
   pathPrefix: '/docs/apollo-server',
-  __experimentalThemes: [
+  plugins: [
     {
       resolve: 'gatsby-theme-apollo-docs',
       options: {
@@ -64,20 +65,24 @@ module.exports = {
 };
 ```
 
-| Option name          | Type   | Description                                                                    |
-| -------------------- | ------ | ------------------------------------------------------------------------------ |
-| root                 | string | Must be `__dirname`                                                            |
-| subtitle             | string | The title that gets rendered above the sidebar navigation                      |
-| description          | string | The site description for SEO and social (FB, Twitter) tags                     |
-| contentDir           | string | The directory where docs content exists (`docs/source` by default)             |
-| githubRepo           | string | The owner and name of the content repository on GitHub                         |
-| spectrumPath         | string | The path to be appended to Spectrum links                                      |
-| versions             | array  | An array of objects representing the versions that the website should generate |
-| sidebarCategories    | object | An object mapping categories to page paths ([described below][])               |
-| checkLinksExceptions | array  | An array of strings passed to [`gastby-remark-check-links`][]                  |
-
-[described below]: #sidebarCategories
-[`gastby-remark-check-links`]: https://github.com/trevorblades/gatsby-remark-check-links#making-exceptions
+| Option name       | Type   | Description                                                                                                          |
+| ----------------- | ------ | -------------------------------------------------------------------------------------------------------------------- |
+| root              | string | Must be `__dirname`                                                                                                  |
+| siteName          | string | The main title for the website, used in the `<title>` element and top left corner of the site                        |
+| subtitle          | string | The page title that gets rendered above the sidebar navigation                                                       |
+| description       | string | The site description for SEO and social (FB, Twitter) tags                                                           |
+| contentDir        | string | The directory where docs content exists (`docs/source` by default)                                                   |
+| githubRepo        | string | The owner and name of the content repository on GitHub                                                               |
+| spectrumPath      | string | The path to be appended to Spectrum links                                                                            |
+| trackingId        | string | Your Google Analytics tracking ID                                                                                    |
+| algoliaApiKey     | string | Your [Algolia DocSearch](https://community.algolia.com/docsearch/) API key                                           |
+| algoliaIndexName  | string | The name of your DocSearch index                                                                                     |
+| baseUrl           | string | The origin where your website will be hosted (e.g. `https://www.apollographql.com`)                                  |
+| twitterHandle     | string | Your Twitter handle, without the "@"                                                                                 |
+| versions          | array  | An array of objects representing the versions that the website should generate                                       |
+| sidebarCategories | object | An object mapping categories to page paths (see [`sidebarCategories` reference](#sidebarcategories))                 |
+| navConfig         | object | An object defining the top-left navigation links (see [`navConfig` reference](#navconfig))                           |
+| checkLinksOptions | object | Options accepted by [`gastby-remark-check-links`](https://github.com/trevorblades/gatsby-remark-check-links#options) |
 
 ### `versions`
 
@@ -109,6 +114,38 @@ The `sidebarCategories` option is an object keyed by category titles. Each entry
   'External links': [
     '[Principled GraphQL](https://principledgraphql.com/)'
   ]
+}
+```
+
+### `navConfig`
+
+The `navConfig` option should be an object keyed by page paths, with their values being some configuration for their link in the nav. You should supply a `text` property, and may want to use optional `matchRegex` and/or `subpages` properties.
+
+- `matchRegex` allows for finer control over when a nav item should appear active. If omitted, an equality comparison between the current page path and the path key will be used.
+- `subpages` is an object with paths as keys and link text as values. It's used to render a dropdown below the main link on hover.
+
+```js
+{
+  '/docs': {
+    text: 'Platform',
+    matchRegex: '^/docs/(?!tutorial)'
+  },
+  '/docs/tutorial/introduction': {
+    text: 'Tutorial',
+    matchRegex: '^/docs/tutorial'
+  },
+  '/docs/react': {
+    text: 'Client',
+    subpages: {
+      '/docs/react': 'React + React Native',
+      '/docs/angular': 'Angular',
+      'https://github.com/akryum/vue-apollo': 'Vue.js',
+      '/docs/link': 'Apollo Link',
+      '/docs/ios': 'Native iOS',
+      '/docs/android': 'Native Android',
+      '/docs/scalajs': 'Scala.js'
+    }
+  }
 }
 ```
 
@@ -225,13 +262,29 @@ Add a line break _between_ JSX tags and content to parse the content as *Markdow
 </ExpansionPanel>
 ```
 
-### `CodeBlockProvider`
-
 ### `MultiCodeBlock`
+
+Wraps adjacent code blocks to allow users to toggle between them using a dropdown menu.
+
+````js
+import {MultiCodeBlock} from 'gatsby-theme-apollo-docs';
+
+<MulitCodeBlock>
+
+```js
+// a JavaScript code block
+```
+
+```ts
+// a TypeScript code block
+```
+
+</MultiCodeBlock>
+````
 
 ## Deployment
 
-All docs sites will eventually be deployed into a subdirectory, as configured by the `pathPrefix` option&mdash;/docs/apollo-server, for example. [Read this guide](../../#deploying-to-a-subdirectory) to learn more about publishing to a subdirectory.
+All docs sites will eventually be deployed into a subdirectory, as configured by the `pathPrefix` option&mdash;/docs/apollo-server, for example. [Read this guide](../gatsby-theme-apollo-core/#deploying-to-a-subdirectory) to learn more about publishing to a subdirectory.
 
 ## Migration
 

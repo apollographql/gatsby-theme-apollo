@@ -2,7 +2,7 @@ import '../prism.less';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import CodeBlock from './code-block';
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer';
-import Nav, {navItems} from './nav';
+import Nav from './nav';
 import PageContent from './page-content';
 import PageHeader from './page-header';
 import PropTypes from 'prop-types';
@@ -23,7 +23,7 @@ import {
   MobileHeader,
   ResponsiveSidebar,
   Sidebar
-} from 'gatsby-theme-apollo';
+} from 'gatsby-theme-apollo-core';
 import {MDXProvider} from '@mdx-js/react';
 import {TypescriptApiBoxContext} from './typescript-api-box';
 import {graphql} from 'gatsby';
@@ -62,14 +62,18 @@ export default function Template(props) {
   const {hash, pathname} = props.location;
   const {file, site} = props.data;
   const {frontmatter, headings} = file.childMarkdownRemark || file.childMdx;
-  const {title, description, subtitle} = site.siteMetadata;
+  const {title, description, subtitle, twitterHandle} = site.siteMetadata;
   const {
     sidebarContents,
     githubUrl,
     spectrumPath,
     typescriptApiBox,
     versions,
-    defaultVersion
+    defaultVersion,
+    algoliaApiKey,
+    algoliaIndexName,
+    navItems,
+    baseUrl
   } = props.pageContext;
 
   const pages = sidebarContents
@@ -82,6 +86,8 @@ export default function Template(props) {
         title={frontmatter.title}
         description={frontmatter.description || description}
         siteName={title}
+        twitterHandle={twitterHandle}
+        baseUrl={baseUrl}
       />
       <ResponsiveSidebar>
         {({sidebarRef, onWrapperClick, openSidebar, sidebarOpen}) => (
@@ -108,8 +114,16 @@ export default function Template(props) {
                 <SelectLink options={navItems} isPathActive={isPathActive} />
               </MobileHeader>
               <DesktopHeader>
-                <Search />
-                <Nav pathname={pathname} isPathActive={isPathActive} />
+                <Search
+                  title={title}
+                  apiKey={algoliaApiKey}
+                  indexName={algoliaIndexName}
+                />
+                <Nav
+                  items={navItems}
+                  pathname={pathname}
+                  isPathActive={isPathActive}
+                />
               </DesktopHeader>
               <StyledContentWrapper>
                 <PageHeader {...frontmatter} />
