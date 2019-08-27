@@ -1,11 +1,12 @@
 {
   "name": "root",
   "private": true,
+  "eslintConfig": {
+    "extends": "@trevorblades/eslint-config/react"
+  },
   "devDependencies": {
-    "@trevorblades/eslint-config": "^6.21.0",
-    "babel-eslint": "^10.0.1",
+    "@trevorblades/eslint-config": "^7.0.1",
     "eslint": "^5.13.0",
-    "eslint-plugin-react-hooks": "^1.6.0",
     "lerna": "^3.10.7"
   }
 }
