@@ -32,7 +32,7 @@ function getButtonShadow(state) {
 const baseButtonStyles = {
   border: 'none',
   borderRadius: 4,
-  lineHeight: 'calc(1em + 1px)',
+  lineHeight: 1.2,
   fontWeight: 600,
   letterSpacing: '0.02em',
   outline: 'none',
@@ -46,22 +46,32 @@ function getStylesForVariant(variant, color) {
   const isBranded = color === 'branded';
   switch (variant) {
     case 'hidden':
+    case 'flat': {
+      const backgroundColor = [
+        colors.background,
+        colors.background2,
+        colors.divider
+      ];
+      if (variant === 'hidden') {
+        backgroundColor.unshift('transparent');
+      }
+
       return {
-        color: isBranded ? colors.highlight : colors.text2,
-        background: 'none',
+        color: isBranded ? colors.primary : colors.text2,
+        backgroundColor: backgroundColor[0],
         ':active': {
-          backgroundColor: isBranded ? colors.highlight2 : colors.background2
+          backgroundColor: backgroundColor[2]
         },
         ':not(:active)': {
-          ':hover': {
-            backgroundColor: isBranded ? colors.highlight3 : colors.background
-          },
           ':focus': {
-            boxShadow: getButtonShadow('focused'),
-            backgroundColor: 'white'
+            boxShadow: getButtonShadow('focused')
+          },
+          ':hover': {
+            backgroundColor: backgroundColor[1]
           }
         }
       };
+    }
     default: {
       const backgroundColor = isBranded ? colors.primary : colors.background2;
       return {
@@ -88,19 +98,19 @@ function getStylesForSize(size) {
       return {
         minWidth: 112,
         padding: '12px 24px',
-        fontSize: 17
+        fontSize: 18
       };
     case 'small':
       return {
         minWidth: 80,
-        padding: '8px 16px',
-        fontSize: 13
+        padding: '8px 12px',
+        fontSize: 14
       };
     default:
       return {
         minWidth: 100,
         padding: '10px 20px',
-        fontSize: 15
+        fontSize: 16
       };
   }
 }
@@ -118,7 +128,7 @@ export const Button = styled.button(getButtonStyles);
 Button.propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   color: PropTypes.oneOf(['standard', 'branded']),
-  variant: PropTypes.oneOf(['standard', 'hidden'])
+  variant: PropTypes.oneOf(['standard', 'hidden', 'flat'])
 };
 
 Button.defaultProps = {

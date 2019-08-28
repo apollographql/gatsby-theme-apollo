@@ -20,7 +20,7 @@ const StyledSelect = styled.select(getButtonStyles, {
   fontSize: 'inherit'
 });
 
-const StyledIcon = styled(MdKeyboardArrowDown)(size('1.5em'), {
+export const StyledIcon = styled(MdKeyboardArrowDown)(size('1.5em'), {
   pointerEvents: 'none',
   position: 'absolute',
   top: '50%',

@@ -2,12 +2,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import SelectLink from './select-link';
 import styled from '@emotion/styled';
+import {Button} from './buttons';
 import {
   GA_EVENT_CATEGORY_SIDEBAR,
   getVersionBasePath,
   trackEvent
 } from '../utils';
 import {SidebarNav, colors, headerHeight} from 'gatsby-theme-apollo-core';
+import {StyledIcon} from './select';
 
 const headerPadding = 4;
 const ContentHeader = styled.h4({
@@ -23,11 +25,13 @@ const HeaderInner = styled.span({
   justifyContent: 'space-between',
   margin: `-${headerPadding}px 0`,
   padding: `${headerPadding}px 0`,
-  paddingRight: 10
+  paddingRight: 16
 });
 
-const HeaderText = styled.span({
-  lineHeight: 1.5
+const StyledButton = styled(Button)({
+  flexGrow: 1,
+  textAlign: 'left',
+  position: 'relative'
 });
 
 function getVersionLabel(version) {
@@ -56,7 +60,15 @@ export default function SidebarContent(props) {
     <div className="sidebar">
       <ContentHeader>
         <HeaderInner>
-          <HeaderText className="title-sidebar">{props.title}</HeaderText>
+          <StyledButton
+            variant="flat"
+            color="branded"
+            size="small"
+            className="title-sidebar"
+          >
+            {props.title}
+            <StyledIcon />
+          </StyledButton>
           {props.versions.length > 0 && (
             <SelectLink
               useLink
