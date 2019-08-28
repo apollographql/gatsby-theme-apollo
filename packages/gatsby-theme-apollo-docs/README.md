@@ -18,6 +18,7 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
   - [`MultiCodeBlock`](#multicodeblock)
 - [Deployment](#deployment)
 - [Migration](#migration)
+- [Examples](#examples)
 
 ## Installation
 
