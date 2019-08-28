@@ -34,22 +34,23 @@ const Menu = styled.div({
   borderRadius: 4,
   boxShadow,
   backgroundColor: 'white',
-  position: 'absolute',
-  top: 64,
-  left: 24
+  position: 'absolute'
 });
 
 const MenuTitle = styled.h6(smallCaps, {
   color: colors.text3
 });
 
-function getMenuOffset(element) {
+function getMenuStyles(element) {
   if (!element) {
-    return 0;
+    return null;
   }
 
-  const {top, height} = element.getBoundingClientRect();
-  return top + height + 2;
+  const {top, left, height} = element.getBoundingClientRect();
+  return {
+    top: top + height + 2,
+    left
+  };
 }
 
 export default function DocsetSwitcher(props) {
@@ -86,7 +87,7 @@ export default function DocsetSwitcher(props) {
           visibility: menuOpen ? 'visible' : 'hidden'
         }}
       >
-        <Menu style={{top: getMenuOffset(buttonRef.current)}}>
+        <Menu style={getMenuStyles(buttonRef.current)}>
           <MenuTitle>Apollo Docs</MenuTitle>
         </Menu>
       </Backdrop>
