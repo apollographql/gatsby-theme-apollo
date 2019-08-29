@@ -2,14 +2,12 @@ import '../prism.less';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import CodeBlock from './code-block';
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer';
-import Nav from './nav';
 import PageContent from './page-content';
 import PageHeader from './page-header';
 import PropTypes from 'prop-types';
 import React, {useRef} from 'react';
 import SEO from './seo';
 import Search from './search';
-import SelectLink from './select-link';
 import SidebarContent from './sidebar-content';
 import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
@@ -113,7 +111,7 @@ export default function Template(props) {
               <MobileHeader>
                 <MenuButton onClick={openSidebar} />
                 <StyledLogoTitle />
-                <SelectLink options={navItems} isPathActive={isPathActive} />
+                {/* <SelectLink options={navItems} isPathActive={isPathActive} /> */}
               </MobileHeader>
               <DesktopHeader>
                 <Search
@@ -121,11 +119,11 @@ export default function Template(props) {
                   apiKey={algoliaApiKey}
                   indexName={algoliaIndexName}
                 />
-                <Nav
+                {/* <Nav
                   items={navItems}
                   pathname={pathname}
                   isPathActive={isPathActive}
-                />
+                /> */}
               </DesktopHeader>
               <StyledContentWrapper>
                 <PageHeader {...frontmatter} />
