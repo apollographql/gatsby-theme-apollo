@@ -20,7 +20,7 @@ const HeaderInner = styled.span({
 });
 
 function getVersionLabel(version) {
-  return `Version ${version}`;
+  return `v${version}`;
 }
 
 function handleToggleAll(expanded) {
