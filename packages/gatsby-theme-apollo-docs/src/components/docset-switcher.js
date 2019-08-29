@@ -5,7 +5,7 @@ import useKey from 'react-use/lib/useKey';
 import {Button} from './buttons';
 import {StyledIcon} from './select';
 import {boxShadow} from './search';
-import {colors, smallCaps} from 'gatsby-theme-apollo-core';
+import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo-core';
 import {transparentize} from 'polished';
 
 const Wrapper = styled.div({
@@ -23,6 +23,7 @@ const Backdrop = styled.div({
   width: '100%',
   height: '100%',
   backgroundColor: transparentize(0.5, colors.text2),
+  overflow: 'auto',
   position: 'fixed',
   top: 0,
   left: 0,
@@ -38,7 +39,10 @@ const Menu = styled.div({
   borderRadius: 4,
   boxShadow,
   backgroundColor: 'white',
-  position: 'absolute'
+  position: 'absolute',
+  [breakpoints.md]: {
+    width: 400
+  }
 });
 
 const MenuTitle = styled.h6(smallCaps, {
@@ -56,7 +60,10 @@ const StyledNav = styled.nav({
 
 const NavItem = styled.div({
   width: '50%',
-  padding: gridSpacing
+  padding: gridSpacing,
+  [breakpoints.md]: {
+    width: '100%'
+  }
 });
 
 const NavItemInner = styled.a({
