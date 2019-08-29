@@ -100,11 +100,13 @@ export default function Template(props) {
             >
               <SidebarContent
                 title={subtitle}
+                siteName={title}
                 pathname={pathname}
                 contents={sidebarContents}
                 versions={versions}
                 defaultVersion={defaultVersion}
                 isPathActive={isPathActive}
+                navItems={navItems}
               />
             </Sidebar>
             <Main ref={mainRef} tabIndex={0}>

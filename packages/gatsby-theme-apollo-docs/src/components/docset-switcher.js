@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useRef, useState} from 'react';
 import styled from '@emotion/styled';
+import useKey from 'react-use/lib/useKey';
 import {Button} from './buttons';
 import {StyledIcon} from './select';
 import {boxShadow} from './search';
@@ -25,12 +26,15 @@ const Backdrop = styled.div({
   position: 'fixed',
   top: 0,
   left: 0,
-  zIndex: 1100
+  zIndex: 1100,
+  transitionProperty: 'opacity, visibility',
+  transitionDuration: '150ms',
+  transitionTimingFunction: 'ease-in-out'
 });
 
 const Menu = styled.div({
   width: 700,
-  padding: 24,
+  padding: 8,
   borderRadius: 4,
   boxShadow,
   backgroundColor: 'white',
@@ -38,7 +42,47 @@ const Menu = styled.div({
 });
 
 const MenuTitle = styled.h6(smallCaps, {
+  marginBottom: 0,
+  padding: 16,
   color: colors.text3
+});
+
+const gridSpacing = 4;
+const StyledNav = styled.nav({
+  display: 'flex',
+  flexWrap: 'wrap',
+  marginTop: -gridSpacing
+});
+
+const NavItem = styled.div({
+  width: '50%',
+  padding: gridSpacing
+});
+
+const NavItemInner = styled.a({
+  display: 'block',
+  height: '100%',
+  padding: 12,
+  borderRadius: 4,
+  color: colors.text1,
+  textDecoration: 'none',
+  ':hover': {
+    color: 'white',
+    backgroundColor: colors.primary
+  }
+});
+
+const NavItemTitle = styled.h4({
+  marginBottom: 8,
+  fontWeight: 600,
+  color: 'inherit'
+});
+
+const NavItemDescription = styled.p({
+  marginBottom: 0,
+  fontSize: 14,
+  lineHeight: 1.5,
+  opacity: 2 / 3
 });
 
 function getMenuStyles(element) {
@@ -56,6 +100,10 @@ function getMenuStyles(element) {
 export default function DocsetSwitcher(props) {
   const buttonRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useKey('Escape', () => {
+    setMenuOpen(false);
+  });
 
   function openMenu() {
     setMenuOpen(true);
@@ -88,7 +136,20 @@ export default function DocsetSwitcher(props) {
         }}
       >
         <Menu style={getMenuStyles(buttonRef.current)}>
-          <MenuTitle>Apollo Docs</MenuTitle>
+          <MenuTitle>{props.siteName}</MenuTitle>
+          <StyledNav>
+            {props.navItems.map(navItem => (
+              <NavItem key={navItem.value}>
+                <NavItemInner href={navItem.value}>
+                  <NavItemTitle>{navItem.text}</NavItemTitle>
+                  <NavItemDescription>
+                    Learn about the Apollo Platform; an implementation of
+                    GraphQL to manage data from the cloud to your UI
+                  </NavItemDescription>
+                </NavItemInner>
+              </NavItem>
+            ))}
+          </StyledNav>
         </Menu>
       </Backdrop>
     </Wrapper>
@@ -96,5 +157,7 @@ export default function DocsetSwitcher(props) {
 }
 
 DocsetSwitcher.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  siteName: PropTypes.string.isRequired,
+  navItems: PropTypes.array.isRequired
 };
