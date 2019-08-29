@@ -55,6 +55,7 @@ export default function SidebarContent(props) {
             size="small"
             variant="hidden"
             isPathActive={props.isPathActive}
+            style={{marginLeft: 8}}
             options={[
               {
                 text: props.defaultVersion

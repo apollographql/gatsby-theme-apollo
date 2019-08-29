@@ -142,10 +142,7 @@ export default function DocsetSwitcher(props) {
               <NavItem key={navItem.value}>
                 <NavItemInner href={navItem.value}>
                   <NavItemTitle>{navItem.text}</NavItemTitle>
-                  <NavItemDescription>
-                    Learn about the Apollo Platform; an implementation of
-                    GraphQL to manage data from the cloud to your UI
-                  </NavItemDescription>
+                  <NavItemDescription>{navItem.description}</NavItemDescription>
                 </NavItemInner>
               </NavItem>
             ))}

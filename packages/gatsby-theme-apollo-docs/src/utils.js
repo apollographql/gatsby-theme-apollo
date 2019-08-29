@@ -18,8 +18,9 @@ function generateSubpage([value, text]) {
 
 function generateNavItems(baseUrl, config) {
   return Object.entries(config).map(
-    ([value, {text, matchRegex, subpages}]) => ({
+    ([value, {text, description, matchRegex, subpages}]) => ({
       text,
+      description,
       value: value.startsWith('/') ? baseUrl + value : value,
       matchRegex,
       subpages: subpages && Object.entries(subpages).map(generateSubpage)
