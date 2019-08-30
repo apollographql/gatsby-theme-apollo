@@ -1,6 +1,7 @@
-const React = require('react');
+import PageLayout from './src/components/page-layout';
+import React from 'react';
 
-exports.onRenderBody = ({setPostBodyComponents}) => {
+export const onRenderBody = ({setPostBodyComponents}) => {
   setPostBodyComponents([
     React.createElement('script', {
       key: 'docsearch',
@@ -9,3 +10,16 @@ exports.onRenderBody = ({setPostBodyComponents}) => {
     })
   ]);
 };
+
+export const wrapPageElement = (
+  {element, props}, // eslint-disable-line react/prop-types
+  {algoliaApiKey, algoliaIndexName}
+) => (
+  <PageLayout
+    {...props}
+    algoliaApiKey={algoliaApiKey}
+    algoliaIndexName={algoliaIndexName}
+  >
+    {element}
+  </PageLayout>
+);

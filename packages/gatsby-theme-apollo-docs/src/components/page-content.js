@@ -211,7 +211,6 @@ export default function PageContent(props) {
         {props.headings.length > 0 && (
           <SectionNav
             headings={props.headings}
-            mainRef={props.mainRef}
             contentRef={contentRef}
             imagesLoaded={imagesLoaded === imagesToLoad}
           />
@@ -234,7 +233,6 @@ PageContent.propTypes = {
   pages: PropTypes.array.isRequired,
   hash: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  mainRef: PropTypes.object.isRequired,
   headings: PropTypes.array.isRequired,
   spectrumPath: PropTypes.string
 };

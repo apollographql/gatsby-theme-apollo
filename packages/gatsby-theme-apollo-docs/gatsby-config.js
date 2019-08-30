@@ -6,7 +6,8 @@ module.exports = ({
   githubRepo,
   versions = {},
   trackingId,
-  checkLinksOptions
+  checkLinksOptions,
+  twitterHandle
 }) => {
   const gatsbyRemarkPlugins = [
     'gatsby-remark-autolink-headers',
@@ -34,7 +35,8 @@ module.exports = ({
     siteMetadata: {
       title: siteName,
       subtitle,
-      description
+      description,
+      twitterHandle
     },
     plugins: [
       {

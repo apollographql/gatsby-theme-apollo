@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Slugger from 'github-slugger';
 import striptags from 'striptags';
 import styled from '@emotion/styled';
 import useScroll from 'react-use/lib/useScroll';
 import useWindowSize from 'react-use/lib/useWindowSize';
+import {MainRefContext, trackEvent} from '../utils';
 import {colors} from 'gatsby-theme-apollo-core';
-import {trackEvent} from '../utils';
 
 const StyledList = styled.ul({
   marginLeft: 0,
@@ -36,7 +36,8 @@ function handleHeadingClick(event) {
 }
 
 export default function SectionNav(props) {
-  const {y} = useScroll(props.mainRef);
+  const mainRef = useContext(MainRefContext);
+  const {y} = useScroll(mainRef);
   const {width, height} = useWindowSize();
   const [offsets, setOffsets] = useState([]);
 
@@ -92,6 +93,5 @@ export default function SectionNav(props) {
 SectionNav.propTypes = {
   headings: PropTypes.array.isRequired,
   imagesLoaded: PropTypes.bool.isRequired,
-  mainRef: PropTypes.object.isRequired,
   contentRef: PropTypes.object.isRequired
 };

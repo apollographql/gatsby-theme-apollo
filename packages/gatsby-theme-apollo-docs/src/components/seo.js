@@ -19,10 +19,6 @@ export default function SEO(props) {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={baseUrl + socialImage} />
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"
-      />
     </Helmet>
   );
 }
