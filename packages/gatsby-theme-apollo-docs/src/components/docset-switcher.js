@@ -35,7 +35,7 @@ const Backdrop = styled.div({
 
 const Menu = styled.div({
   width: 700,
-  padding: 8,
+  padding: 12,
   borderRadius: 4,
   boxShadow,
   backgroundColor: 'white',
@@ -47,35 +47,32 @@ const Menu = styled.div({
 
 const MenuTitle = styled.h6(smallCaps, {
   marginBottom: 0,
-  padding: 16,
+  padding: 12,
   color: colors.text3
 });
 
-const gridSpacing = 4;
 const StyledNav = styled.nav({
   display: 'flex',
-  flexWrap: 'wrap',
-  marginTop: -gridSpacing
+  flexWrap: 'wrap'
 });
 
-const NavItem = styled.div({
-  width: '50%',
-  padding: gridSpacing,
-  [breakpoints.md]: {
-    width: '100%'
-  }
-});
-
-const NavItemInner = styled.a({
+const NavItem = styled.a({
   display: 'block',
+  width: '50%',
   height: '100%',
   padding: 12,
   borderRadius: 4,
   color: colors.text1,
   textDecoration: 'none',
   ':hover': {
+    backgroundColor: colors.background2
+  },
+  '&.active': {
     color: 'white',
     backgroundColor: colors.primary
+  },
+  [breakpoints.md]: {
+    width: '100%'
   }
 });
 
@@ -146,11 +143,13 @@ export default function DocsetSwitcher(props) {
           <MenuTitle>{props.siteName}</MenuTitle>
           <StyledNav>
             {props.navItems.map(navItem => (
-              <NavItem key={navItem.value}>
-                <NavItemInner href={navItem.value}>
-                  <NavItemTitle>{navItem.text}</NavItemTitle>
-                  <NavItemDescription>{navItem.description}</NavItemDescription>
-                </NavItemInner>
+              <NavItem
+                key={navItem.value}
+                href={navItem.value}
+                className={navItem.value === props.pathPrefix}
+              >
+                <NavItemTitle>{navItem.text}</NavItemTitle>
+                <NavItemDescription>{navItem.description}</NavItemDescription>
               </NavItem>
             ))}
           </StyledNav>
@@ -163,5 +162,6 @@ export default function DocsetSwitcher(props) {
 DocsetSwitcher.propTypes = {
   title: PropTypes.string.isRequired,
   siteName: PropTypes.string.isRequired,
+  pathPrefix: PropTypes.string.isRequired,
   navItems: PropTypes.array.isRequired
 };
