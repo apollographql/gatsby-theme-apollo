@@ -146,7 +146,7 @@ export default function DocsetSwitcher(props) {
               <NavItem
                 key={navItem.value}
                 href={navItem.value}
-                className={navItem.value === props.pathPrefix}
+                className={navItem.value === props.pathPrefix && 'active'}
               >
                 <NavItemTitle>{navItem.text}</NavItemTitle>
                 <NavItemDescription>{navItem.description}</NavItemDescription>
