@@ -105,6 +105,7 @@ export default function Template(props) {
                 defaultVersion={defaultVersion}
                 isPathActive={isPathActive}
                 navItems={navItems}
+                pathPrefix={site.pathPrefix}
               />
             </Sidebar>
             <Main ref={mainRef} tabIndex={0}>
@@ -166,6 +167,7 @@ Template.propTypes = {
 export const pageQuery = graphql`
   query PageQuery($id: String) {
     site {
+      pathPrefix
       siteMetadata {
         title
         description

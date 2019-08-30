@@ -14,7 +14,7 @@ const HeaderInner = styled.span({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  // marginLeft: -8,
+  marginLeft: -8,
   marginBottom: 16,
   paddingRight: 16
 });
@@ -48,6 +48,7 @@ export default function SidebarContent(props) {
           title={props.title}
           siteName={props.siteName}
           navItems={props.navItems}
+          pathPrefix={props.pathPrefix}
         />
         {props.versions.length > 0 && (
           <SelectLink
@@ -85,6 +86,7 @@ export default function SidebarContent(props) {
 SidebarContent.propTypes = {
   title: PropTypes.string.isRequired,
   siteName: PropTypes.string.isRequired,
+  pathPrefix: PropTypes.string.isRequired,
   navItems: PropTypes.array.isRequired,
   contents: PropTypes.array.isRequired,
   pathname: PropTypes.string.isRequired,
