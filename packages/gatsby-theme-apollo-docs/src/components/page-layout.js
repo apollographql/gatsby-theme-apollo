@@ -129,7 +129,7 @@ export default function PageLayout(props) {
                 useLink
                 size="small"
                 variant="hidden"
-                isPathActive={props.location.pathname.startsWith}
+                isPathActive={value => pathname.startsWith(value)}
                 style={{marginLeft: 8}}
                 options={[
                   {
