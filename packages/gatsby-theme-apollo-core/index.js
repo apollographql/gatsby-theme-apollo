@@ -12,6 +12,7 @@ export {default as LogoTitle} from './src/components/logo-title';
 export {default as MenuButton} from './src/components/menu-button';
 export {default as PageNav} from './src/components/page-nav';
 export {
+  useResponsiveSidebar,
   default as ResponsiveSidebar
 } from './src/components/responsive-sidebar';
 export {default as Sidebar} from './src/components/sidebar';
