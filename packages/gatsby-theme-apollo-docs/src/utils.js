@@ -1,3 +1,5 @@
+const {createContext} = require('react');
+
 /* global ga */
 function trackEvent(options) {
   if (typeof ga === 'function') {
@@ -28,6 +30,7 @@ function generateNavItems(baseUrl, config) {
   );
 }
 
+exports.MainRefContext = createContext();
 exports.trackEvent = trackEvent;
 exports.generateNavItems = generateNavItems;
 exports.getVersionBasePath = getVersionBasePath;
