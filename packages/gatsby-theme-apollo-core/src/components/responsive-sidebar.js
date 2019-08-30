@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import useKey from 'react-use/lib/useKey';
 import {useRef, useState} from 'react';
 
-export default function ResponsiveSidebar(props) {
+export function useResponsiveSidebar() {
   const sidebarRef = useRef(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -27,12 +27,17 @@ export default function ResponsiveSidebar(props) {
     setSidebarOpen(false);
   }
 
-  return props.children({
+  return {
     sidebarOpen,
     openSidebar,
-    onWrapperClick: handleWrapperClick,
+    handleWrapperClick,
     sidebarRef
-  });
+  };
+}
+
+export default function ResponsiveSidebar(props) {
+  const state = useResponsiveSidebar();
+  return props.children(state);
 }
 
 ResponsiveSidebar.propTypes = {
