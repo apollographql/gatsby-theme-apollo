@@ -24,8 +24,7 @@
     "prop-types": "^15.6.2",
     "react-helmet": "^5.2.0",
     "react-icons": "^3.3.0",
-    "react-use": "^9.11.0",
-    "store": "^2.0.12"
+    "react-use": "^9.11.0"
   },
   "devDependencies": {
     "gatsby": "^2.13.80"
