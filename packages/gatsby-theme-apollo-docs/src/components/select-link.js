@@ -13,27 +13,27 @@ export default function SelectLink({options, useLink, isPathActive, ...props}) {
     window.location.href = event.target.value;
   }
 
-  let value;
+  let optionValue;
   options.forEach(option => {
     const path = useLink ? withPrefix(option.value) : option.value;
     const isActive = option.matchRegex
       ? new RegExp(option.matchRegex).test(path)
       : isPathActive(path);
     if (isActive) {
-      value = option.value;
+      optionValue = option.value;
     }
 
     if (option.subpages) {
       option.subpages.forEach(subpage => {
         if (isPathActive(subpage.value)) {
-          value = option.value;
+          optionValue = option.value;
         }
       });
     }
   });
 
   return (
-    <Select {...props} value={value} onChange={handleChange}>
+    <Select {...props} value={optionValue} onChange={handleChange}>
       {options.map(option => (
         <option key={option.value} value={option.value}>
           {option.text}

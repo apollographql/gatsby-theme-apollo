@@ -123,6 +123,7 @@ export default function PageLayout(props) {
               siteName={title}
               navItems={navItems}
               pathPrefix={data.site.pathPrefix}
+              baseUrl={props.baseUrl}
             />
             {versions.length > 0 && (
               <SelectLink
@@ -179,6 +180,7 @@ PageLayout.propTypes = {
   children: PropTypes.node.isRequired,
   location: PropTypes.object.isRequired,
   pageContext: PropTypes.object.isRequired,
+  baseUrl: PropTypes.string.isRequired,
   algoliaApiKey: PropTypes.string.isRequired,
   algoliaIndexName: PropTypes.string.isRequired
 };

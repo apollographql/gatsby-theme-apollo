@@ -144,9 +144,9 @@ export default function DocsetSwitcher(props) {
           <StyledNav>
             {props.navItems.map(navItem => (
               <NavItem
-                key={navItem.value}
-                href={navItem.value}
-                className={navItem.value === props.pathPrefix && 'active'}
+                key={navItem.path}
+                href={props.baseUrl + navItem.path}
+                className={navItem.path === props.pathPrefix && 'active'}
               >
                 <NavItemTitle>{navItem.text}</NavItemTitle>
                 <NavItemDescription>{navItem.description}</NavItemDescription>
@@ -162,6 +162,7 @@ export default function DocsetSwitcher(props) {
 DocsetSwitcher.propTypes = {
   title: PropTypes.string.isRequired,
   siteName: PropTypes.string.isRequired,
+  baseUrl: PropTypes.string.isRequired,
   pathPrefix: PropTypes.string.isRequired,
   navItems: PropTypes.array.isRequired
 };
