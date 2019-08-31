@@ -1,7 +1,7 @@
 const jsYaml = require('js-yaml');
 const path = require('path');
 const {createFilePath} = require('gatsby-source-filesystem');
-const {getVersionBasePath, generateNavItems} = require('./src/utils');
+const {getVersionBasePath} = require('./src/utils');
 
 async function onCreateNode({node, actions, getNode, loadNodeContent}) {
   if (configPaths.includes(node.relativePath)) {
@@ -229,7 +229,10 @@ exports.createPages = async ({actions, graphql}, options) => {
         defaultVersion,
         algoliaApiKey,
         algoliaIndexName,
-        navItems: generateNavItems(baseUrl, navConfig),
+        navItems: Object.entries(navConfig).map(([path, item]) => ({
+          ...item,
+          path
+        })),
         baseUrl
       }
     });
