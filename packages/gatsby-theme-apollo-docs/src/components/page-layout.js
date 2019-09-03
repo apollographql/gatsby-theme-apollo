@@ -73,7 +73,6 @@ export default function PageLayout(props) {
     graphql`
       {
         site {
-          pathPrefix
           siteMetadata {
             title
             description
@@ -122,7 +121,6 @@ export default function PageLayout(props) {
               title={subtitle}
               siteName={title}
               navItems={navItems}
-              pathPrefix={data.site.pathPrefix}
               baseUrl={props.baseUrl}
             />
             {versions.length > 0 && (
