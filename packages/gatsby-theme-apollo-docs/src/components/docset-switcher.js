@@ -51,28 +51,32 @@ const MenuTitle = styled.h6(smallCaps, {
   color: colors.text3
 });
 
+const navItemSpacing = 4;
 const StyledNav = styled.nav({
   display: 'flex',
-  flexWrap: 'wrap'
+  flexWrap: 'wrap',
+  margin: -navItemSpacing
 });
 
-const NavItem = styled.a({
+const NavItem = styled.div({
   display: 'block',
   width: '50%',
+  padding: navItemSpacing,
+  [breakpoints.md]: {
+    width: '100%'
+  }
+});
+
+const NavItemInner = styled.a({
+  display: 'block',
   height: '100%',
   padding: 12,
   borderRadius: 4,
   color: colors.text1,
   textDecoration: 'none',
   ':hover': {
-    backgroundColor: colors.background2
-  },
-  '&.active': {
     color: 'white',
     backgroundColor: colors.primary
-  },
-  [breakpoints.md]: {
-    width: '100%'
   }
 });
 
@@ -143,13 +147,11 @@ export default function DocsetSwitcher(props) {
           <MenuTitle>{props.siteName}</MenuTitle>
           <StyledNav>
             {props.navItems.map(navItem => (
-              <NavItem
-                key={navItem.path}
-                href={props.baseUrl + navItem.path}
-                className={navItem.path === props.pathPrefix && 'active'}
-              >
-                <NavItemTitle>{navItem.text}</NavItemTitle>
-                <NavItemDescription>{navItem.description}</NavItemDescription>
+              <NavItem key={navItem.path}>
+                <NavItemInner href={props.baseUrl + navItem.path}>
+                  <NavItemTitle>{navItem.text}</NavItemTitle>
+                  <NavItemDescription>{navItem.description}</NavItemDescription>
+                </NavItemInner>
               </NavItem>
             ))}
           </StyledNav>
@@ -163,6 +165,5 @@ DocsetSwitcher.propTypes = {
   title: PropTypes.string.isRequired,
   siteName: PropTypes.string.isRequired,
   baseUrl: PropTypes.string.isRequired,
-  pathPrefix: PropTypes.string.isRequired,
   navItems: PropTypes.array.isRequired
 };
