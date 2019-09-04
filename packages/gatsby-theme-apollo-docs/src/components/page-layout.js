@@ -149,7 +149,8 @@ export default function PageLayout(props) {
             />
           )}
         </Sidebar>
-        <Main ref={mainRef} tabIndex={0}>
+        {/* we give the component a key so it resets the scroll when the pathname changes */}
+        <Main ref={mainRef} key={props.location.pathname} tabIndex={0}>
           <MobileHeader>
             <MenuButton onClick={openSidebar} />
             <StyledLogoTitle />
