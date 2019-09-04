@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
-import {MdClose} from 'react-icons/md';
+import {MdClose, MdSearch} from 'react-icons/md';
 import {
   breakpoints,
   colors,
@@ -13,7 +13,6 @@ import {css} from '@emotion/core';
 import {position, size, transparentize} from 'polished';
 
 const borderRadius = 5;
-const border = `1px solid ${colors.text3}`;
 const verticalAlign = css({
   position: 'absolute',
   top: '50%',
@@ -27,13 +26,19 @@ const responsiveStyles = css({
 });
 
 const Hotkey = styled.div(verticalAlign, size(24), {
-  border,
-  borderColor: colors.text4,
+  border: '1px solid currentColor',
   color: colors.text4,
   borderRadius,
   textAlign: 'center',
   lineHeight: 1.125,
-  right: 8,
+  right: 16,
+  pointerEvents: 'none'
+});
+
+const searchIconSize = 24;
+const searchIconLeft = 16;
+const SearchIcon = styled(MdSearch)(verticalAlign, {
+  left: searchIconLeft,
   pointerEvents: 'none'
 });
 
@@ -41,7 +46,7 @@ const boxShadowColor = transparentize(0.9, 'black');
 export const boxShadow = `${boxShadowColor} 0 2px 12px`;
 const Container = styled.div(responsiveStyles, {
   flexGrow: 1,
-  maxWidth: 480,
+  maxWidth: 600,
   marginLeft: 40,
   color: colors.text2,
   position: 'relative',
@@ -50,7 +55,7 @@ const Container = styled.div(responsiveStyles, {
     width: '100%',
     '.ds-dropdown-menu': {
       width: 648,
-      marginTop: 14,
+      marginTop: 2,
       borderRadius,
       boxShadow,
       '&::before': {
@@ -59,7 +64,7 @@ const Container = styled.div(responsiveStyles, {
       '[class^=ds-dataset-]': {
         maxHeight: `calc(100vh - ${headerHeight}px - 32px)`,
         padding: 0,
-        border,
+        border: 0,
         borderRadius: 'inherit'
       },
       '.ds-suggestions': {
@@ -131,16 +136,18 @@ const Container = styled.div(responsiveStyles, {
 
 const StyledInput = styled.input(props => ({
   width: '100%',
-  height: 40,
+  height: 48,
   padding: 0,
-  paddingLeft: 16,
-  border,
+  paddingLeft: searchIconLeft + searchIconSize + 8,
+  border: 0,
   borderRadius,
-  boxShadow: props.resultsShown ? boxShadow : 'none',
-  fontSize: 14,
-  background: 'white',
+  fontSize: 18,
+  background: `${props.resultsShown ? 'white' : colors.background} !important`,
   outline: 'none',
-  appearance: 'none'
+  appearance: 'none',
+  '::placeholder': {
+    color: colors.text3
+  }
 }));
 
 const Overlay = styled.div(
@@ -167,7 +174,7 @@ const ResetButton = styled.button(verticalAlign, size(20), {
   cursor: 'pointer',
   outline: 'none',
   color: 'inherit',
-  right: 10,
+  right: 18,
   svg: {
     display: 'block',
     ...size('100%'),
@@ -245,6 +252,7 @@ export default function Search(props) {
           placeholder={`Search ${props.title}`}
           resultsShown={resultsShown}
         />
+        <SearchIcon fill={colors.text3} size={searchIconSize} />
         {resultsShown && (
           <ResetButton
             onMouseDown={() => event.preventDefault()}
