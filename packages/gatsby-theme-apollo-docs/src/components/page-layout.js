@@ -93,12 +93,7 @@ export default function PageLayout(props) {
 
   const {pathname} = props.location;
   const {title, subtitle} = data.site.siteMetadata;
-  const {
-    sidebarContents,
-    navItems,
-    versions,
-    defaultVersion
-  } = props.pageContext;
+  const {sidebarContents, versions, defaultVersion} = props.pageContext;
 
   return (
     <Layout>
@@ -120,10 +115,10 @@ export default function PageLayout(props) {
             <DocsetSwitcher
               title={subtitle}
               siteName={title}
-              navItems={navItems}
+              navItems={props.navItems}
               baseUrl={props.baseUrl}
             />
-            {versions.length > 0 && (
+            {versions && versions.length > 0 && (
               <SelectLink
                 useLink
                 size="small"
@@ -146,12 +141,14 @@ export default function PageLayout(props) {
               />
             )}
           </HeaderInner>
-          <SidebarNav
-            contents={sidebarContents}
-            pathname={pathname}
-            onToggleAll={handleToggleAll}
-            onToggleCategory={handleToggleCategory}
-          />
+          {sidebarContents && (
+            <SidebarNav
+              contents={sidebarContents}
+              pathname={pathname}
+              onToggleAll={handleToggleAll}
+              onToggleCategory={handleToggleCategory}
+            />
+          )}
         </Sidebar>
         <Main ref={mainRef} tabIndex={0}>
           <MobileHeader>
@@ -179,6 +176,7 @@ PageLayout.propTypes = {
   location: PropTypes.object.isRequired,
   pageContext: PropTypes.object.isRequired,
   baseUrl: PropTypes.string.isRequired,
+  navItems: PropTypes.array.isRequired,
   algoliaApiKey: PropTypes.string.isRequired,
   algoliaIndexName: PropTypes.string.isRequired
 };

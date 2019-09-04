@@ -13,11 +13,15 @@ export const onRenderBody = ({setPostBodyComponents}) => {
 
 export const wrapPageElement = (
   {element, props}, // eslint-disable-line react/prop-types
-  {algoliaApiKey, algoliaIndexName, baseUrl}
+  {algoliaApiKey, algoliaIndexName, baseUrl, navConfig}
 ) => (
   <PageLayout
     {...props}
     baseUrl={baseUrl}
+    navItems={Object.entries(navConfig).map(([path, navItem]) => ({
+      ...navItem,
+      path
+    }))}
     algoliaApiKey={algoliaApiKey}
     algoliaIndexName={algoliaIndexName}
   >
