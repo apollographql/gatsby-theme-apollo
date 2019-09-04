@@ -1,6 +1,5 @@
 module.exports = ({
   root,
-  pathPrefix,
   siteName,
   subtitle,
   description,
@@ -33,7 +32,6 @@ module.exports = ({
   ];
 
   return {
-    pathPrefix,
     siteMetadata: {
       title: siteName,
       subtitle,
@@ -78,15 +76,6 @@ module.exports = ({
             },
             ...gatsbyRemarkPlugins
           ]
-        }
-      },
-      {
-        resolve: 'gatsby-plugin-catch-links',
-        options: {
-          excludePattern:
-            process.env.NODE_ENV === 'production' && pathPrefix
-              ? `^(?!${pathPrefix})`
-              : null
         }
       },
       ...Object.keys(versions).map(key => ({
