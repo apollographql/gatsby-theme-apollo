@@ -8,16 +8,29 @@ import SEO from './seo';
 import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
 import {ContentWrapper} from 'gatsby-theme-apollo-core';
+import {Link, graphql} from 'gatsby';
 import {MDXProvider} from '@mdx-js/react';
 import {TypescriptApiBoxContext} from './typescript-api-box';
-import {graphql} from 'gatsby';
 
 const StyledContentWrapper = styled(ContentWrapper)({
   paddingBottom: 0
 });
 
+function CustomLink({href, ...props}) {
+  return href && href.startsWith('/') ? (
+    <Link to={href} {...props} />
+  ) : (
+    <a href={href} {...props} />
+  );
+}
+
+CustomLink.propTypes = {
+  href: PropTypes.string
+};
+
 const components = {
-  pre: CodeBlock
+  pre: CodeBlock,
+  a: CustomLink
 };
 
 const renderAst = new rehypeReact({
