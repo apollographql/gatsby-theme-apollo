@@ -158,9 +158,6 @@ exports.createPages = async ({actions, graphql}, options) => {
     typescriptApiBox,
     versions = {},
     defaultVersion,
-    algoliaApiKey,
-    algoliaIndexName,
-    navConfig,
     baseUrl
   } = options;
 
@@ -227,12 +224,6 @@ exports.createPages = async ({actions, graphql}, options) => {
         typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
         defaultVersion,
-        algoliaApiKey,
-        algoliaIndexName,
-        navItems: Object.entries(navConfig).map(([path, item]) => ({
-          ...item,
-          path
-        })),
         baseUrl
       }
     });
