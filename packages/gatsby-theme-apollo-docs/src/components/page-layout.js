@@ -74,10 +74,8 @@ export default function PageLayout(props) {
       {
         site {
           siteMetadata {
-            title
-            description
+            siteName
             subtitle
-            twitterHandle
           }
         }
       }
@@ -92,12 +90,12 @@ export default function PageLayout(props) {
   } = useResponsiveSidebar();
 
   const {pathname} = props.location;
-  const {title, subtitle} = data.site.siteMetadata;
+  const {siteName, title, subtitle} = data.site.siteMetadata;
   const {sidebarContents, versions, defaultVersion} = props.pageContext;
 
   return (
     <Layout>
-      <Helmet>
+      <Helmet titleTemplate={`%s - ${subtitle} - ${title}`}>
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"
@@ -109,12 +107,12 @@ export default function PageLayout(props) {
           className="sidebar"
           open={sidebarOpen}
           ref={sidebarRef}
-          title={title}
+          title={siteName}
         >
           <HeaderInner>
             <DocsetSwitcher
               title={subtitle}
-              siteName={title}
+              siteName={siteName}
               navItems={props.navItems}
             />
             {versions && versions.length > 0 && (
@@ -157,7 +155,7 @@ export default function PageLayout(props) {
           </MobileHeader>
           <DesktopHeader>
             <Search
-              title={title}
+              siteName={siteName}
               apiKey={props.algoliaApiKey}
               indexName={props.algoliaIndexName}
             />

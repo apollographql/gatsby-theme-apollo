@@ -33,7 +33,8 @@ module.exports = ({
 
   return {
     siteMetadata: {
-      title: siteName,
+      title: 'Apollo GraphQL Docs',
+      siteName,
       subtitle,
       description,
       twitterHandle
