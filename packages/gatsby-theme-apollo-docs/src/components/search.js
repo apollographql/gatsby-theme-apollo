@@ -242,7 +242,7 @@ export default function Search(props) {
           onBlur={onBlur}
           onChange={onChange}
           value={value}
-          placeholder={`Search ${props.title}`}
+          placeholder={`Search ${props.siteName}`}
           resultsShown={resultsShown}
         />
         {resultsShown && (
@@ -260,7 +260,7 @@ export default function Search(props) {
 }
 
 Search.propTypes = {
-  title: PropTypes.string.isRequired,
+  siteName: PropTypes.string.isRequired,
   apiKey: PropTypes.string.isRequired,
   indexName: PropTypes.string.isRequired
 };
