@@ -74,6 +74,7 @@ export default function PageLayout(props) {
       {
         site {
           siteMetadata {
+            title
             siteName
             subtitle
           }

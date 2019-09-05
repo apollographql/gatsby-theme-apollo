@@ -54,7 +54,7 @@ const Sidebar = React.forwardRef((props, ref) => {
     <Fragment>
       <StyledHeader>
         <StyledLink to="/">
-          <LogoTitle noLogo={props.noLogo} />
+          <LogoTitle noLogo={props.noLogo} title={props.title} />
         </StyledLink>
       </StyledHeader>
       <Content>{props.children}</Content>
@@ -75,6 +75,7 @@ const Sidebar = React.forwardRef((props, ref) => {
 Sidebar.displayName = 'Sidebar';
 Sidebar.propTypes = {
   children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
   open: PropTypes.bool,
   noLogo: PropTypes.bool,
   responsive: PropTypes.bool
