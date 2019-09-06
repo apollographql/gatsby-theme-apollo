@@ -17,7 +17,7 @@ const navConfig = {
   'https://www.apollographql.com/docs/platform': {
     text: 'Apollo Graph Manager',
     description:
-      'Integrate with Apollo\'s cloud service for schema versioning, metrics, and enhanced security.'
+      "Integrate with Apollo's cloud service for schema versioning, metrics, and enhanced security."
   },
   'https://www.apollographql.com/docs/ios': {
     text: 'Apollo Client (iOS)',
