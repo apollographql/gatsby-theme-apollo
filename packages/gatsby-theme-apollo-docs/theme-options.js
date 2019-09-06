@@ -7,7 +7,7 @@ const navConfig = {
   'https://www.apollographql.com/docs/apollo-server': {
     text: 'Apollo Server',
     description:
-      'Deploy a production-ready GraphQL server that makes it easy to fetch and combine data from multiple sources.'
+      'Configure a production-ready GraphQL server to fetch and combine data from multiple sources.'
   },
   'https://www.apollographql.com/docs/react': {
     text: 'Apollo Client (React)',
@@ -17,7 +17,7 @@ const navConfig = {
   'https://www.apollographql.com/docs/platform/graph-manager-overview': {
     text: 'Apollo Graph Manager',
     description:
-      'Connect your GraphQL server to a cloud service that provides schema versioning, fine-grained analytics, and enhanced security.'
+      'Integrate with Apollo\'s cloud service for schema versioning, metrics, and enhanced security.'
   },
   'https://www.apollographql.com/docs/ios': {
     text: 'Apollo Client (iOS)',
