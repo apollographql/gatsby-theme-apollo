@@ -8,14 +8,14 @@ import Search from './search';
 import SelectLink from './select-link';
 import styled from '@emotion/styled';
 import {
-  DesktopHeader,
   FlexWrapper,
+  Header,
   Layout,
   LogoTitle,
   MenuButton,
-  MobileHeader,
   Sidebar,
   SidebarNav,
+  breakpoints,
   useResponsiveSidebar
 } from 'gatsby-theme-apollo-core';
 import {
@@ -26,15 +26,20 @@ import {
 } from '../utils';
 import {graphql, useStaticQuery} from 'gatsby';
 
-const StyledLogoTitle = styled(LogoTitle)({
-  marginRight: 'auto'
-});
-
 const Main = styled.main({
   flexGrow: 1,
   outline: 'none',
   overflowY: 'auto',
   WebkitOverflowScrolling: 'touch'
+});
+
+const MobileNav = styled.div({
+  display: 'none',
+  [breakpoints.md]: {
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: 'auto'
+  }
 });
 
 const HeaderInner = styled.span({
@@ -150,17 +155,17 @@ export default function PageLayout(props) {
         </Sidebar>
         {/* we give the component a key so it resets the scroll when the pathname changes */}
         <Main ref={mainRef} key={props.location.pathname} tabIndex={0}>
-          <MobileHeader>
-            <MenuButton onClick={openSidebar} />
-            <StyledLogoTitle />
-          </MobileHeader>
-          <DesktopHeader>
+          <Header>
+            <MobileNav>
+              <MenuButton onClick={openSidebar} />
+              <LogoTitle />
+            </MobileNav>
             <Search
               siteName={siteName}
               apiKey={props.algoliaApiKey}
               indexName={props.algoliaIndexName}
             />
-          </DesktopHeader>
+          </Header>
           <MainRefContext.Provider value={mainRef}>
             {props.children}
           </MainRefContext.Provider>
