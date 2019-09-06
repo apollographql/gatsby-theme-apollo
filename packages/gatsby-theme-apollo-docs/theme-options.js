@@ -14,7 +14,7 @@ const navConfig = {
     description:
       "Manage the entirety of your React app's state and seamlessly execute GraphQL operations."
   },
-  'https://www.apollographql.com/docs/platform/graph-manager-overview': {
+  'https://www.apollographql.com/docs/platform': {
     text: 'Apollo Graph Manager',
     description:
       'Connect your GraphQL server to a cloud service that provides schema versioning, fine-grained analytics, and enhanced security.'
