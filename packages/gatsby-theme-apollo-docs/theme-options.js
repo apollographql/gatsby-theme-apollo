@@ -12,7 +12,7 @@ const navConfig = {
   'https://www.apollographql.com/docs/react': {
     text: 'Apollo Client (React)',
     description:
-      'Manage the entirety of your React app\'s state and seamlessly execute GraphQL operations.'
+      "Manage the entirety of your React app's state and seamlessly execute GraphQL operations."
   },
   'https://www.apollographql.com/docs/platform/graph-manager-overview': {
     text: 'Apollo Graph Manager',
@@ -22,7 +22,7 @@ const navConfig = {
   'https://www.apollographql.com/docs/ios': {
     text: 'Apollo Client (iOS)',
     description:
-      'Manage the entirety of your iOS app\'s state and seamlessly execute GraphQL operations.'
+      "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations."
   },
   'https://www.apollographql.com/docs/link': {
     text: 'Apollo Link',
