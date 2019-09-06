@@ -1,33 +1,33 @@
 const navConfig = {
   'https://www.apollographql.com/docs': {
-    text: 'Home',
+    text: 'Get Started',
     description:
-      'Learn about the Apollo Platform; an implementation of GraphQL to manage data from the cloud to your UI.'
+      'Learn about each part of the Apollo platform and how they all work together.'
   },
   'https://www.apollographql.com/docs/apollo-server': {
-    text: 'Server',
+    text: 'Apollo Server',
     description:
-      'Quickly build a production-ready, self-documenting API for GraphQL clients, using data from any source.'
+      'Deploy a production-ready GraphQL server that makes it easy to fetch and combine data from multiple sources.'
   },
   'https://www.apollographql.com/docs/react': {
-    text: 'Client (React)',
+    text: 'Apollo Client (React)',
     description:
-      'A complete Javascript library that takes care of requesting and caching your data, as well as updating your UI.'
+      'Manage the entirety of your React app\'s state and seamlessly execute GraphQL operations.'
   },
   'https://www.apollographql.com/docs/platform/graph-manager-overview': {
-    text: 'Graph Manager',
+    text: 'Apollo Graph Manager',
     description:
-      'A guide to our cloud service for schema management and performance metrics monitoring.'
+      'Connect your GraphQL server to a cloud service that provides schema versioning, fine-grained analytics, and enhanced security.'
   },
   'https://www.apollographql.com/docs/ios': {
-    text: 'Client (iOS)',
+    text: 'Apollo Client (iOS)',
     description:
-      'A strongly-typed, caching GraphQL client for native iOS apps, written in Swift.'
+      'Manage the entirety of your iOS app\'s state and seamlessly execute GraphQL operations.'
   },
   'https://www.apollographql.com/docs/link': {
-    text: 'Link',
+    text: 'Apollo Link',
     description:
-      'Designed to be a powerful way to compose actions around data handling with GraphQL.'
+      'Define a custom chain of actions that your client performs with each GraphQL operation.'
   }
 };
 
