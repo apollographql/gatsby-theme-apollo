@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
 import {MdClose} from 'react-icons/md';
-import {
-  breakpoints,
-  colors,
-  headerHeight,
-  smallCaps
-} from 'gatsby-theme-apollo-core';
+import {colors, headerHeight, smallCaps} from 'gatsby-theme-apollo-core';
 import {css} from '@emotion/core';
 import {position, size, transparentize} from 'polished';
 
@@ -18,12 +13,6 @@ const verticalAlign = css({
   position: 'absolute',
   top: '50%',
   transform: 'translateY(-50%)'
-});
-
-const responsiveStyles = css({
-  [breakpoints.lg]: {
-    display: 'none'
-  }
 });
 
 const Hotkey = styled.div(verticalAlign, size(24), {
@@ -39,7 +28,7 @@ const Hotkey = styled.div(verticalAlign, size(24), {
 
 const boxShadowColor = transparentize(0.9, 'black');
 export const boxShadow = `${boxShadowColor} 0 2px 12px`;
-const Container = styled.div(responsiveStyles, {
+const Container = styled.div({
   flexGrow: 1,
   maxWidth: 480,
   marginLeft: 40,
@@ -144,7 +133,6 @@ const StyledInput = styled.input(props => ({
 }));
 
 const Overlay = styled.div(
-  responsiveStyles,
   position('fixed', 0),
   props =>
     !props.visible && {
