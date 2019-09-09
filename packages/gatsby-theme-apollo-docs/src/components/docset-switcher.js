@@ -41,6 +41,8 @@ const Menu = styled.div({
   boxShadow,
   backgroundColor: 'white',
   position: 'absolute',
+  // transformOrigin: 'top left',
+  transition: 'transform 150ms ease-in-out',
   [breakpoints.md]: {
     width: 400
   }
@@ -75,6 +77,10 @@ const NavItemInner = styled.a({
   borderRadius: 4,
   color: colors.text1,
   textDecoration: 'none',
+  backgroundColor: 'transparent',
+  transitionProperty: 'color, background-color, transform',
+  transitionDuration: '250ms',
+  transitionTimingFunction: 'ease-in-out',
   ':hover': {
     color: 'white',
     backgroundColor: colors.primary
@@ -146,7 +152,12 @@ export default function DocsetSwitcher(props) {
           visibility: menuOpen ? 'visible' : 'hidden'
         }}
       >
-        <Menu style={getMenuStyles(buttonRef.current)}>
+        <Menu
+          style={{
+            ...getMenuStyles(buttonRef.current),
+            transform: menuOpen ? 'scale(1)' : 'translateY(-10%) scale(0.9)'
+          }}
+        >
           <MenuTitle>{props.siteName}</MenuTitle>
           <StyledNav>
             {props.navItems.map(navItem => (
