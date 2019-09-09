@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import breakpoints from '../utils/breakpoints';
 import styled from '@emotion/styled';
-import {Link} from 'gatsby';
 import {colors} from '../utils/colors';
 import {transparentize} from 'polished';
 
@@ -39,7 +38,7 @@ const StyledHeader = styled(Header)({
   fontSize: 18
 });
 
-const StyledLink = styled(Link)({
+const StyledLink = styled.a({
   color: 'inherit',
   textDecoration: 'none'
 });
@@ -53,7 +52,7 @@ const Sidebar = React.forwardRef((props, ref) => {
   const content = (
     <Fragment>
       <StyledHeader>
-        <StyledLink to="/">
+        <StyledLink href={props.logoLink}>
           <LogoTitle noLogo={props.noLogo} title={props.title} />
         </StyledLink>
       </StyledHeader>
@@ -73,12 +72,18 @@ const Sidebar = React.forwardRef((props, ref) => {
 });
 
 Sidebar.displayName = 'Sidebar';
+
 Sidebar.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
   open: PropTypes.bool,
   noLogo: PropTypes.bool,
-  responsive: PropTypes.bool
+  responsive: PropTypes.bool,
+  logoLink: PropTypes.string
+};
+
+Sidebar.defaultProps = {
+  logoLink: '/'
 };
 
 export default Sidebar;

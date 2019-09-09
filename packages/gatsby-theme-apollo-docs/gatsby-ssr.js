@@ -13,7 +13,7 @@ export const onRenderBody = ({setPostBodyComponents}) => {
 
 export const wrapPageElement = (
   {element, props}, // eslint-disable-line react/prop-types
-  {algoliaApiKey, algoliaIndexName, navConfig}
+  {algoliaApiKey, algoliaIndexName, navConfig, logoLink}
 ) => (
   <PageLayout
     {...props}
@@ -23,6 +23,7 @@ export const wrapPageElement = (
     }))}
     algoliaApiKey={algoliaApiKey}
     algoliaIndexName={algoliaIndexName}
+    logoLink={logoLink}
   >
     {element}
   </PageLayout>
