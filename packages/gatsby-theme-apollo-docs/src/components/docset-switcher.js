@@ -78,7 +78,7 @@ const NavItemInner = styled.a({
   color: colors.text1,
   textDecoration: 'none',
   backgroundColor: 'transparent',
-  transitionProperty: 'color, background-color, transform',
+  transitionProperty: 'color, background-color',
   transitionDuration: '250ms',
   transitionTimingFunction: 'ease-in-out',
   ':hover': {
