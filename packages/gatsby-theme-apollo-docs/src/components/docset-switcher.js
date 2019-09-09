@@ -29,6 +29,7 @@ const Backdrop = styled.div({
   top: 0,
   left: 0,
   zIndex: 1100,
+  perspective: '1000px',
   transitionProperty: 'opacity, visibility',
   transitionDuration: '150ms',
   transitionTimingFunction: 'ease-in-out'
@@ -41,7 +42,7 @@ const Menu = styled.div({
   boxShadow,
   backgroundColor: 'white',
   position: 'absolute',
-  // transformOrigin: 'top left',
+  transformOrigin: 'top left',
   transition: 'transform 150ms ease-in-out',
   [breakpoints.md]: {
     width: 400
@@ -79,7 +80,7 @@ const NavItemInner = styled.a({
   textDecoration: 'none',
   backgroundColor: 'transparent',
   transitionProperty: 'color, background-color',
-  transitionDuration: '250ms',
+  transitionDuration: '150ms',
   transitionTimingFunction: 'ease-in-out',
   ':hover': {
     color: 'white',
@@ -155,7 +156,8 @@ export default function DocsetSwitcher(props) {
         <Menu
           style={{
             ...getMenuStyles(buttonRef.current),
-            transform: menuOpen ? 'scale(1)' : 'translateY(-10%) scale(0.9)'
+            transform:
+              !menuOpen && 'translate3d(0,-24px,-16px) rotate3d(1,0,0,8deg)'
           }}
         >
           <MenuTitle>{props.siteName}</MenuTitle>
