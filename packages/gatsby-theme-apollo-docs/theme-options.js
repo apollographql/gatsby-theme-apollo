@@ -38,5 +38,6 @@ module.exports = {
   algoliaIndexName: 'apollodata',
   baseUrl: 'https://www.apollographql.com',
   twitterHandle: 'apollographql',
+  logoLink: 'https://www.apollographql.com/docs/',
   navConfig
 };

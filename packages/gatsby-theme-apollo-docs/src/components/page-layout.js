@@ -114,6 +114,7 @@ export default function PageLayout(props) {
           open={sidebarOpen}
           ref={sidebarRef}
           title={siteName}
+          logoLink={props.logoLink}
         >
           <HeaderInner>
             <DocsetSwitcher
@@ -181,5 +182,6 @@ PageLayout.propTypes = {
   pageContext: PropTypes.object.isRequired,
   navItems: PropTypes.array.isRequired,
   algoliaApiKey: PropTypes.string.isRequired,
-  algoliaIndexName: PropTypes.string.isRequired
+  algoliaIndexName: PropTypes.string.isRequired,
+  logoLink: PropTypes.string
 };
