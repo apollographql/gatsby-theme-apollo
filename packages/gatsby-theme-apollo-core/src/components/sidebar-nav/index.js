@@ -2,9 +2,11 @@ import Category from './category';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import styled from '@emotion/styled';
+import {IconCollapseList} from '@apollo/space-kit/icons/IconCollapseList';
+import {IconExpandList} from '@apollo/space-kit/icons/IconExpandList';
 import {Link, withPrefix} from 'gatsby';
-import {MdUnfoldLess, MdUnfoldMore} from 'react-icons/md';
 import {colors} from '../../utils/colors';
+import {size} from 'polished';
 import {smallCaps} from '../../utils/typography';
 
 const StyledList = styled.ul({
@@ -43,8 +45,8 @@ const ExpandAll = styled.button(listItemStyles, smallCaps, {
   outline: 'none',
   cursor: 'pointer',
   svg: {
-    marginLeft: -4,
-    marginRight: 4
+    ...size(14),
+    marginRight: 8
   }
 });
 
@@ -152,13 +154,13 @@ export default class SidebarNav extends Component {
         {this.props.contents.map(({title, path, pages}, index, array) => {
           const contents = this.renderPages(pages);
           if (!title) {
-            const Icon = this.allExpanded ? MdUnfoldLess : MdUnfoldMore;
+            const Icon = this.allExpanded ? IconCollapseList : IconExpandList;
             return (
               <Fragment key="root">
                 {contents}
                 {array.length > 2 && (
                   <ExpandAll onClick={this.toggleAll}>
-                    <Icon size={18} />
+                    <Icon />
                     {this.allExpanded ? 'Collapse' : 'Expand'} all
                   </ExpandAll>
                 )}

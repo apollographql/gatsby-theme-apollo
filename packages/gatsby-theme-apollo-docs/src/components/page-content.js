@@ -4,7 +4,7 @@ import SectionNav from './section-nav';
 import nest from 'recompose/nest';
 import styled from '@emotion/styled';
 import useMount from 'react-use/lib/useMount';
-import {FaGithub} from 'react-icons/fa';
+import {IconGithub} from '@apollo/space-kit/icons/IconGithub';
 import {
   PageNav,
   breakpoints,
@@ -146,7 +146,8 @@ const AsideLink = nest(
       width: 20,
       height: 20,
       marginRight: 6,
-      fill: colors.text2
+      color: colors.text2,
+      fill: 'currentColor'
     }
   })
 );
@@ -216,7 +217,7 @@ export default function PageContent(props) {
           />
         )}
         <AsideLink href={props.githubUrl}>
-          <FaGithub /> Edit on GitHub
+          <IconGithub /> Edit on GitHub
         </AsideLink>
         <AsideLink href={`https://spectrum.chat/apollo/${props.spectrumPath}`}>
           <SpectrumLogo /> Discuss on Spectrum
