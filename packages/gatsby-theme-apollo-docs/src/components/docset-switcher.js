@@ -42,7 +42,7 @@ const Menu = styled.div({
   boxShadow,
   backgroundColor: 'white',
   position: 'absolute',
-  transformOrigin: 'top left',
+  transformOrigin: '25% 25%',
   transition: 'transform 150ms ease-in-out',
   [breakpoints.md]: {
     width: 400
@@ -157,7 +157,7 @@ export default function DocsetSwitcher(props) {
           style={{
             ...getMenuStyles(buttonRef.current),
             transform:
-              !menuOpen && 'translate3d(0,-24px,-16px) rotate3d(1,0,0,8deg)'
+              !menuOpen && 'translate3d(0,-24px,-16px) rotate3d(1,0,0.1,8deg)'
           }}
         >
           <MenuTitle>{props.siteName}</MenuTitle>
