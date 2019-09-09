@@ -1,6 +1,6 @@
 const navConfig = {
   'https://www.apollographql.com/docs': {
-    text: 'Get Started',
+    text: 'Apollo Basics',
     description:
       'Learn about each part of the Apollo platform and how they all work together.'
   },
