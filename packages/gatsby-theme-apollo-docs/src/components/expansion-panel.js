@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import styled from '@emotion/styled';
-import {MdCheck, MdExpandLess, MdExpandMore} from 'react-icons/md';
+import {IconArrowDown} from '@apollo/space-kit/icons/IconArrowDown';
+import {IconArrowUp} from '@apollo/space-kit/icons/IconArrowUp';
+import {IconCheck} from '@apollo/space-kit/icons/IconCheck';
 import {colors} from 'gatsby-theme-apollo-core';
 import {size, transparentize} from 'polished';
 
@@ -17,7 +19,8 @@ const InnerContainer = styled.div({
   borderBottomRightRadius: 4
 });
 
-const iconMargin = 8;
+const iconSize = 14;
+const iconMargin = 12;
 const horizontalPadding = 16;
 const StyledButton = styled.button({
   display: 'flex',
@@ -39,11 +42,11 @@ const StyledButton = styled.button({
     backgroundColor: transparentize(0.9, 'black')
   },
   svg: {
+    ...size(iconSize),
     marginRight: iconMargin
   }
 });
 
-const iconSize = 24;
 const Content = styled.div({
   padding: `8px ${horizontalPadding + iconSize + iconMargin}px`,
   color: colors.text1,
@@ -66,7 +69,8 @@ const ListItemNumber = styled.div(size(lineItemNumberSize), {
   backgroundColor: 'white',
   position: 'absolute',
   top: 0,
-  left: lineItemNumberSize / -2
+  left: lineItemNumberSize / -2,
+  svg: size(iconSize)
 });
 
 export const ExpansionPanelList = styled.ul({
@@ -96,7 +100,7 @@ export function ExpansionPanelListItem(props) {
   return (
     <StyledListItem>
       <ListItemNumber>
-        {props.number === 'check' ? <MdCheck size={16} /> : props.number}
+        {props.number === 'check' ? <IconCheck /> : props.number}
       </ListItemNumber>
       {props.children}
     </StyledListItem>
@@ -110,12 +114,12 @@ ExpansionPanelListItem.propTypes = {
 
 export function ExpansionPanel(props) {
   const [expanded, setExpanded] = useState(false);
-  const Icon = expanded ? MdExpandLess : MdExpandMore;
+  const Icon = expanded ? IconArrowUp : IconArrowDown;
   return (
     <Container>
       <InnerContainer>
         <StyledButton onClick={() => setExpanded(!expanded)}>
-          <Icon size={iconSize} />
+          <Icon />
           {props.title}
         </StyledButton>
         {expanded && <Content>{props.children}</Content>}

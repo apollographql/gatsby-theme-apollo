@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
-import {MdClose} from 'react-icons/md';
+import {IconClose} from '@apollo/space-kit/icons/IconClose';
 import {colors, headerHeight, smallCaps} from 'gatsby-theme-apollo-core';
 import {css} from '@emotion/core';
 import {position, size, transparentize} from 'polished';
@@ -155,12 +155,12 @@ const ResetButton = styled.button(verticalAlign, size(20), {
   cursor: 'pointer',
   outline: 'none',
   color: 'inherit',
-  right: 10,
-  svg: {
-    display: 'block',
-    ...size('100%'),
-    fill: 'currentColor'
-  }
+  right: 10
+});
+
+const ResetIcon = styled(IconClose)(size(14), {
+  display: 'block',
+  fill: 'currentColor'
 });
 
 export default function Search(props) {
@@ -238,7 +238,7 @@ export default function Search(props) {
             onMouseDown={() => event.preventDefault()}
             onClick={reset}
           >
-            <MdClose />
+            <ResetIcon />
           </ResetButton>
         )}
         {!focused && !value && <Hotkey>/</Hotkey>}

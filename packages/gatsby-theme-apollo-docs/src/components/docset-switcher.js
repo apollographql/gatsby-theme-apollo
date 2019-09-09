@@ -3,10 +3,11 @@ import React, {useRef, useState} from 'react';
 import styled from '@emotion/styled';
 import useKey from 'react-use/lib/useKey';
 import {Button} from './buttons';
-import {StyledIcon} from './select';
+import {IconVariant} from '@apollo/space-kit/icons/IconVariant';
 import {boxShadow} from './search';
 import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo-core';
-import {transparentize} from 'polished';
+import {iconStyles} from './select';
+import {size, transparentize} from 'polished';
 
 const Wrapper = styled.div({
   flexGrow: 1,
@@ -92,6 +93,8 @@ const NavItemDescription = styled.p({
   lineHeight: 1.5,
   opacity: 2 / 3
 });
+
+const StyledIcon = styled(IconVariant)(size(16), iconStyles);
 
 function getMenuStyles(element) {
   if (!element) {

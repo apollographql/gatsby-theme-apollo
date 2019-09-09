@@ -11,10 +11,10 @@ import {
   FlexWrapper,
   Header,
   Layout,
-  LogoTitle,
   MenuButton,
   Sidebar,
   SidebarNav,
+  StyledLogo,
   breakpoints,
   useResponsiveSidebar
 } from 'gatsby-theme-apollo-core';
@@ -159,7 +159,7 @@ export default function PageLayout(props) {
           <Header>
             <MobileNav>
               <MenuButton onClick={openSidebar} />
-              <LogoTitle />
+              <StyledLogo />
             </MobileNav>
             <Search
               siteName={siteName}

@@ -10,7 +10,7 @@ const Container = styled.div({
   fontSize: 18
 });
 
-const StyledLogo = styled(Logo)({
+export const StyledLogo = styled(Logo)({
   marginRight: 8,
   height: 36,
   fill: 'currentColor'

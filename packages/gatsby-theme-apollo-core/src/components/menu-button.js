@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from '@emotion/styled';
-import {MdMenu} from 'react-icons/md';
-import {css} from '@emotion/core';
+import {IconMenu} from '@apollo/space-kit/icons/IconMenu';
 import {size} from 'polished';
 
 const StyledButton = styled.button({
@@ -12,17 +11,18 @@ const StyledButton = styled.button({
   border: 'none',
   background: 'none',
   outline: 'none',
-  cursor: 'pointer',
-  svg: css(size(24), {
-    display: 'block',
-    fill: 'currentColor'
-  })
+  cursor: 'pointer'
+});
+
+const StyledIcon = styled(IconMenu)(size(24), {
+  display: 'block',
+  fill: 'currentColor'
 });
 
 export default function MenuButton(props) {
   return (
     <StyledButton onClick={props.onClick}>
-      <MdMenu />
+      <StyledIcon />
     </StyledButton>
   );
 }

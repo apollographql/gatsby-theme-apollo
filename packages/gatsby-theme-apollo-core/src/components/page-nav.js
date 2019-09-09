@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import breakpoints from '../utils/breakpoints';
 import styled from '@emotion/styled';
+import {IconArrowLeft} from '@apollo/space-kit/icons/IconArrowLeft';
+import {IconArrowRight} from '@apollo/space-kit/icons/IconArrowRight';
 import {Link} from 'gatsby';
-import {MdChevronLeft, MdChevronRight} from 'react-icons/md';
 import {colors} from '../utils/colors';
 import {size} from 'polished';
 import {smallCaps} from '../utils/typography';
@@ -21,7 +22,7 @@ const StyledLink = styled(Link)({
   alignItems: 'center',
   color: 'inherit',
   textDecoration: 'none',
-  svg: size(20),
+  svg: size(16),
   ':hover': {
     opacity: colors.hoverOpacity
   }
@@ -52,7 +53,7 @@ export default function PageNav(props) {
     <Container>
       {props.prevPage && (
         <StyledLink to={props.prevPage.path}>
-          <MdChevronLeft />
+          <IconArrowLeft />
           <LinkText>
             <LinkHeading>Previous</LinkHeading>
             <LinkTitle>{props.prevPage.title}</LinkTitle>
@@ -65,7 +66,7 @@ export default function PageNav(props) {
             <LinkHeading>Next</LinkHeading>
             <LinkTitle>{props.nextPage.title}</LinkTitle>
           </LinkText>
-          <MdChevronRight />
+          <IconArrowRight />
         </StyledLink>
       )}
     </Container>

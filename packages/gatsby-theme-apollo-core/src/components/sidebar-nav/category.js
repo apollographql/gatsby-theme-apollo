@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
+import {IconArrowDown} from '@apollo/space-kit/icons/IconArrowDown';
+import {IconArrowUp} from '@apollo/space-kit/icons/IconArrowUp';
 import {Link} from 'gatsby';
-import {MdExpandLess, MdExpandMore} from 'react-icons/md';
 import {colors} from '../../utils/colors';
 import {smallCaps} from '../../utils/typography';
 
-const iconSize = 20;
+const iconSize = 14;
 const headingPadding = 16;
 const headingStyles = {
   display: 'flex',
@@ -56,7 +57,7 @@ const StyledLink = styled(Link)(headingStyles, {
 });
 
 export default function Category(props) {
-  const Icon = props.expanded ? MdExpandLess : MdExpandMore;
+  const Icon = props.expanded ? IconArrowUp : IconArrowDown;
   const contents = (
     <Fragment>
       <h6>{props.title}</h6>
