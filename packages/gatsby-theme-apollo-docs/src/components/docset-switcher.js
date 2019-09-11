@@ -3,7 +3,7 @@ import React, {useRef, useState} from 'react';
 import styled from '@emotion/styled';
 import useKey from 'react-use/lib/useKey';
 import {Button} from './buttons';
-import {IconVariant} from '@apollo/space-kit/icons/IconVariant';
+import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
 import {boxShadow} from './search';
 import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo-core';
 import {iconStyles} from './select';
@@ -101,7 +101,7 @@ const NavItemDescription = styled.p({
   opacity: 2 / 3
 });
 
-const StyledIcon = styled(IconVariant)(size(16), iconStyles);
+const StyledIcon = styled(IconLayoutModule)(size(16), iconStyles);
 
 function getMenuStyles(element) {
   if (!element) {
