@@ -39,5 +39,10 @@ module.exports = {
   baseUrl: 'https://www.apollographql.com',
   twitterHandle: 'apollographql',
   logoLink: 'https://www.apollographql.com/docs/',
-  navConfig
+  navConfig,
+  footerNavConfig: {
+    Blog: 'https://blog.apollographql.com/',
+    Contribute: 'https://www.apollographql.com/docs/community/',
+    'Explore GraphQL': 'https://www.graphql.com/'
+  }
 };

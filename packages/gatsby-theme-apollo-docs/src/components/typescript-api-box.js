@@ -112,7 +112,7 @@ export class TypescriptApiBox extends Component {
     const dataByKey = {};
 
     function traverse(tree, parentName) {
-      let name = tree.name;
+      let {name} = tree;
       if (['Constructor', 'Method', 'Property'].includes(tree.kindString)) {
         name = `${parentName}.${tree.name}`;
         // add the parentName to the data so we can reference it for ids
@@ -249,7 +249,7 @@ export class TypescriptApiBox extends Component {
 
   // Render the type of a data object. It's pretty confusing, to say the least
   _type = (data, skipSignature) => {
-    const type = data.type;
+    const {type} = data;
 
     if (data.kindString === 'Method') {
       return this._type(data.signatures[0]);
@@ -266,7 +266,7 @@ export class TypescriptApiBox extends Component {
     const isReflected =
       data.kindString === 'Type alias' || type.type === 'reflection';
     if (isReflected && type.declaration) {
-      const declaration = type.declaration;
+      const {declaration} = type;
       if (declaration.signatures) {
         return this._type(declaration.signatures[0]);
       }
@@ -313,7 +313,7 @@ export class TypescriptApiBox extends Component {
     const signature =
       dataForSignature.signatures && dataForSignature.signatures[0];
     if (signature) {
-      const name = rawData.name;
+      const {name} = rawData;
       const parameterString = _parameterString(
         parameters.map(param => param.name)
       );
@@ -395,9 +395,7 @@ export class TypescriptApiBox extends Component {
           {args.filepath && (
             <Subheading>
               <a
-                href={`https://github.com/${args.repo}/blob/master/${
-                  args.filepath
-                }#L${args.lineno}`}
+                href={`https://github.com/${args.repo}/blob/master/${args.filepath}#L${args.lineno}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >

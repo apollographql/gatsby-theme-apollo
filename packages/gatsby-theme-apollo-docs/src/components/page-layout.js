@@ -120,7 +120,8 @@ export default function PageLayout(props) {
             <DocsetSwitcher
               title={subtitle}
               siteName={siteName}
-              navItems={props.navItems}
+              footerN={props.navConfig}
+              footerNavConfig={props.footerNavConfig}
             />
             {versions && versions.length > 0 && (
               <SelectLink
@@ -180,7 +181,8 @@ PageLayout.propTypes = {
   children: PropTypes.node.isRequired,
   location: PropTypes.object.isRequired,
   pageContext: PropTypes.object.isRequired,
-  navItems: PropTypes.array.isRequired,
+  navConfig: PropTypes.object.isRequired,
+  footerNavConfig: PropTypes.object.isRequired,
   algoliaApiKey: PropTypes.string.isRequired,
   algoliaIndexName: PropTypes.string.isRequired,
   logoLink: PropTypes.string
