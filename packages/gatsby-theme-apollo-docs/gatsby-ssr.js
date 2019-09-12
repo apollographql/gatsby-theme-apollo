@@ -1,5 +1,6 @@
 import PageLayout from './src/components/page-layout';
 import React from 'react';
+import {getSpectrumUrl} from './src/utils';
 
 export const onRenderBody = ({setPostBodyComponents}) => {
   setPostBodyComponents([
@@ -13,15 +14,23 @@ export const onRenderBody = ({setPostBodyComponents}) => {
 
 export const wrapPageElement = (
   {element, props}, // eslint-disable-line react/prop-types
-  {algoliaApiKey, algoliaIndexName, navConfig, footerNavConfig, logoLink}
+  pluginOptions
 ) => (
   <PageLayout
     {...props}
-    navConfig={navConfig}
-    footerNavConfig={footerNavConfig}
-    algoliaApiKey={algoliaApiKey}
-    algoliaIndexName={algoliaIndexName}
-    logoLink={logoLink}
+    navConfig={pluginOptions.navConfig}
+    footerNavConfig={pluginOptions.footerNavConfig}
+    algoliaApiKey={pluginOptions.algoliaApiKey}
+    algoliaIndexName={pluginOptions.algoliaIndexName}
+    spectrumUrl={
+      pluginOptions.spectrumHandle &&
+      getSpectrumUrl(pluginOptions.spectrumHandle)
+    }
+    twitterUrl={
+      pluginOptions.twitterHandle &&
+      `https://twitter.com/${pluginOptions.twitterHandle}`
+    }
+    logoLink={pluginOptions.logoLink}
   >
     {element}
   </PageLayout>

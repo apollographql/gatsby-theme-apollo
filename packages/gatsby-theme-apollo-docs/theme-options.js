@@ -38,6 +38,7 @@ module.exports = {
   algoliaIndexName: 'apollodata',
   baseUrl: 'https://www.apollographql.com',
   twitterHandle: 'apollographql',
+  spectrumHandle: 'apollo',
   logoLink: 'https://www.apollographql.com/docs/',
   navConfig,
   footerNavConfig: {
