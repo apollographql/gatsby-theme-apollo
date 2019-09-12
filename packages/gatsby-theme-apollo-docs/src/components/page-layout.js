@@ -122,6 +122,7 @@ export default function PageLayout(props) {
               siteName={siteName}
               spectrumUrl={props.spectrumUrl}
               twitterUrl={props.twitterUrl}
+              youtubeUrl={props.youtubeUrl}
               navConfig={props.navConfig}
               footerNavConfig={props.footerNavConfig}
             />
@@ -189,5 +190,6 @@ PageLayout.propTypes = {
   algoliaIndexName: PropTypes.string.isRequired,
   spectrumUrl: PropTypes.string,
   twitterUrl: PropTypes.string,
+  youtubeUrl: PropTypes.string,
   logoLink: PropTypes.string
 };

@@ -30,6 +30,7 @@ export const wrapPageElement = (
       pluginOptions.twitterHandle &&
       `https://twitter.com/${pluginOptions.twitterHandle}`
     }
+    youtubeUrl={pluginOptions.youtubeUrl}
     logoLink={pluginOptions.logoLink}
   >
     {element}

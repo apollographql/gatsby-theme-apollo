@@ -39,6 +39,7 @@ module.exports = {
   baseUrl: 'https://www.apollographql.com',
   twitterHandle: 'apollographql',
   spectrumHandle: 'apollo',
+  youtubeUrl: 'https://www.youtube.com/channel/UC0pEW_GOrMJ23l8QcrGdKSw',
   logoLink: 'https://www.apollographql.com/docs/',
   navConfig,
   footerNavConfig: {
