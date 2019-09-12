@@ -46,7 +46,7 @@ export default function Template(props) {
   const {
     sidebarContents,
     githubUrl,
-    spectrumPath,
+    spectrumUrl,
     typescriptApiBox,
     baseUrl
   } = props.pageContext;
@@ -74,7 +74,7 @@ export default function Template(props) {
           headings={headings}
           hash={hash}
           githubUrl={githubUrl}
-          spectrumPath={spectrumPath}
+          spectrumUrl={spectrumUrl}
         >
           {file.childMdx ? (
             <TypescriptApiBoxContext.Provider value={typescriptApiBox}>

@@ -219,9 +219,11 @@ export default function PageContent(props) {
         <AsideLink href={props.githubUrl}>
           <IconGithub /> Edit on GitHub
         </AsideLink>
-        <AsideLink href={`https://spectrum.chat/apollo/${props.spectrumPath}`}>
-          <SpectrumLogo /> Discuss on Spectrum
-        </AsideLink>
+        {props.spectrumUrl && (
+          <AsideLink href={props.spectrumUrl}>
+            <SpectrumLogo /> Discuss on Spectrum
+          </AsideLink>
+        )}
       </Aside>
     </Container>
   );
@@ -235,5 +237,5 @@ PageContent.propTypes = {
   hash: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   headings: PropTypes.array.isRequired,
-  spectrumPath: PropTypes.string
+  spectrumUrl: PropTypes.string
 };

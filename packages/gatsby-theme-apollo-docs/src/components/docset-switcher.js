@@ -195,6 +195,9 @@ export default function DocsetSwitcher(props) {
               ))}
             </FooterNav>
           )}
+          {props.spectrumUrl && <a href={props.spectrumUrl}>Spectrum</a>}
+          {props.twitterUrl && <a href={props.twitterUrl}>Twitter</a>}
+          {/* {props.youtubeUrl && <a href={props.youtubeUrl}>Youtube</a>} */}
         </Menu>
       </Backdrop>
     </Wrapper>
@@ -205,5 +208,7 @@ DocsetSwitcher.propTypes = {
   title: PropTypes.string.isRequired,
   siteName: PropTypes.string.isRequired,
   navConfig: PropTypes.object.isRequired,
-  footerNavConfig: PropTypes.object.isRequired
+  footerNavConfig: PropTypes.object.isRequired,
+  spectrumUrl: PropTypes.string,
+  twitterUrl: PropTypes.string
 };

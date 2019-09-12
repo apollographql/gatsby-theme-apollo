@@ -1,7 +1,7 @@
 const jsYaml = require('js-yaml');
 const path = require('path');
 const {createFilePath} = require('gatsby-source-filesystem');
-const {getVersionBasePath} = require('./src/utils');
+const {getVersionBasePath, getSpectrumUrl} = require('./src/utils');
 
 async function onCreateNode({node, actions, getNode, loadNodeContent}) {
   if (configPaths.includes(node.relativePath)) {
@@ -153,6 +153,7 @@ exports.createPages = async ({actions, graphql}, options) => {
     contentDir = 'docs/source',
     githubRepo,
     sidebarCategories,
+    spectrumHandle,
     spectrumPath,
     typescriptApiBox,
     versions = {},
@@ -220,7 +221,9 @@ exports.createPages = async ({actions, graphql}, options) => {
             contentDir,
             relativePath
           ),
-        spectrumPath: spectrumPath || repo,
+        spectrumUrl:
+          spectrumHandle &&
+          `${getSpectrumUrl(spectrumHandle)}/${spectrumPath || repo}`,
         typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
         defaultVersion,

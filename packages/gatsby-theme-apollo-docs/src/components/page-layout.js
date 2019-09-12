@@ -120,7 +120,9 @@ export default function PageLayout(props) {
             <DocsetSwitcher
               title={subtitle}
               siteName={siteName}
-              footerN={props.navConfig}
+              spectrumUrl={props.spectrumUrl}
+              twitterUrl={props.twitterUrl}
+              navConfig={props.navConfig}
               footerNavConfig={props.footerNavConfig}
             />
             {versions && versions.length > 0 && (
@@ -185,5 +187,7 @@ PageLayout.propTypes = {
   footerNavConfig: PropTypes.object.isRequired,
   algoliaApiKey: PropTypes.string.isRequired,
   algoliaIndexName: PropTypes.string.isRequired,
+  spectrumUrl: PropTypes.string,
+  twitterUrl: PropTypes.string,
   logoLink: PropTypes.string
 };
