@@ -223,7 +223,7 @@ exports.createPages = async ({actions, graphql}, options) => {
           ),
         spectrumUrl:
           spectrumHandle &&
-          `${getSpectrumUrl(spectrumHandle)}/${spectrumPath || repo}`,
+          getSpectrumUrl(spectrumHandle) + (spectrumPath || `/${repo}`),
         typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
         defaultVersion,
