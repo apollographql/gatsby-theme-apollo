@@ -37,10 +37,10 @@ const Backdrop = styled.div({
 
 const Menu = styled.div({
   width: 700,
-  padding: 12,
   borderRadius: 4,
   boxShadow,
   backgroundColor: 'white',
+  overflow: 'hidden',
   position: 'absolute',
   transformOrigin: '25% 25%',
   transition: 'transform 150ms ease-in-out',
@@ -50,22 +50,22 @@ const Menu = styled.div({
 });
 
 const MenuTitle = styled.h6(smallCaps, {
+  margin: 24,
   marginBottom: 0,
-  padding: 12,
+  fontSize: 13,
+  fontWeight: 600,
   color: colors.text3
 });
 
-const navItemSpacing = 4;
 const StyledNav = styled.nav({
   display: 'flex',
   flexWrap: 'wrap',
-  margin: -navItemSpacing
+  margin: 12
 });
 
 const NavItem = styled.div({
   display: 'block',
   width: '50%',
-  padding: navItemSpacing,
   [breakpoints.md]: {
     width: '100%'
   }
@@ -84,7 +84,10 @@ const NavItemInner = styled.a({
   transitionTimingFunction: 'ease-in-out',
   ':hover': {
     color: 'white',
-    backgroundColor: colors.primary
+    backgroundColor: colors.primary,
+    p: {
+      color: colors.primaryLight
+    }
   }
 });
 
@@ -98,10 +101,22 @@ const NavItemDescription = styled.p({
   marginBottom: 0,
   fontSize: 14,
   lineHeight: 1.5,
-  opacity: 2 / 3
+  color: colors.text3,
+  transition: 'color 150ms ease-in-out'
 });
 
 const StyledIcon = styled(IconLayoutModule)(size(16), iconStyles);
+
+const FooterNav = styled.nav({
+  display: 'flex',
+  alignItems: 'center',
+  padding: '16px 24px',
+  backgroundColor: colors.background
+});
+
+const FooterNavItem = styled.a({
+  color: colors.text2
+});
 
 function getMenuStyles(element) {
   if (!element) {
@@ -162,15 +177,24 @@ export default function DocsetSwitcher(props) {
         >
           <MenuTitle>{props.siteName}</MenuTitle>
           <StyledNav>
-            {props.navItems.map(navItem => (
-              <NavItem key={navItem.path}>
-                <NavItemInner href={navItem.path}>
+            {Object.entries(props.navConfig).map(([path, navItem]) => (
+              <NavItem key={path}>
+                <NavItemInner href={path}>
                   <NavItemTitle>{navItem.text}</NavItemTitle>
                   <NavItemDescription>{navItem.description}</NavItemDescription>
                 </NavItemInner>
               </NavItem>
             ))}
           </StyledNav>
+          {props.footerNavConfig && (
+            <FooterNav>
+              {Object.entries(props.footerNavConfig).map(([text, url]) => (
+                <FooterNavItem key={text} href={url}>
+                  {text}
+                </FooterNavItem>
+              ))}
+            </FooterNav>
+          )}
         </Menu>
       </Backdrop>
     </Wrapper>
@@ -180,5 +204,6 @@ export default function DocsetSwitcher(props) {
 DocsetSwitcher.propTypes = {
   title: PropTypes.string.isRequired,
   siteName: PropTypes.string.isRequired,
-  navItems: PropTypes.array.isRequired
+  navConfig: PropTypes.object.isRequired,
+  footerNavConfig: PropTypes.object.isRequired
 };
