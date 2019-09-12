@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
-import React, {useRef, useState} from 'react';
+import React, {Fragment, useRef, useState} from 'react';
 import styled from '@emotion/styled';
 import useKey from 'react-use/lib/useKey';
 import {Button} from './buttons';
 import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
+import {IconTwitter} from '@apollo/space-kit/icons/IconTwitter';
+import {IconYoutube} from '@apollo/space-kit/icons/IconYoutube';
+import {ReactComponent as SpectrumIcon} from '../assets/logos/spectrum.svg';
 import {boxShadow} from './search';
 import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo-core';
 import {iconStyles} from './select';
@@ -115,7 +118,34 @@ const FooterNav = styled.nav({
 });
 
 const FooterNavItem = styled.a({
-  color: colors.text2
+  color: colors.text2,
+  textDecoration: 'none',
+  ':hover': {
+    color: colors.text3
+  },
+  ':not(:last-child)': {
+    marginRight: 24
+  }
+});
+
+const SocialLinks = styled.div({
+  display: 'flex',
+  marginLeft: 'auto'
+});
+
+const SocialLink = styled.a({
+  color: colors.text2,
+  ':hover': {
+    color: colors.text3
+  },
+  ':not(:last-child)': {
+    marginRight: 24
+  },
+  svg: {
+    ...size(24),
+    display: 'block',
+    fill: 'currentColor'
+  }
 });
 
 function getMenuStyles(element) {
@@ -186,18 +216,39 @@ export default function DocsetSwitcher(props) {
               </NavItem>
             ))}
           </StyledNav>
-          {props.footerNavConfig && (
-            <FooterNav>
-              {Object.entries(props.footerNavConfig).map(([text, url]) => (
-                <FooterNavItem key={text} href={url}>
-                  {text}
-                </FooterNavItem>
-              ))}
-            </FooterNav>
-          )}
-          {props.spectrumUrl && <a href={props.spectrumUrl}>Spectrum</a>}
-          {props.twitterUrl && <a href={props.twitterUrl}>Twitter</a>}
-          {/* {props.youtubeUrl && <a href={props.youtubeUrl}>Youtube</a>} */}
+          <FooterNav>
+            {(props.footerNavConfig ||
+              props.spectrumUrl ||
+              props.twitterUrl) && (
+              <Fragment>
+                {props.footerNavConfig &&
+                  Object.entries(props.footerNavConfig).map(([text, url]) => (
+                    <FooterNavItem key={text} href={url}>
+                      {text}
+                    </FooterNavItem>
+                  ))}
+                {(props.spectrumUrl || props.twitterUrl) && (
+                  <SocialLinks>
+                    {props.spectrumUrl && (
+                      <SocialLink href={props.spectrumUrl}>
+                        <SpectrumIcon />
+                      </SocialLink>
+                    )}
+                    {props.twitterUrl && (
+                      <SocialLink href={props.twitterUrl}>
+                        <IconTwitter />
+                      </SocialLink>
+                    )}
+                    {props.youtubeUrl && (
+                      <SocialLink href={props.youtubeUrl}>
+                        <IconYoutube />
+                      </SocialLink>
+                    )}
+                  </SocialLinks>
+                )}
+              </Fragment>
+            )}
+          </FooterNav>
         </Menu>
       </Backdrop>
     </Wrapper>
@@ -210,5 +261,6 @@ DocsetSwitcher.propTypes = {
   navConfig: PropTypes.object.isRequired,
   footerNavConfig: PropTypes.object.isRequired,
   spectrumUrl: PropTypes.string,
-  twitterUrl: PropTypes.string
+  twitterUrl: PropTypes.string,
+  youtubeUrl: PropTypes.string
 };
