@@ -33,6 +33,7 @@ const navConfig = {
 
 module.exports = {
   siteName: 'Apollo Docs',
+  menuTitle: 'Apollo Platform',
   trackingId: 'UA-74643563-13',
   algoliaApiKey: '768e823959d35bbd51e4b2439be13fb7',
   algoliaIndexName: 'apollodata',
@@ -45,6 +46,6 @@ module.exports = {
   footerNavConfig: {
     Blog: 'https://blog.apollographql.com/',
     Contribute: 'https://www.apollographql.com/docs/community/',
-    'Explore GraphQL': 'https://www.graphql.com/'
+    'GraphQL Summit': 'https://summit.graphql.com/'
   }
 };
