@@ -21,6 +21,7 @@ import {
 import {
   GA_EVENT_CATEGORY_SIDEBAR,
   MainRefContext,
+  getSpectrumUrl,
   getVersionBasePath,
   trackEvent
 } from '../utils';
@@ -98,6 +99,17 @@ export default function PageLayout(props) {
   const {pathname} = props.location;
   const {siteName, title, subtitle} = data.site.siteMetadata;
   const {sidebarContents, versions, defaultVersion} = props.pageContext;
+  const {
+    spectrumHandle,
+    twitterHandle,
+    youtubeUrl,
+    navConfig,
+    footerNavConfig,
+    logoLink,
+    algoliaApiKey,
+    algoliaIndexName,
+    menuTitle
+  } = props.pluginOptions;
 
   return (
     <Layout>
@@ -114,17 +126,19 @@ export default function PageLayout(props) {
           open={sidebarOpen}
           ref={sidebarRef}
           title={siteName}
-          logoLink={props.logoLink}
+          logoLink={logoLink}
         >
           <HeaderInner>
             <DocsetSwitcher
               title={subtitle}
-              siteName={siteName}
-              spectrumUrl={props.spectrumUrl}
-              twitterUrl={props.twitterUrl}
-              youtubeUrl={props.youtubeUrl}
-              navConfig={props.navConfig}
-              footerNavConfig={props.footerNavConfig}
+              siteName={menuTitle || siteName}
+              spectrumUrl={spectrumHandle && getSpectrumUrl(spectrumHandle)}
+              twitterUrl={
+                twitterHandle && `https://twitter.com/${twitterHandle}`
+              }
+              youtubeUrl={youtubeUrl}
+              navConfig={navConfig}
+              footerNavConfig={footerNavConfig}
             />
             {versions && versions.length > 0 && (
               <SelectLink
@@ -167,8 +181,8 @@ export default function PageLayout(props) {
             </MobileNav>
             <Search
               siteName={siteName}
-              apiKey={props.algoliaApiKey}
-              indexName={props.algoliaIndexName}
+              apiKey={algoliaApiKey}
+              indexName={algoliaIndexName}
             />
           </Header>
           <MainRefContext.Provider value={mainRef}>
@@ -184,12 +198,5 @@ PageLayout.propTypes = {
   children: PropTypes.node.isRequired,
   location: PropTypes.object.isRequired,
   pageContext: PropTypes.object.isRequired,
-  navConfig: PropTypes.object.isRequired,
-  footerNavConfig: PropTypes.object.isRequired,
-  algoliaApiKey: PropTypes.string.isRequired,
-  algoliaIndexName: PropTypes.string.isRequired,
-  spectrumUrl: PropTypes.string,
-  twitterUrl: PropTypes.string,
-  youtubeUrl: PropTypes.string,
-  logoLink: PropTypes.string
+  pluginOptions: PropTypes.object.isRequired
 };

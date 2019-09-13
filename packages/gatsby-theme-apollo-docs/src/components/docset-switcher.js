@@ -223,24 +223,36 @@ export default function DocsetSwitcher(props) {
               <Fragment>
                 {props.footerNavConfig &&
                   Object.entries(props.footerNavConfig).map(([text, url]) => (
-                    <FooterNavItem key={text} href={url}>
+                    <FooterNavItem key={text} href={url} target="_blank">
                       {text}
                     </FooterNavItem>
                   ))}
                 {(props.spectrumUrl || props.twitterUrl) && (
                   <SocialLinks>
                     {props.spectrumUrl && (
-                      <SocialLink href={props.spectrumUrl}>
+                      <SocialLink
+                        href={props.spectrumUrl}
+                        title="Spectrum"
+                        target="_blank"
+                      >
                         <SpectrumIcon />
                       </SocialLink>
                     )}
                     {props.twitterUrl && (
-                      <SocialLink href={props.twitterUrl}>
+                      <SocialLink
+                        href={props.twitterUrl}
+                        title="Twitter"
+                        target="_blank"
+                      >
                         <IconTwitter />
                       </SocialLink>
                     )}
                     {props.youtubeUrl && (
-                      <SocialLink href={props.youtubeUrl}>
+                      <SocialLink
+                        href={props.youtubeUrl}
+                        title="YouTube"
+                        target="_blank"
+                      >
                         <IconYoutube />
                       </SocialLink>
                     )}
