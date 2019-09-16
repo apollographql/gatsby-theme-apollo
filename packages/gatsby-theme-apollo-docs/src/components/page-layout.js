@@ -3,10 +3,11 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import DocsetSwitcher from './docset-switcher';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import Search from './search';
 import SelectLink from './select-link';
 import styled from '@emotion/styled';
+import {Button} from './buttons';
 import {
   FlexWrapper,
   Header,
@@ -25,7 +26,10 @@ import {
   getVersionBasePath,
   trackEvent
 } from '../utils';
+import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
 import {graphql, useStaticQuery} from 'gatsby';
+import {iconStyles} from './select';
+import {size} from 'polished';
 
 const Main = styled.main({
   flexGrow: 1,
@@ -33,6 +37,14 @@ const Main = styled.main({
   overflowY: 'auto',
   WebkitOverflowScrolling: 'touch'
 });
+
+const StyledButton = styled(Button)({
+  width: '100%',
+  textAlign: 'left',
+  position: 'relative'
+});
+
+const StyledIcon = styled(IconLayoutModule)(size(16), iconStyles);
 
 const MobileNav = styled.div({
   display: 'none',
@@ -96,6 +108,17 @@ export default function PageLayout(props) {
     sidebarOpen
   } = useResponsiveSidebar();
 
+  const buttonRef = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  function openMenu() {
+    setMenuOpen(true);
+  }
+
+  function closeMenu() {
+    setMenuOpen(false);
+  }
+
   const {pathname} = props.location;
   const {siteName, title, subtitle} = data.site.siteMetadata;
   const {sidebarContents, versions, defaultVersion} = props.pageContext;
@@ -129,17 +152,17 @@ export default function PageLayout(props) {
           logoLink={logoLink}
         >
           <HeaderInner>
-            <DocsetSwitcher
-              title={subtitle}
-              siteName={menuTitle || siteName}
-              spectrumUrl={spectrumHandle && getSpectrumUrl(spectrumHandle)}
-              twitterUrl={
-                twitterHandle && `https://twitter.com/${twitterHandle}`
-              }
-              youtubeUrl={youtubeUrl}
-              navConfig={navConfig}
-              footerNavConfig={footerNavConfig}
-            />
+            <StyledButton
+              variant="flat"
+              color="branded"
+              size="small"
+              className="title-sidebar"
+              onClick={openMenu}
+              ref={buttonRef}
+            >
+              {subtitle}
+              <StyledIcon />
+            </StyledButton>
             {versions && versions.length > 0 && (
               <SelectLink
                 useLink
@@ -190,6 +213,17 @@ export default function PageLayout(props) {
           </MainRefContext.Provider>
         </Main>
       </FlexWrapper>
+      <DocsetSwitcher
+        siteName={menuTitle || siteName}
+        spectrumUrl={spectrumHandle && getSpectrumUrl(spectrumHandle)}
+        twitterUrl={twitterHandle && `https://twitter.com/${twitterHandle}`}
+        youtubeUrl={youtubeUrl}
+        navConfig={navConfig}
+        footerNavConfig={footerNavConfig}
+        open={menuOpen}
+        buttonRef={buttonRef}
+        onClose={closeMenu}
+      />
     </Layout>
   );
 }

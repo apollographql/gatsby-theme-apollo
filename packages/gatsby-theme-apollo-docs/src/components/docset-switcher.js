@@ -1,29 +1,15 @@
 import PropTypes from 'prop-types';
-import React, {Fragment, useRef, useState} from 'react';
+import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
 import useKey from 'react-use/lib/useKey';
-import {Button} from './buttons';
-import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
 import {IconTwitter} from '@apollo/space-kit/icons/IconTwitter';
 import {IconYoutube} from '@apollo/space-kit/icons/IconYoutube';
 import {ReactComponent as SpectrumIcon} from '../assets/logos/spectrum.svg';
 import {boxShadow} from './search';
 import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo-core';
-import {iconStyles} from './select';
 import {size, transparentize} from 'polished';
 
 const Wrapper = styled.div({
-  flexGrow: 1,
-  position: 'relative'
-});
-
-const StyledButton = styled(Button)({
-  width: '100%',
-  textAlign: 'left',
-  position: 'relative'
-});
-
-const Backdrop = styled.div({
   width: '100%',
   height: '100%',
   backgroundColor: transparentize(0.5, colors.text2),
@@ -112,8 +98,6 @@ const NavItemDescription = styled.p({
   transition: 'color 150ms ease-in-out'
 });
 
-const StyledIcon = styled(IconLayoutModule)(size(16), iconStyles);
-
 const FooterNav = styled.nav({
   display: 'flex',
   alignItems: 'center',
@@ -171,114 +155,92 @@ function getMenuStyles(element) {
 }
 
 export default function DocsetSwitcher(props) {
-  const buttonRef = useRef(null);
-  const [menuOpen, setMenuOpen] = useState(false);
+  useKey('Escape', props.onClose);
 
-  useKey('Escape', () => {
-    setMenuOpen(false);
-  });
-
-  function openMenu() {
-    setMenuOpen(true);
-  }
-
-  function closeMenu(event) {
+  function handleWrapperClick(event) {
     if (event.target === event.currentTarget) {
-      setMenuOpen(false);
+      props.onClose();
     }
   }
 
   return (
-    <Wrapper>
-      <StyledButton
-        variant="flat"
-        color="branded"
-        size="small"
-        className="title-sidebar"
-        onClick={openMenu}
-        ref={buttonRef}
-      >
-        {props.title}
-        <StyledIcon />
-      </StyledButton>
-      <Backdrop
-        onClick={closeMenu}
+    <Wrapper
+      onClick={handleWrapperClick}
+      style={{
+        opacity: props.open ? 1 : 0,
+        visibility: props.open ? 'visible' : 'hidden'
+      }}
+    >
+      <Menu
         style={{
-          opacity: menuOpen ? 1 : 0,
-          visibility: menuOpen ? 'visible' : 'hidden'
+          ...getMenuStyles(props.buttonRef.current),
+          transform:
+            !props.open && 'translate3d(0,-24px,-16px) rotate3d(1,0,0.1,8deg)'
         }}
       >
-        <Menu
-          style={{
-            ...getMenuStyles(buttonRef.current),
-            transform:
-              !menuOpen && 'translate3d(0,-24px,-16px) rotate3d(1,0,0.1,8deg)'
-          }}
-        >
-          <MenuTitle>{props.siteName}</MenuTitle>
-          <StyledNav>
-            {Object.entries(props.navConfig).map(([path, navItem]) => (
-              <NavItem key={path}>
-                <NavItemInner href={path}>
-                  <NavItemTitle>{navItem.text}</NavItemTitle>
-                  <NavItemDescription>{navItem.description}</NavItemDescription>
-                </NavItemInner>
-              </NavItem>
-            ))}
-          </StyledNav>
-          <FooterNav>
-            {(props.footerNavConfig ||
-              props.spectrumUrl ||
-              props.twitterUrl) && (
-              <Fragment>
-                {props.footerNavConfig &&
-                  Object.entries(props.footerNavConfig).map(([text, url]) => (
-                    <FooterNavItem key={text} href={url} target="_blank">
-                      {text}
-                    </FooterNavItem>
-                  ))}
-                {(props.spectrumUrl || props.twitterUrl) && (
-                  <SocialLinks>
-                    {props.spectrumUrl && (
-                      <SocialLink
-                        href={props.spectrumUrl}
-                        title="Spectrum"
-                        target="_blank"
-                      >
-                        <SpectrumIcon />
-                      </SocialLink>
-                    )}
-                    {props.twitterUrl && (
-                      <SocialLink
-                        href={props.twitterUrl}
-                        title="Twitter"
-                        target="_blank"
-                      >
-                        <IconTwitter />
-                      </SocialLink>
-                    )}
-                    {props.youtubeUrl && (
-                      <SocialLink
-                        href={props.youtubeUrl}
-                        title="YouTube"
-                        target="_blank"
-                      >
-                        <IconYoutube />
-                      </SocialLink>
-                    )}
-                  </SocialLinks>
-                )}
-              </Fragment>
-            )}
-          </FooterNav>
-        </Menu>
-      </Backdrop>
+        <MenuTitle>{props.siteName}</MenuTitle>
+        <StyledNav>
+          {Object.entries(props.navConfig).map(([path, navItem]) => (
+            <NavItem key={path}>
+              <NavItemInner href={path}>
+                <NavItemTitle>{navItem.text}</NavItemTitle>
+                <NavItemDescription>{navItem.description}</NavItemDescription>
+              </NavItemInner>
+            </NavItem>
+          ))}
+        </StyledNav>
+        <FooterNav>
+          {(props.footerNavConfig || props.spectrumUrl || props.twitterUrl) && (
+            <Fragment>
+              {props.footerNavConfig &&
+                Object.entries(props.footerNavConfig).map(([text, url]) => (
+                  <FooterNavItem key={text} href={url} target="_blank">
+                    {text}
+                  </FooterNavItem>
+                ))}
+              {(props.spectrumUrl || props.twitterUrl) && (
+                <SocialLinks>
+                  {props.spectrumUrl && (
+                    <SocialLink
+                      href={props.spectrumUrl}
+                      title="Spectrum"
+                      target="_blank"
+                    >
+                      <SpectrumIcon />
+                    </SocialLink>
+                  )}
+                  {props.twitterUrl && (
+                    <SocialLink
+                      href={props.twitterUrl}
+                      title="Twitter"
+                      target="_blank"
+                    >
+                      <IconTwitter />
+                    </SocialLink>
+                  )}
+                  {props.youtubeUrl && (
+                    <SocialLink
+                      href={props.youtubeUrl}
+                      title="YouTube"
+                      target="_blank"
+                    >
+                      <IconYoutube />
+                    </SocialLink>
+                  )}
+                </SocialLinks>
+              )}
+            </Fragment>
+          )}
+        </FooterNav>
+      </Menu>
     </Wrapper>
   );
 }
 
 DocsetSwitcher.propTypes = {
-  title: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  buttonRef: PropTypes.object.isRequired,
   siteName: PropTypes.string.isRequired,
   navConfig: PropTypes.object.isRequired,
   footerNavConfig: PropTypes.object.isRequired,
