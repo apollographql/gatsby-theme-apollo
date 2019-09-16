@@ -17,7 +17,7 @@ const Wrapper = styled.div({
   position: 'fixed',
   top: 0,
   left: 0,
-  zIndex: 1100,
+  zIndex: 3,
   perspective: '1000px',
   transitionProperty: 'opacity, visibility',
   transitionDuration: '150ms',
