@@ -40,6 +40,7 @@ const Backdrop = styled.div({
 
 const Menu = styled.div({
   width: 700,
+  marginBottom: 16,
   borderRadius: 4,
   boxShadow,
   backgroundColor: 'white',
@@ -48,7 +49,10 @@ const Menu = styled.div({
   transformOrigin: '25% 25%',
   transition: 'transform 150ms ease-in-out',
   [breakpoints.md]: {
-    width: 400
+    width: 450
+  },
+  [breakpoints.sm]: {
+    width: 'calc(100vw - 32px)'
   }
 });
 
@@ -114,7 +118,10 @@ const FooterNav = styled.nav({
   display: 'flex',
   alignItems: 'center',
   padding: '16px 24px',
-  backgroundColor: colors.background
+  backgroundColor: colors.background,
+  [breakpoints.md]: {
+    display: 'block'
+  }
 });
 
 const FooterNavItem = styled.a({
@@ -130,7 +137,10 @@ const FooterNavItem = styled.a({
 
 const SocialLinks = styled.div({
   display: 'flex',
-  marginLeft: 'auto'
+  marginLeft: 'auto',
+  [breakpoints.md]: {
+    marginTop: 8
+  }
 });
 
 const SocialLink = styled.a({
