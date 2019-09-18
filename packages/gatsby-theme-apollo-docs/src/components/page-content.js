@@ -4,7 +4,7 @@ import SectionNav from './section-nav';
 import nest from 'recompose/nest';
 import styled from '@emotion/styled';
 import useMount from 'react-use/lib/useMount';
-import {FaGithub} from 'react-icons/fa';
+import {IconGithub} from '@apollo/space-kit/icons/IconGithub';
 import {
   PageNav,
   breakpoints,
@@ -146,7 +146,8 @@ const AsideLink = nest(
       width: 20,
       height: 20,
       marginRight: 6,
-      fill: colors.text2
+      color: colors.text2,
+      fill: 'currentColor'
     }
   })
 );
@@ -211,17 +212,18 @@ export default function PageContent(props) {
         {props.headings.length > 0 && (
           <SectionNav
             headings={props.headings}
-            mainRef={props.mainRef}
             contentRef={contentRef}
             imagesLoaded={imagesLoaded === imagesToLoad}
           />
         )}
         <AsideLink href={props.githubUrl}>
-          <FaGithub /> Edit on GitHub
+          <IconGithub /> Edit on GitHub
         </AsideLink>
-        <AsideLink href={`https://spectrum.chat/apollo/${props.spectrumPath}`}>
-          <SpectrumLogo /> Discuss on Spectrum
-        </AsideLink>
+        {props.spectrumUrl && (
+          <AsideLink href={props.spectrumUrl}>
+            <SpectrumLogo /> Discuss on Spectrum
+          </AsideLink>
+        )}
       </Aside>
     </Container>
   );
@@ -234,7 +236,6 @@ PageContent.propTypes = {
   pages: PropTypes.array.isRequired,
   hash: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  mainRef: PropTypes.object.isRequired,
   headings: PropTypes.array.isRequired,
-  spectrumPath: PropTypes.string
+  spectrumUrl: PropTypes.string
 };

@@ -2,13 +2,8 @@
 import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
-import {MdClose} from 'react-icons/md';
-import {
-  breakpoints,
-  colors,
-  headerHeight,
-  smallCaps
-} from 'gatsby-theme-apollo-core';
+import {IconClose} from '@apollo/space-kit/icons/IconClose';
+import {colors, headerHeight, smallCaps} from 'gatsby-theme-apollo-core';
 import {css} from '@emotion/core';
 import {position, size, transparentize} from 'polished';
 
@@ -18,12 +13,6 @@ const verticalAlign = css({
   position: 'absolute',
   top: '50%',
   transform: 'translateY(-50%)'
-});
-
-const responsiveStyles = css({
-  [breakpoints.lg]: {
-    display: 'none'
-  }
 });
 
 const Hotkey = styled.div(verticalAlign, size(24), {
@@ -39,7 +28,7 @@ const Hotkey = styled.div(verticalAlign, size(24), {
 
 const boxShadowColor = transparentize(0.9, 'black');
 export const boxShadow = `${boxShadowColor} 0 2px 12px`;
-const Container = styled.div(responsiveStyles, {
+const Container = styled.div({
   flexGrow: 1,
   maxWidth: 480,
   marginLeft: 40,
@@ -144,7 +133,6 @@ const StyledInput = styled.input(props => ({
 }));
 
 const Overlay = styled.div(
-  responsiveStyles,
   position('fixed', 0),
   props =>
     !props.visible && {
@@ -167,12 +155,12 @@ const ResetButton = styled.button(verticalAlign, size(20), {
   cursor: 'pointer',
   outline: 'none',
   color: 'inherit',
-  right: 10,
-  svg: {
-    display: 'block',
-    ...size('100%'),
-    fill: 'currentColor'
-  }
+  right: 10
+});
+
+const ResetIcon = styled(IconClose)(size(14), {
+  display: 'block',
+  fill: 'currentColor'
 });
 
 export default function Search(props) {
@@ -242,7 +230,7 @@ export default function Search(props) {
           onBlur={onBlur}
           onChange={onChange}
           value={value}
-          placeholder={`Search ${props.title}`}
+          placeholder={`Search ${props.siteName}`}
           resultsShown={resultsShown}
         />
         {resultsShown && (
@@ -250,7 +238,7 @@ export default function Search(props) {
             onMouseDown={() => event.preventDefault()}
             onClick={reset}
           >
-            <MdClose />
+            <ResetIcon />
           </ResetButton>
         )}
         {!focused && !value && <Hotkey>/</Hotkey>}
@@ -260,7 +248,7 @@ export default function Search(props) {
 }
 
 Search.propTypes = {
-  title: PropTypes.string.isRequired,
+  siteName: PropTypes.string.isRequired,
   apiKey: PropTypes.string.isRequired,
   indexName: PropTypes.string.isRequired
 };

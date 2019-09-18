@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from '@emotion/styled';
-import {MdKeyboardArrowDown} from 'react-icons/md';
+import {IconArrowDown} from '@apollo/space-kit/icons/IconArrowDown';
 import {getButtonStyles} from './buttons';
 import {size} from 'polished';
 
@@ -20,13 +20,15 @@ const StyledSelect = styled.select(getButtonStyles, {
   fontSize: 'inherit'
 });
 
-const StyledIcon = styled(MdKeyboardArrowDown)(size('1.5em'), {
+export const iconStyles = {
   pointerEvents: 'none',
   position: 'absolute',
   top: '50%',
-  right: '0.5em',
+  right: '0.75em',
   transform: 'translateY(-50%)'
-});
+};
+
+const StyledIcon = styled(IconArrowDown)(size('1em'), iconStyles);
 
 export function Select({className, style, ...props}) {
   return (

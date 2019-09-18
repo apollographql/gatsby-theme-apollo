@@ -1,11 +1,12 @@
 import Category from './category';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import store from 'store';
 import styled from '@emotion/styled';
+import {IconCollapseList} from '@apollo/space-kit/icons/IconCollapseList';
+import {IconExpandList} from '@apollo/space-kit/icons/IconExpandList';
 import {Link, withPrefix} from 'gatsby';
-import {MdUnfoldLess, MdUnfoldMore} from 'react-icons/md';
 import {colors} from '../../utils/colors';
+import {size} from 'polished';
 import {smallCaps} from '../../utils/typography';
 
 const StyledList = styled.ul({
@@ -44,20 +45,10 @@ const ExpandAll = styled.button(listItemStyles, smallCaps, {
   outline: 'none',
   cursor: 'pointer',
   svg: {
-    marginLeft: -4,
-    marginRight: 4
+    ...size(14),
+    marginRight: 8
   }
 });
-
-const SIDEBAR_NAV_STATE_KEY = 'sidebarNav';
-
-function getSidebarState() {
-  return store.get(SIDEBAR_NAV_STATE_KEY) || {};
-}
-
-function setSidebarState(state) {
-  store.set(SIDEBAR_NAV_STATE_KEY, state);
-}
 
 function getId(title) {
   return withPrefix(title);
@@ -67,11 +58,10 @@ export default class SidebarNav extends Component {
   constructor(props) {
     super(props);
 
-    const sidebarState = getSidebarState();
+    const sidebarState = {};
     const activeCategory = props.contents.find(this.isCategorySelected);
     if (activeCategory) {
       sidebarState[getId(activeCategory.title)] = true;
-      setSidebarState(sidebarState);
     }
 
     this.state = {
@@ -84,7 +74,8 @@ export default class SidebarNav extends Component {
     contents: PropTypes.array.isRequired,
     pathname: PropTypes.string.isRequired,
     onToggleAll: PropTypes.func,
-    onToggleCategory: PropTypes.func
+    onToggleCategory: PropTypes.func,
+    onLinkClick: PropTypes.func
   };
 
   get allExpanded() {
@@ -109,7 +100,7 @@ export default class SidebarNav extends Component {
       const id = getId(title);
       const expanded = !prevState.sidebarState[id];
       const sidebarState = {
-        ...getSidebarState(),
+        ...prevState.sidebarState,
         [id]: expanded
       };
 
@@ -117,7 +108,6 @@ export default class SidebarNav extends Component {
         this.props.onToggleCategory(title, expanded);
       }
 
-      setSidebarState(sidebarState);
       return {sidebarState};
     });
   };
@@ -132,7 +122,6 @@ export default class SidebarNav extends Component {
       {}
     );
 
-    setSidebarState(sidebarState);
     this.setState({sidebarState});
     if (this.props.onToggleAll) {
       this.props.onToggleAll(expanded);
@@ -150,6 +139,7 @@ export default class SidebarNav extends Component {
               <Link
                 className={this.isPageSelected(page) ? 'active' : null}
                 to={page.path}
+                onClick={this.props.onLinkClick}
               >
                 {page.title}
               </Link>
@@ -166,13 +156,13 @@ export default class SidebarNav extends Component {
         {this.props.contents.map(({title, path, pages}, index, array) => {
           const contents = this.renderPages(pages);
           if (!title) {
-            const Icon = this.allExpanded ? MdUnfoldLess : MdUnfoldMore;
+            const Icon = this.allExpanded ? IconCollapseList : IconExpandList;
             return (
               <Fragment key="root">
                 {contents}
                 {array.length > 2 && (
                   <ExpandAll onClick={this.toggleAll}>
-                    <Icon size={18} />
+                    <Icon />
                     {this.allExpanded ? 'Collapse' : 'Expand'} all
                   </ExpandAll>
                 )}

@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo-core",
-  "version": "2.0.0",
+  "version": "2.0.2-alpha.8",
   "main": "index.js",
   "description": "A theme for bootstrapping Gatsby websites at Apollo",
   "author": "Trevor Blades <blades@apollographql.com>",
@@ -10,7 +10,7 @@
     "directory": "packages/gatsby-theme-apollo-core"
   },
   "dependencies": {
-    "@apollo/space-kit": "0.0.8",
+    "@apollo/space-kit": "^2.7.0",
     "@emotion/core": "^10.0.7",
     "@emotion/styled": "^10.0.7",
     "@svgr/webpack": "^4.2.0",
@@ -23,9 +23,7 @@
     "polished": "^2.3.3",
     "prop-types": "^15.6.2",
     "react-helmet": "^5.2.0",
-    "react-icons": "^3.3.0",
-    "react-use": "^9.11.0",
-    "store": "^2.0.12"
+    "react-use": "^9.11.0"
   },
   "devDependencies": {
     "gatsby": "^2.13.80"

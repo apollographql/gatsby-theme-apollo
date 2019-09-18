@@ -1,53 +1,51 @@
 const navConfig = {
-  '/docs': {
-    text: 'Platform',
-    matchRegex:
-      '^/docs/(?!(tutorial|react|angular|link|ios|android|scalajs|apollo-server|graphql-tools|graphql-subscriptions|community))'
+  'https://www.apollographql.com/docs': {
+    text: 'Apollo Basics',
+    description:
+      'Learn about each part of the Apollo platform and how they all work together.'
   },
-  '/docs/tutorial/introduction': {
-    text: 'Tutorial',
-    matchRegex: '^/docs/tutorial'
+  'https://www.apollographql.com/docs/apollo-server': {
+    text: 'Apollo Server',
+    description:
+      'Configure a production-ready GraphQL server to fetch and combine data from multiple sources.'
   },
-  '/docs/react': {
-    text: 'Client',
-    subpages: {
-      '/docs/react': 'React + React Native',
-      '/docs/angular': 'Angular',
-      'https://github.com/akryum/vue-apollo': 'Vue.js',
-      '/docs/link': 'Apollo Link',
-      '/docs/ios': 'Native iOS',
-      '/docs/android': 'Native Android',
-      '/docs/scalajs': 'Scala.js'
-    }
+  'https://www.apollographql.com/docs/react': {
+    text: 'Apollo Client (React)',
+    description:
+      "Manage the entirety of your React app's state and seamlessly execute GraphQL operations."
   },
-  '/docs/apollo-server': {
-    text: 'Server',
-    subpages: {
-      '/docs/apollo-server': 'Apollo Server',
-      '/docs/graphql-tools': 'graphql-tools',
-      '/docs/graphql-subscriptions': 'GraphQL subscriptions'
-    }
+  'https://www.apollographql.com/docs/graph-manager': {
+    text: 'Apollo Graph Manager',
+    description:
+      "Integrate with Apollo's cloud service for schema versioning, metrics, and enhanced security."
   },
-  '/docs/community': {
-    text: 'Community',
-    subpages: {
-      'https://blog.apollographql.com': 'Blog',
-      'https://spectrum.chat/apollo': 'Spectrum',
-      'https://twitter.com/apollographql': 'Twitter',
-      'https://youtube.com/channel/UC0pEW_GOrMJ23l8QcrGdKSw': 'YouTube',
-      '/docs/community': 'Contribute',
-      'https://summit.graphql.com': 'GraphQL Summit',
-      'https://graphql.com': 'Explore GraphQL'
-    }
+  'https://www.apollographql.com/docs/ios': {
+    text: 'Apollo Client (iOS)',
+    description:
+      "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations."
+  },
+  'https://www.apollographql.com/docs/link': {
+    text: 'Apollo Link',
+    description:
+      'Define a custom chain of actions that your client performs with each GraphQL operation.'
   }
 };
 
 module.exports = {
   siteName: 'Apollo Docs',
+  menuTitle: 'Apollo Platform',
   trackingId: 'UA-74643563-13',
   algoliaApiKey: '768e823959d35bbd51e4b2439be13fb7',
   algoliaIndexName: 'apollodata',
   baseUrl: 'https://www.apollographql.com',
   twitterHandle: 'apollographql',
-  navConfig
+  spectrumHandle: 'apollo',
+  youtubeUrl: 'https://www.youtube.com/channel/UC0pEW_GOrMJ23l8QcrGdKSw',
+  logoLink: 'https://www.apollographql.com/docs/',
+  navConfig,
+  footerNavConfig: {
+    Blog: 'https://blog.apollographql.com/',
+    Contribute: 'https://www.apollographql.com/docs/community/',
+    'GraphQL Summit': 'https://summit.graphql.com/'
+  }
 };

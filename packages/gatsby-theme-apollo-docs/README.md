@@ -79,7 +79,9 @@ module.exports = {
 | algoliaApiKey     | string | Your [Algolia DocSearch](https://community.algolia.com/docsearch/) API key                                           |
 | algoliaIndexName  | string | The name of your DocSearch index                                                                                     |
 | baseUrl           | string | The origin where your website will be hosted (e.g. `https://www.apollographql.com`)                                  |
+| spectrumHandle    | string | Your Spectrum community's handle/slug                                                                                |
 | twitterHandle     | string | Your Twitter handle, without the "@"                                                                                 |
+| youtubeUrl        | string | The URL of your YouTube channel                                                                                      |
 | versions          | array  | An array of objects representing the versions that the website should generate                                       |
 | sidebarCategories | object | An object mapping categories to page paths (see [`sidebarCategories` reference](#sidebarcategories))                 |
 | navConfig         | object | An object defining the top-left navigation links (see [`navConfig` reference](#navconfig))                           |

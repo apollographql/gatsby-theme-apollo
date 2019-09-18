@@ -6,7 +6,8 @@ module.exports = ({
   githubRepo,
   versions = {},
   trackingId,
-  checkLinksOptions
+  checkLinksOptions,
+  twitterHandle
 }) => {
   const gatsbyRemarkPlugins = [
     'gatsby-remark-autolink-headers',
@@ -32,9 +33,11 @@ module.exports = ({
 
   return {
     siteMetadata: {
-      title: siteName,
+      title: 'Apollo GraphQL Docs',
+      siteName,
       subtitle,
-      description
+      description,
+      twitterHandle
     },
     plugins: [
       {

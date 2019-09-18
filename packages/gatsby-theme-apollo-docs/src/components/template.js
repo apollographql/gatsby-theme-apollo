@@ -1,50 +1,36 @@
-import '../prism.less';
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import CodeBlock from './code-block';
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer';
-import Nav from './nav';
 import PageContent from './page-content';
 import PageHeader from './page-header';
 import PropTypes from 'prop-types';
-import React, {useRef} from 'react';
+import React, {Fragment} from 'react';
 import SEO from './seo';
-import Search from './search';
-import SelectLink from './select-link';
-import SidebarContent from './sidebar-content';
 import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
-import {
-  ContentWrapper,
-  DesktopHeader,
-  FlexWrapper,
-  Layout,
-  LogoTitle,
-  MenuButton,
-  MobileHeader,
-  ResponsiveSidebar,
-  Sidebar
-} from 'gatsby-theme-apollo-core';
+import {ContentWrapper} from 'gatsby-theme-apollo-core';
+import {Link, graphql} from 'gatsby';
 import {MDXProvider} from '@mdx-js/react';
 import {TypescriptApiBoxContext} from './typescript-api-box';
-import {graphql} from 'gatsby';
-
-const StyledLogoTitle = styled(LogoTitle)({
-  marginRight: 'auto'
-});
-
-const Main = styled.main({
-  flexGrow: 1,
-  outline: 'none',
-  overflowY: 'auto',
-  WebkitOverflowScrolling: 'touch'
-});
 
 const StyledContentWrapper = styled(ContentWrapper)({
   paddingBottom: 0
 });
 
+function CustomLink({href, ...props}) {
+  return href && href.startsWith('/') ? (
+    <Link to={href} {...props} />
+  ) : (
+    <a href={href} {...props} />
+  );
+}
+
+CustomLink.propTypes = {
+  href: PropTypes.string
+};
+
 const components = {
-  pre: CodeBlock
+  pre: CodeBlock,
+  a: CustomLink
 };
 
 const renderAst = new rehypeReact({
@@ -53,26 +39,15 @@ const renderAst = new rehypeReact({
 }).Compiler;
 
 export default function Template(props) {
-  const mainRef = useRef(null);
-
-  function isPathActive(value) {
-    return !props.location.pathname.indexOf(value);
-  }
-
   const {hash, pathname} = props.location;
   const {file, site} = props.data;
   const {frontmatter, headings} = file.childMarkdownRemark || file.childMdx;
-  const {title, description, subtitle, twitterHandle} = site.siteMetadata;
+  const {title, description, twitterHandle} = site.siteMetadata;
   const {
     sidebarContents,
     githubUrl,
-    spectrumPath,
+    spectrumUrl,
     typescriptApiBox,
-    versions,
-    defaultVersion,
-    algoliaApiKey,
-    algoliaIndexName,
-    navItems,
     baseUrl
   } = props.pageContext;
 
@@ -81,7 +56,7 @@ export default function Template(props) {
     .filter(page => !page.anchor);
 
   return (
-    <Layout>
+    <Fragment>
       <SEO
         title={frontmatter.title}
         description={frontmatter.description || description}
@@ -89,71 +64,30 @@ export default function Template(props) {
         twitterHandle={twitterHandle}
         baseUrl={baseUrl}
       />
-      <ResponsiveSidebar>
-        {({sidebarRef, onWrapperClick, openSidebar, sidebarOpen}) => (
-          <FlexWrapper onClick={onWrapperClick}>
-            <Sidebar
-              responsive
-              open={sidebarOpen}
-              ref={sidebarRef}
-              title={title}
-            >
-              <SidebarContent
-                title={subtitle}
-                pathname={pathname}
-                contents={sidebarContents}
-                versions={versions}
-                defaultVersion={defaultVersion}
-                isPathActive={isPathActive}
-              />
-            </Sidebar>
-            <Main ref={mainRef} tabIndex={0}>
-              <MobileHeader>
-                <MenuButton onClick={openSidebar} />
-                <StyledLogoTitle />
-                <SelectLink options={navItems} isPathActive={isPathActive} />
-              </MobileHeader>
-              <DesktopHeader>
-                <Search
-                  title={title}
-                  apiKey={algoliaApiKey}
-                  indexName={algoliaIndexName}
-                />
-                <Nav
-                  items={navItems}
-                  pathname={pathname}
-                  isPathActive={isPathActive}
-                />
-              </DesktopHeader>
-              <StyledContentWrapper>
-                <PageHeader {...frontmatter} />
-                <hr />
-                <PageContent
-                  title={frontmatter.title}
-                  pathname={pathname}
-                  pages={pages}
-                  headings={headings}
-                  hash={hash}
-                  githubUrl={githubUrl}
-                  spectrumPath={spectrumPath}
-                  mainRef={mainRef}
-                >
-                  {file.childMdx ? (
-                    <TypescriptApiBoxContext.Provider value={typescriptApiBox}>
-                      <MDXProvider components={components}>
-                        <MDXRenderer>{file.childMdx.body}</MDXRenderer>
-                      </MDXProvider>
-                    </TypescriptApiBoxContext.Provider>
-                  ) : (
-                    renderAst(file.childMarkdownRemark.htmlAst)
-                  )}
-                </PageContent>
-              </StyledContentWrapper>
-            </Main>
-          </FlexWrapper>
-        )}
-      </ResponsiveSidebar>
-    </Layout>
+      <StyledContentWrapper>
+        <PageHeader {...frontmatter} />
+        <hr />
+        <PageContent
+          title={frontmatter.title}
+          pathname={pathname}
+          pages={pages}
+          headings={headings}
+          hash={hash}
+          githubUrl={githubUrl}
+          spectrumUrl={spectrumUrl}
+        >
+          {file.childMdx ? (
+            <TypescriptApiBoxContext.Provider value={typescriptApiBox}>
+              <MDXProvider components={components}>
+                <MDXRenderer>{file.childMdx.body}</MDXRenderer>
+              </MDXProvider>
+            </TypescriptApiBoxContext.Provider>
+          ) : (
+            renderAst(file.childMarkdownRemark.htmlAst)
+          )}
+        </PageContent>
+      </StyledContentWrapper>
+    </Fragment>
   );
 }
 
@@ -169,7 +103,7 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         description
-        subtitle
+        twitterHandle
       }
     }
     file(id: {eq: $id}) {

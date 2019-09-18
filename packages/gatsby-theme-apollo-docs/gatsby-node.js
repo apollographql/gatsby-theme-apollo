@@ -1,7 +1,7 @@
 const jsYaml = require('js-yaml');
 const path = require('path');
 const {createFilePath} = require('gatsby-source-filesystem');
-const {getVersionBasePath, generateNavItems} = require('./src/utils');
+const {getVersionBasePath, getSpectrumUrl} = require('./src/utils');
 
 async function onCreateNode({node, actions, getNode, loadNodeContent}) {
   if (configPaths.includes(node.relativePath)) {
@@ -47,7 +47,7 @@ function getPageFromEdge({node}) {
   return node.childMarkdownRemark || node.childMdx;
 }
 
-function getSidebarContents(sidebarCategories, edges, version) {
+function getSidebarContents(sidebarCategories, edges, version, contentDir) {
   return Object.keys(sidebarCategories).map(key => ({
     title: key === 'null' ? null : key,
     pages: sidebarCategories[key]
@@ -68,8 +68,7 @@ function getSidebarContents(sidebarCategories, edges, version) {
             fields.version === version &&
             relativePath
               .slice(0, relativePath.lastIndexOf('.'))
-              // TODO: replace docs/source with contentDir option
-              .replace(/^docs\/source\//, '') === linkPath
+              .replace(new RegExp(`^${contentDir}/`), '') === linkPath
           );
         });
 
@@ -154,19 +153,17 @@ exports.createPages = async ({actions, graphql}, options) => {
     contentDir = 'docs/source',
     githubRepo,
     sidebarCategories,
+    spectrumHandle,
     spectrumPath,
     typescriptApiBox,
     versions = {},
     defaultVersion,
-    algoliaApiKey,
-    algoliaIndexName,
-    navConfig,
     baseUrl
   } = options;
 
   const {edges} = data.allFile;
   const sidebarContents = {
-    default: getSidebarContents(sidebarCategories, edges, 'default')
+    default: getSidebarContents(sidebarCategories, edges, 'default', contentDir)
   };
 
   const versionKeys = [];
@@ -197,7 +194,8 @@ exports.createPages = async ({actions, graphql}, options) => {
     sidebarContents[version] = getSidebarContents(
       getVersionSidebarCategories(...configs),
       edges,
-      version
+      version,
+      contentDir
     );
   }
 
@@ -223,13 +221,12 @@ exports.createPages = async ({actions, graphql}, options) => {
             contentDir,
             relativePath
           ),
-        spectrumPath: spectrumPath || repo,
+        spectrumUrl:
+          spectrumHandle &&
+          getSpectrumUrl(spectrumHandle) + (spectrumPath || `/${repo}`),
         typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
         defaultVersion,
-        algoliaApiKey,
-        algoliaIndexName,
-        navItems: generateNavItems(baseUrl, navConfig),
         baseUrl
       }
     });
