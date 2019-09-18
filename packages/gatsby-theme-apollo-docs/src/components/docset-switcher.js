@@ -75,11 +75,13 @@ const NavItemInner = styled.a({
   transitionProperty: 'color, background-color',
   transitionDuration: '150ms',
   transitionTimingFunction: 'ease-in-out',
-  ':hover': {
-    color: 'white',
-    backgroundColor: colors.primary,
-    p: {
-      color: colors.primaryLight
+  '@media (hover: hover)': {
+    ':hover': {
+      color: 'white',
+      backgroundColor: colors.primary,
+      p: {
+        color: colors.primaryLight
+      }
     }
   }
 });
