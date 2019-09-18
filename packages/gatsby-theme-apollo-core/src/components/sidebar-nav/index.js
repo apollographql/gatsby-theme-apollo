@@ -74,7 +74,8 @@ export default class SidebarNav extends Component {
     contents: PropTypes.array.isRequired,
     pathname: PropTypes.string.isRequired,
     onToggleAll: PropTypes.func,
-    onToggleCategory: PropTypes.func
+    onToggleCategory: PropTypes.func,
+    onLinkClick: PropTypes.func
   };
 
   get allExpanded() {
@@ -138,6 +139,7 @@ export default class SidebarNav extends Component {
               <Link
                 className={this.isPageSelected(page) ? 'active' : null}
                 to={page.path}
+                onClick={this.props.onLinkClick}
               >
                 {page.title}
               </Link>
