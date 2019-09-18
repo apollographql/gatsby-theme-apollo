@@ -31,6 +31,22 @@ const navConfig = {
   }
 };
 
+const footerNavConfig = {
+  Blog: {
+    href: 'https://blog.apollographql.com/',
+    target: '_blank',
+    rel: 'noopener noreferrer'
+  },
+  Contribute: {
+    href: 'https://www.apollographql.com/docs/community/'
+  },
+  'GraphQL Summit': {
+    href: 'https://summit.graphql.com/',
+    target: '_blank',
+    rel: 'noopener noreferrer'
+  }
+};
+
 module.exports = {
   siteName: 'Apollo Docs',
   menuTitle: 'Apollo Platform',
@@ -43,9 +59,5 @@ module.exports = {
   youtubeUrl: 'https://www.youtube.com/channel/UC0pEW_GOrMJ23l8QcrGdKSw',
   logoLink: 'https://www.apollographql.com/docs/',
   navConfig,
-  footerNavConfig: {
-    Blog: 'https://blog.apollographql.com/',
-    Contribute: 'https://www.apollographql.com/docs/community/',
-    'GraphQL Summit': 'https://summit.graphql.com/'
-  }
+  footerNavConfig
 };
