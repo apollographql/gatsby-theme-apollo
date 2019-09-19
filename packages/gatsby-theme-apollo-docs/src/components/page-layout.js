@@ -129,8 +129,8 @@ export default function PageLayout(props) {
     spectrumHandle,
     twitterHandle,
     youtubeUrl,
-    navConfig,
-    footerNavConfig,
+    navItems,
+    footerNavItems,
     logoLink,
     algoliaApiKey,
     algoliaIndexName,
@@ -226,8 +226,8 @@ export default function PageLayout(props) {
         spectrumUrl={spectrumHandle && getSpectrumUrl(spectrumHandle)}
         twitterUrl={twitterHandle && `https://twitter.com/${twitterHandle}`}
         youtubeUrl={youtubeUrl}
-        navConfig={navConfig}
-        footerNavConfig={footerNavConfig}
+        navItems={navItems}
+        footerNavItems={footerNavItems}
         open={menuOpen}
         buttonRef={buttonRef}
         onClose={closeMenu}

@@ -7,6 +7,7 @@ import {IconYoutube} from '@apollo/space-kit/icons/IconYoutube';
 import {ReactComponent as SpectrumIcon} from '../assets/logos/spectrum.svg';
 import {boxShadow} from './search';
 import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo-core';
+import {graphql, useStaticQuery} from 'gatsby';
 import {size, transparentize} from 'polished';
 
 const Wrapper = styled.div({
@@ -24,10 +25,13 @@ const Wrapper = styled.div({
   transitionTimingFunction: 'ease-in-out'
 });
 
-const Menu = styled.div({
-  width: 700,
+const MenuBase = styled.div({
   marginBottom: 16,
-  borderRadius: 4,
+  borderRadius: 4
+});
+
+const Menu = styled(MenuBase)({
+  width: 700,
   boxShadow,
   backgroundColor: 'white',
   overflow: 'hidden',
@@ -42,6 +46,11 @@ const Menu = styled.div({
   }
 });
 
+const StandaloneMenu = styled(MenuBase)({
+  padding: 12,
+  backgroundColor: colors.background
+});
+
 const MenuTitle = styled.h6(smallCaps, {
   margin: 24,
   marginBottom: 0,
@@ -50,10 +59,13 @@ const MenuTitle = styled.h6(smallCaps, {
   color: colors.text3
 });
 
+const NavWrapper = styled.div({
+  margin: 12
+});
+
 const StyledNav = styled.nav({
   display: 'flex',
-  flexWrap: 'wrap',
-  margin: 12
+  flexWrap: 'wrap'
 });
 
 const NavItem = styled.div({
@@ -156,6 +168,49 @@ function getMenuStyles(element) {
   };
 }
 
+function DocsetNav(props) {
+  return (
+    <StyledNav>
+      {props.items.map(item => (
+        <NavItem key={item.url}>
+          <NavItemInner href={item.url}>
+            <NavItemTitle>{item.title}</NavItemTitle>
+            <NavItemDescription>{item.description}</NavItemDescription>
+          </NavItemInner>
+        </NavItem>
+      ))}
+    </StyledNav>
+  );
+}
+
+DocsetNav.propTypes = {
+  items: PropTypes.array.isRequired
+};
+
+export function StandaloneDocsetNav() {
+  const {sitePlugin} = useStaticQuery(
+    graphql`
+      {
+        sitePlugin(name: {eq: "gatsby-theme-apollo-docs"}) {
+          pluginOptions {
+            navItems {
+              url
+              title
+              description
+            }
+          }
+        }
+      }
+    `
+  );
+
+  return (
+    <StandaloneMenu>
+      <DocsetNav items={sitePlugin.pluginOptions.navItems} />
+    </StandaloneMenu>
+  );
+}
+
 export default function DocsetSwitcher(props) {
   useKey('Escape', props.onClose);
 
@@ -181,21 +236,14 @@ export default function DocsetSwitcher(props) {
         }}
       >
         <MenuTitle>{props.siteName}</MenuTitle>
-        <StyledNav>
-          {Object.entries(props.navConfig).map(([path, navItem]) => (
-            <NavItem key={path}>
-              <NavItemInner href={path}>
-                <NavItemTitle>{navItem.text}</NavItemTitle>
-                <NavItemDescription>{navItem.description}</NavItemDescription>
-              </NavItemInner>
-            </NavItem>
-          ))}
-        </StyledNav>
+        <NavWrapper>
+          <DocsetNav items={props.navItems} />
+        </NavWrapper>
         <FooterNav>
-          {(props.footerNavConfig || props.spectrumUrl || props.twitterUrl) && (
+          {(props.footerNavItems || props.spectrumUrl || props.twitterUrl) && (
             <Fragment>
-              {props.footerNavConfig &&
-                Object.entries(props.footerNavConfig).map(([text, props]) => (
+              {props.footerNavItems &&
+                props.footerNavItems.map(({text, ...props}) => (
                   <FooterNavItem key={text} {...props}>
                     {text}
                   </FooterNavItem>
@@ -244,8 +292,8 @@ DocsetSwitcher.propTypes = {
   onClose: PropTypes.func.isRequired,
   buttonRef: PropTypes.object.isRequired,
   siteName: PropTypes.string.isRequired,
-  navConfig: PropTypes.object.isRequired,
-  footerNavConfig: PropTypes.object.isRequired,
+  navItems: PropTypes.array.isRequired,
+  footerNavItems: PropTypes.array.isRequired,
   spectrumUrl: PropTypes.string,
   twitterUrl: PropTypes.string,
   youtubeUrl: PropTypes.string

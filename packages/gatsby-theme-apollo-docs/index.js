@@ -9,3 +9,4 @@ export {
   ExpansionPanelList,
   ExpansionPanelListItem
 } from './src/components/expansion-panel';
+export {StandaloneDocsetNav} from './src/components/docset-switcher';

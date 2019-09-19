@@ -6,7 +6,7 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 - [Configuration](#configuration)
   - [`versions`](#versions)
   - [`sidebarCategories`](#sidebarcategories)
-  - [`navConfig`](#navconfig)
+  - [`navItems`](#navitems)
 - [Creating pages](#creating-pages)
 - [Components](#components)
   - [`Button`](#button)
@@ -84,7 +84,7 @@ module.exports = {
 | youtubeUrl        | string | The URL of your YouTube channel                                                                                      |
 | versions          | array  | An array of objects representing the versions that the website should generate                                       |
 | sidebarCategories | object | An object mapping categories to page paths (see [`sidebarCategories` reference](#sidebarcategories))                 |
-| navConfig         | object | An object defining the top-left navigation links (see [`navConfig` reference](#navconfig))                           |
+| navItems         | array | An object defining the top-left navigation links (see [`navItems` reference](#navitems))                           |
 | checkLinksOptions | object | Options accepted by [`gastby-remark-check-links`](https://github.com/trevorblades/gatsby-remark-check-links#options) |
 
 ### `versions`
@@ -120,37 +120,9 @@ The `sidebarCategories` option is an object keyed by category titles. Each entry
 }
 ```
 
-### `navConfig`
+### `navItems`
 
-The `navConfig` option should be an object keyed by page paths, with their values being some configuration for their link in the nav. You should supply a `text` property, and may want to use optional `matchRegex` and/or `subpages` properties.
-
-- `matchRegex` allows for finer control over when a nav item should appear active. If omitted, an equality comparison between the current page path and the path key will be used.
-- `subpages` is an object with paths as keys and link text as values. It's used to render a dropdown below the main link on hover.
-
-```js
-{
-  '/docs': {
-    text: 'Platform',
-    matchRegex: '^/docs/(?!tutorial)'
-  },
-  '/docs/tutorial/introduction': {
-    text: 'Tutorial',
-    matchRegex: '^/docs/tutorial'
-  },
-  '/docs/react': {
-    text: 'Client',
-    subpages: {
-      '/docs/react': 'React + React Native',
-      '/docs/angular': 'Angular',
-      'https://github.com/akryum/vue-apollo': 'Vue.js',
-      '/docs/link': 'Apollo Link',
-      '/docs/ios': 'Native iOS',
-      '/docs/android': 'Native Android',
-      '/docs/scalajs': 'Scala.js'
-    }
-  }
-}
-```
+The `navItems` option should be an array of objects with `title`, `description`, and `url` properties. Check out the [default theme options](./theme-options.js) for an example of the expected shape of this data.
 
 ## Creating pages
 
