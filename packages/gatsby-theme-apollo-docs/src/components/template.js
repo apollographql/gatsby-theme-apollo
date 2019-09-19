@@ -3,7 +3,7 @@ import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer';
 import PageContent from './page-content';
 import PageHeader from './page-header';
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
+import React, {Fragment, createContext, useContext} from 'react';
 import SEO from './seo';
 import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
@@ -16,21 +16,21 @@ const StyledContentWrapper = styled(ContentWrapper)({
   paddingBottom: 0
 });
 
+const PathPrefixContext = createContext();
+
 function CustomLink(props) {
+  const pathPrefix = useContext(PathPrefixContext);
+
   function handleClick(event) {
     const href = event.target.getAttribute('href');
     if (href.startsWith('/')) {
       event.preventDefault();
-      navigate(href);
+      navigate(href.replace(pathPrefix, ''));
     }
   }
 
   return <a {...props} onClick={handleClick} />;
 }
-
-CustomLink.propTypes = {
-  href: PropTypes.string
-};
 
 const components = {
   pre: CodeBlock,
@@ -80,15 +80,17 @@ export default function Template(props) {
           githubUrl={githubUrl}
           spectrumUrl={spectrumUrl}
         >
-          {file.childMdx ? (
-            <TypescriptApiBoxContext.Provider value={typescriptApiBox}>
-              <MDXProvider components={components}>
-                <MDXRenderer>{file.childMdx.body}</MDXRenderer>
-              </MDXProvider>
-            </TypescriptApiBoxContext.Provider>
-          ) : (
-            renderAst(file.childMarkdownRemark.htmlAst)
-          )}
+          <PathPrefixContext.Provider value={site.pathPrefix}>
+            {file.childMdx ? (
+              <TypescriptApiBoxContext.Provider value={typescriptApiBox}>
+                <MDXProvider components={components}>
+                  <MDXRenderer>{file.childMdx.body}</MDXRenderer>
+                </MDXProvider>
+              </TypescriptApiBoxContext.Provider>
+            ) : (
+              renderAst(file.childMarkdownRemark.htmlAst)
+            )}
+          </PathPrefixContext.Provider>
         </PageContent>
       </StyledContentWrapper>
     </Fragment>
@@ -104,6 +106,7 @@ Template.propTypes = {
 export const pageQuery = graphql`
   query PageQuery($id: String) {
     site {
+      pathPrefix
       siteMetadata {
         title
         description
