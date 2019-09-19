@@ -8,20 +8,24 @@ import SEO from './seo';
 import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
 import {ContentWrapper} from 'gatsby-theme-apollo-core';
-import {Link, graphql} from 'gatsby';
 import {MDXProvider} from '@mdx-js/react';
 import {TypescriptApiBoxContext} from './typescript-api-box';
+import {graphql, navigate} from 'gatsby';
 
 const StyledContentWrapper = styled(ContentWrapper)({
   paddingBottom: 0
 });
 
-function CustomLink({href, ...props}) {
-  return href && href.startsWith('/') ? (
-    <Link to={href} {...props} />
-  ) : (
-    <a href={href} {...props} />
-  );
+function CustomLink(props) {
+  function handleClick(event) {
+    const href = event.target.getAttribute('href');
+    if (href.startsWith('/')) {
+      event.preventDefault();
+      navigate(href);
+    }
+  }
+
+  return <a {...props} onClick={handleClick} />;
 }
 
 CustomLink.propTypes = {
