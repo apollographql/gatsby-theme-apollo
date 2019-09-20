@@ -3,7 +3,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import DocsetSwitcher from './docset-switcher';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
-import React, {useRef, useState} from 'react';
+import React, {createContext, useMemo, useRef, useState} from 'react';
 import Search from './search';
 import SelectLink from './select-link';
 import styled from '@emotion/styled';
@@ -85,6 +85,8 @@ function handleToggleCategory(title, expanded) {
   });
 }
 
+export const NavItemsContext = createContext();
+
 export default function PageLayout(props) {
   const mainRef = useRef(null);
   const sidebarRef = useRef(null);
@@ -129,13 +131,22 @@ export default function PageLayout(props) {
     spectrumHandle,
     twitterHandle,
     youtubeUrl,
-    navItems,
-    footerNavItems,
+    navConfig,
+    footerNavConfig,
     logoLink,
     algoliaApiKey,
     algoliaIndexName,
     menuTitle
   } = props.pluginOptions;
+
+  const navItems = useMemo(
+    () =>
+      Object.entries(navConfig).map(([title, navItem]) => ({
+        ...navItem,
+        title
+      })),
+    [navConfig]
+  );
 
   return (
     <Layout>
@@ -217,7 +228,9 @@ export default function PageLayout(props) {
             />
           </Header>
           <MainRefContext.Provider value={mainRef}>
-            {props.children}
+            <NavItemsContext.Provider value={navItems}>
+              {props.children}
+            </NavItemsContext.Provider>
           </MainRefContext.Provider>
         </Main>
       </FlexWrapper>
@@ -227,7 +240,7 @@ export default function PageLayout(props) {
         twitterUrl={twitterHandle && `https://twitter.com/${twitterHandle}`}
         youtubeUrl={youtubeUrl}
         navItems={navItems}
-        footerNavItems={footerNavItems}
+        footerNavConfig={footerNavConfig}
         open={menuOpen}
         buttonRef={buttonRef}
         onClose={closeMenu}

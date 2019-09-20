@@ -6,7 +6,7 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 - [Configuration](#configuration)
   - [`versions`](#versions)
   - [`sidebarCategories`](#sidebarcategories)
-  - [`navItems`](#navitems)
+  - [`navConfig`](#navconfig)
 - [Creating pages](#creating-pages)
 - [Components](#components)
   - [`Button`](#button)
@@ -84,7 +84,7 @@ module.exports = {
 | youtubeUrl        | string | The URL of your YouTube channel                                                                                      |
 | versions          | array  | An array of objects representing the versions that the website should generate                                       |
 | sidebarCategories | object | An object mapping categories to page paths (see [`sidebarCategories` reference](#sidebarcategories))                 |
-| navItems         | array | An object defining the top-left navigation links (see [`navItems` reference](#navitems))                           |
+| navConfig         | object | An object defining the top-left navigation links (see [`navConfig` reference](#navconfig))                           |
 | checkLinksOptions | object | Options accepted by [`gastby-remark-check-links`](https://github.com/trevorblades/gatsby-remark-check-links#options) |
 
 ### `versions`
@@ -120,9 +120,9 @@ The `sidebarCategories` option is an object keyed by category titles. Each entry
 }
 ```
 
-### `navItems`
+### `navConfig`
 
-The `navItems` option should be an array of objects with `title`, `description`, and `url` properties. Check out the [default theme options](./theme-options.js) for an example of the expected shape of this data.
+The `navConfig` option should be an object keyed by link titles. The values should be objects with `description`, and `url` properties. Check out the [default theme options](./theme-options.js) for an example of the expected shape of this data.
 
 ## Creating pages
 
