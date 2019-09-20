@@ -4,15 +4,6 @@ import {Link} from 'gatsby';
 import {colors} from 'gatsby-theme-apollo-core';
 import {darken, transparentize} from 'polished';
 
-export const ButtonWrapper = styled.div({
-  display: 'flex',
-  justifyContent: 'space-evenly',
-  width: '100%',
-  maxWidth: 640,
-  margin: '0 auto',
-  marginBottom: 24
-});
-
 function getButtonShadow(state) {
   const isFocused = state === 'focused';
   return [
@@ -143,3 +134,13 @@ export const ButtonLink = styled(Link)(getButtonStyles, {
 
 ButtonLink.propTypes = Button.propTypes;
 ButtonLink.defaultProps = Button.defaultProps;
+
+export const ButtonWrapper = styled.div({
+  display: 'flex',
+  marginBottom: 16,
+  [[Button, ButtonLink]]: {
+    ':not(:last-child)': {
+      marginRight: 16
+    }
+  }
+});
