@@ -86,13 +86,13 @@ const NavItemInner = styled.a({
   }
 });
 
-const NavItemTitle = styled.h4({
+export const NavItemTitle = styled.h4({
   marginBottom: 8,
   fontWeight: 600,
   color: 'inherit'
 });
 
-const NavItemDescription = styled.p({
+export const NavItemDescription = styled.p({
   marginBottom: 0,
   fontSize: 14,
   lineHeight: 1.5,
