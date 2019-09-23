@@ -1,7 +1,8 @@
 import Category from './category';
 import PropTypes from 'prop-types';
-import React, {Fragment, useMemo, useState} from 'react';
+import React, {Fragment, useEffect, useMemo, useState} from 'react';
 import styled from '@emotion/styled';
+import usePrevious from 'react-use/lib/usePrevious';
 import {IconCollapseList} from '@apollo/space-kit/icons/IconCollapseList';
 import {IconExpandList} from '@apollo/space-kit/icons/IconExpandList';
 import {Link, withPrefix} from 'gatsby';
@@ -54,8 +55,23 @@ function getId(title) {
   return withPrefix(title);
 }
 
-function getSidebarState(contents, isCategorySelected) {
-  const activeCategory = contents.find(isCategorySelected);
+function isPageSelected(path, pathname) {
+  const [a, b] = [withPrefix(path), pathname].map(string =>
+    string.replace(/\/$/, '')
+  );
+  return a === b;
+}
+
+function isCategorySelected({path, pages}, pathname) {
+  return path
+    ? isPageSelected({path})
+    : pages.some(page => isPageSelected(page.path, pathname));
+}
+
+function getSidebarState(contents, pathname) {
+  const activeCategory = contents.find(category =>
+    isCategorySelected(category, pathname)
+  );
   if (activeCategory) {
     return {[getId(activeCategory.title)]: true};
   }
@@ -64,8 +80,9 @@ function getSidebarState(contents, isCategorySelected) {
 }
 
 export default function SidebarNav(props) {
+  const prevPathname = usePrevious(props.pathname);
   const [state, setState] = useState(
-    getSidebarState(props.contents, isCategorySelected)
+    getSidebarState(props.contents, props.pathname)
   );
 
   const allExpanded = useMemo(
@@ -73,16 +90,20 @@ export default function SidebarNav(props) {
     [props.contents, state]
   );
 
-  function isPageSelected({path}) {
-    const [prefixedPath, pathname] = [withPrefix(path), props.pathname].map(
-      string => string.replace(/\/$/, '')
-    );
-    return prefixedPath === pathname;
-  }
-
-  function isCategorySelected({path, pages}) {
-    return path ? isPageSelected({path}) : pages.some(isPageSelected);
-  }
+  useEffect(() => {
+    if (props.pathname !== prevPathname) {
+      const category = props.contents.find(({pages}) =>
+        pages.find(page => isPageSelected(page.path, props.pathname))
+      );
+      const id = getId(category.title);
+      if (!state[id]) {
+        setState(prevState => ({
+          ...prevState,
+          [id]: true
+        }));
+      }
+    }
+  }, [props.contents, props.pathname, prevPathname, state, setState]);
 
   function toggleCategory(title) {
     setState(prevState => {
@@ -128,7 +149,11 @@ export default function SidebarNav(props) {
                   <a href={page.path}>{page.title}</a>
                 ) : (
                   <Link
-                    className={isPageSelected(page) ? 'active' : null}
+                    className={
+                      isPageSelected(page.path, props.pathname)
+                        ? 'active'
+                        : null
+                    }
                     to={page.path}
                     onClick={props.onLinkClick}
                   >
@@ -162,7 +187,7 @@ export default function SidebarNav(props) {
             path={path}
             isFirst={!index}
             expanded={Boolean(state[getId(title)] || props.alwaysExpanded)}
-            active={isCategorySelected({pages, path})}
+            active={isCategorySelected({pages, path}, props.pathname)}
             onClick={props.alwaysExpanded ? null : toggleCategory}
           >
             {contents}
