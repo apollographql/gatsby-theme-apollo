@@ -245,7 +245,7 @@ DocsetSwitcher.propTypes = {
   buttonRef: PropTypes.object.isRequired,
   siteName: PropTypes.string.isRequired,
   navItems: PropTypes.array.isRequired,
-  footerNavConfig: PropTypes.array.isRequired,
+  footerNavConfig: PropTypes.object.isRequired,
   spectrumUrl: PropTypes.string,
   twitterUrl: PropTypes.string,
   youtubeUrl: PropTypes.string
