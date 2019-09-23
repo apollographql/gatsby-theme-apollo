@@ -1,6 +1,6 @@
 import Category from './category';
 import PropTypes from 'prop-types';
-import React, {Component, Fragment} from 'react';
+import React, {Fragment, useMemo, useState} from 'react';
 import styled from '@emotion/styled';
 import {IconCollapseList} from '@apollo/space-kit/icons/IconCollapseList';
 import {IconExpandList} from '@apollo/space-kit/icons/IconExpandList';
@@ -54,140 +54,130 @@ function getId(title) {
   return withPrefix(title);
 }
 
-export default class SidebarNav extends Component {
-  constructor(props) {
-    super(props);
-
-    const sidebarState = {};
-    const activeCategory = props.contents.find(this.isCategorySelected);
-    if (activeCategory) {
-      sidebarState[getId(activeCategory.title)] = true;
-    }
-
-    this.state = {
-      sidebarState
-    };
+function getSidebarState(contents, isCategorySelected) {
+  const activeCategory = contents.find(isCategorySelected);
+  if (activeCategory) {
+    return {[getId(activeCategory.title)]: true};
   }
 
-  static propTypes = {
-    alwaysExpanded: PropTypes.bool,
-    contents: PropTypes.array.isRequired,
-    pathname: PropTypes.string.isRequired,
-    onToggleAll: PropTypes.func,
-    onToggleCategory: PropTypes.func,
-    onLinkClick: PropTypes.func
-  };
+  return {};
+}
 
-  get allExpanded() {
-    return this.props.contents.every(
-      ({title}) => this.state.sidebarState[getId(title)]
+export default function SidebarNav(props) {
+  const [state, setState] = useState(
+    getSidebarState(props.contents, isCategorySelected)
+  );
+
+  const allExpanded = useMemo(
+    () => props.contents.every(({title}) => state[getId(title)]),
+    [props.contents, state]
+  );
+
+  function isPageSelected({path}) {
+    const [prefixedPath, pathname] = [withPrefix(path), props.pathname].map(
+      string => string.replace(/\/$/, '')
     );
+    return prefixedPath === pathname;
   }
 
-  isPageSelected = ({path}) => {
-    const [prefixedPath, pathname] = [
-      withPrefix(path),
-      this.props.pathname
-    ].map(string => string.replace(/\/$/, ''));
-    return prefixedPath === pathname;
-  };
+  function isCategorySelected({path, pages}) {
+    return path ? isPageSelected({path}) : pages.some(isPageSelected);
+  }
 
-  isCategorySelected = ({path, pages}) =>
-    path ? this.isPageSelected({path}) : pages.some(this.isPageSelected);
-
-  toggleCategory = title => {
-    this.setState(prevState => {
+  function toggleCategory(title) {
+    setState(prevState => {
       const id = getId(title);
-      const expanded = !prevState.sidebarState[id];
-      const sidebarState = {
-        ...prevState.sidebarState,
-        [id]: expanded
-      };
+      const expanded = !prevState[id];
 
-      if (this.props.onToggleCategory) {
-        this.props.onToggleCategory(title, expanded);
+      if (props.onToggleCategory) {
+        props.onToggleCategory(title, expanded);
       }
 
-      return {sidebarState};
+      return {
+        ...prevState,
+        [id]: expanded
+      };
     });
-  };
+  }
 
-  toggleAll = () => {
-    const expanded = !this.allExpanded;
-    const sidebarState = this.props.contents.reduce(
-      (acc, {title}) => ({
-        ...acc,
-        [getId(title)]: expanded
-      }),
-      {}
+  function toggleAll() {
+    const expanded = !allExpanded;
+    setState(
+      props.contents.reduce(
+        (acc, {title}) => ({
+          ...acc,
+          [getId(title)]: expanded
+        }),
+        {}
+      )
     );
 
-    this.setState({sidebarState});
-    if (this.props.onToggleAll) {
-      this.props.onToggleAll(expanded);
+    if (props.onToggleAll) {
+      props.onToggleAll(expanded);
     }
-  };
-
-  renderPages(pages) {
-    return (
-      <StyledList>
-        {pages.map(page => (
-          <StyledListItem key={page.path}>
-            {page.anchor ? (
-              <a href={page.path}>{page.title}</a>
-            ) : (
-              <Link
-                className={this.isPageSelected(page) ? 'active' : null}
-                to={page.path}
-                onClick={this.props.onLinkClick}
-              >
-                {page.title}
-              </Link>
-            )}
-          </StyledListItem>
-        ))}
-      </StyledList>
-    );
   }
 
-  render() {
-    return (
-      <Fragment>
-        {this.props.contents.map(({title, path, pages}, index, array) => {
-          const contents = this.renderPages(pages);
-          if (!title) {
-            const Icon = this.allExpanded ? IconCollapseList : IconExpandList;
-            return (
-              <Fragment key="root">
-                {contents}
-                {array.length > 2 && (
-                  <ExpandAll onClick={this.toggleAll}>
-                    <Icon />
-                    {this.allExpanded ? 'Collapse' : 'Expand'} all
-                  </ExpandAll>
+  return (
+    <Fragment>
+      {props.contents.map(({title, path, pages}, index, array) => {
+        const contents = (
+          <StyledList>
+            {pages.map(page => (
+              <StyledListItem key={page.path}>
+                {page.anchor ? (
+                  <a href={page.path}>{page.title}</a>
+                ) : (
+                  <Link
+                    className={isPageSelected(page) ? 'active' : null}
+                    to={page.path}
+                    onClick={props.onLinkClick}
+                  >
+                    {page.title}
+                  </Link>
                 )}
-              </Fragment>
-            );
-          }
+              </StyledListItem>
+            ))}
+          </StyledList>
+        );
 
+        if (!title) {
+          const Icon = allExpanded ? IconCollapseList : IconExpandList;
           return (
-            <Category
-              key={title}
-              title={title}
-              path={path}
-              isFirst={!index}
-              expanded={Boolean(
-                this.state.sidebarState[getId(title)] ||
-                  this.props.alwaysExpanded
-              )}
-              active={this.isCategorySelected({pages, path})}
-              onClick={this.props.alwaysExpanded ? null : this.toggleCategory}
-            >
+            <Fragment key="root">
               {contents}
-            </Category>
+              {array.length > 2 && (
+                <ExpandAll onClick={toggleAll}>
+                  <Icon />
+                  {allExpanded ? 'Collapse' : 'Expand'} all
+                </ExpandAll>
+              )}
+            </Fragment>
           );
-        })}
-      </Fragment>
-    );
-  }
+        }
+
+        return (
+          <Category
+            key={title}
+            title={title}
+            path={path}
+            isFirst={!index}
+            expanded={Boolean(state[getId(title)] || props.alwaysExpanded)}
+            active={isCategorySelected({pages, path})}
+            onClick={props.alwaysExpanded ? null : toggleCategory}
+          >
+            {contents}
+          </Category>
+        );
+      })}
+    </Fragment>
+  );
 }
+
+SidebarNav.propTypes = {
+  alwaysExpanded: PropTypes.bool,
+  contents: PropTypes.array.isRequired,
+  pathname: PropTypes.string.isRequired,
+  onToggleAll: PropTypes.func,
+  onToggleCategory: PropTypes.func,
+  onLinkClick: PropTypes.func
+};
