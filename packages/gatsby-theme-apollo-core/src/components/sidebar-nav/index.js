@@ -95,12 +95,14 @@ export default function SidebarNav(props) {
       const category = props.contents.find(({pages}) =>
         pages.find(page => isPageSelected(page.path, props.pathname))
       );
-      const id = getId(category.title);
-      if (!state[id]) {
-        setState(prevState => ({
-          ...prevState,
-          [id]: true
-        }));
+      if (category) {
+        const id = getId(category.title);
+        if (!state[id]) {
+          setState(prevState => ({
+            ...prevState,
+            [id]: true
+          }));
+        }
       }
     }
   }, [props.contents, props.pathname, prevPathname, state, setState]);
