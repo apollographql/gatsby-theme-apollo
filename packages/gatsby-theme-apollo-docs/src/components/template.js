@@ -45,7 +45,8 @@ const renderAst = new rehypeReact({
 export default function Template(props) {
   const {hash, pathname} = props.location;
   const {file, site} = props.data;
-  const {frontmatter, headings} = file.childMarkdownRemark || file.childMdx;
+  const {frontmatter, headings, fields} =
+    file.childMarkdownRemark || file.childMdx;
   const {title, description, twitterHandle} = site.siteMetadata;
   const {
     sidebarContents,
@@ -67,6 +68,7 @@ export default function Template(props) {
         siteName={title}
         twitterHandle={twitterHandle}
         baseUrl={baseUrl}
+        image={fields.image}
       />
       <StyledContentWrapper>
         <PageHeader {...frontmatter} />
@@ -122,6 +124,9 @@ export const pageQuery = graphql`
         headings(depth: h2) {
           value
         }
+        fields {
+          image
+        }
         htmlAst
       }
       childMdx {
@@ -131,6 +136,9 @@ export const pageQuery = graphql`
         }
         headings(depth: h2) {
           value
+        }
+        fields {
+          image
         }
         body
       }
