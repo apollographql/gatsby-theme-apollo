@@ -2,6 +2,7 @@ const jsYaml = require('js-yaml');
 const path = require('path');
 const {createFilePath} = require('gatsby-source-filesystem');
 const {getVersionBasePath, getSpectrumUrl} = require('./src/utils');
+const {createPrinterNode} = require('gatsby-plugin-printer');
 
 async function onCreateNode({node, actions, getNode, loadNodeContent}) {
   if (configPaths.includes(node.relativePath)) {
@@ -37,6 +38,14 @@ async function onCreateNode({node, actions, getNode, loadNodeContent}) {
       name: 'slug',
       node,
       value: slug
+    });
+
+    createPrinterNode({
+      id: `${node.id} >>> Printer`,
+      fileName: parent.name,
+      outputDir: 'social-cards',
+      data: node,
+      component: require.resolve('./src/components/social-card.js')
     });
   }
 }
