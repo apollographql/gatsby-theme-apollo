@@ -43,15 +43,23 @@ async function onCreateNode(
       value: slug
     });
 
+    const fileName = parent.name;
+    const outputDir = 'social-cards';
     createPrinterNode({
       id: `${node.id} >>> Printer`,
-      fileName: parent.name,
-      outputDir: 'social-cards',
+      fileName,
+      outputDir,
       data: {
         ...node.frontmatter,
         subtitle
       },
       component: require.resolve('./src/components/social-card.js')
+    });
+
+    actions.createNodeField({
+      name: 'image',
+      node,
+      value: path.join(outputDir, fileName + '.png')
     });
   }
 }
