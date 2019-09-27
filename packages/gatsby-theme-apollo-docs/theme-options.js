@@ -24,6 +24,11 @@ const navConfig = {
     description:
       "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations."
   },
+  'Apollo Client (Angular)': {
+    url: 'https://www.apollographql.com/docs/angular',
+    description:
+      "Manage the entirety of your Angular app's state and seamlessly execute GraphQL operations."
+  },
   'Apollo Link': {
     url: 'https://www.apollographql.com/docs/link',
     description:
