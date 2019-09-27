@@ -132,25 +132,44 @@ const AsideHeading = styled.h4({
 
 const AsideLink = nest(
   styled.h5({
-    display: 'flex'
+    display: 'flex',
+    marginBottom: 0,
+    ':not(:last-child)': {
+      marginBottom: 16
+    }
   }),
   styled.a({
     display: 'flex',
     alignItems: 'center',
-    color: 'inherit',
+    color: colors.text2,
     textDecoration: 'none',
     ':hover': {
-      opacity: colors.hoverOpacity
+      color: colors.text3
     },
     svg: {
       width: 20,
       height: 20,
       marginRight: 6,
-      color: colors.text2,
       fill: 'currentColor'
     }
   })
 );
+
+const EditLink = styled.div({
+  display: 'none',
+  marginTop: 48,
+  justifyContent: 'flex-end',
+  [breakpoints.lg]: {
+    display: 'flex'
+  },
+  [breakpoints.md]: {
+    display: 'none'
+  },
+  [breakpoints.sm]: {
+    display: 'flex',
+    marginTop: 24
+  }
+});
 
 export default function PageContent(props) {
   const contentRef = useRef(null);
@@ -196,12 +215,19 @@ export default function PageContent(props) {
     );
   });
 
+  const editLink = (
+    <AsideLink href={props.githubUrl}>
+      <IconGithub /> Edit on GitHub
+    </AsideLink>
+  );
+
   return (
     <Container>
       <MainContent>
         <BodyContent ref={contentRef} className="content-wrapper">
           {props.children}
         </BodyContent>
+        <EditLink>{editLink}</EditLink>
         <PageNav
           prevPage={props.pages[pageIndex - 1]}
           nextPage={props.pages[pageIndex + 1]}
@@ -216,9 +242,7 @@ export default function PageContent(props) {
             imagesLoaded={imagesLoaded === imagesToLoad}
           />
         )}
-        <AsideLink href={props.githubUrl}>
-          <IconGithub /> Edit on GitHub
-        </AsideLink>
+        {editLink}
         {props.spectrumUrl && (
           <AsideLink href={props.spectrumUrl}>
             <SpectrumLogo /> Discuss on Spectrum
