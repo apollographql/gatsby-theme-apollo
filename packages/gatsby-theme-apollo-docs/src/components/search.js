@@ -22,7 +22,7 @@ const Hotkey = styled.div(verticalAlign, size(24), {
   borderRadius,
   textAlign: 'center',
   lineHeight: 1.125,
-  right: 8,
+  right: 10,
   pointerEvents: 'none'
 });
 
@@ -39,6 +39,7 @@ const Container = styled.div({
     width: '100%',
     '.ds-dropdown-menu': {
       width: '100%',
+      minWidth: 'auto',
       marginTop: 14,
       borderRadius,
       boxShadow,
@@ -120,7 +121,7 @@ const Container = styled.div({
 
 const StyledInput = styled.input(props => ({
   width: '100%',
-  height: 44,
+  height: 42,
   padding: 0,
   paddingLeft: 16,
   border,
