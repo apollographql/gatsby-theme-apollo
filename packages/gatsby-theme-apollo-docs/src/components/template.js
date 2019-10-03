@@ -16,21 +16,33 @@ const StyledContentWrapper = styled(ContentWrapper)({
   paddingBottom: 0
 });
 
-const PathPrefixContext = createContext();
+const CustomLinkContext = createContext();
 
 function CustomLink(props) {
-  const pathPrefix = useContext(PathPrefixContext);
+  const {pathPrefix, baseUrl} = useContext(CustomLinkContext);
 
-  function handleClick(event) {
-    const href = event.target.getAttribute('href');
-    if (href.startsWith('/')) {
-      event.preventDefault();
-      navigate(href.replace(pathPrefix, ''));
+  const linkProps = {...props};
+  if (props.href) {
+    if (props.href.startsWith('/')) {
+      linkProps.onClick = function handleClick(event) {
+        const href = event.target.getAttribute('href');
+        if (href.startsWith('/')) {
+          event.preventDefault();
+          navigate(href.replace(pathPrefix, ''));
+        }
+      };
+    } else if (!props.href.startsWith(baseUrl)) {
+      linkProps.target = '_blank';
+      linkProps.rel = 'noopener noreferrer';
     }
   }
 
-  return <a {...props} onClick={handleClick} />;
+  return <a {...linkProps} />;
 }
+
+CustomLink.propTypes = {
+  href: PropTypes.string
+};
 
 const components = {
   pre: CodeBlock,
@@ -80,7 +92,12 @@ export default function Template(props) {
           githubUrl={githubUrl}
           spectrumUrl={spectrumUrl}
         >
-          <PathPrefixContext.Provider value={site.pathPrefix}>
+          <CustomLinkContext.Provider
+            value={{
+              pathPrefix: site.pathPrefix,
+              baseUrl
+            }}
+          >
             {file.childMdx ? (
               <TypescriptApiBoxContext.Provider value={typescriptApiBox}>
                 <MDXProvider components={components}>
@@ -90,7 +107,7 @@ export default function Template(props) {
             ) : (
               renderAst(file.childMarkdownRemark.htmlAst)
             )}
-          </PathPrefixContext.Provider>
+          </CustomLinkContext.Provider>
         </PageContent>
       </StyledContentWrapper>
     </Fragment>
