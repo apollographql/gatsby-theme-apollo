@@ -30,7 +30,7 @@ const boxShadowColor = transparentize(0.9, 'black');
 export const boxShadow = `${boxShadowColor} 0 2px 12px`;
 const Container = styled.div({
   flexGrow: 1,
-  maxWidth: 480,
+  maxWidth: 600,
   marginLeft: 40,
   color: colors.text2,
   position: 'relative',
@@ -38,7 +38,7 @@ const Container = styled.div({
   '.algolia-autocomplete': {
     width: '100%',
     '.ds-dropdown-menu': {
-      width: 648,
+      width: '100%',
       marginTop: 14,
       borderRadius,
       boxShadow,
@@ -120,13 +120,13 @@ const Container = styled.div({
 
 const StyledInput = styled.input(props => ({
   width: '100%',
-  height: 40,
+  height: 44,
   padding: 0,
   paddingLeft: 16,
   border,
   borderRadius,
   boxShadow: props.resultsShown ? boxShadow : 'none',
-  fontSize: 14,
+  fontSize: 16,
   background: 'white',
   outline: 'none',
   appearance: 'none'
