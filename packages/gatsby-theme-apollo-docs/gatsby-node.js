@@ -6,7 +6,7 @@ const {createPrinterNode} = require('gatsby-plugin-printer');
 
 async function onCreateNode(
   {node, actions, getNode, loadNodeContent},
-  {subtitle}
+  {subtitle, sidebarCategories}
 ) {
   if (configPaths.includes(node.relativePath)) {
     const value = await loadNodeContent(node);
@@ -18,13 +18,46 @@ async function onCreateNode(
   }
 
   if (['MarkdownRemark', 'Mdx'].includes(node.internal.type)) {
+    const parent = getNode(node.parent);
     let version = 'default';
     let slug = createFilePath({
       node,
       getNode
     });
 
-    const parent = getNode(node.parent);
+    let category;
+    const fileName = parent.name;
+    const outputDir = 'social-cards';
+
+    for (const key in sidebarCategories) {
+      if (key !== 'null') {
+        const categories = sidebarCategories[key];
+        const trimmedSlug = slug.replace(/^\/|\/$/g, '');
+        if (categories.includes(trimmedSlug)) {
+          category = key;
+          break;
+        }
+      }
+    }
+
+    createPrinterNode({
+      id: `${node.id} >>> Printer`,
+      fileName,
+      outputDir,
+      data: {
+        ...node.frontmatter,
+        subtitle,
+        category
+      },
+      component: require.resolve('./src/components/social-card.js')
+    });
+
+    actions.createNodeField({
+      name: 'image',
+      node,
+      value: path.join(outputDir, fileName + '.png')
+    });
+
     if (parent.gitRemote___NODE) {
       const gitRemote = getNode(parent.gitRemote___NODE);
       version = gitRemote.sourceInstanceName;
@@ -41,25 +74,6 @@ async function onCreateNode(
       name: 'slug',
       node,
       value: slug
-    });
-
-    const fileName = parent.name;
-    const outputDir = 'social-cards';
-    createPrinterNode({
-      id: `${node.id} >>> Printer`,
-      fileName,
-      outputDir,
-      data: {
-        ...node.frontmatter,
-        subtitle
-      },
-      component: require.resolve('./src/components/social-card.js')
-    });
-
-    actions.createNodeField({
-      name: 'image',
-      node,
-      value: path.join(outputDir, fileName + '.png')
     });
   }
 }

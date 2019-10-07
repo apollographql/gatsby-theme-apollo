@@ -1,10 +1,12 @@
 /* global preval */
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {Fragment} from 'react';
 import TextFit from 'react-textfit';
 import {ApolloIcon} from '@apollo/space-kit/icons/ApolloIcon';
 import {Global, css} from '@emotion/core';
+import {IconArrowRight} from '@apollo/space-kit/icons/IconArrowRight';
 import {colors} from 'gatsby-theme-apollo-core/src/utils/colors';
+import {smallCaps} from 'gatsby-theme-apollo-core/src/utils/typography';
 
 const stuff = preval`
   const fs = require('fs')
@@ -13,8 +15,13 @@ const stuff = preval`
     require.resolve('source-sans-pro/source-sans-pro.css')
   )
 
-  const base64 = fs.readFileSync(
+  const base64Regular = fs.readFileSync(
     fontDir + '/WOFF2/TTF/SourceSansPro-Regular.ttf.woff2',
+    'base64'
+  )
+
+  const base64Semibold = fs.readFileSync(
+    fontDir + '/WOFF2/TTF/SourceSansPro-Semibold.ttf.woff2',
     'base64'
   )
 
@@ -25,7 +32,11 @@ const stuff = preval`
     )
     .replace(
       'WOFF2/TTF/SourceSansPro-Regular.ttf.woff2',
-      'data:application/x-font-woff;charset=utf-8;base64,' + base64
+      'data:application/x-font-woff;charset=utf-8;base64,' + base64Regular
+    )
+    .replace(
+      'WOFF2/TTF/SourceSansPro-Semibold.ttf.woff2',
+      'data:application/x-font-woff;charset=utf-8;base64,' + base64Semibold
     )
 
   module.exports = {
@@ -54,15 +65,36 @@ export default function SocialCard(props) {
       <Global
         styles={css`
           ${stuff.fonts}
+          svg.arrow-icon * {
+            vector-effect: none;
+          }
         `}
       />
       <div
         style={{
-          fontSize: 50,
-          marginBottom: 20
+          fontSize: 48,
+          fontWeight: 600,
+          marginBottom: 16,
+          color: colors.text2,
+          ...smallCaps,
+          letterSpacing: '0.142em'
         }}
       >
         {props.subtitle}
+        {props.category && (
+          <Fragment>
+            {' '}
+            <IconArrowRight
+              className="arrow-icon"
+              style={{
+                width: '1em',
+                height: '1em',
+                verticalAlign: '-0.15em'
+              }}
+            />{' '}
+            {props.category}
+          </Fragment>
+        )}
       </div>
       <TextFit
         min={80}
@@ -70,7 +102,8 @@ export default function SocialCard(props) {
         style={{
           width: '100%',
           height: 250,
-          marginBottom: 'auto'
+          marginBottom: 'auto',
+          colors: colors.text1
         }}
       >
         {props.title}
@@ -87,5 +120,6 @@ export default function SocialCard(props) {
 
 SocialCard.propTypes = {
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired
+  subtitle: PropTypes.string.isRequired,
+  category: PropTypes.string
 };
