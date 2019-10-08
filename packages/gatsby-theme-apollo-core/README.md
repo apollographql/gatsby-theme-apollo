@@ -245,10 +245,10 @@ function MyPage() {
 }
 ```
 
-Through [component shadowing](https://www.gatsbyjs.org/blog/2019-01-29-themes-update-child-theming-and-component-shadowing/), you can override the logo that gets shown. Simply create a file that exports a SVG React component in your theme consumer at _src/gatsby-theme-apollo/components/logo.js_.
+Through [component shadowing](https://www.gatsbyjs.org/blog/2019-01-29-themes-update-child-theming-and-component-shadowing/), you can override the logo that gets shown. Simply create a file that exports a SVG React component in your theme consumer at _src/gatsby-theme-apollo-core/components/logo.js_.
 
 ```js
-// src/gatsby-theme-apollo/components/logo.js
+// src/gatsby-theme-apollo-core/components/logo.js
 export {ReactComponent as default} from '../../assets/custom-logo.svg';
 ```
 
