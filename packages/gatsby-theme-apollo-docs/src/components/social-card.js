@@ -56,7 +56,7 @@ export default function SocialCard(props) {
         alignItems: 'flex-start',
         boxSizing: 'border-box',
         width: 1200 - borderOffset,
-        height: 675 - borderOffset,
+        height: 628 - borderOffset,
         padding: 80,
         border: `${borderWidth}px solid ${colors.primary}`,
         fontFamily: "'Source Sans Pro'"
