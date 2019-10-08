@@ -31,7 +31,7 @@ function CustomLink(props) {
           navigate(href.replace(pathPrefix, ''));
         }
       };
-    } else if (!props.href.startsWith(baseUrl)) {
+    } else if (!props.href.startsWith('#') && !props.href.startsWith(baseUrl)) {
       linkProps.target = '_blank';
       linkProps.rel = 'noopener noreferrer';
     }
