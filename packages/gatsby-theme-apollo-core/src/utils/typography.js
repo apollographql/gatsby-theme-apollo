@@ -1,4 +1,4 @@
 export const smallCaps = {
-  letterSpacing: 2,
+  letterSpacing: '0.142em',
   textTransform: 'uppercase'
 };
