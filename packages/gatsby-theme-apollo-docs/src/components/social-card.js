@@ -8,44 +8,33 @@ import {IconArrowRight} from '@apollo/space-kit/icons/IconArrowRight';
 import {colors} from 'gatsby-theme-apollo-core/src/utils/colors';
 import {smallCaps} from 'gatsby-theme-apollo-core/src/utils/typography';
 
-const stuff = preval`
-  const fs = require('fs')
-  const path = require('path')
-  const fontDir = path.dirname(
-    require.resolve('source-sans-pro/source-sans-pro.css')
-  )
+const {fonts, image} = preval`
+  const fs = require('fs');
+  const path = require('path');
 
-  const base64Regular = fs.readFileSync(
-    fontDir + '/WOFF2/TTF/SourceSansPro-Regular.ttf.woff2',
-    'base64'
-  )
+  function getBase64(path) {
+    const fontPath = require.resolve('source-sans-pro/' + path);
+    const base64Font = fs.readFileSync(fontPath, 'base64');
+    return 'data:application/x-font-woff;charset=utf-8;base64,' + base64Font;
+  }
 
-  const base64Semibold = fs.readFileSync(
-    fontDir + '/WOFF2/TTF/SourceSansPro-Semibold.ttf.woff2',
-    'base64'
-  )
+  const base64Regular = getBase64('/WOFF2/TTF/SourceSansPro-Regular.ttf.woff2');
+  const base64Semibold = getBase64('/WOFF2/TTF/SourceSansPro-Semibold.ttf.woff2');
 
+  const cssPath = require.resolve('source-sans-pro/source-sans-pro.css');
   const fonts = fs
-    .readFileSync(
-      path.join(fontDir, '/source-sans-pro.css'),
-      "utf-8"
-    )
-    .replace(
-      'WOFF2/TTF/SourceSansPro-Regular.ttf.woff2',
-      'data:application/x-font-woff;charset=utf-8;base64,' + base64Regular
-    )
-    .replace(
-      'WOFF2/TTF/SourceSansPro-Semibold.ttf.woff2',
-      'data:application/x-font-woff;charset=utf-8;base64,' + base64Semibold
-    )
+    .readFileSync(cssPath, 'utf-8')
+    .replace('WOFF2/TTF/SourceSansPro-Regular.ttf.woff2', base64Regular)
+    .replace('WOFF2/TTF/SourceSansPro-Semibold.ttf.woff2', base64Semibold);
+
+  const imagePath = path.resolve(__dirname, '../assets/images/social-bg.jpg');
+  const base64Image = fs.readFileSync(imagePath, 'base64');
 
   module.exports = {
-    fonts
-  }
+    fonts,
+    image: 'data:image/jpeg;base64,' + base64Image
+  };
 `;
-
-const borderWidth = 6;
-const borderOffset = borderWidth * 2;
 
 export default function SocialCard(props) {
   return (
@@ -55,29 +44,30 @@ export default function SocialCard(props) {
         flexDirection: 'column',
         alignItems: 'flex-start',
         boxSizing: 'border-box',
-        width: 1200 - borderOffset,
-        height: 628 - borderOffset,
+        width: 1200,
+        height: 628,
         padding: 80,
-        border: `${borderWidth}px solid ${colors.primary}`,
-        fontFamily: "'Source Sans Pro'"
+        fontFamily: "'Source Sans Pro'",
+        color: 'white',
+        backgroundImage: `url(${image})`
       }}
     >
       <Global
         styles={css`
-          ${stuff.fonts}
-          svg.arrow-icon * {
+          ${fonts}
+          svg.arrow-icon path {
             vector-effect: none;
+            stroke-width: 4px;
           }
         `}
       />
       <div
         style={{
-          fontSize: 48,
+          fontSize: 32,
           fontWeight: 600,
           marginBottom: 16,
-          color: colors.text2,
-          ...smallCaps,
-          letterSpacing: '0.142em'
+          color: colors.primaryLight,
+          ...smallCaps
         }}
       >
         {props.subtitle}
@@ -87,9 +77,9 @@ export default function SocialCard(props) {
             <IconArrowRight
               className="arrow-icon"
               style={{
-                width: '1em',
-                height: '1em',
-                verticalAlign: '-0.15em'
+                width: '0.5em',
+                height: '0.5em',
+                verticalAlign: '0.05em'
               }}
             />{' '}
             {props.category}
@@ -106,14 +96,9 @@ export default function SocialCard(props) {
           colors: colors.text1
         }}
       >
-        {props.title}
+        {props.title.replace(/\s+(\S*)$/, '\xA0$1')}
       </TextFit>
-      <ApolloIcon
-        height={80}
-        style={{
-          color: colors.primary
-        }}
-      />
+      <ApolloIcon height={80} />
     </div>
   );
 }
