@@ -178,7 +178,7 @@ export default function PageLayout(props) {
               onClick={openMenu}
               ref={buttonRef}
             >
-              {subtitle}
+              <span className="title-sidebar">{subtitle}</span>
               <StyledIcon />
             </StyledButton>
             {versions && versions.length > 0 && (
