@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo-docs",
-  "version": "2.2.4",
+  "version": "2.3.0-alpha.2",
   "main": "index.js",
   "description": "A Gatsby theme for building documentation websites",
   "author": "Trevor Blades <blades@apollographql.com>",
@@ -20,6 +20,7 @@
     "@mdx-js/react": "^1.0.27",
     "gatsby-plugin-google-analytics": "^2.0.17",
     "gatsby-plugin-mdx": "^1.0.23",
+    "gatsby-plugin-printer": "^1.0.4",
     "gatsby-remark-autolink-headers": "^2.0.16",
     "gatsby-remark-check-links": "^2.1.0",
     "gatsby-remark-copy-linked-files": "^2.0.12",
@@ -33,10 +34,12 @@
     "gatsby-transformer-remark": "^2.6.7",
     "js-yaml": "^3.13.1",
     "prismjs": "^1.15.0",
+    "react-textfit": "^1.1.0",
     "recompose": "^0.30.0",
     "rehype-react": "^3.1.0",
     "remark": "^10.0.1",
     "remark-react": "^5.0.1",
+    "source-sans-pro": "^3.6.0",
     "striptags": "^3.1.1"
   },
   "devDependencies": {
