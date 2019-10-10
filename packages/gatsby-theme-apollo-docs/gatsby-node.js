@@ -6,7 +6,7 @@ const {createPrinterNode} = require('gatsby-plugin-printer');
 
 async function onCreateNode(
   {node, actions, getNode, loadNodeContent},
-  {subtitle, sidebarCategories}
+  {siteName, subtitle, sidebarCategories}
 ) {
   if (configPaths.includes(node.relativePath)) {
     const value = await loadNodeContent(node);
@@ -45,7 +45,7 @@ async function onCreateNode(
       fileName,
       outputDir,
       data: {
-        ...node.frontmatter,
+        title: node.frontmatter.title || siteName,
         subtitle,
         category
       },
