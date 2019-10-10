@@ -88,17 +88,18 @@ export default function SocialCard(props) {
       </div>
       <TextFit
         min={80}
-        max={140}
+        max={120}
         style={{
           width: '100%',
           height: 250,
           marginBottom: 'auto',
+          lineHeight: 1.2,
           colors: colors.text1
         }}
       >
         {props.title.replace(/\s+(\S*)$/, '\xA0$1')}
       </TextFit>
-      <ApolloIcon height={80} />
+      <ApolloIcon height={70} />
     </div>
   );
 }
