@@ -174,7 +174,6 @@ export default function PageLayout(props) {
               variant="flat"
               color="branded"
               size="small"
-              className="title-sidebar"
               onClick={openMenu}
               ref={buttonRef}
             >

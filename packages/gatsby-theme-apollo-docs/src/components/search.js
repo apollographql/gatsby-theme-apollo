@@ -181,6 +181,9 @@ export default function Search(props) {
         // debug: true, // keeps the results list open
         autocompleteOptions: {
           openOnFocus: true
+        },
+        algoliaOptions: {
+          hitsPerPage: 10
         }
       });
     }
