@@ -58,7 +58,7 @@ import {MenuButton, Sidebar, breakpoints} from 'gatsby-theme-apollo-core';
 
 ### Layout
 
-`Layout` should wrap every page that gets created. It configures [React Helmet](https://github.com/nfl/react-helmet) and sets the meta description tag with data from the `siteMetadata` property in your Gatsby config. It also sets the favicon for the page to the Apollo "A" logo.
+`Layout` should wrap every page that gets created. It configures [React Helmet](https://github.com/nfl/react-helmet) and sets the meta description tag with data from the `siteMetadata` property in your Gatsby config.
 
 ```js
 import {Layout} from 'gatsby-theme-apollo-core';

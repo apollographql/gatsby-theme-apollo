@@ -9,17 +9,18 @@ export default function SEO(props) {
   return (
     <Helmet>
       <title>{title}</title>
+      <link rel="icon" href="https://apollographql.com/favicon.ico" />
       <meta property="og:title" content={title} />
       <meta property="og:site_name" content={siteName} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={imagePath} />
       <meta name="twitter:card" content="summary_large_image" />
-      {twitterHandle && (
-        <meta name="twitter:site" content={`@${twitterHandle}`} />
-      )}
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={baseUrl + imagePath} />
+      {twitterHandle && (
+        <meta name="twitter:site" content={`@${twitterHandle}`} />
+      )}
     </Helmet>
   );
 }

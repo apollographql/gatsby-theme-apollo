@@ -3,7 +3,7 @@ import '../styles.less'; // eslint-disable-line sort-imports-es6-autofix/sort-im
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
-import {StaticQuery, graphql, withPrefix} from 'gatsby';
+import {StaticQuery, graphql} from 'gatsby';
 
 export default function Layout(props) {
   return (
@@ -24,7 +24,6 @@ export default function Layout(props) {
           <Fragment>
             <Helmet defaultTitle={title} titleTemplate={`%s - ${title}`}>
               <meta name="description" content={description} />
-              <link rel="icon" href={withPrefix('/favicon.ico')} />
             </Helmet>
             {props.children}
           </Fragment>
