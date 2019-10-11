@@ -8,6 +8,7 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
   - [`sidebarCategories`](#sidebarcategories)
   - [`navConfig`](#navconfig)
 - [Creating pages](#creating-pages)
+- [Component shadowing](#component-shadowing)
 - [Components](#components)
   - [`Button`](#button)
   - [`ButtonLink`](#buttonlink)
@@ -128,7 +129,7 @@ The `navConfig` option should be an object keyed by link titles. The values shou
 
 This theme generates pages based on Markdown or MDX files in the [`contentDir`](#configuration) directory of a repo. Your Markdown/MDX files should contain some frontmatter defining their titles and descriptions.
 
-```markdown
+```yaml
 ---
 title: Introduction
 description: What is Apollo Server and what does it do?
@@ -138,6 +139,27 @@ Apollo Server is the best way to quickly build a production-ready, self-document
 ```
 
 Page URLs will be derived from the file paths of your Markdown. You can nest Markdown files within directories to create pages with additional path segments.
+
+## Component shadowing
+
+You can customize a website using this theme further by taking advantage of [component shadowing](../gatsby-theme-apollo-core#logotitle).
+
+By default, this theme sets the website favicon to [the one from Apollo's website](https://www.apollographql.com/favicon.ico) within its [internal `SEO` component](./src/components/seo.js). If you wanted to use your own favicon, you could shadow the `SEO` component within your site and add your custom SEO/favicon implementation.
+
+```js
+// src/gatsby-theme-apollo-docs/components/seo.js
+import React from 'react';
+import {Helmet} from 'react-helmet';
+
+export default function SEO({title, description, siteName}) {
+  return (
+    <Helmet>
+      <link rel="icon" href="/path/to/custom-favicon.ico" />
+      {/* other SEO tags (OpenGraph, Twitter, etc.) */}
+    </Helmet>
+  );
+}
+```
 
 ## Components
 

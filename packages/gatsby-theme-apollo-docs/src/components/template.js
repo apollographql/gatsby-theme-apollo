@@ -8,6 +8,7 @@ import SEO from './seo';
 import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
 import {ContentWrapper} from 'gatsby-theme-apollo-core';
+import {Helmet} from 'react-helmet';
 import {MDXProvider} from '@mdx-js/react';
 import {TypescriptApiBoxContext} from './typescript-api-box';
 import {graphql, navigate} from 'gatsby';
@@ -74,6 +75,9 @@ export default function Template(props) {
 
   return (
     <Fragment>
+      <Helmet>
+        <title>{frontmatter.title}</title>
+      </Helmet>
       <SEO
         title={frontmatter.title}
         description={frontmatter.description || description}

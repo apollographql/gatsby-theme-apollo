@@ -1,6 +1,6 @@
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {Helmet} from 'react-helmet';
 import {withPrefix} from 'gatsby';
 
 export default function SEO(props) {
@@ -8,7 +8,6 @@ export default function SEO(props) {
   const imagePath = withPrefix('/' + props.image);
   return (
     <Helmet>
-      <title>{title}</title>
       <link rel="icon" href="https://apollographql.com/favicon.ico" />
       <meta property="og:title" content={title} />
       <meta property="og:site_name" content={siteName} />

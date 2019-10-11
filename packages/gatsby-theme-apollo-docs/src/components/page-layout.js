@@ -1,7 +1,6 @@
 import '../prism.less';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import DocsetSwitcher from './docset-switcher';
-import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React, {createContext, useMemo, useRef, useState} from 'react';
 import Search from './search';
@@ -26,6 +25,7 @@ import {
   getVersionBasePath,
   trackEvent
 } from '../utils';
+import {Helmet} from 'react-helmet';
 import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
 import {graphql, useStaticQuery} from 'gatsby';
 import {iconStyles} from './select';
