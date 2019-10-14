@@ -40,12 +40,13 @@ async function onCreateNode(
       }
     }
 
+    const {title, graphManagerUrl} = node.frontmatter;
     createPrinterNode({
       id: `${node.id} >>> Printer`,
       fileName,
       outputDir,
       data: {
-        title: node.frontmatter.title || siteName,
+        title: title || siteName,
         subtitle,
         category
       },
@@ -74,6 +75,12 @@ async function onCreateNode(
       name: 'slug',
       node,
       value: slug
+    });
+
+    actions.createNodeField({
+      name: 'graphManagerUrl',
+      node,
+      value: graphManagerUrl || ''
     });
   }
 }

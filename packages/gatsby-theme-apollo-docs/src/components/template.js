@@ -91,6 +91,7 @@ export default function Template(props) {
         <hr />
         <PageContent
           title={frontmatter.title}
+          graphManagerUrl={fields.graphManagerUrl}
           pathname={pathname}
           pages={pages}
           headings={headings}
@@ -147,6 +148,7 @@ export const pageQuery = graphql`
         }
         fields {
           image
+          graphManagerUrl
         }
         htmlAst
       }
@@ -160,6 +162,7 @@ export const pageQuery = graphql`
         }
         fields {
           image
+          graphManagerUrl
         }
         body
       }
