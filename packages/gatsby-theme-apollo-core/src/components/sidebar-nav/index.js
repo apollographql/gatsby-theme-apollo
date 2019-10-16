@@ -24,6 +24,7 @@ const listItemStyles = {
 
 const StyledListItem = styled.li({
   fontSize: '1rem',
+  lineHeight: 'inherit',
   a: {
     ...listItemStyles,
     textDecoration: 'none',

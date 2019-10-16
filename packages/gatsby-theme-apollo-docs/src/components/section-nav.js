@@ -17,6 +17,7 @@ const StyledList = styled.ul({
 const StyledListItem = styled.li(props => ({
   listStyle: 'none',
   fontSize: '1rem',
+  lineHeight: 'inherit',
   color: props.active && colors.primary,
   a: {
     color: 'inherit',
