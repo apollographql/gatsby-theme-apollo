@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo-core",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "main": "index.js",
   "description": "A theme for bootstrapping Gatsby websites at Apollo",
   "author": "Trevor Blades <blades@apollographql.com>",
