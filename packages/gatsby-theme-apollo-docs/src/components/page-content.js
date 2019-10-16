@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, {useRef, useState} from 'react';
 import SectionNav from './section-nav';
-import nest from 'recompose/nest';
 import styled from '@emotion/styled';
 import useMount from 'react-use/lib/useMount';
 import {IconGithub} from '@apollo/space-kit/icons/IconGithub';
+import {IconSchema} from '@apollo/space-kit/icons/IconSchema';
 import {
   PageNav,
   breakpoints,
@@ -130,30 +130,37 @@ const AsideHeading = styled.h4({
   fontWeight: 600
 });
 
-const AsideLink = nest(
-  styled.h5({
-    display: 'flex',
-    marginBottom: 0,
-    ':not(:last-child)': {
-      marginBottom: 16
-    }
-  }),
-  styled.a({
-    display: 'flex',
-    alignItems: 'center',
-    color: colors.text2,
-    textDecoration: 'none',
-    ':hover': {
-      color: colors.text3
-    },
-    svg: {
-      width: 20,
-      height: 20,
-      marginRight: 6,
-      fill: 'currentColor'
-    }
-  })
-);
+const AsideLinkWrapper = styled.h5({
+  display: 'flex',
+  marginBottom: 0,
+  ':not(:last-child)': {
+    marginBottom: 16
+  }
+});
+
+const AsideLinkInner = styled.a({
+  display: 'flex',
+  alignItems: 'center',
+  color: colors.text2,
+  textDecoration: 'none',
+  ':hover': {
+    color: colors.text3
+  },
+  svg: {
+    width: 20,
+    height: 20,
+    marginRight: 6,
+    fill: 'currentColor'
+  }
+});
+
+function AsideLink(props) {
+  return (
+    <AsideLinkWrapper>
+      <AsideLinkInner target="_blank" rel="noopener noreferrer" {...props} />
+    </AsideLinkWrapper>
+  );
+}
 
 const EditLink = styled.div({
   display: 'none',
@@ -248,6 +255,11 @@ export default function PageContent(props) {
             <SpectrumLogo /> Discuss on Spectrum
           </AsideLink>
         )}
+        {props.graphManagerUrl && (
+          <AsideLink href={props.graphManagerUrl}>
+            <IconSchema /> Demo Graph Manager
+          </AsideLink>
+        )}
       </Aside>
     </Container>
   );
@@ -260,6 +272,7 @@ PageContent.propTypes = {
   pages: PropTypes.array.isRequired,
   hash: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  graphManagerUrl: PropTypes.string.isRequired,
   headings: PropTypes.array.isRequired,
   spectrumUrl: PropTypes.string
 };
