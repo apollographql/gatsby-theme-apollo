@@ -20,7 +20,7 @@
     "@mdx-js/react": "^1.0.27",
     "gatsby-plugin-google-analytics": "^2.0.17",
     "gatsby-plugin-mdx": "^1.0.23",
-    "gatsby-plugin-printer": "^1.0.4",
+    "gatsby-plugin-printer": "^1.0.6",
     "gatsby-remark-autolink-headers": "^2.0.16",
     "gatsby-remark-check-links": "^2.1.0",
     "gatsby-remark-copy-linked-files": "^2.0.12",
@@ -39,7 +39,6 @@
     "rehype-react": "^3.1.0",
     "remark": "^10.0.1",
     "remark-react": "^5.0.1",
-    "rollup": "1.23.1",
     "source-sans-pro": "^3.6.0",
     "striptags": "^3.1.1"
   },
