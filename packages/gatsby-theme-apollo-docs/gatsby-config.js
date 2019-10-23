@@ -1,3 +1,5 @@
+const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
+
 module.exports = ({
   root,
   siteName,
@@ -17,7 +19,19 @@ module.exports = ({
         ignoreFileExtensions: []
       }
     },
-    'gatsby-remark-mermaid',
+    {
+      resolve: 'gatsby-remark-mermaid',
+      options: {
+        mermaidOptions: {
+          themeCSS: `
+            .node rect {
+              stroke: ${colors.primary};
+              fill: ${colors.background};
+            }
+          `
+        }
+      }
+    },
     'gatsby-remark-prismjs-title',
     {
       resolve: 'gatsby-remark-prismjs',
