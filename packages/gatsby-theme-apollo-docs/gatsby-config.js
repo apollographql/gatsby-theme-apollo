@@ -17,6 +17,7 @@ module.exports = ({
         ignoreFileExtensions: []
       }
     },
+    'gatsby-remark-mermaid',
     'gatsby-remark-prismjs-title',
     {
       resolve: 'gatsby-remark-prismjs',
