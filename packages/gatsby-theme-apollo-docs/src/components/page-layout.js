@@ -16,6 +16,7 @@ import {
   SidebarNav,
   StyledLogo,
   breakpoints,
+  colors,
   useResponsiveSidebar
 } from 'gatsby-theme-apollo-core';
 import {
@@ -27,7 +28,7 @@ import {
 } from '../utils';
 import {Helmet} from 'react-helmet';
 import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
-import {graphql, useStaticQuery} from 'gatsby';
+import {Link, graphql, useStaticQuery} from 'gatsby';
 import {iconStyles} from './select';
 import {size} from 'polished';
 
@@ -62,6 +63,21 @@ const HeaderInner = styled.span({
   marginLeft: -8,
   marginBottom: 16,
   paddingRight: 16
+});
+
+const Eyebrow = styled.div({
+  flexShrink: 0,
+  padding: 8,
+  backgroundColor: colors.background,
+  color: colors.primary,
+  textAlign: 'center',
+  fontSize: 14,
+  position: 'sticky',
+  top: 0,
+  a: {
+    color: 'inherit',
+    fontWeight: 600
+  }
 });
 
 function getVersionLabel(version) {
@@ -126,7 +142,12 @@ export default function PageLayout(props) {
 
   const {pathname} = props.location;
   const {siteName, title, subtitle} = data.site.siteMetadata;
-  const {sidebarContents, versions, defaultVersion} = props.pageContext;
+  const {
+    sidebarContents,
+    versions,
+    versionDifference,
+    defaultVersion
+  } = props.pageContext;
   const {
     spectrumHandle,
     twitterHandle,
@@ -160,7 +181,20 @@ export default function PageLayout(props) {
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
       </Helmet>
-      <FlexWrapper onClick={handleWrapperClick}>
+      <FlexWrapper
+        onClick={handleWrapperClick}
+        beforeContent={
+          versionDifference !== 0 && (
+            <Eyebrow>
+              You&apos;re viewing documentation for a{' '}
+              {versionDifference > 0
+                ? 'version of this software that is in development'
+                : 'previous version of this software'}
+              . <Link to="/">Switch to the latest stable version</Link>.
+            </Eyebrow>
+          )
+        }
+      >
         <Sidebar
           responsive
           className="sidebar"

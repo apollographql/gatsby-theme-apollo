@@ -6,7 +6,7 @@ const {createPrinterNode} = require('gatsby-plugin-printer');
 
 async function onCreateNode(
   {node, actions, getNode, loadNodeContent},
-  {siteName, subtitle, sidebarCategories}
+  {defaultVersion, siteName, subtitle, sidebarCategories}
 ) {
   if (configPaths.includes(node.relativePath)) {
     const value = await loadNodeContent(node);
@@ -19,7 +19,7 @@ async function onCreateNode(
 
   if (['MarkdownRemark', 'Mdx'].includes(node.internal.type)) {
     const parent = getNode(node.parent);
-    let version = 'default';
+    let version = defaultVersion;
     let slug = createFilePath({
       node,
       getNode
@@ -68,7 +68,7 @@ async function onCreateNode(
     actions.createNodeField({
       name: 'version',
       node,
-      value: version
+      value: version.toString()
     });
 
     actions.createNodeField({
@@ -208,7 +208,12 @@ exports.createPages = async (
 
   const {edges} = data.allFile;
   const sidebarContents = {
-    default: getSidebarContents(sidebarCategories, edges, 'default', contentDir)
+    [defaultVersion]: getSidebarContents(
+      sidebarCategories,
+      edges,
+      defaultVersion,
+      contentDir
+    )
   };
 
   const versionKeys = [];
@@ -244,16 +249,35 @@ exports.createPages = async (
     );
   }
 
+  let defaultVersionNumber = null;
+  try {
+    defaultVersionNumber = parseFloat(defaultVersion, 10);
+  } catch (error) {
+    // let it slide
+  }
+
   const [owner, repo] = githubRepo.split('/');
   const template = require.resolve('./src/components/template');
   edges.forEach(edge => {
     const {id, relativePath} = edge.node;
     const {fields} = getPageFromEdge(edge);
+
+    let versionDifference = 0;
+    if (defaultVersionNumber) {
+      try {
+        const versionNumber = parseFloat(fields.version, 10);
+        versionDifference = versionNumber - defaultVersionNumber;
+      } catch (error) {
+        // do nothing
+      }
+    }
+
     actions.createPage({
       path: fields.slug,
       component: template,
       context: {
         id,
+        versionDifference,
         sidebarContents: sidebarContents[fields.version],
         githubUrl:
           'https://' +
