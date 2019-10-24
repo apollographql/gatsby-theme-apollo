@@ -8,7 +8,7 @@ function trackEvent(options) {
 }
 
 function getVersionBasePath(version) {
-  return `/v${version}`;
+  return `/v${version.replace(/\s+/g, '-')}`;
 }
 
 function getSpectrumUrl(handle) {
