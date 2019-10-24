@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import usePrevious from 'react-use/lib/usePrevious';
 import {IconCollapseList} from '@apollo/space-kit/icons/IconCollapseList';
 import {IconExpandList} from '@apollo/space-kit/icons/IconExpandList';
+import {IconOutlink} from '@apollo/space-kit/icons/IconOutlink';
 import {Link, withPrefix} from 'gatsby';
 import {colors} from '../../utils/colors';
 import {size} from 'polished';
@@ -50,6 +51,12 @@ const ExpandAll = styled.button(listItemStyles, smallCaps, {
     ...size(14),
     marginRight: 8
   }
+});
+
+const StyledOutlinkIcon = styled(IconOutlink)(size(14), {
+  verticalAlign: -1,
+  marginLeft: 8,
+  color: colors.text3
 });
 
 function getId(title) {
@@ -149,7 +156,10 @@ export default function SidebarNav(props) {
             {pages.map(page => (
               <StyledListItem key={page.path}>
                 {page.anchor ? (
-                  <a href={page.path}>{page.title}</a>
+                  <a href={page.path} target="_blank" rel="noopener noreferrer">
+                    {page.title}
+                    <StyledOutlinkIcon />
+                  </a>
                 ) : (
                   <Link
                     className={
