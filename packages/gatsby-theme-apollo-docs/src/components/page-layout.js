@@ -190,7 +190,7 @@ export default function PageLayout(props) {
               {versionDifference > 0
                 ? 'version of this software that is in development'
                 : 'previous version of this software'}
-              . <Link to="/">Switch to the latest stable version</Link>.
+              . <Link to="/">Switch to the latest stable version</Link>
             </Eyebrow>
           )
         }
