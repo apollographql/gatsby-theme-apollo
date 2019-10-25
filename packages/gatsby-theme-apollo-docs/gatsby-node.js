@@ -109,7 +109,7 @@ function getSidebarContents(sidebarCategories, edges, version, contentDir) {
           const {relativePath} = edge.node;
           const {fields} = getPageFromEdge(edge);
           return (
-            fields.version === version &&
+            fields.version === version.toString() &&
             relativePath
               .slice(0, relativePath.lastIndexOf('.'))
               .replace(new RegExp(`^${contentDir}/`), '') === linkPath
