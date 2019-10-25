@@ -10,7 +10,8 @@ const Wrapper = styled.div({
 
 const InnerWrapper = styled.div({
   display: 'flex',
-  flexGrow: 1
+  flexGrow: 1,
+  overflow: 'hidden'
 });
 
 export default function FlexWrapper({children, beforeContent, ...props}) {
