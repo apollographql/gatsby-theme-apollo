@@ -1,6 +1,29 @@
+import PropTypes from 'prop-types';
+import React from 'react';
 import styled from '@emotion/styled';
-import {cover} from 'polished';
 
-export default styled.div(cover(), {
-  display: 'flex'
+const Wrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100vh'
 });
+
+const InnerWrapper = styled.div({
+  display: 'flex',
+  flexGrow: 1,
+  overflow: 'hidden'
+});
+
+export default function FlexWrapper({children, beforeContent, ...props}) {
+  return (
+    <Wrapper {...props}>
+      {beforeContent}
+      <InnerWrapper>{children}</InnerWrapper>
+    </Wrapper>
+  );
+}
+
+FlexWrapper.propTypes = {
+  beforeContent: PropTypes.node,
+  children: PropTypes.node.isRequired
+};
