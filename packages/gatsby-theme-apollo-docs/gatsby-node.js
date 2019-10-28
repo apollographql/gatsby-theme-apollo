@@ -144,7 +144,7 @@ function getVersionSidebarCategories(gatsbyConfig, hexoConfig) {
     const json = trimmed
       .slice(0, trimmed.indexOf('}'))
       // wrap object keys in double quotes
-      .replace(/['"]?(\w[\w\s]+)['"]?:/g, '"$1":')
+      .replace(/['"]?(\w[\w\s&-]+)['"]?:/g, '"$1":')
       // replace single-quoted array values with double quoted ones
       .replace(/'([\w-/.]+)'/g, '"$1"')
       // remove trailing commas
