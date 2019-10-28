@@ -80,13 +80,17 @@ module.exports = ({
         }
       },
       'gatsby-plugin-printer',
-      ...Object.keys(versions).map(key => ({
+      ...Object.entries(versions).map(([name, branch]) => ({
         resolve: 'gatsby-source-git',
         options: {
-          name: key,
+          name,
+          branch,
           remote: `https://github.com/${githubRepo}`,
-          branch: versions[key],
-          patterns: 'docs/**'
+          patterns: [
+            'docs/source/**',
+            'docs/gatsby-config.js',
+            'docs/_config.yml'
+          ]
         }
       }))
     ]
