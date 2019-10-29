@@ -24,9 +24,25 @@ module.exports = ({
       options: {
         mermaidOptions: {
           themeCSS: `
-            .node rect {
+            .node rect,
+            .node circle {
+              stroke-width: 2px;
               stroke: ${colors.primary};
               fill: ${colors.background};
+            }
+            .node.secondary rect,
+            .node.secondary circle,
+            .node.tertiary rect,
+            .node.tertiary circle {
+              fill: white;
+            }
+            .node.secondary rect,
+            .node.secondary circle {
+              stroke: ${colors.secondary};
+            }
+            .node.tertiary rect,
+            .node.tertiary circle {
+              stroke: ${colors.tertiaryLight};
             }
           `
         }
