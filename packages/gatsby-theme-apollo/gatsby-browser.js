@@ -1,6 +1,6 @@
 import React from 'react';
 import client from './src/client';
-import {ApolloProvider} from '@apollo/react-common';
+import {ApolloProvider} from '@apollo/client';
 
 // eslint-disable-next-line react/prop-types
 export const wrapRootElement = ({element}) => (

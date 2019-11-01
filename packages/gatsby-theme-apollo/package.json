@@ -16,11 +16,11 @@
     "apollo-client"
   ],
   "peerDependencies": {
-    "@apollo/react-common": ">=3.0.0",
+    "@apollo/client": ">=3.0.0-beta.1",
     "gatsby": ">=2.13.80"
   },
   "devDependencies": {
-    "@apollo/react-common": "^3.0.1",
+    "@apollo/client": "^3.0.0-beta.1",
     "gatsby": "^2.13.80"
   }
 }
