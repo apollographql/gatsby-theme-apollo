@@ -5,6 +5,7 @@ exports.colors = {
   primaryLight: colors.indigo.lighter,
   secondary: colors.pink.base,
   tertiary: colors.teal.dark,
+  tertiaryLight: colors.teal.base,
   divider: colors.silver.dark,
   background: colors.silver.light,
   background2: colors.silver.base,

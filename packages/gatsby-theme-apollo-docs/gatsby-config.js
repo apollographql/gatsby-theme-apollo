@@ -1,3 +1,5 @@
+const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
+
 module.exports = ({
   root,
   siteName,
@@ -15,6 +17,35 @@ module.exports = ({
       resolve: 'gatsby-remark-copy-linked-files',
       options: {
         ignoreFileExtensions: []
+      }
+    },
+    {
+      resolve: 'gatsby-remark-mermaid',
+      options: {
+        mermaidOptions: {
+          themeCSS: `
+            .node rect,
+            .node circle {
+              stroke-width: 2px;
+              stroke: ${colors.primary};
+              fill: ${colors.background};
+            }
+            .node.secondary rect,
+            .node.secondary circle,
+            .node.tertiary rect,
+            .node.tertiary circle {
+              fill: white;
+            }
+            .node.secondary rect,
+            .node.secondary circle {
+              stroke: ${colors.secondary};
+            }
+            .node.tertiary rect,
+            .node.tertiary circle {
+              stroke: ${colors.tertiaryLight};
+            }
+          `
+        }
       }
     },
     'gatsby-remark-prismjs-title',
