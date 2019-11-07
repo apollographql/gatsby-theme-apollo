@@ -62,7 +62,7 @@ sidebar_categories:
     - mutations
 github_repo: apollographql/apollo-ios
 root: /docs/ios/ # called `pathPrefix` in gatsby-config.js
-content_root: docs/source # not required, but called `contentDir` in gatsby-config.js
+content_root: docs/source # called `baseDir` and `contentDir` in gatsby-config.js
 url: https://www.apollographql.com/docs/ios/ # not needed
 public_dir: public/docs/ios # not needed
 ```

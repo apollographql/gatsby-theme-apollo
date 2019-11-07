@@ -73,7 +73,8 @@ module.exports = {
 | siteName          | string | The main title for the website, used in the `<title>` element and top left corner of the site                        |
 | subtitle          | string | The page title that gets rendered above the sidebar navigation                                                       |
 | description       | string | The site description for SEO and social (FB, Twitter) tags                                                           |
-| contentDir        | string | The directory where docs content exists (`docs/source` by default)                                                   |
+| baseDir           | string | The directory where your Gatsby site is located, relative to the repository root                                     |
+| contentDir        | string | The directory where docs content exists, relative to `baseDir`                                                       |
 | githubRepo        | string | The owner and name of the content repository on GitHub                                                               |
 | spectrumPath      | string | The path to be appended to Spectrum links                                                                            |
 | trackingId        | string | Your Google Analytics tracking ID                                                                                    |

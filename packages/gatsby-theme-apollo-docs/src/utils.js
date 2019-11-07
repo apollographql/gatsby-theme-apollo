@@ -15,9 +15,20 @@ function getSpectrumUrl(handle) {
   return `https://spectrum.chat/${handle}`;
 }
 
+function createWithBaseDir(baseDir) {
+  return path => (baseDir ? [baseDir, path].join('/') : path);
+}
+
 exports.MainRefContext = createContext();
 exports.trackEvent = trackEvent;
-exports.getSpectrumUrl = getSpectrumUrl;
 exports.getVersionBasePath = getVersionBasePath;
+exports.getSpectrumUrl = getSpectrumUrl;
+exports.createWithBaseDir = createWithBaseDir;
+
 exports.GA_EVENT_CATEGORY_CODE_BLOCK = 'Code Block';
 exports.GA_EVENT_CATEGORY_SIDEBAR = 'Sidebar';
+
+exports.CONFIG_PATHS = [
+  'gatsby-config.js', // new gatsby config
+  '_config.yml' // old hexo config
+];

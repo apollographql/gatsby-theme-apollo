@@ -1,13 +1,24 @@
 const jsYaml = require('js-yaml');
 const path = require('path');
 const {createFilePath} = require('gatsby-source-filesystem');
-const {getVersionBasePath, getSpectrumUrl} = require('./src/utils');
+const {
+  getVersionBasePath,
+  getSpectrumUrl,
+  createWithBaseDir,
+  CONFIG_PATHS
+} = require('./src/utils');
 const {createPrinterNode} = require('gatsby-plugin-printer');
+
+function getConfigPaths(withBaseDir) {
+  return CONFIG_PATHS.map(withBaseDir);
+}
 
 async function onCreateNode(
   {node, actions, getNode, loadNodeContent},
-  {defaultVersion, siteName, subtitle, sidebarCategories}
+  {baseDir, defaultVersion, siteName, subtitle, sidebarCategories}
 ) {
+  const withBaseDir = createWithBaseDir(baseDir);
+  const configPaths = getConfigPaths(withBaseDir);
   if (configPaths.includes(node.relativePath)) {
     const value = await loadNodeContent(node);
     actions.createNodeField({
@@ -130,11 +141,6 @@ function getSidebarContents(sidebarCategories, edges, version, contentDir) {
   }));
 }
 
-const configPaths = [
-  'docs/gatsby-config.js', // new gatsby config
-  'docs/_config.yml' // old hexo config
-];
-
 function getVersionSidebarCategories(gatsbyConfig, hexoConfig) {
   if (gatsbyConfig) {
     const trimmed = gatsbyConfig.slice(
@@ -176,7 +182,8 @@ const pageFragment = `
 exports.createPages = async (
   {actions, graphql},
   {
-    contentDir = 'docs/source',
+    baseDir,
+    contentDir,
     githubRepo,
     sidebarCategories,
     spectrumHandle,
@@ -207,16 +214,19 @@ exports.createPages = async (
   `);
 
   const {edges} = data.allFile;
+  const withBaseDir = createWithBaseDir(baseDir);
+  const fullContentDir = withBaseDir(contentDir);
   const sidebarContents = {
     [defaultVersion]: getSidebarContents(
       sidebarCategories,
       edges,
       defaultVersion,
-      contentDir
+      fullContentDir
     )
   };
 
   const versionKeys = [];
+  const configPaths = getConfigPaths(withBaseDir);
   for (const version in versions) {
     versionKeys.push(version);
 
@@ -245,7 +255,7 @@ exports.createPages = async (
       getVersionSidebarCategories(...configs),
       edges,
       version,
-      contentDir
+      fullContentDir
     );
   }
 
@@ -287,7 +297,7 @@ exports.createPages = async (
             repo,
             'tree',
             'master',
-            contentDir,
+            fullContentDir,
             relativePath
           ),
         spectrumUrl:

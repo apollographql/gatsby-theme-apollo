@@ -1,9 +1,12 @@
 const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
+const {createWithBaseDir, CONFIG_PATHS} = require('./src/utils');
 
 module.exports = ({
   root,
   siteName,
   subtitle,
+  baseDir,
+  contentDir,
   description,
   githubRepo,
   versions = {},
@@ -62,6 +65,7 @@ module.exports = ({
     }
   ];
 
+  const withBaseDir = createWithBaseDir(baseDir);
   return {
     siteMetadata: {
       title: 'Apollo GraphQL Docs',
@@ -80,7 +84,7 @@ module.exports = ({
       {
         resolve: 'gatsby-source-filesystem',
         options: {
-          path: `${root}/source`,
+          path: `${root}/${contentDir}`,
           name: 'docs'
         }
       },
@@ -117,11 +121,7 @@ module.exports = ({
           name,
           branch,
           remote: `https://github.com/${githubRepo}`,
-          patterns: [
-            'docs/source/**',
-            'docs/gatsby-config.js',
-            'docs/_config.yml'
-          ]
+          patterns: [`${contentDir}/**`, ...CONFIG_PATHS].map(withBaseDir)
         }
       }))
     ]
