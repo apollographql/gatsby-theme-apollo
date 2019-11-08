@@ -278,6 +278,7 @@ exports.createPages = async (
       context: {
         id,
         versionDifference,
+        versionBasePath: getVersionBasePath(fields.version),
         sidebarContents: sidebarContents[fields.version],
         githubUrl:
           'https://' +

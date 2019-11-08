@@ -16,12 +16,12 @@ export function MultiCodeBlock(props) {
     return props.children;
   }
 
-  function handleLanguageChange(event) {
-    setActiveIndex(event.target.value);
+  function handleLanguageChange(value) {
+    setActiveIndex(value);
     trackEvent({
       eventCategory: GA_EVENT_CATEGORY_CODE_BLOCK,
       eventAction: 'change language',
-      eventLabel: languages[event.target.value]
+      eventLabel: languages[value]
     });
   }
 
