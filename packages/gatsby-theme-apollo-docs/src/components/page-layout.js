@@ -152,6 +152,7 @@ export default function PageLayout(props) {
     sidebarContents,
     versions,
     versionDifference,
+    versionBasePath,
     defaultVersion
   } = props.pageContext;
   const {
@@ -227,7 +228,7 @@ export default function PageLayout(props) {
               <Select
                 feel="flat"
                 size="small"
-                value={pathname}
+                value={versionDifference ? versionBasePath : '/'}
                 onChange={navigate}
                 style={{marginLeft: 8}}
                 options={versions.reduce(
