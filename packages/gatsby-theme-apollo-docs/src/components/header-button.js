@@ -17,7 +17,18 @@ const StyledIcon = styled(IconSchema)({
 
 export default function HeaderButton() {
   return (
-    <StyledButton icon={<StyledIcon />} color={colors.primary} feel="flat">
+    <StyledButton
+      as={
+        <a
+          href="https://engine.apollographql.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        />
+      }
+      icon={<StyledIcon />}
+      color={colors.primary}
+      feel="flat"
+    >
       Go to Graph Manager
     </StyledButton>
   );
