@@ -27,7 +27,8 @@ const Menu = styled.div({
   backgroundColor: 'white',
   position: 'absolute',
   left: 0,
-  top: '100%'
+  top: '100%',
+  zIndex: 1
 });
 
 const MenuItem = styled.button({

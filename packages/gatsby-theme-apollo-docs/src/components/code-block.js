@@ -53,7 +53,7 @@ export default function CodeBlock(props) {
               <StyledSelect
                 size="small"
                 feel="flat"
-                value={activeIndex}
+                value={activeIndex.toString()}
                 onChange={onLanguageChange}
                 options={languages.reduce(
                   (acc, text, index) => ({
