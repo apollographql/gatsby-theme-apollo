@@ -4,9 +4,8 @@ import DocsetSwitcher from './docset-switcher';
 import PropTypes from 'prop-types';
 import React, {createContext, useMemo, useRef, useState} from 'react';
 import Search from './search';
-import SelectLink from './select-link';
 import styled from '@emotion/styled';
-import {Button} from './buttons';
+import {Button} from '@apollo/space-kit/Button';
 import {
   FlexWrapper,
   Header,
@@ -28,8 +27,8 @@ import {
 } from '../utils';
 import {Helmet} from 'react-helmet';
 import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
-import {Link, graphql, useStaticQuery} from 'gatsby';
-import {iconStyles} from './select';
+import {Link, graphql, navigate, useStaticQuery} from 'gatsby';
+import {Select} from './select';
 import {size} from 'polished';
 
 const Main = styled.main({
@@ -39,13 +38,20 @@ const Main = styled.main({
   WebkitOverflowScrolling: 'touch'
 });
 
-const StyledButton = styled(Button)({
-  width: '100%',
-  textAlign: 'left',
-  position: 'relative'
+const ButtonWrapper = styled.div({
+  flexGrow: 1
 });
 
-const StyledIcon = styled(IconLayoutModule)(size(16), iconStyles);
+const StyledButton = styled(Button)({
+  width: '100%',
+  ':not(:hover)': {
+    backgroundColor: colors.background
+  }
+});
+
+const StyledIcon = styled(IconLayoutModule)(size(16), {
+  marginLeft: 'auto'
+});
 
 const MobileNav = styled.div({
   display: 'none',
@@ -204,35 +210,36 @@ export default function PageLayout(props) {
           logoLink={logoLink}
         >
           <HeaderInner>
-            <StyledButton
-              variant="flat"
-              color="branded"
-              size="small"
-              onClick={openMenu}
-              ref={buttonRef}
-            >
-              <span className="title-sidebar">{subtitle}</span>
-              <StyledIcon />
-            </StyledButton>
-            {versions && versions.length > 0 && (
-              <SelectLink
-                useLink
+            <ButtonWrapper ref={buttonRef}>
+              <StyledButton
+                feel="flat"
+                color={colors.primary}
                 size="small"
-                variant="hidden"
-                isPathActive={value => pathname.startsWith(value)}
+                onClick={openMenu}
+                style={{display: 'block'}}
+              >
+                <span className="title-sidebar">{subtitle}</span>
+                <StyledIcon />
+              </StyledButton>
+            </ButtonWrapper>
+
+            {versions && versions.length > 0 && (
+              <Select
+                feel="flat"
+                size="small"
+                value={pathname}
+                onChange={navigate}
                 style={{marginLeft: 8}}
-                options={[
+                options={versions.reduce(
+                  (acc, version) => ({
+                    ...acc,
+                    [getVersionBasePath(version)]: getVersionLabel(version)
+                  }),
                   {
-                    text: defaultVersion
+                    '/': defaultVersion
                       ? getVersionLabel(defaultVersion)
-                      : 'Latest',
-                    value: '/'
+                      : 'Latest'
                   }
-                ].concat(
-                  versions.map(version => ({
-                    text: getVersionLabel(version),
-                    value: getVersionBasePath(version)
-                  }))
                 )}
               />
             )}

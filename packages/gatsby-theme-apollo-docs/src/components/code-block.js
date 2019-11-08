@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useRef} from 'react';
 import styled from '@emotion/styled';
 import useCopyToClipboard from 'react-use/lib/useCopyToClipboard';
-import {Button} from './buttons';
+import {Button} from '@apollo/space-kit/Button';
 import {GA_EVENT_CATEGORY_CODE_BLOCK, trackEvent} from '../utils';
 import {MultiCodeBlockContext} from './multi-code-block';
 import {Select} from './select';
@@ -52,20 +52,21 @@ export default function CodeBlock(props) {
             languages && (
               <StyledSelect
                 size="small"
-                variant="hidden"
+                feel="flat"
                 value={activeIndex}
                 onChange={onLanguageChange}
-              >
-                {languages.map((language, index) => (
-                  <option value={index} key={index}>
-                    {language}
-                  </option>
-                ))}
-              </StyledSelect>
+                options={languages.reduce(
+                  (acc, text, index) => ({
+                    ...acc,
+                    [index]: text
+                  }),
+                  {}
+                )}
+              />
             )
           }
         </MultiCodeBlockContext.Consumer>
-        <Button variant="hidden" size="small" onClick={handleCopy}>
+        <Button feel="flat" size="small" onClick={handleCopy}>
           {copied.value ? 'Copied!' : 'Copy'}
         </Button>
       </Header>

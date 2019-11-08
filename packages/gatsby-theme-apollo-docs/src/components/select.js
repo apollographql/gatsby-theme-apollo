@@ -1,54 +1,129 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import styled from '@emotion/styled';
+import useClickAway from 'react-use/lib/useClickAway';
+import {Button} from '@apollo/space-kit/Button';
 import {IconArrowDown} from '@apollo/space-kit/icons/IconArrowDown';
-import {getButtonStyles} from './buttons';
+import {colors} from 'gatsby-theme-apollo-core';
 import {size} from 'polished';
 
-const Container = styled.div(props => {
-  const {fontSize, color} = getButtonStyles(props);
-  return {
-    fontSize,
-    color,
-    position: 'relative'
-  };
+const Wrapper = styled.div({
+  position: 'relative'
 });
 
-const StyledSelect = styled.select(getButtonStyles, {
-  paddingRight: 'calc(1.5em + 0.5em * 2)',
-  appearance: 'none',
-  fontSize: 'inherit'
+const StyledIcon = styled(IconArrowDown)(size('1em'), {
+  marginLeft: 12
 });
 
-export const iconStyles = {
-  pointerEvents: 'none',
+const Menu = styled.div({
+  minWidth: '100%',
+  padding: 8,
+  borderRadius: 4,
+  boxShadow: [
+    '0 3px 4px 0 rgba(18, 21, 26, 0.04)',
+    '0 4px 8px 0 rgba(18, 21, 26, 0.08)',
+    '0 0 0 1px rgba(18, 21, 26, 0.08)'
+  ].toString(),
+  backgroundColor: 'white',
   position: 'absolute',
-  top: '50%',
-  right: '0.75em',
-  transform: 'translateY(-50%)'
-};
+  left: 0,
+  top: '100%'
+});
 
-const StyledIcon = styled(IconArrowDown)(size('1em'), iconStyles);
+const MenuItem = styled.button({
+  width: '100%',
+  padding: '1px 12px',
+  fontSize: 13,
+  lineHeight: 2,
+  textAlign: 'left',
+  border: 'none',
+  borderRadius: 4,
+  background: 'none',
+  cursor: 'pointer',
+  outline: 'none',
+  ':hover': {
+    backgroundColor: colors.background
+  },
+  '&.selected': {
+    backgroundColor: colors.primary,
+    color: 'white'
+  }
+});
 
-export function Select({className, style, ...props}) {
+const LabelWrapper = styled.div({
+  position: 'relative'
+});
+
+const Spacer = styled.div({
+  visibility: 'hidden'
+});
+
+const Label = styled.div({
+  position: 'absolute',
+  top: 0,
+  left: 0
+});
+
+export function Select({className, style, options, value, onChange, ...props}) {
+  const wrapperRef = useRef(null);
+  const [open, setOpen] = useState(false);
+
+  const optionKeys = useMemo(() => Object.keys(options), [options]);
+  const labelHeight = useMemo(() => {
+    switch (props.size) {
+      case 'small':
+        return 20;
+      case 'large':
+        return 27;
+      default:
+        return 22;
+    }
+  }, [props.size]);
+
+  useClickAway(wrapperRef, () => {
+    setOpen(false);
+  });
+
+  function handleClick() {
+    setOpen(prevOpen => !prevOpen);
+  }
+
   return (
-    <Container
-      className={className}
-      style={style}
-      size={props.size}
-      variant={props.variant}
-      color={props.color}
-    >
-      <StyledSelect {...props} />
-      <StyledIcon />
-    </Container>
+    <Wrapper className={className} style={style} ref={wrapperRef}>
+      <Button {...props} onClick={handleClick}>
+        <LabelWrapper style={{height: labelHeight}}>
+          {optionKeys.map(key => (
+            <Spacer key={key}>{options[key]}</Spacer>
+          ))}
+          <Label>{options[value]}</Label>
+        </LabelWrapper>
+        <StyledIcon />
+      </Button>
+      {open && (
+        <Menu>
+          {optionKeys.map(key => {
+            const text = options[key];
+            return (
+              <MenuItem
+                key={key}
+                onClick={() => onChange(key)}
+                className={key === value && 'selected'}
+              >
+                {text}
+              </MenuItem>
+            );
+          })}
+        </Menu>
+      )}
+    </Wrapper>
   );
 }
 
 Select.propTypes = {
-  size: PropTypes.string,
-  variant: PropTypes.string,
-  color: PropTypes.string,
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  size: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  options: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired
 };
