@@ -107,7 +107,10 @@ export function Select({className, style, options, value, onChange, ...props}) {
             return (
               <MenuItem
                 key={key}
-                onClick={() => onChange(key)}
+                onClick={() => {
+                  onChange(key);
+                  setOpen(false);
+                }}
                 className={key === value && 'selected'}
               >
                 {text}
