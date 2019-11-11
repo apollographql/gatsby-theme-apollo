@@ -99,7 +99,7 @@ export default function SocialCard(props) {
       >
         {props.title.replace(/\s+(\S*)$/, '\xA0$1')}
       </TextFit>
-      <ApolloIcon height={70} />
+      <ApolloIcon style={{height: 70}} />
     </div>
   );
 }
