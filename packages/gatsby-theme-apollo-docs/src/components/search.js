@@ -32,6 +32,7 @@ const Container = styled.div({
   flexGrow: 1,
   maxWidth: 600,
   marginLeft: 40,
+  marginRight: 'auto',
   color: colors.text2,
   position: 'relative',
   zIndex: 1,
