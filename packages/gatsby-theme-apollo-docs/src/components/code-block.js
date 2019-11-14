@@ -3,8 +3,10 @@ import React, {useRef} from 'react';
 import styled from '@emotion/styled';
 import useCopyToClipboard from 'react-use/lib/useCopyToClipboard';
 import {Button} from '@apollo/space-kit/Button';
-import {GA_EVENT_CATEGORY_CODE_BLOCK, trackEvent} from '../utils';
-import {MultiCodeBlockContext} from './multi-code-block';
+import {
+  GA_EVENT_CATEGORY_CODE_BLOCK,
+  MultiCodeBlockContext
+} from './multi-code-block';
 import {Select} from './select';
 import {colors} from 'gatsby-theme-apollo-core';
 
@@ -37,11 +39,13 @@ export default function CodeBlock(props) {
   const [copied, copyToClipboard] = useCopyToClipboard();
 
   function handleCopy() {
+    if (typeof window.analytics !== 'undefined') {
+      window.analytics.track(GA_EVENT_CATEGORY_CODE_BLOCK, {
+        action: 'copy'
+      });
+    }
+
     copyToClipboard(code.current.innerText);
-    trackEvent({
-      eventCategory: GA_EVENT_CATEGORY_CODE_BLOCK,
-      eventAction: 'copy'
-    });
   }
 
   return (

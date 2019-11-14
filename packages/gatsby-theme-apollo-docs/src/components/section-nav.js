@@ -5,7 +5,7 @@ import striptags from 'striptags';
 import styled from '@emotion/styled';
 import useScroll from 'react-use/lib/useScroll';
 import useWindowSize from 'react-use/lib/useWindowSize';
-import {MainRefContext, trackEvent} from '../utils';
+import {MainRefContext} from '../utils';
 import {colors} from 'gatsby-theme-apollo-core';
 
 const StyledList = styled.ul({
@@ -29,11 +29,12 @@ const StyledListItem = styled.li(props => ({
 }));
 
 function handleHeadingClick(event) {
-  trackEvent({
-    eventCategory: 'Section Nav',
-    eventAction: 'heading click',
-    eventLabel: event.target.innerText
-  });
+  if (typeof window.analytics !== 'undefined') {
+    window.analytics.track('Section Nav', {
+      action: 'heading click',
+      label: event.target.innerText
+    });
+  }
 }
 
 export default function SectionNav(props) {

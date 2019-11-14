@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, {createContext, useState} from 'react';
 import styled from '@emotion/styled';
-import {GA_EVENT_CATEGORY_CODE_BLOCK, trackEvent} from '../utils';
 
 const Container = styled.div({
   position: 'relative'
 });
 
+export const GA_EVENT_CATEGORY_CODE_BLOCK = 'Code Block';
 export const MultiCodeBlockContext = createContext({});
 
 export function MultiCodeBlock(props) {
@@ -17,12 +17,13 @@ export function MultiCodeBlock(props) {
   }
 
   function handleLanguageChange(value) {
+    if (typeof window.analytics !== 'undefined') {
+      window.analytics.track(GA_EVENT_CATEGORY_CODE_BLOCK, {
+        action: 'change language',
+        label: languages[value]
+      });
+    }
     setActiveIndex(value);
-    trackEvent({
-      eventCategory: GA_EVENT_CATEGORY_CODE_BLOCK,
-      eventAction: 'change language',
-      eventLabel: languages[value]
-    });
   }
 
   const languages = props.children.map(child => child.props['data-language']);
