@@ -22,15 +22,12 @@ import {
 import {Helmet} from 'react-helmet';
 import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
 import {Link, graphql, navigate, useStaticQuery} from 'gatsby';
-import {MainRefContext, getSpectrumUrl, getVersionBasePath} from '../utils';
 import {Select} from './select';
+import {getSpectrumUrl, getVersionBasePath} from '../utils';
 import {size} from 'polished';
 
 const Main = styled.main({
-  flexGrow: 1,
-  outline: 'none',
-  overflowY: 'auto',
-  WebkitOverflowScrolling: 'touch'
+  flexGrow: 1
 });
 
 const ButtonWrapper = styled.div({
@@ -109,7 +106,6 @@ function handleToggleCategory(title, expanded) {
 export const NavItemsContext = createContext();
 
 export default function PageLayout(props) {
-  const mainRef = useRef(null);
   const sidebarRef = useRef(null);
 
   const data = useStaticQuery(
@@ -254,8 +250,7 @@ export default function PageLayout(props) {
             />
           )}
         </Sidebar>
-        {/* we give the component a key so it resets the scroll when the pathname changes */}
-        <Main ref={mainRef} key={props.location.pathname} tabIndex={0}>
+        <Main>
           <Header>
             <MobileNav>
               <MenuButton onClick={openSidebar} />
@@ -268,11 +263,9 @@ export default function PageLayout(props) {
             />
             <HeaderButton />
           </Header>
-          <MainRefContext.Provider value={mainRef}>
-            <NavItemsContext.Provider value={navItems}>
-              {props.children}
-            </NavItemsContext.Provider>
-          </MainRefContext.Provider>
+          <NavItemsContext.Provider value={navItems}>
+            {props.children}
+          </NavItemsContext.Provider>
         </Main>
       </FlexWrapper>
       <DocsetSwitcher

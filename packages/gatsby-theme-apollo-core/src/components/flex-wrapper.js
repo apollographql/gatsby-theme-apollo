@@ -5,13 +5,14 @@ import styled from '@emotion/styled';
 const Wrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  height: '100vh'
+  height: '100vh',
+  width: 1440,
+  margin: '0 auto'
 });
 
 const InnerWrapper = styled.div({
   display: 'flex',
-  flexGrow: 1,
-  overflow: 'hidden'
+  flexGrow: 1
 });
 
 export default function FlexWrapper({children, beforeContent, ...props}) {
