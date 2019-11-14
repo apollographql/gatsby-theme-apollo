@@ -18,8 +18,8 @@ export function MultiCodeBlock(props) {
 
   function handleLanguageChange(value) {
     if (typeof window.analytics !== 'undefined') {
-      window.analytics.track(GA_EVENT_CATEGORY_CODE_BLOCK, {
-        action: 'change language',
+      window.analytics.track('Change language', {
+        category: GA_EVENT_CATEGORY_CODE_BLOCK,
         label: languages[value]
       });
     }

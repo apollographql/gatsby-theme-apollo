@@ -30,8 +30,8 @@ const StyledListItem = styled.li(props => ({
 
 function handleHeadingClick(event) {
   if (typeof window.analytics !== 'undefined') {
-    window.analytics.track('Section Nav', {
-      action: 'heading click',
+    window.analytics.track('Heading click', {
+      category: 'Section Nav',
       label: event.target.innerText
     });
   }

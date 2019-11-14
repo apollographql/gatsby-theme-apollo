@@ -88,8 +88,8 @@ const GA_EVENT_CATEGORY_SIDEBAR = 'Sidebar';
 
 function handleToggleAll(expanded) {
   if (typeof window.analytics !== 'undefined') {
-    window.analytics.track(GA_EVENT_CATEGORY_SIDEBAR, {
-      action: 'toggle all',
+    window.analytics.track('Toggle all', {
+      category: GA_EVENT_CATEGORY_SIDEBAR,
       label: expanded ? 'expand' : 'collapse'
     });
   }
@@ -97,8 +97,8 @@ function handleToggleAll(expanded) {
 
 function handleToggleCategory(title, expanded) {
   if (typeof window.analytics !== 'undefined') {
-    window.analytics.track(GA_EVENT_CATEGORY_SIDEBAR, {
-      action: 'toggle category',
+    window.analytics.track('Toggle category', {
+      category: GA_EVENT_CATEGORY_SIDEBAR,
       label: title,
       value: Number(expanded)
     });

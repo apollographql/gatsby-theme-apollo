@@ -40,8 +40,8 @@ export default function CodeBlock(props) {
 
   function handleCopy() {
     if (typeof window.analytics !== 'undefined') {
-      window.analytics.track(GA_EVENT_CATEGORY_CODE_BLOCK, {
-        action: 'copy'
+      window.analytics.track('Copy', {
+        category: GA_EVENT_CATEGORY_CODE_BLOCK
       });
     }
 
