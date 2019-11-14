@@ -18,9 +18,9 @@
   "dependencies": {
     "@mdx-js/mdx": "^1.1.0",
     "@mdx-js/react": "^1.0.27",
-    "gatsby-plugin-google-analytics": "^2.0.17",
     "gatsby-plugin-mdx": "^1.0.23",
     "gatsby-plugin-printer": "1.0.x",
+    "gatsby-plugin-segment-js": "^3.0.1",
     "gatsby-remark-autolink-headers": "^2.0.16",
     "gatsby-remark-check-links": "^2.1.0",
     "gatsby-remark-copy-linked-files": "^2.0.12",
