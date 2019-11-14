@@ -18,16 +18,10 @@ import {
   colors,
   useResponsiveSidebar
 } from 'gatsby-theme-apollo-core';
-import {
-  GA_EVENT_CATEGORY_SIDEBAR,
-  MainRefContext,
-  getSpectrumUrl,
-  getVersionBasePath,
-  trackEvent
-} from '../utils';
 import {Helmet} from 'react-helmet';
 import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
 import {Link, graphql, navigate, useStaticQuery} from 'gatsby';
+import {MainRefContext, getSpectrumUrl, getVersionBasePath} from '../utils';
 import {Select} from './select';
 import {size} from 'polished';
 
@@ -90,21 +84,25 @@ function getVersionLabel(version) {
   return `v${version}`;
 }
 
+const GA_EVENT_CATEGORY_SIDEBAR = 'Sidebar';
+
 function handleToggleAll(expanded) {
-  trackEvent({
-    eventCategory: GA_EVENT_CATEGORY_SIDEBAR,
-    eventAction: 'toggle all',
-    eventLabel: expanded ? 'expand' : 'collapse'
-  });
+  if (typeof window.analytics !== 'undefined') {
+    window.analytics.track('Toggle all', {
+      category: GA_EVENT_CATEGORY_SIDEBAR,
+      label: expanded ? 'expand' : 'collapse'
+    });
+  }
 }
 
 function handleToggleCategory(title, expanded) {
-  trackEvent({
-    eventCategory: GA_EVENT_CATEGORY_SIDEBAR,
-    eventAction: 'toggle category',
-    eventLabel: title,
-    eventValue: Number(expanded)
-  });
+  if (typeof window.analytics !== 'undefined') {
+    window.analytics.track('Toggle category', {
+      category: GA_EVENT_CATEGORY_SIDEBAR,
+      label: title,
+      value: Number(expanded)
+    });
+  }
 }
 
 export const NavItemsContext = createContext();

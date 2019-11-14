@@ -50,7 +50,7 @@ const footerNavConfig = {
 module.exports = {
   siteName: 'Apollo Docs',
   menuTitle: 'Apollo Platform',
-  trackingId: 'UA-74643563-13',
+  segmentApiKey: 'wgrIo8Bul0Ujl8USETG3DB6hONdy4kTg',
   algoliaApiKey: '768e823959d35bbd51e4b2439be13fb7',
   algoliaIndexName: 'apollodata',
   baseUrl: 'https://www.apollographql.com',

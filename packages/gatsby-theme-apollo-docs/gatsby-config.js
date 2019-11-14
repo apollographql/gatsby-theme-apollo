@@ -7,7 +7,7 @@ module.exports = ({
   description,
   githubRepo,
   versions = {},
-  trackingId,
+  segmentApiKey,
   checkLinksOptions,
   twitterHandle
 }) => {
@@ -62,6 +62,66 @@ module.exports = ({
     }
   ];
 
+  const plugins = [
+    {
+      resolve: 'gatsby-theme-apollo-core',
+      options: {
+        root
+      }
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${root}/source`,
+        name: 'docs'
+      }
+    },
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: gatsbyRemarkPlugins
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-mdx',
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: 'gatsby-remark-typescript',
+            options: {
+              wrapperComponent: 'MultiCodeBlock'
+            }
+          },
+          ...gatsbyRemarkPlugins
+        ]
+      }
+    },
+    'gatsby-plugin-printer',
+    ...Object.entries(versions).map(([name, branch]) => ({
+      resolve: 'gatsby-source-git',
+      options: {
+        name,
+        branch,
+        remote: `https://github.com/${githubRepo}`,
+        patterns: [
+          'docs/source/**',
+          'docs/gatsby-config.js',
+          'docs/_config.yml'
+        ]
+      }
+    }))
+  ];
+
+  if (segmentApiKey) {
+    plugins.push({
+      resolve: 'gatsby-plugin-segment-js',
+      options: {
+        prodKey: segmentApiKey,
+        trackPage: true
+      }
+    });
+  }
+
   return {
     siteMetadata: {
       title: 'Apollo GraphQL Docs',
@@ -70,60 +130,6 @@ module.exports = ({
       description,
       twitterHandle
     },
-    plugins: [
-      {
-        resolve: 'gatsby-theme-apollo-core',
-        options: {
-          root
-        }
-      },
-      {
-        resolve: 'gatsby-source-filesystem',
-        options: {
-          path: `${root}/source`,
-          name: 'docs'
-        }
-      },
-      {
-        resolve: 'gatsby-transformer-remark',
-        options: {
-          plugins: gatsbyRemarkPlugins
-        }
-      },
-      {
-        resolve: 'gatsby-plugin-google-analytics',
-        options: {
-          trackingId
-        }
-      },
-      {
-        resolve: 'gatsby-plugin-mdx',
-        options: {
-          gatsbyRemarkPlugins: [
-            {
-              resolve: 'gatsby-remark-typescript',
-              options: {
-                wrapperComponent: 'MultiCodeBlock'
-              }
-            },
-            ...gatsbyRemarkPlugins
-          ]
-        }
-      },
-      'gatsby-plugin-printer',
-      ...Object.entries(versions).map(([name, branch]) => ({
-        resolve: 'gatsby-source-git',
-        options: {
-          name,
-          branch,
-          remote: `https://github.com/${githubRepo}`,
-          patterns: [
-            'docs/source/**',
-            'docs/gatsby-config.js',
-            'docs/_config.yml'
-          ]
-        }
-      }))
-    ]
+    plugins
   };
 };
