@@ -5,8 +5,8 @@ import styled from '@emotion/styled';
 const Wrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  height: '100vh',
-  width: 1440,
+  minHeight: '100vh',
+  maxWidth: 1440,
   margin: '0 auto'
 });
 
