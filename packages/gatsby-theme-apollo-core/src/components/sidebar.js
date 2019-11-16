@@ -1,4 +1,3 @@
-import Header from './header';
 import LogoTitle from './logo-title';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
@@ -10,9 +9,12 @@ import {transparentize} from 'polished';
 const Container = styled.aside({
   flexShrink: 0,
   width: 305,
+  height: '100vh',
+  padding: 20,
   borderRight: `1px solid ${colors.divider}`,
   overflowY: 'auto',
-  position: 'relative'
+  position: 'sticky',
+  top: 0
 });
 
 const ResponsiveContainer = styled(Container)(props => ({
@@ -21,8 +23,6 @@ const ResponsiveContainer = styled(Container)(props => ({
     backgroundColor: 'white',
     boxShadow: `0 0 48px ${transparentize(0.75, 'black')}`,
     position: 'absolute',
-    top: 0,
-    left: 0,
     zIndex: 2,
     opacity: props.open ? 1 : 0,
     visibility: props.open ? 'visible' : 'hidden',
@@ -33,30 +33,24 @@ const ResponsiveContainer = styled(Container)(props => ({
   }
 }));
 
-const StyledHeader = styled(Header)({
-  borderBottom: `1px solid ${colors.divider}`,
-  fontSize: 18
+const Header = styled.div({
+  marginBottom: 20
 });
 
 const StyledLink = styled.a({
-  color: 'inherit',
+  color: colors.primary,
   textDecoration: 'none'
-});
-
-const Content = styled.div({
-  padding: '20px 24px',
-  paddingRight: 0
 });
 
 const Sidebar = React.forwardRef((props, ref) => {
   const content = (
     <Fragment>
-      <StyledHeader>
+      <Header>
         <StyledLink href={props.logoLink}>
           <LogoTitle noLogo={props.noLogo} title={props.title} />
         </StyledLink>
-      </StyledHeader>
-      <Content className={props.className}>{props.children}</Content>
+      </Header>
+      <div className={props.className}>{props.children}</div>
     </Fragment>
   );
 

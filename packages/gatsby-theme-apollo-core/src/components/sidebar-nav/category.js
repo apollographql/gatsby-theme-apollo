@@ -8,15 +8,12 @@ import {colors} from '../../utils/colors';
 import {smallCaps} from '../../utils/typography';
 
 const iconSize = 14;
-const headingPadding = 16;
 const headingStyles = {
   display: 'flex',
   alignItems: 'center',
   width: '100%',
-  marginBottom: 0,
-  padding: headingPadding,
-  paddingLeft: 0,
   border: 0,
+  padding: '0.5em 0',
   color: colors.text2,
   background: 'none',
   outline: 'none',
@@ -37,11 +34,6 @@ const headingStyles = {
     color: colors.primary
   }
 };
-
-const Container = styled.div(props => ({
-  borderTop: !props.first && `1px solid ${colors.divider}`,
-  marginTop: props.first && headingPadding / -2
-}));
 
 const StyledButton = styled.button(headingStyles, {
   ':not([disabled])': {
@@ -71,7 +63,7 @@ export default function Category(props) {
 
   const className = props.active && 'active';
   return (
-    <Container first={props.isFirst}>
+    <div>
       {!props.onClick && props.path ? (
         <StyledLink className={className} to={props.path}>
           {contents}
@@ -85,7 +77,7 @@ export default function Category(props) {
         </StyledButton>
       )}
       {props.expanded && props.children}
-    </Container>
+    </div>
   );
 }
 
@@ -95,6 +87,5 @@ Category.propTypes = {
   expanded: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
   active: PropTypes.bool.isRequired,
-  isFirst: PropTypes.bool.isRequired,
   onClick: PropTypes.func
 };

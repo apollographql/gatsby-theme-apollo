@@ -198,7 +198,6 @@ export default function SidebarNav(props) {
             key={title}
             title={title}
             path={path}
-            isFirst={!index}
             expanded={Boolean(state[getId(title)] || props.alwaysExpanded)}
             active={isCategorySelected({pages, path}, props.pathname)}
             onClick={props.alwaysExpanded ? null : toggleCategory}
