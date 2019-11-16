@@ -22,9 +22,7 @@ const Container = styled.div({
 });
 
 const MainContent = styled.main({
-  flexGrow: 1,
-  width: 0,
-  maxWidth: '100ch'
+  flexGrow: 1
 });
 
 const tableBorder = `1px solid ${colors.divider}`;
@@ -107,12 +105,11 @@ const Aside = styled.aside({
   display: 'flex',
   flexDirection: 'column',
   flexShrink: 0,
-  width: 260,
+  width: 240,
   maxHeight: `calc(100vh - ${headerHeight}px)`,
   marginTop: -36,
-  marginLeft: 'auto',
-  padding: '40px 56px',
-  paddingRight: 0,
+  padding: '40px 0',
+  marginLeft: 40,
   position: 'sticky',
   top: headerHeight,
   [breakpoints.lg]: {
