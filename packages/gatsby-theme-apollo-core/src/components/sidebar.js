@@ -1,8 +1,8 @@
+import Logo from './logo';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import breakpoints from '../utils/breakpoints';
 import styled from '@emotion/styled';
-import {ApolloIcon} from '@apollo/space-kit/icons/ApolloIcon';
 import {colors} from '../utils/colors';
 import {transparentize} from 'polished';
 
@@ -47,12 +47,7 @@ const Sidebar = React.forwardRef((props, ref) => {
     <Fragment>
       <Header>
         <StyledLink href={props.logoLink}>
-          <ApolloIcon
-            style={{
-              display: 'block',
-              height: 28
-            }}
-          />
+          <Logo />
         </StyledLink>
       </Header>
       <div className={props.className}>{props.children}</div>

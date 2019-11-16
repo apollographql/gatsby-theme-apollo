@@ -1,1 +1,13 @@
-export {ReactComponent as default} from '@apollo/space-kit/logos/mark.svg';
+import React from 'react';
+import {ApolloIcon} from '@apollo/space-kit/icons/ApolloIcon';
+
+export default function Logo() {
+  return (
+    <ApolloIcon
+      style={{
+        display: 'block',
+        height: 28
+      }}
+    />
+  );
+}
