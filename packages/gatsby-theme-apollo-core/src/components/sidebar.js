@@ -1,8 +1,8 @@
-import LogoTitle from './logo-title';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import breakpoints from '../utils/breakpoints';
 import styled from '@emotion/styled';
+import {ApolloIcon} from '@apollo/space-kit/icons/ApolloIcon';
 import {colors} from '../utils/colors';
 import {transparentize} from 'polished';
 
@@ -38,7 +38,7 @@ const Header = styled.div({
 });
 
 const StyledLink = styled.a({
-  color: colors.primary,
+  color: colors.text1,
   textDecoration: 'none'
 });
 
@@ -47,7 +47,12 @@ const Sidebar = React.forwardRef((props, ref) => {
     <Fragment>
       <Header>
         <StyledLink href={props.logoLink}>
-          <LogoTitle noLogo={props.noLogo} title={props.title} />
+          <ApolloIcon
+            style={{
+              display: 'block',
+              height: 28
+            }}
+          />
         </StyledLink>
       </Header>
       <div className={props.className}>{props.children}</div>
@@ -69,9 +74,7 @@ Sidebar.displayName = 'Sidebar';
 
 Sidebar.propTypes = {
   children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
   open: PropTypes.bool,
-  noLogo: PropTypes.bool,
   responsive: PropTypes.bool,
   logoLink: PropTypes.string,
   className: PropTypes.string
