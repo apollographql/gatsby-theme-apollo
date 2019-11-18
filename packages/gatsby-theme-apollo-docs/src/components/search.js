@@ -35,7 +35,8 @@ const boxShadowColor = transparentize(0.9, 'black');
 export const boxShadow = `${boxShadowColor} 0 2px 12px`;
 const Container = styled.div({
   flexGrow: 1,
-  margin: '0 32px',
+  marginLeft: 32,
+  marginRight: 40,
   color: colors.text2,
   position: 'relative',
   zIndex: 1,
