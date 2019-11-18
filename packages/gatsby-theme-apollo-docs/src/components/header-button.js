@@ -5,7 +5,7 @@ import {breakpoints, colors} from 'gatsby-theme-apollo-core';
 
 const Container = styled.div({
   width: 240,
-  marginRight: 44,
+  marginRight: 52,
   flexShrink: 0,
   [breakpoints.lg]: {
     width: 'auto',
