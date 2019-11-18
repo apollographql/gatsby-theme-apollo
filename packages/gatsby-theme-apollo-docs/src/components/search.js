@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
 import {IconClose} from '@apollo/space-kit/icons/IconClose';
-import {colors, headerHeight, smallCaps} from 'gatsby-theme-apollo-core';
+import {
+  breakpoints,
+  colors,
+  headerHeight,
+  smallCaps
+} from 'gatsby-theme-apollo-core';
 import {css} from '@emotion/core';
 import {position, size, transparentize} from 'polished';
 
@@ -35,6 +40,9 @@ const Container = styled.div({
   color: colors.text2,
   position: 'relative',
   zIndex: 1,
+  [breakpoints.md]: {
+    marginRight: 0
+  },
   '.algolia-autocomplete': {
     width: '100%',
     '.ds-dropdown-menu': {
