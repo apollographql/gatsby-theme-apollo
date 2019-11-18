@@ -14,7 +14,6 @@ import {
   MenuButton,
   Sidebar,
   SidebarNav,
-  StyledLogo,
   breakpoints,
   colors,
   useResponsiveSidebar
@@ -22,6 +21,7 @@ import {
 import {Helmet} from 'react-helmet';
 import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
 import {Link, graphql, navigate, useStaticQuery} from 'gatsby';
+import {ReactComponent as Logo} from '@apollo/space-kit/logos/mark.svg';
 import {Select} from './select';
 import {getSpectrumUrl, getVersionBasePath} from '../utils';
 import {size} from 'polished';
@@ -254,7 +254,7 @@ export default function PageLayout(props) {
           <Header>
             <MobileNav>
               <MenuButton onClick={openSidebar} />
-              <StyledLogo />
+              <Logo width={32} fill="currentColor" />
             </MobileNav>
             <Search
               siteName={siteName}
