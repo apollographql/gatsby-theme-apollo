@@ -22,7 +22,7 @@ const ResponsiveContainer = styled(Container)(props => ({
     height: '100%',
     backgroundColor: 'white',
     boxShadow: `0 0 48px ${transparentize(0.75, 'black')}`,
-    position: 'absolute',
+    position: 'fixed',
     zIndex: 2,
     opacity: props.open ? 1 : 0,
     visibility: props.open ? 'visible' : 'hidden',
