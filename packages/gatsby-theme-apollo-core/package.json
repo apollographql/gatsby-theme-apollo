@@ -10,7 +10,7 @@
     "directory": "packages/gatsby-theme-apollo-core"
   },
   "dependencies": {
-    "@apollo/space-kit": "^2.7.0",
+    "@apollo/space-kit": "2.15.0",
     "@emotion/core": "^10.0.7",
     "@emotion/styled": "^10.0.7",
     "@svgr/webpack": "^4.2.0",
