@@ -3,9 +3,22 @@ import styled from '@emotion/styled';
 import {Button} from '@apollo/space-kit/Button';
 import {breakpoints, colors} from 'gatsby-theme-apollo-core';
 
-const Container = styled.div({
+const defaultStyles = {
   width: 240,
-  marginRight: 44,
+  marginRight: 44
+};
+
+const Container = styled.div({
+  ...defaultStyles,
+  flexShrink: 0,
+  [breakpoints.lg]: {
+    width: 'auto',
+    marginRight: 0
+  },
+  [breakpoints.md]: {
+    ...defaultStyles,
+    marginRight: 36
+  },
   [breakpoints.sm]: {
     display: 'none'
   }
