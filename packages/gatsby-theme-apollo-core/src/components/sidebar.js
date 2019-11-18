@@ -34,6 +34,7 @@ const ResponsiveContainer = styled(Container)(props => ({
 }));
 
 const Header = styled.div({
+  display: 'flex',
   marginBottom: 20
 });
 

@@ -58,9 +58,7 @@ const HeaderInner = styled.span({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  marginLeft: -8,
-  marginBottom: 16,
-  paddingRight: 16
+  marginBottom: 16
 });
 
 const Eyebrow = styled.div({

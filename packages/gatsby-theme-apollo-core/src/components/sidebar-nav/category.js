@@ -13,8 +13,8 @@ const headingStyles = {
   alignItems: 'center',
   width: '100%',
   border: 0,
-  padding: '0.5em 0',
-  color: colors.text2,
+  padding: '0.75em 0',
+  color: colors.text1,
   background: 'none',
   outline: 'none',
   h6: {

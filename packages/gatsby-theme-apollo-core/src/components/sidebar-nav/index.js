@@ -43,6 +43,7 @@ const ExpandAll = styled.button(listItemStyles, smallCaps, {
   padding: 0,
   border: 0,
   fontSize: 12,
+  fontWeight: 600,
   lineHeight: 1,
   background: 'none',
   outline: 'none',
