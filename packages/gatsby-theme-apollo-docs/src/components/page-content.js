@@ -12,7 +12,7 @@ import {
   headerHeight,
   smallCaps
 } from 'gatsby-theme-apollo-core';
-import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
+import {ReactComponent as SpectrumLogo} from '../assets/spectrum.svg';
 import {withPrefix} from 'gatsby';
 
 const Container = styled.div({

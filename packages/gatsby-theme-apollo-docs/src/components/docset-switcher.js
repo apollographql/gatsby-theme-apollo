@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import useKey from 'react-use/lib/useKey';
 import {IconTwitter} from '@apollo/space-kit/icons/IconTwitter';
 import {IconYoutube} from '@apollo/space-kit/icons/IconYoutube';
-import {ReactComponent as SpectrumIcon} from '../assets/logos/spectrum.svg';
+import {ReactComponent as SpectrumIcon} from '../assets/spectrum.svg';
 import {boxShadow} from './search';
 import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo-core';
 import {size, transparentize} from 'polished';
