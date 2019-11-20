@@ -149,18 +149,21 @@ export default function DocsetSwitcher(props) {
   const {width} = useWindowSize();
   useKey('Escape', props.onClose);
 
+  const {current} = props.buttonRef;
   const menuStyles = useMemo(() => {
-    if (!props.buttonRef.current) {
+    if (!current) {
       return null;
     }
 
-    const {top, left, height} = props.buttonRef.current.getBoundingClientRect();
+    console.log(width);
+
+    const {top, left, height} = current.getBoundingClientRect();
     return {
       top: top + height + 2,
       left
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.buttonRef, width]);
+  }, [current, width]);
 
   function handleWrapperClick(event) {
     if (event.target === event.currentTarget) {
