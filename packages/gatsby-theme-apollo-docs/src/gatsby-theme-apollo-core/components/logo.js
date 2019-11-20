@@ -4,25 +4,25 @@ import {ApolloIcon} from '@apollo/space-kit/icons/ApolloIcon';
 import {ReactComponent as Docs} from '../../assets/docs.svg';
 
 const Wrapper = styled.div({
-  display: 'flex',
-  alignItems: 'center',
-  fontSize: 20
+  display: 'flex'
 });
 
 const StyledApolloIcon = styled(ApolloIcon)({
-  height: '1em'
+  width: 64,
+  height: 'auto'
 });
 
 const StyledDocs = styled(Docs)({
-  marginLeft: '0.3em',
-  transform: 'translateY(-0.025em)'
+  marginLeft: 6,
+  marginTop: 1,
+  height: 16
 });
 
 export default function Logo() {
   return (
     <Wrapper>
       <StyledApolloIcon />
-      <StyledDocs height="0.8em" />
+      <StyledDocs />
     </Wrapper>
   );
 }

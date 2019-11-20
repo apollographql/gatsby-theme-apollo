@@ -6,7 +6,8 @@ export default function Logo() {
     <ApolloIcon
       style={{
         display: 'block',
-        height: 28
+        width: 64,
+        height: 'auto'
       }}
     />
   );

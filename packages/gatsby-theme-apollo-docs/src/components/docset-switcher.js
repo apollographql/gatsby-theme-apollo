@@ -155,8 +155,6 @@ export default function DocsetSwitcher(props) {
       return null;
     }
 
-    console.log(width);
-
     const {top, left, height} = current.getBoundingClientRect();
     return {
       top: top + height + 2,
