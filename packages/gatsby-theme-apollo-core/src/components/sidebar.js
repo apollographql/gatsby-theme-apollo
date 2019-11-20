@@ -11,7 +11,6 @@ const Container = styled.aside({
   width: 312,
   height: '100vh',
   padding: 24,
-  paddingLeft: 32,
   borderRight: `1px solid ${colors.divider}`,
   overflowY: 'auto',
   position: 'sticky',
