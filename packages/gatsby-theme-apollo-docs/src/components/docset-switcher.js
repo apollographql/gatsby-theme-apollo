@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
+import React, {Fragment, useMemo} from 'react';
 import styled from '@emotion/styled';
 import useKey from 'react-use/lib/useKey';
+import useWindowSize from 'react-use/lib/useWindowSize';
 import {IconTwitter} from '@apollo/space-kit/icons/IconTwitter';
 import {IconYoutube} from '@apollo/space-kit/icons/IconYoutube';
 import {ReactComponent as SpectrumIcon} from '../assets/spectrum.svg';
@@ -144,20 +145,22 @@ const SocialLink = styled.a({
   }
 });
 
-function getMenuStyles(element) {
-  if (!element) {
-    return null;
-  }
-
-  const {top, left, height} = element.getBoundingClientRect();
-  return {
-    top: top + height + 2,
-    left
-  };
-}
-
 export default function DocsetSwitcher(props) {
+  const {width} = useWindowSize();
   useKey('Escape', props.onClose);
+
+  const menuStyles = useMemo(() => {
+    if (!props.buttonRef.current) {
+      return null;
+    }
+
+    const {top, left, height} = props.buttonRef.current.getBoundingClientRect();
+    return {
+      top: top + height + 2,
+      left
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.buttonRef, width]);
 
   function handleWrapperClick(event) {
     if (event.target === event.currentTarget) {
@@ -175,7 +178,7 @@ export default function DocsetSwitcher(props) {
     >
       <Menu
         style={{
-          ...getMenuStyles(props.buttonRef.current),
+          ...menuStyles,
           transform:
             !props.open && 'translate3d(0,-24px,-16px) rotate3d(1,0,0.1,8deg)'
         }}
