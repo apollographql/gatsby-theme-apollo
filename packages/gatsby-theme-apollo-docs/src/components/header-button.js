@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import {Button} from '@apollo/space-kit/Button';
 import {IconProceed} from '@apollo/space-kit/icons/IconProceed';
-import {breakpoints, colors} from 'gatsby-theme-apollo-core';
+import {breakpoints} from 'gatsby-theme-apollo-core';
+import {colors} from '@apollo/space-kit/colors';
 
 const Container = styled.div({
   width: 240,
@@ -18,6 +18,18 @@ const Container = styled.div({
   }
 });
 
+const StyledLink = styled.a({
+  color: colors.indigo.dark,
+  height: 36,
+  display: 'flex',
+  alignItems: 'center',
+  padding: '0 12px',
+  textDecoration: 'none',
+  ':hover': {
+    color: colors.indigo.darker
+  }
+});
+
 const StyledIcon = styled(IconProceed)({
   height: '0.75em',
   marginLeft: '0.5em'
@@ -26,21 +38,14 @@ const StyledIcon = styled(IconProceed)({
 export default function HeaderButton() {
   return (
     <Container>
-      <Button
-        as={
-          <a
-            href="https://engine.apollographql.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          />
-        }
-        color={colors.primary}
-        feel="flat"
-        style={{fontWeight: 400}}
+      <StyledLink
+        href="https://engine.apollographql.com"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         Launch Graph Manager
         <StyledIcon weight="thin" />
-      </Button>
+      </StyledLink>
     </Container>
   );
 }
