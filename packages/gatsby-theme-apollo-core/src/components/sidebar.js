@@ -8,9 +8,10 @@ import {transparentize} from 'polished';
 
 const Container = styled.aside({
   flexShrink: 0,
-  width: 305,
+  width: 312,
   height: '100vh',
-  padding: 20,
+  padding: 24,
+  paddingLeft: 32,
   borderRight: `1px solid ${colors.divider}`,
   overflowY: 'auto',
   position: 'sticky',
@@ -35,7 +36,7 @@ const ResponsiveContainer = styled(Container)(props => ({
 
 const Header = styled.div({
   display: 'flex',
-  marginBottom: 20
+  marginBottom: 24
 });
 
 const StyledLink = styled.a({

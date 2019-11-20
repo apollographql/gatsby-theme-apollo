@@ -13,7 +13,8 @@ import {smallCaps} from '../../utils/typography';
 
 const StyledList = styled.ul({
   marginLeft: 0,
-  listStyle: 'none'
+  listStyle: 'none',
+  marginBottom: 32
 });
 
 const listItemStyles = {
@@ -25,7 +26,8 @@ const listItemStyles = {
 
 const StyledListItem = styled.li({
   fontSize: '1rem',
-  lineHeight: 'inherit',
+  lineHeight: 1.5,
+  marginBottom: '0.8125rem',
   a: {
     ...listItemStyles,
     textDecoration: 'none',
