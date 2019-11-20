@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import {Button} from '@apollo/space-kit/Button';
+import {IconProceed} from '@apollo/space-kit/icons/IconProceed';
 import {breakpoints, colors} from 'gatsby-theme-apollo-core';
 
 const Container = styled.div({
@@ -17,6 +18,11 @@ const Container = styled.div({
   }
 });
 
+const StyledIcon = styled(IconProceed)({
+  height: '0.75em',
+  marginLeft: '0.5em'
+});
+
 export default function HeaderButton() {
   return (
     <Container>
@@ -30,8 +36,10 @@ export default function HeaderButton() {
         }
         color={colors.primary}
         feel="flat"
+        style={{fontWeight: 400}}
       >
-        Go to Graph Manager
+        Launch Graph Manager
+        <StyledIcon weight="thin" />
       </Button>
     </Container>
   );
