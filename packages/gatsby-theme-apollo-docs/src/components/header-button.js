@@ -5,10 +5,9 @@ import {breakpoints} from 'gatsby-theme-apollo-core';
 import {colors} from '@apollo/space-kit/colors';
 
 const Container = styled.div({
-  width: 240,
-  marginLeft: -12,
-  marginRight: 44,
+  display: 'flex',
   flexShrink: 0,
+  width: 240,
   [breakpoints.lg]: {
     width: 'auto',
     marginRight: 0
@@ -19,11 +18,10 @@ const Container = styled.div({
 });
 
 const StyledLink = styled.a({
-  color: colors.indigo.dark,
-  height: 36,
   display: 'flex',
   alignItems: 'center',
-  padding: '0 12px',
+  color: colors.indigo.dark,
+  lineHeight: 2,
   textDecoration: 'none',
   ':hover': {
     color: colors.indigo.darker

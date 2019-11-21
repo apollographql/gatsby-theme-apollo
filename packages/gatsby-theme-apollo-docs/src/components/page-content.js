@@ -3,13 +3,13 @@ import React, {useRef, useState} from 'react';
 import SectionNav from './section-nav';
 import styled from '@emotion/styled';
 import useMount from 'react-use/lib/useMount';
+import {HEADER_HEIGHT} from './header';
 import {IconGithub} from '@apollo/space-kit/icons/IconGithub';
 import {IconSchema} from '@apollo/space-kit/icons/IconSchema';
 import {
   PageNav,
   breakpoints,
   colors,
-  headerHeight,
   smallCaps
 } from 'gatsby-theme-apollo-core';
 import {ReactComponent as SpectrumLogo} from '../assets/spectrum.svg';
@@ -71,8 +71,8 @@ const BodyContent = styled.div({
       // inspired by https://css-tricks.com/hash-tag-links-padding/
       content: "''",
       display: 'block',
-      marginTop: -headerHeight,
-      height: headerHeight,
+      marginTop: -HEADER_HEIGHT,
+      height: HEADER_HEIGHT,
       visibility: 'hidden',
       pointerEvents: 'none'
     },
@@ -106,12 +106,12 @@ const Aside = styled.aside({
   flexDirection: 'column',
   flexShrink: 0,
   width: 240,
-  maxHeight: `calc(100vh - ${headerHeight}px)`,
+  maxHeight: `calc(100vh - ${HEADER_HEIGHT}px)`,
   marginTop: -36,
   padding: '40px 0',
   marginLeft: 40,
   position: 'sticky',
-  top: headerHeight,
+  top: HEADER_HEIGHT,
   [breakpoints.lg]: {
     display: 'none'
   },

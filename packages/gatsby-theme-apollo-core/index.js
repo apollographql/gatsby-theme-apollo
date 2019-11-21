@@ -1,11 +1,5 @@
 export {default as ContentWrapper} from './src/components/content-wrapper';
 export {default as FlexWrapper} from './src/components/flex-wrapper';
-export {
-  default as Header,
-  DesktopHeader,
-  MobileHeader,
-  headerHeight
-} from './src/components/header';
 export {default as Layout} from './src/components/layout';
 export {default as Logo} from './src/components/logo';
 export {default as MenuButton} from './src/components/menu-button';

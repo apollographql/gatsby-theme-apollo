@@ -1,6 +1,7 @@
 import '../prism.less';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import DocsetSwitcher from './docset-switcher';
+import Header from './header';
 import HeaderButton from './header-button';
 import PropTypes from 'prop-types';
 import React, {createContext, useMemo, useRef, useState} from 'react';
@@ -9,7 +10,6 @@ import styled from '@emotion/styled';
 import {Button} from '@apollo/space-kit/Button';
 import {
   FlexWrapper,
-  Header,
   Layout,
   MenuButton,
   Sidebar,
@@ -50,7 +50,8 @@ const MobileNav = styled.div({
   [breakpoints.md]: {
     display: 'flex',
     alignItems: 'center',
-    marginRight: 'auto'
+    marginRight: 32,
+    color: colors.text1
   }
 });
 
@@ -63,16 +64,18 @@ const HeaderInner = styled.span({
 
 const Eyebrow = styled.div({
   flexShrink: 0,
-  padding: 8,
+  padding: '8px 56px',
   backgroundColor: colors.background,
   color: colors.primary,
-  textAlign: 'center',
   fontSize: 14,
   position: 'sticky',
   top: 0,
   a: {
     color: 'inherit',
     fontWeight: 600
+  },
+  [breakpoints.md]: {
+    padding: '8px 24px'
   }
 });
 
@@ -181,20 +184,7 @@ export default function PageLayout(props) {
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
       </Helmet>
-      <FlexWrapper
-        onClick={handleWrapperClick}
-        beforeContent={
-          versionDifference !== 0 && (
-            <Eyebrow>
-              You&apos;re viewing documentation for a{' '}
-              {versionDifference > 0
-                ? 'version of this software that is in development'
-                : 'previous version of this software'}
-              . <Link to="/">Switch to the latest stable version</Link>
-            </Eyebrow>
-          )
-        }
-      >
+      <FlexWrapper onClick={handleWrapperClick}>
         <Sidebar
           responsive
           className="sidebar"
@@ -216,7 +206,6 @@ export default function PageLayout(props) {
                 <StyledIcon />
               </StyledButton>
             </ButtonWrapper>
-
             {versions && versions.length > 0 && (
               <Select
                 feel="flat"
@@ -249,7 +238,19 @@ export default function PageLayout(props) {
           )}
         </Sidebar>
         <Main>
-          <Header>
+          <Header
+            beforeContent={
+              versionDifference !== 0 && (
+                <Eyebrow>
+                  You&apos;re viewing documentation for a{' '}
+                  {versionDifference > 0
+                    ? 'version of this software that is in development'
+                    : 'previous version of this software'}
+                  . <Link to="/">Switch to the latest stable version</Link>
+                </Eyebrow>
+              )
+            }
+          >
             <MobileNav>
               <MenuButton onClick={openSidebar} />
               <Logo width={32} fill="currentColor" />
