@@ -42,7 +42,7 @@ const ExpandAll = styled.button(listItemStyles, smallCaps, {
   display: 'flex',
   alignItems: 'center',
   marginBottom: 12,
-  padding: 0,
+  padding: '4px 0',
   border: 0,
   fontSize: 12,
   fontWeight: 600,
@@ -51,7 +51,7 @@ const ExpandAll = styled.button(listItemStyles, smallCaps, {
   outline: 'none',
   cursor: 'pointer',
   svg: {
-    ...size(14),
+    ...size(12),
     marginRight: 8
   }
 });

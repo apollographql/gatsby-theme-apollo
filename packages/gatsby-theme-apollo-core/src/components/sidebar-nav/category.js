@@ -7,7 +7,7 @@ import {Link} from 'gatsby';
 import {colors} from '../../utils/colors';
 import {smallCaps} from '../../utils/typography';
 
-const iconSize = 14;
+const iconSize = 10;
 const headingStyles = {
   display: 'flex',
   alignItems: 'center',
