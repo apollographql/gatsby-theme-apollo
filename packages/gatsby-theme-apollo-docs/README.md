@@ -10,9 +10,6 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 - [Creating pages](#creating-pages)
 - [Component shadowing](#component-shadowing)
 - [Components](#components)
-  - [`Button`](#button)
-  - [`ButtonLink`](#buttonlink)
-  - [`ButtonWrapper`](#buttonwrapper)
   - [`ExpansionPanel`](#expansionpanel)
   - [`ExpansionPanelList`](#expansionpanellist)
   - [`ExpansionPanelListItem`](#expansionpanellistitem)
@@ -164,45 +161,6 @@ export default function SEO({title, description, siteName}) {
 ## Components
 
 This theme exports React components that you can use in MDX files throughout a documentation website.
-
-### `Button`
-
-A button that follows our [Space Kit](https://github.com/apollographql/space-kit) design system. See [the project in Zeplin](https://app.zeplin.io/project/5c7dcb5ab4e654bca8cde54d/screen/5cc9f226cbd69a34a84890ae) for a visual look at the different button variations.
-
-| Prop     | Type   | Default value | Description                          |
-| -------- | ------ | ------------- | ------------------------------------ |
-| children | node   | N/A           | The content of the button            |
-| size     | string | "medium"      | One of "small", "medium", or "large" |
-| color    | string | "standard"    | Either "standard" or "branded"       |
-| variant  | string | "standard"    | Either "standard" or "hidden"        |
-
-### `ButtonLink`
-
-A button that functions as an internal link using [Gatsby Link](https://www.gatsbyjs.org/docs/gatsby-link/). It accepts all props that the [`Button`](#button) and [`Link`]((https://www.gatsbyjs.org/docs/gatsby-link/)) components accept.
-
-```jsx
-import {ButtonWrapper, ButtonLink} from 'gatsby-theme-apollo-docs';
-
-<ButtonWrapper>
-  <ButtonLink
-    size="large"
-    color="branded"
-    to="/tutorial/introduction"
-  >
-    Try it out!
-  </ButtonLink>
-  <ButtonLink
-    size="large"
-    to="/intro/platform"
-  >
-    Learn more
-  </ButtonLink>
-</ButtonWrapper>
-```
-
-### `ButtonWrapper`
-
-A presentational component that only takes `children` and is designed to render a row of [`Button`](#button) or [`ButtonLink`](#buttonlink) components, center-aligned and evenly spaced.
 
 ### `ExpansionPanel`
 
