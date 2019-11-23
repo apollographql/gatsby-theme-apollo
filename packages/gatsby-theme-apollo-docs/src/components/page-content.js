@@ -15,14 +15,14 @@ import {
 import {ReactComponent as SpectrumLogo} from '../assets/spectrum.svg';
 import {withPrefix} from 'gatsby';
 
-const Container = styled.div({
+const Wrapper = styled.div({
   display: 'flex',
-  alignItems: 'flex-start',
-  maxWidth: 1200
+  alignItems: 'flex-start'
 });
 
-const MainContent = styled.main({
-  flexGrow: 1
+const InnerWrapper = styled.div({
+  flexGrow: 1,
+  width: 0
 });
 
 const tableBorder = `1px solid ${colors.divider}`;
@@ -226,8 +226,8 @@ export default function PageContent(props) {
   );
 
   return (
-    <Container>
-      <MainContent>
+    <Wrapper>
+      <InnerWrapper>
         <BodyContent ref={contentRef} className="content-wrapper">
           {props.children}
         </BodyContent>
@@ -236,7 +236,7 @@ export default function PageContent(props) {
           prevPage={props.pages[pageIndex - 1]}
           nextPage={props.pages[pageIndex + 1]}
         />
-      </MainContent>
+      </InnerWrapper>
       <Aside>
         <AsideHeading>{props.title}</AsideHeading>
         {props.headings.length > 0 && (
@@ -258,7 +258,7 @@ export default function PageContent(props) {
           </AsideLink>
         )}
       </Aside>
-    </Container>
+    </Wrapper>
   );
 }
 

@@ -26,9 +26,8 @@ import {Select} from './select';
 import {getSpectrumUrl, getVersionBasePath} from '../utils';
 import {size} from 'polished';
 
-const InnerWrapper = styled.div({
-  flexGrow: 1,
-  width: 0
+const Main = styled.main({
+  flexGrow: 1
 });
 
 const ButtonWrapper = styled.div({
@@ -238,7 +237,7 @@ export default function PageLayout(props) {
             />
           )}
         </Sidebar>
-        <InnerWrapper>
+        <Main>
           <Header
             beforeContent={
               versionDifference !== 0 && (
@@ -266,7 +265,7 @@ export default function PageLayout(props) {
           <NavItemsContext.Provider value={navItems}>
             {props.children}
           </NavItemsContext.Provider>
-        </InnerWrapper>
+        </Main>
       </FlexWrapper>
       <DocsetSwitcher
         siteName={menuTitle || siteName}
