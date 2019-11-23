@@ -42,6 +42,7 @@ const Container = styled.div({
     width: '100%',
     '.ds-dropdown-menu': {
       width: '100%',
+      maxWidth: '100%',
       minWidth: 'auto',
       marginTop: 14,
       borderRadius,

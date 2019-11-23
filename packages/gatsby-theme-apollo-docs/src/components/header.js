@@ -7,7 +7,8 @@ export const HEADER_HEIGHT = 64;
 const Wrapper = styled.header({
   position: 'sticky',
   top: 0,
-  left: 0
+  left: 0,
+  zIndex: 1
 });
 
 const InnerWrapper = styled.div({
