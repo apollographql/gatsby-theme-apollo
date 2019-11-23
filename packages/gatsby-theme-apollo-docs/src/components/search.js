@@ -2,8 +2,9 @@
 import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
+import {HEADER_HEIGHT} from './header';
 import {IconClose} from '@apollo/space-kit/icons/IconClose';
-import {colors, headerHeight, smallCaps} from 'gatsby-theme-apollo-core';
+import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo-core';
 import {css} from '@emotion/core';
 import {position, size, transparentize} from 'polished';
 
@@ -30,11 +31,13 @@ const boxShadowColor = transparentize(0.9, 'black');
 export const boxShadow = `${boxShadowColor} 0 2px 12px`;
 const Container = styled.div({
   flexGrow: 1,
-  maxWidth: 600,
-  marginLeft: 40,
+  marginRight: 40,
   color: colors.text2,
   position: 'relative',
   zIndex: 1,
+  [breakpoints.md]: {
+    marginRight: 0
+  },
   '.algolia-autocomplete': {
     width: '100%',
     '.ds-dropdown-menu': {
@@ -47,7 +50,7 @@ const Container = styled.div({
         display: 'none'
       },
       '[class^=ds-dataset-]': {
-        maxHeight: `calc(100vh - ${headerHeight}px - 32px)`,
+        maxHeight: `calc(100vh - ${HEADER_HEIGHT}px - 32px)`,
         padding: 0,
         border,
         borderRadius: 'inherit'

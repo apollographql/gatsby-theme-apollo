@@ -1,6 +1,8 @@
 import '../prism.less';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import DocsetSwitcher from './docset-switcher';
+import Header from './header';
+import HeaderButton from './header-button';
 import PropTypes from 'prop-types';
 import React, {createContext, useMemo, useRef, useState} from 'react';
 import Search from './search';
@@ -8,12 +10,10 @@ import styled from '@emotion/styled';
 import {Button} from '@apollo/space-kit/Button';
 import {
   FlexWrapper,
-  Header,
   Layout,
   MenuButton,
   Sidebar,
   SidebarNav,
-  StyledLogo,
   breakpoints,
   colors,
   useResponsiveSidebar
@@ -21,15 +21,13 @@ import {
 import {Helmet} from 'react-helmet';
 import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
 import {Link, graphql, navigate, useStaticQuery} from 'gatsby';
-import {MainRefContext, getSpectrumUrl, getVersionBasePath} from '../utils';
+import {ReactComponent as Logo} from '@apollo/space-kit/logos/mark.svg';
 import {Select} from './select';
+import {getSpectrumUrl, getVersionBasePath} from '../utils';
 import {size} from 'polished';
 
 const Main = styled.main({
-  flexGrow: 1,
-  outline: 'none',
-  overflowY: 'auto',
-  WebkitOverflowScrolling: 'touch'
+  flexGrow: 1
 });
 
 const ButtonWrapper = styled.div({
@@ -52,7 +50,8 @@ const MobileNav = styled.div({
   [breakpoints.md]: {
     display: 'flex',
     alignItems: 'center',
-    marginRight: 'auto'
+    marginRight: 32,
+    color: colors.text1
   }
 });
 
@@ -60,23 +59,23 @@ const HeaderInner = styled.span({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  marginLeft: -8,
-  marginBottom: 16,
-  paddingRight: 16
+  marginBottom: 32
 });
 
 const Eyebrow = styled.div({
   flexShrink: 0,
-  padding: 8,
+  padding: '8px 56px',
   backgroundColor: colors.background,
   color: colors.primary,
-  textAlign: 'center',
   fontSize: 14,
   position: 'sticky',
   top: 0,
   a: {
     color: 'inherit',
     fontWeight: 600
+  },
+  [breakpoints.md]: {
+    padding: '8px 24px'
   }
 });
 
@@ -108,7 +107,6 @@ function handleToggleCategory(title, expanded) {
 export const NavItemsContext = createContext();
 
 export default function PageLayout(props) {
-  const mainRef = useRef(null);
   const sidebarRef = useRef(null);
 
   const data = useStaticQuery(
@@ -186,20 +184,7 @@ export default function PageLayout(props) {
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
       </Helmet>
-      <FlexWrapper
-        onClick={handleWrapperClick}
-        beforeContent={
-          versionDifference !== 0 && (
-            <Eyebrow>
-              You&apos;re viewing documentation for a{' '}
-              {versionDifference > 0
-                ? 'version of this software that is in development'
-                : 'previous version of this software'}
-              . <Link to="/">Switch to the latest stable version</Link>
-            </Eyebrow>
-          )
-        }
-      >
+      <FlexWrapper onClick={handleWrapperClick}>
         <Sidebar
           responsive
           className="sidebar"
@@ -221,7 +206,6 @@ export default function PageLayout(props) {
                 <StyledIcon />
               </StyledButton>
             </ButtonWrapper>
-
             {versions && versions.length > 0 && (
               <Select
                 feel="flat"
@@ -253,24 +237,34 @@ export default function PageLayout(props) {
             />
           )}
         </Sidebar>
-        {/* we give the component a key so it resets the scroll when the pathname changes */}
-        <Main ref={mainRef} key={props.location.pathname} tabIndex={0}>
-          <Header>
+        <Main>
+          <Header
+            beforeContent={
+              versionDifference !== 0 && (
+                <Eyebrow>
+                  You&apos;re viewing documentation for a{' '}
+                  {versionDifference > 0
+                    ? 'version of this software that is in development'
+                    : 'previous version of this software'}
+                  . <Link to="/">Switch to the latest stable version</Link>
+                </Eyebrow>
+              )
+            }
+          >
             <MobileNav>
               <MenuButton onClick={openSidebar} />
-              <StyledLogo />
+              <Logo width={32} fill="currentColor" />
             </MobileNav>
             <Search
               siteName={siteName}
               apiKey={algoliaApiKey}
               indexName={algoliaIndexName}
             />
+            <HeaderButton />
           </Header>
-          <MainRefContext.Provider value={mainRef}>
-            <NavItemsContext.Provider value={navItems}>
-              {props.children}
-            </NavItemsContext.Provider>
-          </MainRefContext.Provider>
+          <NavItemsContext.Provider value={navItems}>
+            {props.children}
+          </NavItemsContext.Provider>
         </Main>
       </FlexWrapper>
       <DocsetSwitcher

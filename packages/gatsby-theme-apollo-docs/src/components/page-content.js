@@ -3,16 +3,16 @@ import React, {useRef, useState} from 'react';
 import SectionNav from './section-nav';
 import styled from '@emotion/styled';
 import useMount from 'react-use/lib/useMount';
+import {HEADER_HEIGHT} from './header';
 import {IconGithub} from '@apollo/space-kit/icons/IconGithub';
 import {IconSchema} from '@apollo/space-kit/icons/IconSchema';
 import {
   PageNav,
   breakpoints,
   colors,
-  headerHeight,
   smallCaps
 } from 'gatsby-theme-apollo-core';
-import {ReactComponent as SpectrumLogo} from '../assets/logos/spectrum.svg';
+import {ReactComponent as SpectrumLogo} from '../assets/spectrum.svg';
 import {withPrefix} from 'gatsby';
 
 const Container = styled.div({
@@ -22,9 +22,7 @@ const Container = styled.div({
 });
 
 const MainContent = styled.main({
-  flexGrow: 1,
-  width: 0,
-  maxWidth: '100ch'
+  flexGrow: 1
 });
 
 const tableBorder = `1px solid ${colors.divider}`;
@@ -73,8 +71,8 @@ const BodyContent = styled.div({
       // inspired by https://css-tricks.com/hash-tag-links-padding/
       content: "''",
       display: 'block',
-      marginTop: -headerHeight,
-      height: headerHeight,
+      marginTop: -HEADER_HEIGHT,
+      height: HEADER_HEIGHT,
       visibility: 'hidden',
       pointerEvents: 'none'
     },
@@ -107,14 +105,13 @@ const Aside = styled.aside({
   display: 'flex',
   flexDirection: 'column',
   flexShrink: 0,
-  width: 260,
-  maxHeight: `calc(100vh - ${headerHeight}px)`,
+  width: 240,
+  maxHeight: `calc(100vh - ${HEADER_HEIGHT}px)`,
   marginTop: -36,
-  marginLeft: 'auto',
-  padding: '40px 56px',
-  paddingRight: 0,
+  padding: '40px 0',
+  marginLeft: 40,
   position: 'sticky',
-  top: headerHeight,
+  top: HEADER_HEIGHT,
   [breakpoints.lg]: {
     display: 'none'
   },

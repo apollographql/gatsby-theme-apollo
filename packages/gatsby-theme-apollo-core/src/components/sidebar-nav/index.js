@@ -13,7 +13,8 @@ import {smallCaps} from '../../utils/typography';
 
 const StyledList = styled.ul({
   marginLeft: 0,
-  listStyle: 'none'
+  listStyle: 'none',
+  marginBottom: 32
 });
 
 const listItemStyles = {
@@ -25,7 +26,8 @@ const listItemStyles = {
 
 const StyledListItem = styled.li({
   fontSize: '1rem',
-  lineHeight: 'inherit',
+  lineHeight: 1.5,
+  marginBottom: '0.8125rem',
   a: {
     ...listItemStyles,
     textDecoration: 'none',
@@ -40,15 +42,16 @@ const ExpandAll = styled.button(listItemStyles, smallCaps, {
   display: 'flex',
   alignItems: 'center',
   marginBottom: 12,
-  padding: 0,
+  padding: '4px 0',
   border: 0,
   fontSize: 12,
+  fontWeight: 600,
   lineHeight: 1,
   background: 'none',
   outline: 'none',
   cursor: 'pointer',
   svg: {
-    ...size(14),
+    ...size(12),
     marginRight: 8
   }
 });
@@ -198,7 +201,6 @@ export default function SidebarNav(props) {
             key={title}
             title={title}
             path={path}
-            isFirst={!index}
             expanded={Boolean(state[getId(title)] || props.alwaysExpanded)}
             active={isCategorySelected({pages, path}, props.pathname)}
             onClick={props.alwaysExpanded ? null : toggleCategory}

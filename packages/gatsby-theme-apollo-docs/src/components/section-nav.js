@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Slugger from 'github-slugger';
 import striptags from 'striptags';
 import styled from '@emotion/styled';
-import useScroll from 'react-use/lib/useScroll';
+import useWindowScroll from 'react-use/lib/useWindowScroll';
 import useWindowSize from 'react-use/lib/useWindowSize';
-import {MainRefContext} from '../utils';
 import {colors} from 'gatsby-theme-apollo-core';
 
 const StyledList = styled.ul({
@@ -38,8 +37,7 @@ function handleHeadingClick(event) {
 }
 
 export default function SectionNav(props) {
-  const mainRef = useContext(MainRefContext);
-  const {y} = useScroll(mainRef);
+  const {y} = useWindowScroll();
   const {width, height} = useWindowSize();
   const [offsets, setOffsets] = useState([]);
 
