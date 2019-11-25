@@ -27,7 +27,7 @@ const Wrapper = styled.div({
 
 const Menu = styled.div({
   width: 700,
-  marginBottom: 16,
+  marginBottom: 24,
   borderRadius: 4,
   boxShadow,
   backgroundColor: 'white',
@@ -39,7 +39,7 @@ const Menu = styled.div({
     width: 450
   },
   [breakpoints.sm]: {
-    width: 'calc(100vw - 32px)'
+    width: 'calc(100vw - 48px)'
   }
 });
 
@@ -161,7 +161,7 @@ export default function DocsetSwitcher(props) {
       left
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [current, width]);
+  }, [current, width, props.open]);
 
   function handleWrapperClick(event) {
     if (event.target === event.currentTarget) {
