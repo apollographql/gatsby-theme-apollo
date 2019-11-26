@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import useKey from 'react-use/lib/useKey';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 
 export function useResponsiveSidebar() {
+  const sidebarRef = useRef(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useKey(
@@ -20,10 +21,18 @@ export function useResponsiveSidebar() {
     setSidebarOpen(false);
   }
 
+  function handleWrapperClick(event) {
+    if (sidebarOpen && !sidebarRef.current.contains(event.target)) {
+      closeSidebar();
+    }
+  }
+
   return {
     sidebarOpen,
     openSidebar,
-    closeSidebar
+    closeSidebar,
+    sidebarRef,
+    handleWrapperClick
   };
 }
 

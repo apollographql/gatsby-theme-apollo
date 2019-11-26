@@ -75,7 +75,7 @@ function isPageSelected(path, pathname) {
 
 function isCategorySelected({path, pages}, pathname) {
   return path
-    ? isPageSelected({path})
+    ? isPageSelected(path, pathname)
     : pages.some(page => isPageSelected(page.path, pathname));
 }
 

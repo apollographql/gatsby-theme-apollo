@@ -107,8 +107,6 @@ function handleToggleCategory(title, expanded) {
 export const NavItemsContext = createContext();
 
 export default function PageLayout(props) {
-  const sidebarRef = useRef(null);
-
   const data = useStaticQuery(
     graphql`
       {
@@ -123,7 +121,13 @@ export default function PageLayout(props) {
     `
   );
 
-  const {openSidebar, closeSidebar, sidebarOpen} = useResponsiveSidebar();
+  const {
+    openSidebar,
+    closeSidebar,
+    sidebarOpen,
+    handleWrapperClick,
+    sidebarRef
+  } = useResponsiveSidebar();
 
   const buttonRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -134,12 +138,6 @@ export default function PageLayout(props) {
 
   function closeMenu() {
     setMenuOpen(false);
-  }
-
-  function handleWrapperClick(event) {
-    if (sidebarOpen && !sidebarRef.current.contains(event.target)) {
-      closeSidebar();
-    }
   }
 
   const {pathname} = props.location;
