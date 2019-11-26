@@ -32,7 +32,8 @@ export function useResponsiveSidebar() {
     openSidebar,
     closeSidebar,
     sidebarRef,
-    handleWrapperClick
+    handleWrapperClick,
+    handleSidebarNavLinkClick: sidebarOpen ? closeSidebar : null
   };
 }
 

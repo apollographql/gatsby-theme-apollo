@@ -122,11 +122,11 @@ export default function PageLayout(props) {
   );
 
   const {
+    sidebarRef,
     openSidebar,
-    closeSidebar,
     sidebarOpen,
     handleWrapperClick,
-    sidebarRef
+    handleSidebarNavLinkClick
   } = useResponsiveSidebar();
 
   const buttonRef = useRef(null);
@@ -231,7 +231,7 @@ export default function PageLayout(props) {
               pathname={pathname}
               onToggleAll={handleToggleAll}
               onToggleCategory={handleToggleCategory}
-              onLinkClick={sidebarOpen ? closeSidebar : null}
+              onLinkClick={handleSidebarNavLinkClick}
             />
           )}
         </Sidebar>
