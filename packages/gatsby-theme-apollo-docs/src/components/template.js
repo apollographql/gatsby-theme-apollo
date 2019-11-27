@@ -1,5 +1,5 @@
 import CodeBlock from './code-block';
-import ExtraSEO from './extra-seo';
+import CustomSEO from './custom-seo';
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer';
 import PageContent from './page-content';
 import PageHeader from './page-header';
@@ -80,7 +80,7 @@ export default function Template(props) {
         siteName={title}
         twitterCard="summary_large_image"
       >
-        <ExtraSEO
+        <CustomSEO
           baseUrl={baseUrl}
           image={fields.image}
           twitterHandle={twitterHandle}

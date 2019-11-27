@@ -7,7 +7,6 @@ export default function CustomSEO(props) {
   return (
     <Fragment>
       <meta property="og:image" content={imagePath} />
-      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:image" content={props.baseUrl + imagePath} />
       {props.twitterHandle && (
         <meta name="twitter:site" content={`@${props.twitterHandle}`} />
