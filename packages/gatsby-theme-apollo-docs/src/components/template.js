@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React, {Fragment, createContext, useContext} from 'react';
 import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
-import {ContentWrapper, SEO} from 'gatsby-theme-apollo-core';
+import {ContentWrapper} from 'gatsby-theme-apollo-core';
 import {MDXProvider} from '@mdx-js/react';
 import {TypescriptApiBoxContext} from './typescript-api-box';
 import {graphql, navigate} from 'gatsby';
@@ -74,18 +74,14 @@ export default function Template(props) {
 
   return (
     <Fragment>
-      <SEO
+      <CustomSEO
         title={frontmatter.title}
         description={frontmatter.description || description}
         siteName={title}
-        twitterCard="summary_large_image"
-      >
-        <CustomSEO
-          baseUrl={baseUrl}
-          image={fields.image}
-          twitterHandle={twitterHandle}
-        />
-      </SEO>
+        baseUrl={baseUrl}
+        image={fields.image}
+        twitterHandle={twitterHandle}
+      />
       <StyledContentWrapper>
         <PageHeader {...frontmatter} />
         <hr />

@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
+import React from 'react';
+import {SEO} from 'gatsby-theme-apollo-core';
 import {withPrefix} from 'gatsby';
 
-export default function CustomSEO(props) {
-  const imagePath = withPrefix('/' + props.image);
+export default function CustomSEO({image, baseUrl, twitterHandle, ...props}) {
+  const imagePath = withPrefix('/' + image);
   return (
-    <Fragment>
+    <SEO {...props} twitterCard="summary_large_image">
       <meta property="og:image" content={imagePath} />
-      <meta name="twitter:image" content={props.baseUrl + imagePath} />
-      {props.twitterHandle && (
-        <meta name="twitter:site" content={`@${props.twitterHandle}`} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content={baseUrl + imagePath} />
+      {twitterHandle && (
+        <meta name="twitter:site" content={`@${twitterHandle}`} />
       )}
-    </Fragment>
+    </SEO>
   );
 }
 
