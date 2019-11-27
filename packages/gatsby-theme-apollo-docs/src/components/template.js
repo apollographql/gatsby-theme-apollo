@@ -1,14 +1,13 @@
 import CodeBlock from './code-block';
+import CustomSEO from './custom-seo';
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer';
 import PageContent from './page-content';
 import PageHeader from './page-header';
 import PropTypes from 'prop-types';
 import React, {Fragment, createContext, useContext} from 'react';
-import SEO from './seo';
 import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
 import {ContentWrapper} from 'gatsby-theme-apollo-core';
-import {Helmet} from 'react-helmet';
 import {MDXProvider} from '@mdx-js/react';
 import {TypescriptApiBoxContext} from './typescript-api-box';
 import {graphql, navigate} from 'gatsby';
@@ -75,16 +74,13 @@ export default function Template(props) {
 
   return (
     <Fragment>
-      <Helmet>
-        <title>{frontmatter.title}</title>
-      </Helmet>
-      <SEO
+      <CustomSEO
         title={frontmatter.title}
         description={frontmatter.description || description}
         siteName={title}
-        twitterHandle={twitterHandle}
         baseUrl={baseUrl}
         image={fields.image}
+        twitterHandle={twitterHandle}
       />
       <StyledContentWrapper>
         <PageHeader {...frontmatter} />

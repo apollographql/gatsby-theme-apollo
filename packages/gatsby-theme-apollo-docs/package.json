@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo-docs",
-  "version": "3.1.4",
+  "version": "3.1.5-alpha.3",
   "main": "index.js",
   "description": "A Gatsby theme for building documentation websites",
   "author": "Trevor Blades <blades@apollographql.com>",
@@ -31,7 +31,7 @@
     "gatsby-remark-typescript": "0.0.9",
     "gatsby-source-filesystem": "^2.0.29",
     "gatsby-source-git": "^1.0.1",
-    "gatsby-theme-apollo-core": "^3.0.1",
+    "gatsby-theme-apollo-core": "^3.0.2-alpha.1",
     "gatsby-transformer-remark": "^2.6.30",
     "js-yaml": "^3.13.1",
     "prismjs": "^1.15.0",
