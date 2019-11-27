@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {Fragment, useMemo} from 'react';
+import React, {Fragment, useEffect, useMemo, useRef} from 'react';
 import styled from '@emotion/styled';
 import useKey from 'react-use/lib/useKey';
 import useWindowSize from 'react-use/lib/useWindowSize';
@@ -25,6 +25,7 @@ const Wrapper = styled.div({
   transitionTimingFunction: 'ease-in-out'
 });
 
+const transitionDuration = 150; // in ms
 const Menu = styled.div({
   width: 700,
   marginBottom: 24,
@@ -34,7 +35,8 @@ const Menu = styled.div({
   overflow: 'hidden',
   position: 'absolute',
   transformOrigin: '25% 25%',
-  transition: 'transform 150ms ease-in-out',
+  transition: `transform ${transitionDuration}ms ease-in-out`,
+  outline: 'none',
   [breakpoints.md]: {
     width: 450
   },
@@ -146,8 +148,18 @@ const SocialLink = styled.a({
 });
 
 export default function DocsetSwitcher(props) {
+  const menuRef = useRef(null);
   const {width} = useWindowSize();
   useKey('Escape', props.onClose);
+
+  useEffect(() => {
+    if (props.open) {
+      // focus the menu after it has been transitioned in
+      setTimeout(() => {
+        menuRef.current.focus();
+      }, transitionDuration);
+    }
+  }, [props.open]);
 
   const {current} = props.buttonRef;
   const menuStyles = useMemo(() => {
@@ -178,6 +190,8 @@ export default function DocsetSwitcher(props) {
       }}
     >
       <Menu
+        ref={menuRef}
+        tabIndex={-1}
         style={{
           ...menuStyles,
           transform:
