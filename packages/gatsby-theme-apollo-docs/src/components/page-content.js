@@ -6,12 +6,7 @@ import useMount from 'react-use/lib/useMount';
 import {HEADER_HEIGHT} from './header';
 import {IconGithub} from '@apollo/space-kit/icons/IconGithub';
 import {IconSchema} from '@apollo/space-kit/icons/IconSchema';
-import {
-  PageNav,
-  breakpoints,
-  colors,
-  smallCaps
-} from 'gatsby-theme-apollo-core';
+import {PageNav, breakpoints, colors} from 'gatsby-theme-apollo-core';
 import {ReactComponent as SpectrumLogo} from '../assets/spectrum.svg';
 import {withPrefix} from 'gatsby';
 
@@ -24,34 +19,6 @@ const InnerWrapper = styled.div({
   flexGrow: 1,
   width: 0
 });
-
-const tableBorder = `1px solid ${colors.divider}`;
-const table = {
-  marginBottom: '1.45rem',
-  border: tableBorder,
-  borderSpacing: 0,
-  borderRadius: 4,
-  [['th', 'td']]: {
-    padding: 16,
-    borderBottom: tableBorder
-  },
-  'tbody tr:last-child td': {
-    border: 0
-  },
-  th: {
-    ...smallCaps,
-    fontSize: 13,
-    fontWeight: 'normal',
-    color: colors.text2,
-    textAlign: 'inherit'
-  },
-  td: {
-    verticalAlign: 'top',
-    code: {
-      whiteSpace: 'normal'
-    }
-  }
-};
 
 const BodyContent = styled.div({
   // style all anchors with an href and no prior classes
@@ -97,8 +64,7 @@ const BodyContent = styled.div({
     display: 'block',
     maxWidth: '100%',
     margin: '0 auto'
-  },
-  table
+  }
 });
 
 const Aside = styled.aside({

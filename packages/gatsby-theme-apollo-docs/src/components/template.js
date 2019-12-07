@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React, {Fragment, createContext, useContext} from 'react';
 import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
-import {ContentWrapper} from 'gatsby-theme-apollo-core';
+import {ContentWrapper, colors, smallCaps} from 'gatsby-theme-apollo-core';
 import {MDXProvider} from '@mdx-js/react';
 import {TypescriptApiBoxContext} from './typescript-api-box';
 import {graphql, navigate} from 'gatsby';
@@ -44,9 +44,50 @@ CustomLink.propTypes = {
   href: PropTypes.string
 };
 
+const TableWrapper = styled.div({
+  overflow: 'auto',
+  marginBottom: '1.45rem'
+});
+
+const tableBorder = `1px solid ${colors.divider}`;
+const StyledTable = styled.table({
+  border: tableBorder,
+  borderSpacing: 0,
+  borderRadius: 4,
+  [['th', 'td']]: {
+    padding: 16,
+    borderBottom: tableBorder
+  },
+  'tbody tr:last-child td': {
+    border: 0
+  },
+  th: {
+    ...smallCaps,
+    fontSize: 13,
+    fontWeight: 'normal',
+    color: colors.text2,
+    textAlign: 'inherit'
+  },
+  td: {
+    verticalAlign: 'top',
+    code: {
+      whiteSpace: 'normal'
+    }
+  }
+});
+
+function CustomTable(props) {
+  return (
+    <TableWrapper>
+      <StyledTable {...props} />
+    </TableWrapper>
+  );
+}
+
 const components = {
   pre: CodeBlock,
-  a: CustomLink
+  a: CustomLink,
+  table: CustomTable
 };
 
 const renderAst = new rehypeReact({
