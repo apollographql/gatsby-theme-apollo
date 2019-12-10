@@ -11,7 +11,7 @@ import {Select} from './select';
 import {colors} from 'gatsby-theme-apollo-core';
 
 const Container = styled.div({
-  marginBottom: '1.45em',
+  marginBottom: '1.45rem',
   border: `1px solid ${colors.divider}`,
   borderRadius: 4
 });
