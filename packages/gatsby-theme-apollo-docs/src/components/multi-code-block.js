@@ -28,17 +28,55 @@ function getLanguageLabel(language) {
   }
 }
 
+function getLang(child) {
+  return child.props['data-language'];
+}
+
 export function MultiCodeBlock(props) {
-  const codeBlocks = useMemo(
-    () =>
-      Array.isArray(props.children)
-        ? props.children.reduce((acc, child) => {
-            const lang = child.props['data-language'];
-            return lang ? {...acc, [lang]: child} : acc;
-          }, {})
-        : {},
-    [props.children]
-  );
+  const {codeBlocks, titles} = useMemo(() => {
+    const defaultState = {
+      codeBlocks: {},
+      titles: {}
+    };
+
+    if (!Array.isArray(props.children)) {
+      return defaultState;
+    }
+
+    return props.children.reduce((acc, child, index, array) => {
+      const lang = getLang(child);
+      if (lang) {
+        return {
+          ...acc,
+          codeBlocks: {
+            ...acc.codeBlocks,
+            [lang]: child
+          }
+        };
+      }
+
+      const nextNode = array[index + 1];
+      if (nextNode && Array.isArray(child.props.children)) {
+        const [title] = child.props.children.filter(
+          child => child.props && child.props.className === 'gatsby-code-title'
+        );
+        if (title) {
+          const lang = getLang(nextNode);
+          if (lang) {
+            return {
+              ...acc,
+              titles: {
+                ...acc.titles,
+                [lang]: title
+              }
+            };
+          }
+        }
+      }
+
+      return acc;
+    }, defaultState);
+  }, [props.children]);
 
   const languages = useMemo(() => Object.keys(codeBlocks), [codeBlocks]);
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
@@ -69,7 +107,7 @@ export function MultiCodeBlock(props) {
           onLanguageChange: handleLanguageChange
         }}
       >
-        {/* TODO: add titles */}
+        {titles[selectedLanguage]}
         {codeBlocks[selectedLanguage]}
       </MultiCodeBlockContext.Provider>
     </Container>
