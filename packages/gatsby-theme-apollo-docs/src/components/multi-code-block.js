@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {createContext, useState} from 'react';
+import React, {createContext, useMemo, useState} from 'react';
 import styled from '@emotion/styled';
 
 const Container = styled.div({
@@ -9,52 +9,68 @@ const Container = styled.div({
 export const GA_EVENT_CATEGORY_CODE_BLOCK = 'Code Block';
 export const MultiCodeBlockContext = createContext({});
 
-export function MultiCodeBlock(props) {
-  const [activeIndex, setActiveIndex] = useState(0);
+function getLanguageLabel(language) {
+  switch (language) {
+    case 'javascript':
+    case 'js':
+    case 'jsx':
+      return 'JavaScript';
+    case 'typescript':
+    case 'ts':
+    case 'tsx':
+      return 'TypeScript';
+    case 'hooks-js':
+      return 'Hooks (JS)';
+    case 'hooks-ts':
+      return 'Hooks (TS)';
+    default:
+      return language;
+  }
+}
 
-  if (!Array.isArray(props.children)) {
+export function MultiCodeBlock(props) {
+  const codeBlocks = useMemo(
+    () =>
+      Array.isArray(props.children)
+        ? props.children.reduce((acc, child) => {
+            const lang = child.props['data-language'];
+            return lang ? {...acc, [lang]: child} : acc;
+          }, {})
+        : {},
+    [props.children]
+  );
+
+  const languages = useMemo(() => Object.keys(codeBlocks), [codeBlocks]);
+  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+
+  if (!languages.length) {
     return props.children;
   }
 
-  function handleLanguageChange(value) {
+  function handleLanguageChange(language) {
     if (typeof window.analytics !== 'undefined') {
       window.analytics.track('Change language', {
         category: GA_EVENT_CATEGORY_CODE_BLOCK,
-        label: languages[value]
+        label: language
       });
     }
-    setActiveIndex(value);
+    setSelectedLanguage(language);
   }
-
-  const languages = props.children.map(child => child.props['data-language']);
 
   return (
     <Container>
       <MultiCodeBlockContext.Provider
         value={{
-          activeIndex,
-          languages: languages.map(language => {
-            switch (language) {
-              case 'javascript':
-              case 'js':
-              case 'jsx':
-                return 'JavaScript';
-              case 'typescript':
-              case 'ts':
-              case 'tsx':
-                return 'TypeScript';
-              case 'hooks-js':
-                return 'Hooks (JS)';
-              case 'hooks-ts':
-                return 'Hooks (TS)';
-              default:
-                return language;
-            }
-          }),
+          selectedLanguage,
+          languages: languages.map(language => ({
+            lang: language,
+            label: getLanguageLabel(language)
+          })),
           onLanguageChange: handleLanguageChange
         }}
       >
-        {props.children[activeIndex]}
+        {/* TODO: add titles */}
+        {codeBlocks[selectedLanguage]}
       </MultiCodeBlockContext.Provider>
     </Container>
   );

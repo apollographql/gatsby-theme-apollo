@@ -52,17 +52,17 @@ export default function CodeBlock(props) {
     <Container>
       <Header>
         <MultiCodeBlockContext.Consumer>
-          {({languages, onLanguageChange, activeIndex}) =>
+          {({languages, onLanguageChange, selectedLanguage}) =>
             languages && (
               <StyledSelect
                 size="small"
                 feel="flat"
-                value={activeIndex.toString()}
+                value={selectedLanguage}
                 onChange={onLanguageChange}
                 options={languages.reduce(
-                  (acc, text, index) => ({
+                  (acc, {lang, label}) => ({
                     ...acc,
-                    [index]: text
+                    [lang]: label
                   }),
                   {}
                 )}
