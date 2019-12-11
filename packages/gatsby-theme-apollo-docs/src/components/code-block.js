@@ -11,7 +11,7 @@ import {Select} from './select';
 import {colors} from 'gatsby-theme-apollo-core';
 
 const Container = styled.div({
-  margin: '0.5em 0 1.45em',
+  marginBottom: '1.45rem',
   border: `1px solid ${colors.divider}`,
   borderRadius: 4
 });
@@ -52,17 +52,17 @@ export default function CodeBlock(props) {
     <Container>
       <Header>
         <MultiCodeBlockContext.Consumer>
-          {({languages, onLanguageChange, activeIndex}) =>
+          {({languages, onLanguageChange, selectedLanguage}) =>
             languages && (
               <StyledSelect
                 size="small"
                 feel="flat"
-                value={activeIndex.toString()}
+                value={selectedLanguage}
                 onChange={onLanguageChange}
                 options={languages.reduce(
-                  (acc, text, index) => ({
+                  (acc, {lang, label}) => ({
                     ...acc,
-                    [index]: text
+                    [lang]: label
                   }),
                   {}
                 )}
