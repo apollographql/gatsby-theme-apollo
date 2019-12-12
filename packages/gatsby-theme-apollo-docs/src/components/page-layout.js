@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import React, {createContext, useMemo, useRef, useState} from 'react';
 import Search from './search';
 import styled from '@emotion/styled';
+import useLocalStorage from 'react-use/lib/useLocalStorage';
 import {Button} from '@apollo/space-kit/Button';
 import {
   FlexWrapper,
@@ -23,6 +24,7 @@ import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
 import {Link, graphql, navigate, useStaticQuery} from 'gatsby';
 import {ReactComponent as Logo} from '@apollo/space-kit/logos/mark.svg';
 import {Select} from './select';
+import {SelectedLanguageContext} from './multi-code-block';
 import {getSpectrumUrl, getVersionBasePath} from '../utils';
 import {size} from 'polished';
 
@@ -131,6 +133,7 @@ export default function PageLayout(props) {
 
   const buttonRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const selectedLanguageState = useLocalStorage('docs-lang');
 
   function openMenu() {
     setMenuOpen(true);
@@ -260,9 +263,11 @@ export default function PageLayout(props) {
             />
             <HeaderButton />
           </Header>
-          <NavItemsContext.Provider value={navItems}>
-            {props.children}
-          </NavItemsContext.Provider>
+          <SelectedLanguageContext.Provider value={selectedLanguageState}>
+            <NavItemsContext.Provider value={navItems}>
+              {props.children}
+            </NavItemsContext.Provider>
+          </SelectedLanguageContext.Provider>
         </Main>
       </FlexWrapper>
       <DocsetSwitcher

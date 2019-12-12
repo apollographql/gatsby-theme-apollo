@@ -1,35 +1,39 @@
 import PropTypes from 'prop-types';
-import React, {createContext, useMemo, useState} from 'react';
+import React, {createContext, useContext, useMemo} from 'react';
 import styled from '@emotion/styled';
+
+export const GA_EVENT_CATEGORY_CODE_BLOCK = 'Code Block';
+export const MultiCodeBlockContext = createContext({});
+export const SelectedLanguageContext = createContext();
 
 const Container = styled.div({
   position: 'relative'
 });
 
-export const GA_EVENT_CATEGORY_CODE_BLOCK = 'Code Block';
-export const MultiCodeBlockContext = createContext({});
+const langLabels = {
+  js: 'JavaScript',
+  ts: 'TypeScript',
+  'hooks-js': 'Hooks (JS)',
+  'hooks-ts': 'Hooks (TS)'
+};
 
-function getLanguageLabel(language) {
+function getUnifiedLang(language) {
   switch (language) {
-    case 'javascript':
     case 'js':
     case 'jsx':
-      return 'JavaScript';
-    case 'typescript':
+    case 'javascript':
+      return 'js';
     case 'ts':
     case 'tsx':
-      return 'TypeScript';
-    case 'hooks-js':
-      return 'Hooks (JS)';
-    case 'hooks-ts':
-      return 'Hooks (TS)';
+    case 'typescript':
+      return 'ts';
     default:
       return language;
   }
 }
 
 function getLang(child) {
-  return child.props['data-language'];
+  return getUnifiedLang(child.props['data-language']);
 }
 
 export function MultiCodeBlock(props) {
@@ -79,7 +83,9 @@ export function MultiCodeBlock(props) {
   }, [props.children]);
 
   const languages = useMemo(() => Object.keys(codeBlocks), [codeBlocks]);
-  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+  const [selectedLanguage, setSelectedLanguage] = useContext(
+    SelectedLanguageContext
+  );
 
   if (!languages.length) {
     return props.children;
@@ -95,20 +101,24 @@ export function MultiCodeBlock(props) {
     setSelectedLanguage(language);
   }
 
+  const defaultLanguage = languages[0];
+  const renderedLanguage =
+    selectedLanguage in codeBlocks ? selectedLanguage : defaultLanguage;
+
   return (
     <Container>
       <MultiCodeBlockContext.Provider
         value={{
-          selectedLanguage,
-          languages: languages.map(language => ({
-            lang: language,
-            label: getLanguageLabel(language)
+          selectedLanguage: renderedLanguage,
+          languages: languages.map(lang => ({
+            lang,
+            label: langLabels[lang]
           })),
           onLanguageChange: handleLanguageChange
         }}
       >
-        {titles[selectedLanguage]}
-        {codeBlocks[selectedLanguage]}
+        {titles[renderedLanguage]}
+        {codeBlocks[renderedLanguage]}
       </MultiCodeBlockContext.Provider>
     </Container>
   );
