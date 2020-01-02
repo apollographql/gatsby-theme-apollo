@@ -224,7 +224,7 @@ Wraps adjacent code blocks to allow users to toggle between them using a dropdow
 ````js
 import {MultiCodeBlock} from 'gatsby-theme-apollo-docs';
 
-<MulitCodeBlock>
+<MultiCodeBlock>
 
 ```js
 // a JavaScript code block
