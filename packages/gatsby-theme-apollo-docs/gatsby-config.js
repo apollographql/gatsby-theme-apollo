@@ -1,3 +1,4 @@
+const remarkTypescript = require('remark-typescript');
 const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
 
 module.exports = ({
@@ -87,7 +88,7 @@ module.exports = ({
       options: {
         gatsbyRemarkPlugins,
         remarkPlugins: [
-          ['remark-typescript', {wrapperComponent: 'MultiCodeBlock'}]
+          [remarkTypescript, {wrapperComponent: 'MultiCodeBlock'}]
         ]
       }
     },
