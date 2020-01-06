@@ -39,7 +39,7 @@
     "rehype-react": "^3.1.0",
     "remark": "^10.0.1",
     "remark-react": "^5.0.1",
-    "remark-typescript": "^0.2.4",
+    "remark-typescript": "^0.3.0",
     "source-sans-pro": "^3.6.0",
     "striptags": "^3.1.1"
   },
