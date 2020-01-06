@@ -28,7 +28,6 @@
     "gatsby-remark-prismjs": "^3.2.8",
     "gatsby-remark-prismjs-title": "^1.0.0",
     "gatsby-remark-rewrite-relative-links": "^1.0.7",
-    "gatsby-remark-typescript": "^0.2.1",
     "gatsby-source-filesystem": "^2.0.29",
     "gatsby-source-git": "^1.0.1",
     "gatsby-theme-apollo-core": "^3.0.3",
@@ -40,6 +39,7 @@
     "rehype-react": "^3.1.0",
     "remark": "^10.0.1",
     "remark-react": "^5.0.1",
+    "remark-typescript": "^0.2.2",
     "source-sans-pro": "^3.6.0",
     "striptags": "^3.1.1"
   },
