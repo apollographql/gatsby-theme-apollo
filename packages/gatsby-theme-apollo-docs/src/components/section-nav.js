@@ -54,7 +54,7 @@ export default function SectionNav(props) {
 
           return {
             id: heading.id,
-            offset: anchor.offsetTop
+            offset: heading.offsetTop + anchor.offsetTop
           };
         })
         .filter(Boolean)

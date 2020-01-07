@@ -52,6 +52,9 @@ const BodyContent = styled.div({
       },
       svg: {
         fill: colors.primary
+      },
+      '&.before': {
+        top: 'auto'
       }
     }
   },
