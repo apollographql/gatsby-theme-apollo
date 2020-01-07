@@ -46,6 +46,9 @@ const BodyContent = styled.div({
     ':not(:hover) a svg': {
       visibility: 'hidden'
     },
+    code: {
+      whiteSpace: 'normal'
+    },
     'a.anchor': {
       ':hover': {
         opacity: colors.hoverOpacity
