@@ -40,7 +40,7 @@ async function onCreateNode(
       }
     }
 
-    const {title, graphManagerUrl} = node.frontmatter;
+    const {title, sidebar_title, graphManagerUrl} = node.frontmatter;
     createPrinterNode({
       id: `${node.id} >>> Printer`,
       fileName,
@@ -75,6 +75,12 @@ async function onCreateNode(
       name: 'slug',
       node,
       value: slug
+    });
+
+    actions.createNodeField({
+      name: 'sidebarTitle',
+      node,
+      value: sidebar_title || ''
     });
 
     actions.createNodeField({
@@ -122,7 +128,7 @@ function getSidebarContents(sidebarCategories, edges, version, contentDir) {
 
         const {frontmatter, fields} = getPageFromEdge(edge);
         return {
-          title: frontmatter.title,
+          title: fields.sidebarTitle || frontmatter.title,
           path: fields.slug
         };
       })
@@ -170,6 +176,7 @@ const pageFragment = `
   fields {
     slug
     version
+    sidebarTitle
   }
 `;
 
