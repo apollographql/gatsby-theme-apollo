@@ -4,16 +4,16 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 
 - [Installation](#installation)
 - [Configuration](#configuration)
-  - [`versions`](#versions)
-  - [`sidebarCategories`](#sidebarcategories)
-  - [`navConfig`](#navconfig)
+  - [versions](#versions)
+  - [sidebarCategories](#sidebarcategories)
+  - [navConfig](#navconfig)
 - [Creating pages](#creating-pages)
 - [Component shadowing](#component-shadowing)
 - [Components](#components)
-  - [`ExpansionPanel`](#expansionpanel)
-  - [`ExpansionPanelList`](#expansionpanellist)
-  - [`ExpansionPanelListItem`](#expansionpanellistitem)
-  - [`MultiCodeBlock`](#multicodeblock)
+  - [ExpansionPanel](#expansionpanel)
+  - [ExpansionPanelList](#expansionpanellist)
+  - [ExpansionPanelListItem](#expansionpanellistitem)
+  - [MultiCodeBlock](#multicodeblock)
 - [Deployment](#deployment)
 - [Migration](#migration)
 - [Examples](#examples)
@@ -44,7 +44,7 @@ module.exports = {
         githubRepo: 'apollographql/apollo-server',
         defaultVersion: '2',
         versions: {
-          1: 'origin/version-1'
+          '1': 'version-1'
         },
         sidebarCategories: {
           null: [

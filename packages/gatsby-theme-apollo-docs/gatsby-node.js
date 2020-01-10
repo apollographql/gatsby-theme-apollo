@@ -6,7 +6,7 @@ const {createPrinterNode} = require('gatsby-plugin-printer');
 
 async function onCreateNode(
   {node, actions, getNode, loadNodeContent},
-  {defaultVersion, siteName, subtitle, sidebarCategories}
+  {localVersion, defaultVersion, siteName, subtitle, sidebarCategories}
 ) {
   if (configPaths.includes(node.relativePath)) {
     const value = await loadNodeContent(node);
@@ -19,7 +19,7 @@ async function onCreateNode(
 
   if (['MarkdownRemark', 'Mdx'].includes(node.internal.type)) {
     const parent = getNode(node.parent);
-    let version = defaultVersion;
+    let version = localVersion || defaultVersion;
     let slug = createFilePath({
       node,
       getNode
@@ -62,13 +62,17 @@ async function onCreateNode(
     if (parent.gitRemote___NODE) {
       const gitRemote = getNode(parent.gitRemote___NODE);
       version = gitRemote.sourceInstanceName;
-      slug = slug.replace(/^\/docs\/source/, getVersionBasePath(version));
+      slug = slug.replace(/^\/docs\/source/, '');
+    }
+
+    if (version !== defaultVersion) {
+      slug = getVersionBasePath(version) + slug;
     }
 
     actions.createNodeField({
       name: 'version',
       node,
-      value: version.toString()
+      value: version
     });
 
     actions.createNodeField({
@@ -115,7 +119,7 @@ function getSidebarContents(sidebarCategories, edges, version, contentDir) {
           const {relativePath} = edge.node;
           const {fields} = getPageFromEdge(edge);
           return (
-            fields.version === version.toString() &&
+            fields.version === version &&
             relativePath
               .slice(0, relativePath.lastIndexOf('.'))
               .replace(new RegExp(`^${contentDir}/`), '') === linkPath
@@ -190,6 +194,7 @@ exports.createPages = async (
     spectrumPath,
     typescriptApiBox,
     versions = {},
+    localVersion,
     defaultVersion,
     baseUrl
   }
@@ -214,18 +219,21 @@ exports.createPages = async (
   `);
 
   const {edges} = data.allFile;
+  const mainVersion = localVersion || defaultVersion;
   const sidebarContents = {
-    [defaultVersion]: getSidebarContents(
+    [mainVersion]: getSidebarContents(
       sidebarCategories,
       edges,
-      defaultVersion,
+      mainVersion,
       contentDir
     )
   };
 
-  const versionKeys = [];
+  const versionKeys = [localVersion].filter(Boolean);
   for (const version in versions) {
-    versionKeys.push(version);
+    if (version !== defaultVersion) {
+      versionKeys.push(version);
+    }
 
     // grab the old config files for each older version
     const configs = await Promise.all(
