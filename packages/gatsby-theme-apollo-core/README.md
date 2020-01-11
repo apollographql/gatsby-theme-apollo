@@ -33,7 +33,7 @@ $ npm install gatsby gatsby-theme-apollo-core
 ```js
 // gatsby-config.js
 module.exports = {
-  __experimentalThemes: [
+  plugins: [
     {
       resolve: 'gatsby-theme-apollo-core',
       options: {
