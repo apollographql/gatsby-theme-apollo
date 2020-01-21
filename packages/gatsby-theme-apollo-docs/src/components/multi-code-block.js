@@ -112,7 +112,9 @@ export function MultiCodeBlock(props) {
           selectedLanguage: renderedLanguage,
           languages: languages.map(lang => ({
             lang,
-            label: langLabels[lang]
+            label:
+              // try to find a label or capitalize the provided lang
+              langLabels[lang] || lang.charAt(0).toUpperCase() + lang.slice(1)
           })),
           onLanguageChange: handleLanguageChange
         }}
