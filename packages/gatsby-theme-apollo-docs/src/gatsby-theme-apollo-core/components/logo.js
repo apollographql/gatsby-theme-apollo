@@ -9,7 +9,7 @@ const Wrapper = styled.div({
 
 const StyledApolloIcon = styled(ApolloIcon)({
   width: 64,
-  height: 'auto'
+  height: '100%'
 });
 
 const StyledDocs = styled(Docs)({
