@@ -250,6 +250,7 @@ To migrate an older Hexo site to this theme, [follow this guide](MIGRATION.md).
 ## Examples
 
 - [Apollo](https://www.apollographql.com/docs)
+- [WPGraphQL](https://docs.wpgraphql.com)
 - [Analytics](https://getanalytics.io)
 
 Are you using this theme in your own project? Submit a PR with your website added to this list!
