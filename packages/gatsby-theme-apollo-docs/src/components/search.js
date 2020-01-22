@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
-import {HEADER_HEIGHT} from './header';
+import {HEADER_HEIGHT} from '../utils';
 import {IconClose} from '@apollo/space-kit/icons/IconClose';
 import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo-core';
 import {css} from '@emotion/core';

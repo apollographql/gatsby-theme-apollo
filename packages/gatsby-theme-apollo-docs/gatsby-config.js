@@ -1,5 +1,6 @@
 const remarkTypescript = require('remark-typescript');
 const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
+const {HEADER_HEIGHT} = require('./src/utils');
 
 module.exports = ({
   root,
@@ -13,7 +14,12 @@ module.exports = ({
   twitterHandle
 }) => {
   const gatsbyRemarkPlugins = [
-    'gatsby-remark-autolink-headers',
+    {
+      resolve: 'gatsby-remark-autolink-headers',
+      options: {
+        offsetY: HEADER_HEIGHT
+      }
+    },
     {
       resolve: 'gatsby-remark-copy-linked-files',
       options: {

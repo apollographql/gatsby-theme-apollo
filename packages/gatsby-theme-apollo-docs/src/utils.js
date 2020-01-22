@@ -8,3 +8,4 @@ function getSpectrumUrl(handle) {
 
 exports.getSpectrumUrl = getSpectrumUrl;
 exports.getVersionBasePath = getVersionBasePath;
+exports.HEADER_HEIGHT = 64;

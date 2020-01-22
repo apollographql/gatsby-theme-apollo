@@ -3,7 +3,7 @@ import React, {useRef, useState} from 'react';
 import SectionNav from './section-nav';
 import styled from '@emotion/styled';
 import useMount from 'react-use/lib/useMount';
-import {HEADER_HEIGHT} from './header';
+import {HEADER_HEIGHT} from '../utils';
 import {IconGithub} from '@apollo/space-kit/icons/IconGithub';
 import {IconSchema} from '@apollo/space-kit/icons/IconSchema';
 import {PageNav, breakpoints, colors} from 'gatsby-theme-apollo-core';
@@ -34,15 +34,6 @@ const BodyContent = styled.div({
     }
   },
   [['h1', 'h2', 'h3', 'h4', 'h5', 'h6']]: {
-    '&[id]::before': {
-      // inspired by https://css-tricks.com/hash-tag-links-padding/
-      content: "''",
-      display: 'block',
-      marginTop: -HEADER_HEIGHT,
-      height: HEADER_HEIGHT,
-      visibility: 'hidden',
-      pointerEvents: 'none'
-    },
     ':not(:hover) a svg': {
       visibility: 'hidden'
     },
