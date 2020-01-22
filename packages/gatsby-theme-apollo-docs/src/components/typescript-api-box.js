@@ -181,7 +181,7 @@ export class TypescriptApiBox extends Component {
       summary: _summary(rawData),
       groups,
       repo: 'apollostack/apollo-client',
-      filepath: this.context.filepathPrefix + rawData.sources[0].fileName,
+      filepath: rawData.sources[0].fileName,
       lineno: rawData.sources[0].line
     };
   }
@@ -352,7 +352,7 @@ export class TypescriptApiBox extends Component {
     return signature.parameters.map(param => {
       let name;
       if (isReadableName(param.name)) {
-        name = param.name;
+        name = param.name; // eslint-disable-line prefer-destructuring
       } else if (isReadableName(param.originalName)) {
         name = param.originalName;
       } else {
