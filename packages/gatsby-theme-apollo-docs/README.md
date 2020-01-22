@@ -4,16 +4,16 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 
 - [Installation](#installation)
 - [Configuration](#configuration)
-  - [versions](#versions)
-  - [sidebarCategories](#sidebarcategories)
-  - [navConfig](#navconfig)
+  - [`versions`](#versions)
+  - [`sidebarCategories`](#sidebarcategories)
+  - [`navConfig`](#navconfig)
 - [Creating pages](#creating-pages)
 - [Component shadowing](#component-shadowing)
 - [Components](#components)
-  - [ExpansionPanel](#expansionpanel)
-  - [ExpansionPanelList](#expansionpanellist)
-  - [ExpansionPanelListItem](#expansionpanellistitem)
-  - [MultiCodeBlock](#multicodeblock)
+  - [`ExpansionPanel`](#expansionpanel)
+  - [`ExpansionPanelList`](#expansionpanellist)
+  - [`ExpansionPanelListItem`](#expansionpanellistitem)
+  - [`MultiCodeBlock`](#multicodeblock)
 - [Deployment](#deployment)
 - [Migration](#migration)
 - [Examples](#examples)
@@ -28,7 +28,7 @@ $ npm install gatsby-theme-apollo-docs
 
 ## Configuration
 
-You can configure `gatsby-theme-apollo-docs` for use with any set of docs using the provided configuration options. You may also use [component shadowing](../gatsby-theme-apollo-core#logotitle) to customize elements like the logo or color scheme.
+You can configure `gatsby-theme-apollo-docs` for use with any set of docs using the provided configuration options. You may also use [component shadowing](../gatsby-theme-apollo-core#customizing-the-logo) to customize elements like the logo or color scheme.
 
 ```js
 // gatsby-config.js
@@ -141,7 +141,7 @@ Page URLs will be derived from the file paths of your Markdown. You can nest Mar
 
 ## Component shadowing
 
-You can customize a website using this theme further by taking advantage of [component shadowing](../gatsby-theme-apollo-core#logotitle).
+You can customize a website using this theme further by taking advantage of [component shadowing](../gatsby-theme-apollo-core#customizing-the-logo).
 
 By default, this theme sets the website favicon to [the one from Apollo's website](https://www.apollographql.com/favicon.ico) within its [internal `SEO` component](./src/components/seo.js). If you wanted to use your own favicon, you could shadow the `SEO` component within your site and add your custom SEO/favicon implementation.
 

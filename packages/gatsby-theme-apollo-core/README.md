@@ -12,13 +12,13 @@ It comes with a few Gatsby plugins:
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Components and utilities](#components-and-utilities)
-  - [Layout](#layout)
-  - [Header](#header)
-  - [Sidebar](#sidebar)
-  - [SidebarNav](#sidebarnav)
-  - [ResponsiveSidebar](#responsivesidebar)
-  - [LogoTitle](#logotitle)
-  - [colors](#colors)
+  - [`Layout`](#layout)
+  - [`Sidebar`](#sidebar)
+  - [`SidebarNav`](#sidebarnav)
+  - [`ResponsiveSidebar`](#responsivesidebar)
+  - [`Logo`](#logo)
+  - [Colors](#colors)
+  - [Breakpoints](#breakpoints)
 - [Deploying to a subdirectory](#deploying-to-a-subdirectory)
 - [Examples](#examples)
 
@@ -33,14 +33,7 @@ $ npm install gatsby gatsby-theme-apollo-core
 ```js
 // gatsby-config.js
 module.exports = {
-  plugins: [
-    {
-      resolve: 'gatsby-theme-apollo-core',
-      options: {
-        root: __dirname
-      }
-    }
-  ],
+  plugins: ['gatsby-theme-apollo-core'],
   siteMetadata: {
     title: 'Apollo rocks!',
     description: 'Gatsby themes are pretty cool too...'
@@ -56,7 +49,7 @@ All of the React components and utilities documented here are available as named
 import {MenuButton, Sidebar, breakpoints} from 'gatsby-theme-apollo-core';
 ```
 
-### Layout
+### `Layout`
 
 `Layout` should wrap every page that gets created. It configures [React Helmet](https://github.com/nfl/react-helmet) and sets the meta description tag with data from the `siteMetadata` property in your Gatsby config.
 
@@ -76,7 +69,7 @@ function MyPage() {
 | --------- | ---- | -------- |
 | children  | node | yes      |
 
-### Sidebar
+### `Sidebar`
 
 A component that renders a sidebar with a [`LogoTitle`](#logo-title) component in the top left corner. It can also be configured to collapse into the left side of the page on narrow windows.
 
@@ -101,7 +94,7 @@ function MyPage() {
 | open       | bool   | no       | Controls the sidebar visibility when the `responsive` prop is `true`             |
 | logoLink   | string | no       | The URL/path that the sidebar logo should link to                                |
 
-### SidebarNav
+### `SidebarNav`
 
 A configurable two-tiered, expandable/collapsible navigation component for use in conjunction with the `Sidebar` component above. It accepts a `contents` prop that defines what links and collapsible sections get rendered. Here's an example of the expected shape of a `contents` prop:
 
@@ -156,7 +149,7 @@ function MyPage(props) {
 | alwaysExpanded | bool   | no       | If `true`, all collapsible sections are expanded and cannot close |
 
 
-### ResponsiveSidebar
+### `ResponsiveSidebar`
 
 A render props component that manages the state for responsive sidebars. On mobile devices, the sidebar is opened by a `MenuButton` component, and dismissed when the user clicks away from the sidebar. This component's `children` prop accepts a function that provides values and functions to enable this behavior easily.
 
@@ -191,7 +184,7 @@ function MyPage() {
 | --------- | ---- | -------- | ----------------------------------------------------------- |
 | children  | func | yes      | A render prop-style function that returns a React component |
 
-### Logo
+### `Logo`
 
 A component that renders the Apollo logo. This logo can be removed or replaced using component shadowing.
 
@@ -203,6 +196,8 @@ function MyPage() {
 }
 ```
 
+#### Customizing the logo
+
 Through [component shadowing](https://www.gatsbyjs.org/blog/2019-01-29-themes-update-child-theming-and-component-shadowing/), you can override the logo that gets shown. Simply create a file that exports a SVG React component in your theme consumer at _src/gatsby-theme-apollo-core/components/logo.js_.
 
 ```js
@@ -210,7 +205,7 @@ Through [component shadowing](https://www.gatsbyjs.org/blog/2019-01-29-themes-up
 export {ReactComponent as default} from '../../assets/custom-logo.svg';
 ```
 
-Check out [this CodeSandbox](https://codesandbox.io/s/mq7p0z3wmj) for a full component shadowing example!
+Check out [this CodeSandbox link](https://codesandbox.io/s/mq7p0z3wmj) for a full component shadowing example.
 
 [![Edit Component shadowing example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/mq7p0z3wmj?fontsize=14)
 
@@ -218,9 +213,9 @@ Check out [this CodeSandbox](https://codesandbox.io/s/mq7p0z3wmj) for a full com
 | --------- | ---- | -------- | ------------------------------------ |
 | noLogo    | bool | no       | If `true`, the Apollo logo is hidden |
 
-### colors
+### Colors
 
-An object mapping semantic names to hex strings. All of these colors are drawn from [Space Kit](https://github.com/apollographql/space-kit#colors). You can use this utility to write CSS-in-JS rules like this:
+An object mapping semantic names to hex strings. All of these colors are drawn from [Space Kit](https://space-kit.netlify.com/?path=/story/color--brand-colors). You can use this utility to write CSS-in-JS rules like this:
 
 ```js
 import {colors} from 'gatsby-theme-apollo-core';
@@ -231,7 +226,25 @@ const StyledButton = styled.button({
 });
 ```
 
- ### breakpoints
+#### Customizing colors
+
+You can override the default color palette using shadowing. The only constraint is that the `primary` and `secondary` palette keys must be [colors from Space Kit](https://github.com/apollographql/space-kit#colors). Here's an example of a shadowed color palette:
+
+```js
+// src/gatsby-theme-apollo-core/utils/colors.js
+const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
+const {colors: spaceKitColors} = require('@apollo/space-kit/colors');
+
+exports.colors = {
+  ...colors,
+  primary: spaceKitColors.red.base,
+  divider: '#aeaeae'
+};
+```
+
+You can refer to the [default colors file](./src/utils/colors.js) for palette keys that can be customized.
+
+ ### Breakpoints
 
  A mapping of size keys to media queries. This is useful for writing responsive CSS-in-JS components.
 
