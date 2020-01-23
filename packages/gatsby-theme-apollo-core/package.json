@@ -4,6 +4,7 @@
   "main": "index.js",
   "description": "A theme for bootstrapping Gatsby websites at Apollo",
   "author": "Trevor Blades <blades@apollographql.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/apollographql/gatsby-theme-apollo.git",

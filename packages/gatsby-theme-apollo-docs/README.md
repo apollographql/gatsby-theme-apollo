@@ -17,6 +17,7 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 - [Deployment](#deployment)
 - [Migration](#migration)
 - [Examples](#examples)
+- [License](#license)
 
 ## Installation
 
@@ -254,3 +255,7 @@ To migrate an older Hexo site to this theme, [follow this guide](MIGRATION.md).
 - [Analytics](https://getanalytics.io)
 
 Are you using this theme in your own project? Submit a PR with your website added to this list!
+
+## License
+
+[MIT](../../LICENSE)

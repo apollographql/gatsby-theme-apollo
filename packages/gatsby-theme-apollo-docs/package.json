@@ -4,6 +4,7 @@
   "main": "index.js",
   "description": "A Gatsby theme for building documentation websites",
   "author": "Trevor Blades <blades@apollographql.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/apollographql/gatsby-theme-apollo.git",

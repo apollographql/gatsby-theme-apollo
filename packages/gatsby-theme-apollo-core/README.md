@@ -21,6 +21,7 @@ It comes with a few Gatsby plugins:
   - [Breakpoints](#breakpoints)
 - [Deploying to a subdirectory](#deploying-to-a-subdirectory)
 - [Examples](#examples)
+- [License](#license)
 
 ## Installation
 
@@ -312,3 +313,7 @@ Be sure to set the priority of each of these rules to `3`, or a value lower than
 ## Examples
 
 - [Principled GraphQL](https://github.com/apollographql/principled-graphql)
+
+## License
+
+[MIT](../../LICENSE)
