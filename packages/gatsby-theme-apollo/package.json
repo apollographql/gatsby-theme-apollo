@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo",
-  "version": "2.0.0",
+  "version": "3.0.0-beta.0",
   "main": "index.js",
   "description": "Sets up your Gatsby website for use with Apollo",
   "author": "Trevor Blades <blades@apollographql.com>",
@@ -16,11 +16,11 @@
     "apollo-client"
   ],
   "peerDependencies": {
-    "@apollo/react-common": ">=3.0.0",
+    "@apollo/client": ">=3.0.0-beta.1",
     "gatsby": ">=2.13.80"
   },
   "devDependencies": {
-    "@apollo/react-common": "^3.0.1",
+    "@apollo/client": "^3.0.0-beta.1",
     "gatsby": "^2.13.80"
   }
 }
