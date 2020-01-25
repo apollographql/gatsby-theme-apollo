@@ -24,7 +24,7 @@ const navConfig = {
     description:
       "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations."
   },
-  'Apollo Client (Android)': {
+  'Apollo Client (Android/JVM)': {
     url: 'https://www.apollographql.com/docs/android',
     description:
       "A strongly-typed, caching GraphQL client for Android and the JVM."
