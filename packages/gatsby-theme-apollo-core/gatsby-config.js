@@ -1,5 +1,8 @@
 const mapKeys = require('lodash/mapKeys');
 const {colors} = require('./src/utils/colors');
+const {fontFamilyMono} = require('./src/utils/typography');
+
+const colorVars = mapKeys(colors, (value, key) => `color-${key}`);
 
 module.exports = {
   plugins: [
@@ -9,7 +12,10 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-less',
       options: {
-        modifyVars: mapKeys(colors, (value, key) => `color-${key}`)
+        modifyVars: {
+          ...colorVars,
+          'font-family-mono': fontFamilyMono
+        }
       }
     }
   ]

@@ -6,7 +6,7 @@ import remark from 'remark';
 import remark2react from 'remark-react';
 import styled from '@emotion/styled';
 import withProps from 'recompose/withProps';
-import {colors, smallCaps} from 'gatsby-theme-apollo-core';
+import {colors, fontFamilyMono, smallCaps} from 'gatsby-theme-apollo-core';
 
 const Container = styled.div({
   border: `1px solid ${colors.divider}`,
@@ -44,7 +44,7 @@ const BodySubheading = styled.h6(smallCaps, {
 
 const StyledTerm = styled.dt({
   marginBottom: 8,
-  fontFamily: "'Source Code Pro', monospace",
+  fontFamily: fontFamilyMono,
   fontWeight: 'normal'
 });
 

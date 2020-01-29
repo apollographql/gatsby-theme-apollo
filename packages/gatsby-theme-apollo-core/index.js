@@ -13,4 +13,4 @@ export {default as Sidebar} from './src/components/sidebar';
 export {default as SidebarNav} from './src/components/sidebar-nav';
 export {default as breakpoints} from './src/utils/breakpoints';
 export {colors} from './src/utils/colors';
-export {smallCaps} from './src/utils/typography';
+export {fontFamilyMono, smallCaps} from './src/utils/typography';
