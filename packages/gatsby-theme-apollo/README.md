@@ -1,6 +1,6 @@
 # gatsby-theme-apollo
 
-A Gatsby theme that sets up your website for use with one of Apollo's React libraries.
+A Gatsby theme that sets up your website for use with Apollo Client.
 
 ## Installation
 
