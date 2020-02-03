@@ -6,6 +6,8 @@ A Gatsby theme that sets up your website for use with [Apollo Client](https://ww
 
 This theme is meant to be used with the `@apollo/client` package. If you aren't already using it, make sure you install it along with this theme.
 
+> **Important:** `@apollo/client` is currently in beta. If you want to use this theme with `apollo-boost` or `apollo-client`, you can install `gatsby-theme-apollo@2`.
+
 ```bash
 npm install gatsby-theme-apollo @apollo/client
 ```
