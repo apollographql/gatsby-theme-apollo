@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "index.js",
   "description": "Sets up your Gatsby website for use with Apollo",
   "author": "Trevor Blades <blades@apollographql.com>",
