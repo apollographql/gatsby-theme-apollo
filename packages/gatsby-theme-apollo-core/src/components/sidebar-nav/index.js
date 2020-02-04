@@ -171,6 +171,7 @@ export default function SidebarNav(props) {
                         : null
                     }
                     to={page.path}
+                    title={page.description}
                     onClick={props.onLinkClick}
                   >
                     {page.title}

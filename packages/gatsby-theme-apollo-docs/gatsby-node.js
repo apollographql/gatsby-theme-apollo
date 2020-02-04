@@ -133,6 +133,7 @@ function getSidebarContents(sidebarCategories, edges, version, contentDir) {
         const {frontmatter, fields} = getPageFromEdge(edge);
         return {
           title: fields.sidebarTitle || frontmatter.title,
+          description: frontmatter.description,
           path: fields.slug
         };
       })
@@ -176,6 +177,7 @@ const pageFragment = `
   }
   frontmatter {
     title
+    description
   }
   fields {
     slug
