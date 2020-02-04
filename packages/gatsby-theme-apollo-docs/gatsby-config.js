@@ -1,3 +1,4 @@
+const path = require('path');
 const remarkTypescript = require('remark-typescript');
 const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
 const {HEADER_HEIGHT} = require('./src/utils');
@@ -8,6 +9,8 @@ module.exports = ({
   subtitle,
   description,
   githubRepo,
+  baseDir = '',
+  contentDir = 'source',
   versions = {},
   segmentApiKey,
   checkLinksOptions,
@@ -70,16 +73,11 @@ module.exports = ({
   ];
 
   const plugins = [
-    {
-      resolve: 'gatsby-theme-apollo-core',
-      options: {
-        root
-      }
-    },
+    'gatsby-theme-apollo-core',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${root}/source`,
+        path: path.join(root, contentDir),
         name: 'docs'
       }
     },
@@ -106,9 +104,9 @@ module.exports = ({
         branch,
         remote: `https://github.com/${githubRepo}`,
         patterns: [
-          'docs/source/**',
-          'docs/gatsby-config.js',
-          'docs/_config.yml'
+          path.join(baseDir, contentDir, '**'),
+          path.join(baseDir, 'gatsby-config.js'),
+          path.join(baseDir, '_config.yml')
         ]
       }
     }))

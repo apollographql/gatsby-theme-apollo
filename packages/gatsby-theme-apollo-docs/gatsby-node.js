@@ -4,10 +4,26 @@ const {createFilePath} = require('gatsby-source-filesystem');
 const {getVersionBasePath, getSpectrumUrl} = require('./src/utils');
 const {createPrinterNode} = require('gatsby-plugin-printer');
 
+function getConfigPaths(baseDir) {
+  return [
+    path.join(baseDir, 'gatsby-config.js'), // new gatsby config
+    path.join(baseDir, '_config.yml') // old hexo config
+  ];
+}
+
 async function onCreateNode(
   {node, actions, getNode, loadNodeContent},
-  {localVersion, defaultVersion, siteName, subtitle, sidebarCategories}
+  {
+    localVersion,
+    defaultVersion,
+    siteName,
+    baseDir = '',
+    contentDir = 'source',
+    subtitle,
+    sidebarCategories
+  }
 ) {
+  const configPaths = getConfigPaths(baseDir);
   if (configPaths.includes(node.relativePath)) {
     const value = await loadNodeContent(node);
     actions.createNodeField({
@@ -62,7 +78,9 @@ async function onCreateNode(
     if (parent.gitRemote___NODE) {
       const gitRemote = getNode(parent.gitRemote___NODE);
       version = gitRemote.sourceInstanceName;
-      slug = slug.replace(/^\/docs\/source/, '');
+
+      const dirPattern = new RegExp(path.join('^', baseDir, contentDir));
+      slug = slug.replace(dirPattern, '');
     }
 
     if (version !== defaultVersion) {
@@ -141,11 +159,6 @@ function getSidebarContents(sidebarCategories, edges, version, contentDir) {
   }));
 }
 
-const configPaths = [
-  'docs/gatsby-config.js', // new gatsby config
-  'docs/_config.yml' // old hexo config
-];
-
 function getVersionSidebarCategories(gatsbyConfig, hexoConfig) {
   if (gatsbyConfig) {
     const trimmed = gatsbyConfig.slice(
@@ -189,7 +202,8 @@ const pageFragment = `
 exports.createPages = async (
   {actions, graphql},
   {
-    contentDir = 'docs/source',
+    baseDir = '',
+    contentDir = 'source',
     githubRepo,
     sidebarCategories,
     spectrumHandle,
@@ -231,6 +245,7 @@ exports.createPages = async (
     )
   };
 
+  const configPaths = getConfigPaths(baseDir);
   const versionKeys = [localVersion].filter(Boolean);
   for (const version in versions) {
     if (version !== defaultVersion) {
