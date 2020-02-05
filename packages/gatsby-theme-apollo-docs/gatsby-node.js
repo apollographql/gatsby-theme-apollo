@@ -4,10 +4,26 @@ const {createFilePath} = require('gatsby-source-filesystem');
 const {getVersionBasePath, getSpectrumUrl} = require('./src/utils');
 const {createPrinterNode} = require('gatsby-plugin-printer');
 
+function getConfigPaths(baseDir) {
+  return [
+    path.join(baseDir, 'gatsby-config.js'), // new gatsby config
+    path.join(baseDir, '_config.yml') // old hexo config
+  ];
+}
+
 async function onCreateNode(
   {node, actions, getNode, loadNodeContent},
-  {localVersion, defaultVersion, siteName, subtitle, sidebarCategories}
+  {
+    localVersion,
+    defaultVersion,
+    siteName,
+    baseDir = '',
+    contentDir = 'source',
+    subtitle,
+    sidebarCategories
+  }
 ) {
+  const configPaths = getConfigPaths(baseDir);
   if (configPaths.includes(node.relativePath)) {
     const value = await loadNodeContent(node);
     actions.createNodeField({
@@ -59,10 +75,14 @@ async function onCreateNode(
       value: path.join(outputDir, fileName + '.png')
     });
 
+    let versionRef = '';
     if (parent.gitRemote___NODE) {
       const gitRemote = getNode(parent.gitRemote___NODE);
       version = gitRemote.sourceInstanceName;
-      slug = slug.replace(/^\/docs\/source/, '');
+      versionRef = gitRemote.ref;
+
+      const dirPattern = new RegExp(path.join('^', baseDir, contentDir));
+      slug = slug.replace(dirPattern, '');
     }
 
     if (version !== defaultVersion) {
@@ -70,26 +90,32 @@ async function onCreateNode(
     }
 
     actions.createNodeField({
-      name: 'version',
       node,
+      name: 'version',
       value: version
     });
 
     actions.createNodeField({
-      name: 'slug',
       node,
+      name: 'versionRef',
+      value: versionRef
+    });
+
+    actions.createNodeField({
+      node,
+      name: 'slug',
       value: slug
     });
 
     actions.createNodeField({
-      name: 'sidebarTitle',
       node,
+      name: 'sidebarTitle',
       value: sidebar_title || ''
     });
 
     actions.createNodeField({
-      name: 'graphManagerUrl',
       node,
+      name: 'graphManagerUrl',
       value: graphManagerUrl || ''
     });
   }
@@ -101,7 +127,7 @@ function getPageFromEdge({node}) {
   return node.childMarkdownRemark || node.childMdx;
 }
 
-function getSidebarContents(sidebarCategories, edges, version, contentDir) {
+function getSidebarContents(sidebarCategories, edges, version, dirPattern) {
   return Object.keys(sidebarCategories).map(key => ({
     title: key === 'null' ? null : key,
     pages: sidebarCategories[key]
@@ -122,7 +148,7 @@ function getSidebarContents(sidebarCategories, edges, version, contentDir) {
             fields.version === version &&
             relativePath
               .slice(0, relativePath.lastIndexOf('.'))
-              .replace(new RegExp(`^${contentDir}/`), '') === linkPath
+              .replace(dirPattern, '') === linkPath
           );
         });
 
@@ -140,11 +166,6 @@ function getSidebarContents(sidebarCategories, edges, version, contentDir) {
       .filter(Boolean)
   }));
 }
-
-const configPaths = [
-  'docs/gatsby-config.js', // new gatsby config
-  'docs/_config.yml' // old hexo config
-];
 
 function getVersionSidebarCategories(gatsbyConfig, hexoConfig) {
   if (gatsbyConfig) {
@@ -182,6 +203,7 @@ const pageFragment = `
   fields {
     slug
     version
+    versionRef
     sidebarTitle
   }
 `;
@@ -189,7 +211,8 @@ const pageFragment = `
 exports.createPages = async (
   {actions, graphql},
   {
-    contentDir = 'docs/source',
+    baseDir = '',
+    contentDir = 'source',
     githubRepo,
     sidebarCategories,
     spectrumHandle,
@@ -222,15 +245,19 @@ exports.createPages = async (
 
   const {edges} = data.allFile;
   const mainVersion = localVersion || defaultVersion;
+  const contentPath = path.join(baseDir, contentDir);
+  const dirPattern = new RegExp(`^${contentPath}/`);
+
   const sidebarContents = {
     [mainVersion]: getSidebarContents(
       sidebarCategories,
       edges,
       mainVersion,
-      contentDir
+      dirPattern
     )
   };
 
+  const configPaths = getConfigPaths(baseDir);
   const versionKeys = [localVersion].filter(Boolean);
   for (const version in versions) {
     if (version !== defaultVersion) {
@@ -262,7 +289,7 @@ exports.createPages = async (
       getVersionSidebarCategories(...configs),
       edges,
       version,
-      contentDir
+      dirPattern
     );
   }
 
@@ -304,8 +331,7 @@ exports.createPages = async (
             owner,
             repo,
             'tree',
-            'master',
-            contentDir,
+            fields.versionRef || path.join('master', contentPath),
             relativePath
           ),
         spectrumUrl:
