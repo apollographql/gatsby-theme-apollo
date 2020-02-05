@@ -11,7 +11,7 @@ module.exports = ({
   description,
   githubRepo,
   baseDir = '',
-  contentDir = 'source',
+  contentDir = 'content',
   versions = {},
   segmentApiKey,
   checkLinksOptions,

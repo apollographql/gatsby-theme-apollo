@@ -18,7 +18,7 @@ async function onCreateNode(
     defaultVersion,
     siteName,
     baseDir = '',
-    contentDir = 'source',
+    contentDir = 'content',
     subtitle,
     sidebarCategories
   }
@@ -212,7 +212,7 @@ exports.createPages = async (
   {actions, graphql},
   {
     baseDir = '',
-    contentDir = 'source',
+    contentDir = 'content',
     githubRepo,
     sidebarCategories,
     spectrumHandle,
