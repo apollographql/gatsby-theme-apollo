@@ -75,9 +75,11 @@ async function onCreateNode(
       value: path.join(outputDir, fileName + '.png')
     });
 
+    let versionRef = '';
     if (parent.gitRemote___NODE) {
       const gitRemote = getNode(parent.gitRemote___NODE);
       version = gitRemote.sourceInstanceName;
+      versionRef = gitRemote.ref;
 
       const dirPattern = new RegExp(path.join('^', baseDir, contentDir));
       slug = slug.replace(dirPattern, '');
@@ -88,26 +90,32 @@ async function onCreateNode(
     }
 
     actions.createNodeField({
-      name: 'version',
       node,
+      name: 'version',
       value: version
     });
 
     actions.createNodeField({
-      name: 'slug',
       node,
+      name: 'versionRef',
+      value: versionRef
+    });
+
+    actions.createNodeField({
+      node,
+      name: 'slug',
       value: slug
     });
 
     actions.createNodeField({
-      name: 'sidebarTitle',
       node,
+      name: 'sidebarTitle',
       value: sidebar_title || ''
     });
 
     actions.createNodeField({
-      name: 'graphManagerUrl',
       node,
+      name: 'graphManagerUrl',
       value: graphManagerUrl || ''
     });
   }
@@ -195,6 +203,7 @@ const pageFragment = `
   fields {
     slug
     version
+    versionRef
     sidebarTitle
   }
 `;
@@ -238,6 +247,7 @@ exports.createPages = async (
   const mainVersion = localVersion || defaultVersion;
   const contentPath = path.join(baseDir, contentDir);
   const dirPattern = new RegExp(`^${contentPath}/`);
+
   const sidebarContents = {
     [mainVersion]: getSidebarContents(
       sidebarCategories,
@@ -321,9 +331,7 @@ exports.createPages = async (
             owner,
             repo,
             'tree',
-            'master',
-            baseDir,
-            contentDir,
+            fields.versionRef || path.join('master', contentPath),
             relativePath
           ),
         spectrumUrl:
