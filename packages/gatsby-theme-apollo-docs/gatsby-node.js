@@ -119,7 +119,7 @@ function getPageFromEdge({node}) {
   return node.childMarkdownRemark || node.childMdx;
 }
 
-function getSidebarContents(sidebarCategories, edges, version, contentDir) {
+function getSidebarContents(sidebarCategories, edges, version, dirPattern) {
   return Object.keys(sidebarCategories).map(key => ({
     title: key === 'null' ? null : key,
     pages: sidebarCategories[key]
@@ -140,7 +140,7 @@ function getSidebarContents(sidebarCategories, edges, version, contentDir) {
             fields.version === version &&
             relativePath
               .slice(0, relativePath.lastIndexOf('.'))
-              .replace(new RegExp(`^${contentDir}/`), '') === linkPath
+              .replace(dirPattern, '') === linkPath
           );
         });
 
@@ -236,12 +236,14 @@ exports.createPages = async (
 
   const {edges} = data.allFile;
   const mainVersion = localVersion || defaultVersion;
+  const contentPath = path.join(baseDir, contentDir);
+  const dirPattern = new RegExp(`^${contentPath}/`);
   const sidebarContents = {
     [mainVersion]: getSidebarContents(
       sidebarCategories,
       edges,
       mainVersion,
-      contentDir
+      dirPattern
     )
   };
 
@@ -277,7 +279,7 @@ exports.createPages = async (
       getVersionSidebarCategories(...configs),
       edges,
       version,
-      contentDir
+      dirPattern
     );
   }
 
@@ -320,6 +322,7 @@ exports.createPages = async (
             repo,
             'tree',
             'master',
+            baseDir,
             contentDir,
             relativePath
           ),
