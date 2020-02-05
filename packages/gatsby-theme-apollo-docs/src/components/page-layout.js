@@ -156,7 +156,7 @@ export default function PageLayout(props) {
     spectrumHandle,
     twitterHandle,
     youtubeUrl,
-    navConfig,
+    navConfig = {},
     footerNavConfig,
     logoLink,
     algoliaApiKey,
@@ -173,9 +173,16 @@ export default function PageLayout(props) {
     [navConfig]
   );
 
+  const hasNavItems = navItems.length > 0;
+  const sidebarTitle = (
+    <span className="title-sidebar">{subtitle || siteName}</span>
+  );
+
   return (
     <Layout>
-      <Helmet titleTemplate={`%s - ${subtitle} - ${title}`}>
+      <Helmet
+        titleTemplate={['%s', subtitle, title].filter(Boolean).join(' - ')}
+      >
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"
@@ -195,18 +202,22 @@ export default function PageLayout(props) {
           logoLink={logoLink}
         >
           <HeaderInner>
-            <ButtonWrapper ref={buttonRef}>
-              <StyledButton
-                feel="flat"
-                color={colors.primary}
-                size="small"
-                onClick={openMenu}
-                style={{display: 'block'}}
-              >
-                <span className="title-sidebar">{subtitle}</span>
-                <StyledIcon />
-              </StyledButton>
-            </ButtonWrapper>
+            {hasNavItems ? (
+              <ButtonWrapper ref={buttonRef}>
+                <StyledButton
+                  feel="flat"
+                  color={colors.primary}
+                  size="small"
+                  onClick={openMenu}
+                  style={{display: 'block'}}
+                >
+                  {sidebarTitle}
+                  <StyledIcon />
+                </StyledButton>
+              </ButtonWrapper>
+            ) : (
+              sidebarTitle
+            )}
             {versions && versions.length > 0 && (
               <Select
                 feel="flat"
@@ -270,17 +281,19 @@ export default function PageLayout(props) {
           </SelectedLanguageContext.Provider>
         </Main>
       </FlexWrapper>
-      <DocsetSwitcher
-        siteName={menuTitle || siteName}
-        spectrumUrl={spectrumHandle && getSpectrumUrl(spectrumHandle)}
-        twitterUrl={twitterHandle && `https://twitter.com/${twitterHandle}`}
-        youtubeUrl={youtubeUrl}
-        navItems={navItems}
-        footerNavConfig={footerNavConfig}
-        open={menuOpen}
-        buttonRef={buttonRef}
-        onClose={closeMenu}
-      />
+      {hasNavItems && (
+        <DocsetSwitcher
+          siteName={menuTitle || siteName}
+          spectrumUrl={spectrumHandle && getSpectrumUrl(spectrumHandle)}
+          twitterUrl={twitterHandle && `https://twitter.com/${twitterHandle}`}
+          youtubeUrl={youtubeUrl}
+          navItems={navItems}
+          footerNavConfig={footerNavConfig}
+          open={menuOpen}
+          buttonRef={buttonRef}
+          onClose={closeMenu}
+        />
+      )}
     </Layout>
   );
 }

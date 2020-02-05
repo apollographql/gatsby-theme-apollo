@@ -7,6 +7,7 @@ module.exports = ({
   root,
   siteName,
   subtitle,
+  pageTitle,
   description,
   githubRepo,
   baseDir = '',
@@ -124,7 +125,7 @@ module.exports = ({
 
   return {
     siteMetadata: {
-      title: 'Apollo GraphQL Docs',
+      title: pageTitle || siteName,
       siteName,
       subtitle,
       description,

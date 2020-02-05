@@ -62,8 +62,8 @@ async function onCreateNode(
       fileName,
       outputDir,
       data: {
-        title: title || siteName,
-        subtitle,
+        title,
+        subtitle: subtitle || siteName,
         category
       },
       component: require.resolve('./src/components/social-card.js')
@@ -300,7 +300,6 @@ exports.createPages = async (
     // let it slide
   }
 
-  const [owner, repo] = githubRepo.split('/');
   const template = require.resolve('./src/components/template');
   edges.forEach(edge => {
     const {id, relativePath} = edge.node;
@@ -316,6 +315,27 @@ exports.createPages = async (
       }
     }
 
+    let githubUrl;
+    let spectrumUrl = spectrumHandle && getSpectrumUrl(spectrumHandle);
+
+    if (githubRepo) {
+      const [owner, repo] = githubRepo.split('/');
+      githubUrl =
+        'https://' +
+        path.join(
+          'github.com',
+          owner,
+          repo,
+          'tree',
+          fields.versionRef || path.join('master', contentPath),
+          relativePath
+        );
+
+      spectrumUrl += spectrumPath || `/${repo}`;
+    } else {
+      spectrumUrl += spectrumPath;
+    }
+
     actions.createPage({
       path: fields.slug,
       component: template,
@@ -324,19 +344,8 @@ exports.createPages = async (
         versionDifference,
         versionBasePath: getVersionBasePath(fields.version),
         sidebarContents: sidebarContents[fields.version],
-        githubUrl:
-          'https://' +
-          path.join(
-            'github.com',
-            owner,
-            repo,
-            'tree',
-            fields.versionRef || path.join('master', contentPath),
-            relativePath
-          ),
-        spectrumUrl:
-          spectrumHandle &&
-          getSpectrumUrl(spectrumHandle) + (spectrumPath || `/${repo}`),
+        githubUrl,
+        spectrumUrl,
         typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
         defaultVersion,

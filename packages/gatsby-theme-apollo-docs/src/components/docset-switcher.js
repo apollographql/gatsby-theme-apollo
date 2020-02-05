@@ -181,6 +181,9 @@ export default function DocsetSwitcher(props) {
     }
   }
 
+  const hasSocialUrls = Boolean(
+    props.spectrumUrl || props.twitterUrl || props.youtubeUrl
+  );
   return (
     <Wrapper
       onClick={handleWrapperClick}
@@ -209,8 +212,8 @@ export default function DocsetSwitcher(props) {
             </NavItem>
           ))}
         </StyledNav>
-        <FooterNav>
-          {(props.footerNavConfig || props.spectrumUrl || props.twitterUrl) && (
+        {(props.footerNavConfig || hasSocialUrls) && (
+          <FooterNav>
             <Fragment>
               {props.footerNavConfig &&
                 Object.entries(props.footerNavConfig).map(([text, props]) => (
@@ -218,7 +221,7 @@ export default function DocsetSwitcher(props) {
                     {text}
                   </FooterNavItem>
                 ))}
-              {(props.spectrumUrl || props.twitterUrl) && (
+              {hasSocialUrls && (
                 <SocialLinks>
                   {props.spectrumUrl && (
                     <SocialLink
@@ -250,8 +253,8 @@ export default function DocsetSwitcher(props) {
                 </SocialLinks>
               )}
             </Fragment>
-          )}
-        </FooterNav>
+          </FooterNav>
+        )}
       </Menu>
     </Wrapper>
   );
