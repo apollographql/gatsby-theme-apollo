@@ -14,8 +14,7 @@ module.exports = ({
   contentDir = 'content',
   versions = {},
   segmentApiKey,
-  checkLinksOptions,
-  twitterHandle
+  checkLinksOptions
 }) => {
   const gatsbyRemarkPlugins = [
     {
@@ -128,8 +127,7 @@ module.exports = ({
       title: pageTitle || siteName,
       siteName,
       subtitle,
-      description,
-      twitterHandle
+      description
     },
     plugins
   };

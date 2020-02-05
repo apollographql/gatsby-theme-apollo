@@ -217,6 +217,7 @@ exports.createPages = async (
     sidebarCategories,
     spectrumHandle,
     spectrumPath,
+    twitterHandle,
     typescriptApiBox,
     versions = {},
     localVersion,
@@ -346,6 +347,7 @@ exports.createPages = async (
         sidebarContents: sidebarContents[fields.version],
         githubUrl,
         spectrumUrl,
+        twitterHandle,
         typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
         defaultVersion,
