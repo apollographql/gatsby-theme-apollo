@@ -213,6 +213,7 @@ exports.createPages = async (
   {
     baseDir = '',
     contentDir = 'content',
+    subtitle,
     githubRepo,
     sidebarCategories,
     spectrumHandle,
@@ -342,6 +343,7 @@ exports.createPages = async (
       component: template,
       context: {
         id,
+        subtitle,
         versionDifference,
         versionBasePath: getVersionBasePath(fields.version),
         sidebarContents: sidebarContents[fields.version],
@@ -355,4 +357,22 @@ exports.createPages = async (
       }
     });
   });
+};
+
+exports.createResolvers = ({createResolvers}) => {
+  const resolvers = {
+    File: {
+      childMdx: {
+        type: 'Mdx',
+        resolve(source, args, context, info) {
+          if (!source.childMdx) {
+            return null;
+          } else {
+            return info.originalResolver(source, args, context, info);
+          }
+        }
+      }
+    }
+  };
+  createResolvers(resolvers);
 };

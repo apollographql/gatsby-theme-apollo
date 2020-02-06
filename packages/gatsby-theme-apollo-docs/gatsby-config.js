@@ -6,7 +6,6 @@ const {HEADER_HEIGHT} = require('./src/utils');
 module.exports = ({
   root,
   siteName,
-  subtitle,
   pageTitle,
   description,
   githubRepo,
@@ -126,7 +125,6 @@ module.exports = ({
     siteMetadata: {
       title: pageTitle || siteName,
       siteName,
-      subtitle,
       description
     },
     plugins

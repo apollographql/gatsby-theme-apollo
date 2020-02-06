@@ -116,7 +116,6 @@ export default function PageLayout(props) {
           siteMetadata {
             title
             siteName
-            subtitle
           }
         }
       }
@@ -144,8 +143,9 @@ export default function PageLayout(props) {
   }
 
   const {pathname} = props.location;
-  const {siteName, title, subtitle} = data.site.siteMetadata;
+  const {siteName, title} = data.site.siteMetadata;
   const {
+    subtitle,
     sidebarContents,
     versions,
     versionDifference,
