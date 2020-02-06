@@ -65,29 +65,30 @@ module.exports = {
 };
 ```
 
-| Option name       | Type   | Description                                                                                                                             |
-| ----------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| root              | string | Must be `__dirname`                                                                                                                     |
-| siteName          | string | The main title for the website, used in the `<title>` element and top left corner of the site                                           |
-| subtitle          | string | The page title that gets rendered above the sidebar navigation                                                                          |
-| description       | string | The site description for SEO and social (FB, Twitter) tags                                                                              |
-| contentDir        | string | If your Gatsby site does not live in the root of your project directory/git repo, pass the subdirectory name here (`docs`, for example) |
-| contentDir        | string | The directory where docs content exists (`content` by default)                                                                          |
-| githubRepo        | string | The owner and name of the content repository on GitHub                                                                                  |
-| spectrumPath      | string | The path to be appended to Spectrum links                                                                                               |
-| segmentApiKey     | string | Your [Segment](https://segment.com/) API key                                                                                            |
-| algoliaApiKey     | string | Your [Algolia DocSearch](https://community.algolia.com/docsearch/) API key                                                              |
-| algoliaIndexName  | string | The name of your DocSearch index                                                                                                        |
-| baseUrl           | string | The origin where your website will be hosted (e.g. `https://www.apollographql.com`)                                                     |
-| spectrumHandle    | string | Your Spectrum community's handle/slug                                                                                                   |
-| twitterHandle     | string | Your Twitter handle, without the "@"                                                                                                    |
-| youtubeUrl        | string | The URL of your YouTube channel                                                                                                         |
-| defaultVersion    | string | An identifier for the default selected version, served at the root of the docset (/)                                                    |
-| localVersion      | string | If the local files represent a version different from the `defaultVersion`, specify an identifier for the local version here            |
-| versions          | array  | An array of objects representing the versions that the website should generate                                                          |
-| sidebarCategories | object | An object mapping categories to page paths (see [`sidebarCategories` reference](#sidebarcategories))                                    |
-| navConfig         | object | An object defining the top-left navigation links (see [`navConfig` reference](#navconfig))                                              |
-| checkLinksOptions | object | Options accepted by [`gastby-remark-check-links`](https://github.com/trevorblades/gatsby-remark-check-links#options)                    |
+| Option name       | Type   | Required | Description                                                                                                                             |
+| ----------------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| root              | string | Yes      | Must be `__dirname`                                                                                                                     |
+| siteName          | string | Yes      | The main title for the website, used in the `<title>` element and top left corner of the site                                           |
+| description       | string | Yes      | The site description for SEO and social (FB, Twitter) tags                                                                              |
+| sidebarCategories | object | Yes      | An object mapping categories to page paths (see [`sidebarCategories` reference](#sidebarcategories))                                    |
+| subtitle          | string | No       | The page title that gets rendered above the sidebar navigation                                                                          |
+| pageTitle         | string | No       | The string to be rendered in the page's `<title>` tag. If omitted, `siteName` will be used.                                             |
+| baseDir           | string | No       | If your Gatsby site does not live in the root of your project directory/git repo, pass the subdirectory name here (`docs`, for example) |
+| contentDir        | string | No       | The directory where docs content exists (`content` by default)                                                                          |
+| githubRepo        | string | No       | The owner and name of the content repository on GitHub                                                                                  |
+| spectrumPath      | string | No       | The path to be appended to Spectrum links                                                                                               |
+| segmentApiKey     | string | No       | Your [Segment](https://segment.com/) API key                                                                                            |
+| algoliaApiKey     | string | No       | Your [Algolia DocSearch](https://community.algolia.com/docsearch/) API key                                                              |
+| algoliaIndexName  | string | No       | The name of your DocSearch index                                                                                                        |
+| baseUrl           | string | No       | The origin where your website will be hosted (e.g. `https://www.apollographql.com`)                                                     |
+| spectrumHandle    | string | No       | Your Spectrum community's handle/slug                                                                                                   |
+| twitterHandle     | string | No       | Your Twitter handle, without the "@"                                                                                                    |
+| youtubeUrl        | string | No       | The URL of your YouTube channel                                                                                                         |
+| defaultVersion    | string | No       | An identifier for the default selected version, served at the root of the docset (/)                                                    |
+| localVersion      | string | No       | If the local files represent a version different from the `defaultVersion`, specify an identifier for the local version here            |
+| versions          | array  | No       | An array of objects representing the versions that the website should generate                                                          |
+| navConfig         | object | No       | An object defining the top-left navigation links (see [`navConfig` reference](#navconfig))                                              |
+| checkLinksOptions | object | No       | Options accepted by [`gastby-remark-check-links`](https://github.com/trevorblades/gatsby-remark-check-links#options)                    |
 
 ### `versions`
 

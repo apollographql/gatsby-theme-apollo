@@ -8,7 +8,7 @@ export default function CustomSEO({image, baseUrl, twitterHandle, ...props}) {
   return (
     <SEO {...props} twitterCard="summary_large_image">
       <meta property="og:image" content={imagePath} />
-      <meta name="twitter:image" content={baseUrl + imagePath} />
+      {baseUrl && <meta name="twitter:image" content={baseUrl + imagePath} />}
       {twitterHandle && (
         <meta name="twitter:site" content={`@${twitterHandle}`} />
       )}
@@ -17,7 +17,7 @@ export default function CustomSEO({image, baseUrl, twitterHandle, ...props}) {
 }
 
 CustomSEO.propTypes = {
-  baseUrl: PropTypes.string.isRequired,
+  baseUrl: PropTypes.string,
   image: PropTypes.string.isRequired,
   twitterHandle: PropTypes.string
 };

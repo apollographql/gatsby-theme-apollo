@@ -100,12 +100,13 @@ export default function Template(props) {
   const {file, site} = props.data;
   const {frontmatter, headings, fields} =
     file.childMarkdownRemark || file.childMdx;
-  const {title, description, twitterHandle} = site.siteMetadata;
+  const {title, description} = site.siteMetadata;
   const {
     sidebarContents,
     githubUrl,
     spectrumUrl,
     typescriptApiBox,
+    twitterHandle,
     baseUrl
   } = props.pageContext;
 
@@ -171,7 +172,6 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         description
-        twitterHandle
       }
     }
     file(id: {eq: $id}) {

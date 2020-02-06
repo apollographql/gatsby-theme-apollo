@@ -49,6 +49,7 @@ const footerNavConfig = {
 
 module.exports = {
   siteName: 'Apollo Docs',
+  pageTitle: 'Apollo GraphQL Docs',
   menuTitle: 'Apollo Platform',
   segmentApiKey: 'wgrIo8Bul0Ujl8USETG3DB6hONdy4kTg',
   algoliaApiKey: '768e823959d35bbd51e4b2439be13fb7',
@@ -58,7 +59,6 @@ module.exports = {
   spectrumHandle: 'apollo',
   youtubeUrl: 'https://www.youtube.com/channel/UC0pEW_GOrMJ23l8QcrGdKSw',
   logoLink: 'https://www.apollographql.com/docs/',
-  defaultVersion: 'default',
   baseDir: 'docs',
   contentDir: 'source',
   navConfig,

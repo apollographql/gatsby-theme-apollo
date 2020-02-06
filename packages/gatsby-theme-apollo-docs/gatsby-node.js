@@ -14,11 +14,11 @@ function getConfigPaths(baseDir) {
 async function onCreateNode(
   {node, actions, getNode, loadNodeContent},
   {
-    localVersion,
-    defaultVersion,
-    siteName,
     baseDir = '',
-    contentDir = 'source',
+    contentDir = 'content',
+    defaultVersion = 'default',
+    localVersion,
+    siteName,
     subtitle,
     sidebarCategories
   }
@@ -62,8 +62,8 @@ async function onCreateNode(
       fileName,
       outputDir,
       data: {
-        title: title || siteName,
-        subtitle,
+        title,
+        subtitle: subtitle || siteName,
         category
       },
       component: require.resolve('./src/components/social-card.js')
@@ -212,15 +212,17 @@ exports.createPages = async (
   {actions, graphql},
   {
     baseDir = '',
-    contentDir = 'source',
+    contentDir = 'content',
+    defaultVersion = 'default',
+    versions = {},
+    subtitle,
     githubRepo,
     sidebarCategories,
     spectrumHandle,
     spectrumPath,
+    twitterHandle,
     typescriptApiBox,
-    versions = {},
     localVersion,
-    defaultVersion,
     baseUrl
   }
 ) => {
@@ -300,7 +302,6 @@ exports.createPages = async (
     // let it slide
   }
 
-  const [owner, repo] = githubRepo.split('/');
   const template = require.resolve('./src/components/template');
   edges.forEach(edge => {
     const {id, relativePath} = edge.node;
@@ -316,27 +317,39 @@ exports.createPages = async (
       }
     }
 
+    let githubUrl;
+    let spectrumUrl = spectrumHandle && getSpectrumUrl(spectrumHandle);
+
+    if (githubRepo) {
+      const [owner, repo] = githubRepo.split('/');
+      githubUrl =
+        'https://' +
+        path.join(
+          'github.com',
+          owner,
+          repo,
+          'tree',
+          fields.versionRef || path.join('master', contentPath),
+          relativePath
+        );
+
+      spectrumUrl += spectrumPath || `/${repo}`;
+    } else {
+      spectrumUrl += spectrumPath;
+    }
+
     actions.createPage({
       path: fields.slug,
       component: template,
       context: {
         id,
+        subtitle,
         versionDifference,
         versionBasePath: getVersionBasePath(fields.version),
         sidebarContents: sidebarContents[fields.version],
-        githubUrl:
-          'https://' +
-          path.join(
-            'github.com',
-            owner,
-            repo,
-            'tree',
-            fields.versionRef || path.join('master', contentPath),
-            relativePath
-          ),
-        spectrumUrl:
-          spectrumHandle &&
-          getSpectrumUrl(spectrumHandle) + (spectrumPath || `/${repo}`),
+        githubUrl,
+        spectrumUrl,
+        twitterHandle,
         typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
         defaultVersion,

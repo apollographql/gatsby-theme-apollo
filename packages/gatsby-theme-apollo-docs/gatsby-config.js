@@ -6,15 +6,14 @@ const {HEADER_HEIGHT} = require('./src/utils');
 module.exports = ({
   root,
   siteName,
-  subtitle,
+  pageTitle,
   description,
   githubRepo,
   baseDir = '',
-  contentDir = 'source',
+  contentDir = 'content',
   versions = {},
   segmentApiKey,
-  checkLinksOptions,
-  twitterHandle
+  checkLinksOptions
 }) => {
   const gatsbyRemarkPlugins = [
     {
@@ -124,11 +123,9 @@ module.exports = ({
 
   return {
     siteMetadata: {
-      title: 'Apollo GraphQL Docs',
+      title: pageTitle || siteName,
       siteName,
-      subtitle,
-      description,
-      twitterHandle
+      description
     },
     plugins
   };
