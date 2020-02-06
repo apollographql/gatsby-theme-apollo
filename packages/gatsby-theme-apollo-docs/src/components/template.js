@@ -172,7 +172,6 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         description
-        twitterHandle
       }
     }
     file(id: {eq: $id}) {
