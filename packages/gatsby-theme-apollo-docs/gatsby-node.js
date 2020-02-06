@@ -14,11 +14,11 @@ function getConfigPaths(baseDir) {
 async function onCreateNode(
   {node, actions, getNode, loadNodeContent},
   {
-    localVersion,
-    defaultVersion,
-    siteName,
     baseDir = '',
     contentDir = 'content',
+    defaultVersion = 'default',
+    localVersion,
+    siteName,
     subtitle,
     sidebarCategories
   }
@@ -213,6 +213,8 @@ exports.createPages = async (
   {
     baseDir = '',
     contentDir = 'content',
+    defaultVersion = 'default',
+    versions = {},
     subtitle,
     githubRepo,
     sidebarCategories,
@@ -220,9 +222,7 @@ exports.createPages = async (
     spectrumPath,
     twitterHandle,
     typescriptApiBox,
-    versions = {},
     localVersion,
-    defaultVersion,
     baseUrl
   }
 ) => {
@@ -357,22 +357,4 @@ exports.createPages = async (
       }
     });
   });
-};
-
-exports.createResolvers = ({createResolvers}) => {
-  const resolvers = {
-    File: {
-      childMdx: {
-        type: 'Mdx',
-        resolve(source, args, context, info) {
-          if (!source.childMdx) {
-            return null;
-          } else {
-            return info.originalResolver(source, args, context, info);
-          }
-        }
-      }
-    }
-  };
-  createResolvers(resolvers);
 };

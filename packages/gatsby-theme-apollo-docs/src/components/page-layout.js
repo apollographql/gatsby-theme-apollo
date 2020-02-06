@@ -267,11 +267,13 @@ export default function PageLayout(props) {
               <MenuButton onClick={openSidebar} />
               <MobileLogo width={32} fill="currentColor" />
             </MobileNav>
-            <Search
-              siteName={siteName}
-              apiKey={algoliaApiKey}
-              indexName={algoliaIndexName}
-            />
+            {algoliaApiKey && algoliaIndexName && (
+              <Search
+                siteName={siteName}
+                apiKey={algoliaApiKey}
+                indexName={algoliaIndexName}
+              />
+            )}
             <HeaderButton />
           </Header>
           <SelectedLanguageContext.Provider value={selectedLanguageState}>
