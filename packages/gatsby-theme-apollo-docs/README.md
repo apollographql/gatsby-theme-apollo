@@ -4,6 +4,7 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
 
 - [Installation](#installation)
 - [Configuration](#configuration)
+- [Options](#options)
   - [`versions`](#versions)
   - [`sidebarCategories`](#sidebarcategories)
   - [`navConfig`](#navconfig)
@@ -64,6 +65,8 @@ module.exports = {
   ]
 };
 ```
+
+## Options
 
 | Option name       | Type   | Required | Description                                                                                                                             |
 | ----------------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
