@@ -182,7 +182,7 @@ export default function PageContent(props) {
     );
   });
 
-  const editLink = (
+  const editLink = props.githubUrl && (
     <AsideLink href={props.githubUrl}>
       <IconGithub /> Edit on GitHub
     </AsideLink>
@@ -228,7 +228,7 @@ export default function PageContent(props) {
 PageContent.propTypes = {
   children: PropTypes.node.isRequired,
   pathname: PropTypes.string.isRequired,
-  githubUrl: PropTypes.string.isRequired,
+  githubUrl: PropTypes.string,
   pages: PropTypes.array.isRequired,
   hash: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
