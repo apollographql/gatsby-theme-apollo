@@ -1,5 +1,6 @@
 import CodeBlock from './code-block';
 import CustomSEO from './custom-seo';
+import Footer from './footer';
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer';
 import PageContent from './page-content';
 import PageHeader from './page-header';
@@ -154,6 +155,7 @@ export default function Template(props) {
             )}
           </CustomLinkContext.Provider>
         </PageContent>
+        <Footer />
       </StyledContentWrapper>
     </Fragment>
   );
