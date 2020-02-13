@@ -2,7 +2,8 @@ const navConfig = {
   'Apollo Basics': {
     url: 'https://www.apollographql.com/docs',
     description:
-      'Learn about each part of the Apollo platform and how they all work together.'
+      'Learn about each part of the Apollo platform and how they all work together.',
+    omitLandingPage: true
   },
   'Apollo Server': {
     url: 'https://www.apollographql.com/docs/apollo-server',
@@ -27,7 +28,8 @@ const navConfig = {
   'Apollo Link': {
     url: 'https://www.apollographql.com/docs/link',
     description:
-      'Define a custom chain of actions that your client performs with each GraphQL operation.'
+      'Define a custom chain of actions that your client performs with each GraphQL operation.',
+    omitLandingPage: true
   }
 };
 
