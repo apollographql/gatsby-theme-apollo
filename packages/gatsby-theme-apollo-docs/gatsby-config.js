@@ -53,6 +53,9 @@ module.exports = ({
             .node.tertiary circle {
               stroke: ${colors.tertiaryLight};
             }
+            .edgeLabel {
+              background-color: white;
+            }
           `
         }
       }
