@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
-import {IconArrowDown} from '@apollo/space-kit/icons/IconArrowDown';
-import {IconArrowUp} from '@apollo/space-kit/icons/IconArrowUp';
 import {Link} from 'gatsby';
 import {colors} from '../../utils/colors';
 import {smallCaps} from '../../utils/typography';
@@ -49,15 +47,14 @@ const StyledLink = styled(Link)(headingStyles, {
 });
 
 export default function Category(props) {
-  const Icon = props.expanded ? IconArrowUp : IconArrowDown;
   const contents = (
     <Fragment>
       <h6>{props.title}</h6>
-      <Icon
-        style={{
+      {React.createElement(props.icon, {
+        style: {
           visibility: props.onClick ? 'visible' : 'hidden'
-        }}
-      />
+        }
+      })}
     </Fragment>
   );
 
@@ -76,7 +73,7 @@ export default function Category(props) {
           {contents}
         </StyledButton>
       )}
-      {props.expanded && props.children}
+      {props.children}
     </div>
   );
 }
@@ -84,7 +81,7 @@ export default function Category(props) {
 Category.propTypes = {
   title: PropTypes.string.isRequired,
   path: PropTypes.string,
-  expanded: PropTypes.bool.isRequired,
+  icon: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   active: PropTypes.bool.isRequired,
   onClick: PropTypes.func
