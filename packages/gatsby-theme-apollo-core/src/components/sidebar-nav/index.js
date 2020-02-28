@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useMemo, useState} from 'react';
 import styled from '@emotion/styled';
 import usePrevious from 'react-use/lib/usePrevious';
+import {IconArrowDown} from '@apollo/space-kit/icons/IconArrowDown';
+import {IconArrowUp} from '@apollo/space-kit/icons/IconArrowUp';
 import {IconCollapseList} from '@apollo/space-kit/icons/IconCollapseList';
 import {IconExpandList} from '@apollo/space-kit/icons/IconExpandList';
 import {IconOutlink} from '@apollo/space-kit/icons/IconOutlink';
@@ -154,39 +156,33 @@ export default function SidebarNav(props) {
   return (
     <Fragment>
       {props.contents.map(({title, path, pages}, index, array) => {
-        const contents = (
-          <StyledList>
-            {pages.map(page => (
-              <StyledListItem key={page.path}>
-                {page.anchor ? (
-                  <a href={page.path} target="_blank" rel="noopener noreferrer">
-                    {page.title}
-                    <StyledOutlinkIcon />
-                  </a>
-                ) : (
-                  <Link
-                    className={
-                      isPageSelected(page.path, props.pathname)
-                        ? 'active'
-                        : null
-                    }
-                    to={page.path}
-                    title={page.description}
-                    onClick={props.onLinkClick}
-                  >
-                    {page.title}
-                  </Link>
-                )}
-              </StyledListItem>
-            ))}
-          </StyledList>
-        );
+        const contents = pages.map(page => (
+          <StyledListItem key={page.path}>
+            {page.anchor ? (
+              <a href={page.path} target="_blank" rel="noopener noreferrer">
+                {page.title}
+                <StyledOutlinkIcon />
+              </a>
+            ) : (
+              <Link
+                className={
+                  isPageSelected(page.path, props.pathname) ? 'active' : null
+                }
+                to={page.path}
+                title={page.description}
+                onClick={props.onLinkClick}
+              >
+                {page.title}
+              </Link>
+            )}
+          </StyledListItem>
+        ));
 
         if (!title) {
           const Icon = allExpanded ? IconCollapseList : IconExpandList;
           return (
             <Fragment key="root">
-              {contents}
+              <StyledList>{contents}</StyledList>
               {array.length > 2 && (
                 <ExpandAll onClick={toggleAll}>
                   <Icon />
@@ -197,16 +193,23 @@ export default function SidebarNav(props) {
           );
         }
 
+        const isExpanded = state[getId(title)] || props.alwaysExpanded;
         return (
           <Category
             key={title}
             title={title}
             path={path}
-            expanded={Boolean(state[getId(title)] || props.alwaysExpanded)}
+            icon={isExpanded ? IconArrowUp : IconArrowDown}
             active={isCategorySelected({pages, path}, props.pathname)}
             onClick={props.alwaysExpanded ? null : toggleCategory}
           >
-            {contents}
+            <StyledList
+              style={{
+                display: isExpanded ? 'block' : 'none'
+              }}
+            >
+              {contents}
+            </StyledList>
           </Category>
         );
       })}
