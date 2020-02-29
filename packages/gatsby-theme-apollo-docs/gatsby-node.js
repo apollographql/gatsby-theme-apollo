@@ -318,7 +318,7 @@ exports.createPages = async (
     }
 
     let githubUrl;
-    let spectrumUrl = spectrumHandle && getSpectrumUrl(spectrumHandle);
+    let repoPath;
 
     if (githubRepo) {
       const [owner, repo] = githubRepo.split('/');
@@ -333,9 +333,7 @@ exports.createPages = async (
           relativePath
         );
 
-      spectrumUrl += spectrumPath || `/${repo}`;
-    } else {
-      spectrumUrl += spectrumPath;
+      repoPath = `/${repo}`;
     }
 
     actions.createPage({
@@ -348,7 +346,9 @@ exports.createPages = async (
         versionBasePath: getVersionBasePath(fields.version),
         sidebarContents: sidebarContents[fields.version],
         githubUrl,
-        spectrumUrl,
+        spectrumUrl:
+          spectrumHandle &&
+          (getSpectrumUrl(spectrumHandle) + spectrumPath || `/${repoPath}`),
         twitterHandle,
         typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
