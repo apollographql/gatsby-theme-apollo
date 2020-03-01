@@ -348,7 +348,7 @@ exports.createPages = async (
         githubUrl,
         spectrumUrl:
           spectrumHandle &&
-          (getSpectrumUrl(spectrumHandle) + spectrumPath || `/${repoPath}`),
+          getSpectrumUrl(spectrumHandle) + (spectrumPath || repoPath),
         twitterHandle,
         typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
