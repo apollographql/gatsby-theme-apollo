@@ -60,7 +60,7 @@ module.exports = ({
         }
       }
     },
-    'gatsby-remark-prismjs-title',
+    'gatsby-remark-code-titles',
     {
       resolve: 'gatsby-remark-prismjs',
       options: {
