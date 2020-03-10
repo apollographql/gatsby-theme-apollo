@@ -71,6 +71,10 @@ const StyledTable = styled.table({
   },
   td: {
     verticalAlign: 'top',
+    p: {
+      fontSize: 'inherit',
+      lineHeight: 'inherit'
+    },
     code: {
       whiteSpace: 'normal'
     }
