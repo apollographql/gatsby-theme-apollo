@@ -34,24 +34,34 @@ module.exports = ({
         mermaidOptions: {
           themeCSS: `
             .node rect,
-            .node circle {
+            .node circle,
+            .node polygon {
               stroke-width: 2px;
               stroke: ${colors.primary};
               fill: ${colors.background};
             }
             .node.secondary rect,
             .node.secondary circle,
+            .node.secondary polygon,
             .node.tertiary rect,
-            .node.tertiary circle {
+            .node.tertiary circle,
+            .node.tertiary polygon {
               fill: white;
             }
             .node.secondary rect,
-            .node.secondary circle {
+            .node.secondary circle,
+            .node.secondary polygon {
               stroke: ${colors.secondary};
             }
             .node.tertiary rect,
-            .node.tertiary circle {
+            .node.tertiary circle,
+            .node.tertiary polygon {
               stroke: ${colors.tertiaryLight};
+            }
+            .cluster rect {
+              fill: none;
+              stroke: ${colors.tertiaryLight};
+              stroke-width: 2px;
             }
             .edgeLabel {
               background-color: white;
