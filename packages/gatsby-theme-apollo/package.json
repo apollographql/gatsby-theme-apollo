@@ -22,6 +22,6 @@
   },
   "devDependencies": {
     "@apollo/client": "^3.0.0-beta.1",
-    "gatsby": "^2.13.80"
+    "gatsby": "^2.19.49"
   }
 }
