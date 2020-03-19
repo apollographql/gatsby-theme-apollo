@@ -53,6 +53,7 @@ module.exports = ({
             .node.secondary polygon {
               stroke: ${colors.secondary};
             }
+            .cluster rect,
             .node.tertiary rect,
             .node.tertiary circle,
             .node.tertiary polygon {
@@ -60,7 +61,6 @@ module.exports = ({
             }
             .cluster rect {
               fill: none;
-              stroke: ${colors.tertiaryLight};
               stroke-width: 2px;
             }
             .edgeLabel {
