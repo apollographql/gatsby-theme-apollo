@@ -2,8 +2,9 @@
 import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
+import useKey from 'react-use/lib/useKey';
 import {HEADER_HEIGHT} from '../utils';
-import {IconClose} from '@apollo/space-kit/icons/IconClose';
+import {TextField} from '@apollo/space-kit/TextField';
 import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo-core';
 import {css} from '@emotion/core';
 import {position, size, transparentize} from 'polished';
@@ -123,20 +124,6 @@ const Container = styled.div({
   }
 });
 
-const StyledInput = styled.input(props => ({
-  width: '100%',
-  height: 42,
-  padding: 0,
-  paddingLeft: 16,
-  border,
-  borderRadius,
-  boxShadow: props.resultsShown ? boxShadow : 'none',
-  fontSize: 16,
-  background: 'white',
-  outline: 'none',
-  appearance: 'none'
-}));
-
 const Overlay = styled.div(
   position('fixed', 0),
   props =>
@@ -153,32 +140,14 @@ const Overlay = styled.div(
   }
 );
 
-const ResetButton = styled.button(verticalAlign, size(20), {
-  padding: 0,
-  border: 0,
-  background: 'none',
-  cursor: 'pointer',
-  outline: 'none',
-  color: 'inherit',
-  right: 10
-});
-
-const ResetIcon = styled(IconClose)(size(14), {
-  display: 'block',
-  fill: 'currentColor'
-});
-
 export default function Search(props) {
   const [focused, setFocused] = useState(false);
   const [value, setValue] = useState('');
-  const input = useRef(null);
-  const search = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
-    window.addEventListener('keydown', onKeyDown, true);
-
     if (typeof docsearch !== 'undefined') {
-      search.current = docsearch({
+      docsearch({
         apiKey: props.apiKey,
         indexName: props.indexName,
         inputSelector: '#input',
@@ -191,22 +160,17 @@ export default function Search(props) {
         }
       });
     }
-
-    return () => {
-      window.addEventListener('keydown', onKeyDown, true);
-    };
   }, [props.apiKey, props.indexName]);
 
-  function onKeyDown(event) {
-    // focus the input when the slash key is pressed
-    if (
-      event.keyCode === 191 &&
-      event.target.tagName.toUpperCase() !== 'INPUT'
-    ) {
+  // focus the input when the slash key is pressed
+  useKey(
+    event =>
+      event.keyCode === 191 && event.target.tagName.toUpperCase() !== 'INPUT',
+    event => {
       event.preventDefault();
-      input.current.focus();
+      inputRef.current.focus();
     }
-  }
+  );
 
   function onChange(event) {
     setValue(event.target.value);
@@ -219,36 +183,30 @@ export default function Search(props) {
     setFocused(false);
   }
 
-  function reset() {
-    setValue('');
-    if (search.current) {
-      search.current.autocomplete.autocomplete.setVal('');
-    }
-  }
-
   const resultsShown = focused && value.trim();
   return (
     <Fragment>
       <Overlay visible={resultsShown} />
       <Container>
-        <StyledInput
-          ref={input}
-          id="input"
+        <TextField
+          type="search"
+          size="large"
+          inputAs={
+            <input
+              ref={inputRef}
+              id="input"
+              style={{
+                fontSize: 16,
+                boxShadow: resultsShown ? boxShadow : 'none'
+              }}
+            />
+          }
           onFocus={onFocus}
           onBlur={onBlur}
           onChange={onChange}
           value={value}
           placeholder={`Search ${props.siteName}`}
-          resultsShown={resultsShown}
         />
-        {resultsShown && (
-          <ResetButton
-            onMouseDown={() => event.preventDefault()}
-            onClick={reset}
-          >
-            <ResetIcon />
-          </ResetButton>
-        )}
         {!focused && !value && <Hotkey>/</Hotkey>}
       </Container>
     </Fragment>
