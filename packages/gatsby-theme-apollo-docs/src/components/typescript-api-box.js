@@ -383,6 +383,12 @@ export class TypescriptApiBox extends Component {
 
   render() {
     const rawData = this.dataByKey[this.props.name];
+    if (typeof rawData === 'undefined') {
+      // TODO: account for things that past versions may reference, but have
+      // been removed in current version docs.json
+      return null;
+    }
+
     const args = this.templateArgs(rawData);
     return (
       <Container>
