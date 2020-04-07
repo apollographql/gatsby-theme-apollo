@@ -149,7 +149,7 @@ Page URLs will be derived from the file paths of your Markdown. You can nest Mar
 
 You can customize a website using this theme further by taking advantage of [component shadowing](../gatsby-theme-apollo-core#customizing-the-logo).
 
-By default, this theme sets the website favicon to [the one from Apollo's website](https://www.apollographql.com/favicon.ico) within its [internal `SEO` component](./src/components/seo.js). If you wanted to use your own favicon, you could shadow the `SEO` component within your site and add your custom SEO/favicon implementation.
+By default, this theme sets the website favicon to [the one from Apollo's website](https://www.apollographql.com/favicon.ico) within its [internal `SEO` component](../gatsby-theme-apollo-core/src/components/seo.js). If you wanted to use your own favicon, you could shadow the `SEO` component within your site and add your custom SEO/favicon implementation.
 
 ```js
 // src/gatsby-theme-apollo-docs/components/seo.js
