@@ -152,9 +152,6 @@ export default function Search(props) {
         indexName: props.indexName,
         inputSelector: '#input',
         // debug: true, // keeps the results list open
-        autocompleteOptions: {
-          openOnFocus: true
-        },
         algoliaOptions: {
           hitsPerPage: 10
         }
