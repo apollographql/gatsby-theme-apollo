@@ -35,7 +35,8 @@ module.exports = ({
           themeCSS: `
             .node rect,
             .node circle,
-            .node polygon {
+            .node polygon,
+            .node path {
               stroke-width: 2px;
               stroke: ${colors.primary};
               fill: ${colors.background};
