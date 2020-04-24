@@ -12,7 +12,7 @@ module.exports = ({
   baseDir = '',
   contentDir = 'content',
   versions = {},
-  segmentApiKey,
+  gaTrackingId,
   checkLinksOptions
 }) => {
   const gatsbyRemarkPlugins = [
@@ -125,12 +125,11 @@ module.exports = ({
     }))
   ];
 
-  if (segmentApiKey) {
+  if (gaTrackingId) {
     plugins.push({
-      resolve: 'gatsby-plugin-segment-js',
+      resolve: 'gatsby-plugin-google-analytics',
       options: {
-        prodKey: segmentApiKey,
-        trackPage: true
+        trackingId: gaTrackingId
       }
     });
   }

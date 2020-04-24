@@ -80,7 +80,7 @@ module.exports = {
 | contentDir        | string | No       | The directory where docs content exists (`content` by default)                                                                          |
 | githubRepo        | string | No       | The owner and name of the content repository on GitHub                                                                                  |
 | spectrumPath      | string | No       | The path to be appended to Spectrum links                                                                                               |
-| segmentApiKey     | string | No       | Your [Segment](https://segment.com/) API key                                                                                            |
+| gaTrackingId      | string | No       | Your site's Google Analytics tracking ID                                                                                                |
 | algoliaApiKey     | string | No       | Your [Algolia DocSearch](https://community.algolia.com/docsearch/) API key                                                              |
 | algoliaIndexName  | string | No       | The name of your DocSearch index                                                                                                        |
 | baseUrl           | string | No       | The origin where your website will be hosted (e.g. `https://www.apollographql.com`)                                                     |
