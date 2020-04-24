@@ -25,7 +25,7 @@ function CustomLink(props) {
   const linkProps = {...props};
   if (props.href) {
     if (props.href.startsWith('/')) {
-      linkProps.onClick = function handleClick(event) {
+      linkProps.onClick = event => {
         const href = event.target.getAttribute('href');
         if (href.startsWith('/')) {
           event.preventDefault();
@@ -33,6 +33,7 @@ function CustomLink(props) {
         }
       };
     } else if (!props.href.startsWith('#') && !props.href.startsWith(baseUrl)) {
+      // link is outbound, cause it to open in a new tab and track event
       linkProps.target = '_blank';
       linkProps.rel = 'noopener noreferrer';
     }
