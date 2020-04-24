@@ -53,7 +53,7 @@ module.exports = {
   siteName: 'Apollo Docs',
   pageTitle: 'Apollo GraphQL Docs',
   menuTitle: 'Apollo Platform',
-  segmentApiKey: 'wgrIo8Bul0Ujl8USETG3DB6hONdy4kTg',
+  gaTrackingId: 'UA-74643563-13',
   algoliaApiKey: '768e823959d35bbd51e4b2439be13fb7',
   algoliaIndexName: 'apollodata',
   baseUrl: 'https://www.apollographql.com',

@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import useWindowScroll from 'react-use/lib/useWindowScroll';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import {colors} from 'gatsby-theme-apollo-core';
+import {trackCustomEvent} from 'gatsby-plugin-google-analytics';
 
 const StyledList = styled.ul({
   marginLeft: 0,
@@ -28,12 +29,11 @@ const StyledListItem = styled.li(props => ({
 }));
 
 function handleHeadingClick(event) {
-  if (typeof window.analytics !== 'undefined') {
-    window.analytics.track('Heading click', {
-      category: 'Section Nav',
-      label: event.target.innerText
-    });
-  }
+  trackCustomEvent({
+    category: 'Section Nav',
+    action: 'Heading click',
+    label: event.target.innerText
+  });
 }
 
 export default function SectionNav(props) {

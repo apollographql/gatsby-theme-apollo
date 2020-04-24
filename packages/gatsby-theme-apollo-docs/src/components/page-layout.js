@@ -27,6 +27,7 @@ import {Select} from './select';
 import {SelectedLanguageContext} from './multi-code-block';
 import {getSpectrumUrl, getVersionBasePath} from '../utils';
 import {size} from 'polished';
+import {trackCustomEvent} from 'gatsby-plugin-google-analytics';
 
 const Main = styled.main({
   flexGrow: 1
@@ -88,22 +89,20 @@ function getVersionLabel(version) {
 const GA_EVENT_CATEGORY_SIDEBAR = 'Sidebar';
 
 function handleToggleAll(expanded) {
-  if (typeof window.analytics !== 'undefined') {
-    window.analytics.track('Toggle all', {
-      category: GA_EVENT_CATEGORY_SIDEBAR,
-      label: expanded ? 'expand' : 'collapse'
-    });
-  }
+  trackCustomEvent({
+    category: GA_EVENT_CATEGORY_SIDEBAR,
+    action: 'Toggle all',
+    label: expanded ? 'expand' : 'collapse'
+  });
 }
 
-function handleToggleCategory(title, expanded) {
-  if (typeof window.analytics !== 'undefined') {
-    window.analytics.track('Toggle category', {
-      category: GA_EVENT_CATEGORY_SIDEBAR,
-      label: title,
-      value: Number(expanded)
-    });
-  }
+function handleToggleCategory(label, expanded) {
+  trackCustomEvent({
+    category: GA_EVENT_CATEGORY_SIDEBAR,
+    action: 'Toggle category',
+    label,
+    value: Number(expanded)
+  });
 }
 
 export const NavItemsContext = createContext();

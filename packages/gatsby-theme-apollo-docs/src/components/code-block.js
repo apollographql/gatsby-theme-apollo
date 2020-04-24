@@ -9,6 +9,7 @@ import {
 } from './multi-code-block';
 import {Select} from './select';
 import {colors} from 'gatsby-theme-apollo-core';
+import {trackCustomEvent} from 'gatsby-plugin-google-analytics';
 
 const Container = styled.div({
   marginBottom: '1.45rem',
@@ -39,13 +40,11 @@ export default function CodeBlock(props) {
   const [copied, copyToClipboard] = useCopyToClipboard();
 
   function handleCopy() {
-    if (typeof window.analytics !== 'undefined') {
-      window.analytics.track('Copy', {
-        category: GA_EVENT_CATEGORY_CODE_BLOCK
-      });
-    }
-
     copyToClipboard(code.current.innerText);
+    trackCustomEvent({
+      category: GA_EVENT_CATEGORY_CODE_BLOCK,
+      action: 'Copy'
+    });
   }
 
   return (

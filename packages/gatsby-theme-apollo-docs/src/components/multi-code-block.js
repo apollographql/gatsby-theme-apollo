@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {createContext, useContext, useMemo} from 'react';
 import styled from '@emotion/styled';
+import {trackCustomEvent} from 'gatsby-plugin-google-analytics';
 
 export const GA_EVENT_CATEGORY_CODE_BLOCK = 'Code Block';
 export const MultiCodeBlockContext = createContext({});
@@ -92,13 +93,12 @@ export function MultiCodeBlock(props) {
   }
 
   function handleLanguageChange(language) {
-    if (typeof window.analytics !== 'undefined') {
-      window.analytics.track('Change language', {
-        category: GA_EVENT_CATEGORY_CODE_BLOCK,
-        label: language
-      });
-    }
     setSelectedLanguage(language);
+    trackCustomEvent({
+      category: GA_EVENT_CATEGORY_CODE_BLOCK,
+      action: 'Change language',
+      label: language
+    });
   }
 
   const defaultLanguage = languages[0];
