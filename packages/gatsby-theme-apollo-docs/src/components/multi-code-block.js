@@ -60,22 +60,18 @@ export function MultiCodeBlock(props) {
         };
       }
 
-      const nextNode = array[index + 1];
-      if (nextNode && Array.isArray(child.props.children)) {
-        const [title] = child.props.children.filter(
-          child => child.props && child.props.className === 'gatsby-code-title'
-        );
-        if (title) {
+      if (child.props.className === 'gatsby-code-title') {
+        const nextNode = array[index + 1];
+        const title = child.props.children;
+        if (nextNode && title) {
           const lang = getLang(nextNode);
-          if (lang) {
-            return {
-              ...acc,
-              titles: {
-                ...acc.titles,
-                [lang]: title
-              }
-            };
-          }
+          return {
+            ...acc,
+            titles: {
+              ...acc.titles,
+              [lang]: title
+            }
+          };
         }
       }
 
@@ -119,7 +115,7 @@ export function MultiCodeBlock(props) {
           onLanguageChange: handleLanguageChange
         }}
       >
-        {titles[renderedLanguage]}
+        <div className="gatsby-code-title">{titles[renderedLanguage]}</div>
         {codeBlocks[renderedLanguage]}
       </MultiCodeBlockContext.Provider>
     </Container>
