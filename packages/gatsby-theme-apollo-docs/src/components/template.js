@@ -96,7 +96,9 @@ function createCustomHeading(tag) {
       tag,
       props,
       // eslint-disable-next-line react/prop-types
-      <a href={'#' + props.id}>{children}</a>
+      <a className="headingLink" href={'#' + props.id}>
+        {children}
+      </a>
     );
 }
 
@@ -104,7 +106,12 @@ const components = {
   pre: CodeBlock,
   a: CustomLink,
   table: CustomTable,
-  h2: createCustomHeading('h2')
+  h1: createCustomHeading('h1'),
+  h2: createCustomHeading('h2'),
+  h3: createCustomHeading('h3'),
+  h4: createCustomHeading('h4'),
+  h5: createCustomHeading('h5'),
+  h6: createCustomHeading('h6')
 };
 
 const renderAst = new rehypeReact({
