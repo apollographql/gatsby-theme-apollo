@@ -34,21 +34,14 @@ const BodyContent = styled.div({
     }
   },
   [['h1', 'h2', 'h3', 'h4', 'h5', 'h6']]: {
-    ':not(:hover) a svg': {
-      visibility: 'hidden'
-    },
     code: {
       whiteSpace: 'normal'
     },
-    'a.anchor': {
+    a: {
+      color: 'inherit',
+      textDecoration: 'none',
       ':hover': {
-        opacity: colors.hoverOpacity
-      },
-      svg: {
-        fill: colors.primary
-      },
-      '&.before': {
-        top: 'auto'
+        color: colors.text2
       }
     }
   },

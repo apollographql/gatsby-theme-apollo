@@ -25,7 +25,7 @@ function CustomLink(props) {
   const linkProps = {...props};
   if (props.href) {
     if (props.href.startsWith('/')) {
-      linkProps.onClick = event => {
+      linkProps.onClick = function handleClick(event) {
         const href = event.target.getAttribute('href');
         if (href.startsWith('/')) {
           event.preventDefault();
@@ -33,7 +33,6 @@ function CustomLink(props) {
         }
       };
     } else if (!props.href.startsWith('#') && !props.href.startsWith(baseUrl)) {
-      // link is outbound, cause it to open in a new tab and track event
       linkProps.target = '_blank';
       linkProps.rel = 'noopener noreferrer';
     }
@@ -90,10 +89,22 @@ function CustomTable(props) {
   );
 }
 
+function createCustomHeading(tag) {
+  // eslint-disable-next-line react/display-name, react/prop-types
+  return ({children, ...props}) =>
+    React.createElement(
+      tag,
+      props,
+      // eslint-disable-next-line react/prop-types
+      <a href={'#' + props.id}>{children}</a>
+    );
+}
+
 const components = {
   pre: CodeBlock,
   a: CustomLink,
-  table: CustomTable
+  table: CustomTable,
+  h2: createCustomHeading('h2')
 };
 
 const renderAst = new rehypeReact({
