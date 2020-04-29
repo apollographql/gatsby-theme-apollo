@@ -63,8 +63,8 @@ export function MultiCodeBlock(props) {
       if (child.props.className === 'gatsby-code-title') {
         const nextNode = array[index + 1];
         const title = child.props.children;
-        if (nextNode && title) {
-          const lang = getLang(nextNode);
+        const lang = getLang(nextNode);
+        if (nextNode && title && lang) {
           return {
             ...acc,
             titles: {
