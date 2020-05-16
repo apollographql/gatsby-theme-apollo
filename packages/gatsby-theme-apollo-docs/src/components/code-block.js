@@ -35,12 +35,11 @@ const InnerContainer = styled.div({
   overflow: 'auto'
 });
 
-export default function CodeBlock(props) {
-  const code = useRef();
+function CodeBlockHeader(props) {
   const [copied, copyToClipboard] = useCopyToClipboard();
 
   function handleCopy() {
-    copyToClipboard(code.current.innerText);
+    copyToClipboard(props.codeRef.current.innerText);
     trackCustomEvent({
       category: GA_EVENT_CATEGORY_CODE_BLOCK,
       action: 'Copy'
@@ -48,41 +47,51 @@ export default function CodeBlock(props) {
   }
 
   return (
+    <Header>
+      <MultiCodeBlockContext.Consumer>
+        {({languages, onLanguageChange, selectedLanguage}) =>
+          languages && (
+            <StyledSelect
+              size="small"
+              feel="flat"
+              value={selectedLanguage}
+              onChange={onLanguageChange}
+              options={languages.reduce(
+                (acc, {lang, label}) => ({
+                  ...acc,
+                  [lang]: label
+                }),
+                {}
+              )}
+            />
+          )
+        }
+      </MultiCodeBlockContext.Consumer>
+      <Button feel="flat" size="small" onClick={handleCopy}>
+        {copied.value ? 'Copied!' : 'Copy'}
+      </Button>
+    </Header>
+  );
+}
+
+CodeBlockHeader.propTypes = {
+  codeRef: PropTypes.object.isRequired
+};
+
+export default function CodeBlock(props) {
+  const codeRef = useRef();
+  return (
     <Container>
-      <Header>
-        <MultiCodeBlockContext.Consumer>
-          {({languages, onLanguageChange, selectedLanguage}) =>
-            languages && (
-              <StyledSelect
-                size="small"
-                feel="flat"
-                value={selectedLanguage}
-                onChange={onLanguageChange}
-                options={languages.reduce(
-                  (acc, {lang, label}) => ({
-                    ...acc,
-                    [lang]: label
-                  }),
-                  {}
-                )}
-              />
-            )
-          }
-        </MultiCodeBlockContext.Consumer>
-        <Button feel="flat" size="small" onClick={handleCopy}>
-          {copied.value ? 'Copied!' : 'Copy'}
-        </Button>
-      </Header>
+      {!props.className.includes('language-text') && (
+        <CodeBlockHeader codeRef={codeRef} />
+      )}
       <InnerContainer>
-        <pre className={props.className} ref={code}>
-          {props.children}
-        </pre>
+        <pre ref={codeRef} {...props} />
       </InnerContainer>
     </Container>
   );
 }
 
 CodeBlock.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired
+  className: PropTypes.string.isRequired
 };
