@@ -67,6 +67,24 @@ module.exports = ({
             .edgeLabel {
               background-color: white;
             }
+            .messageText, .noteText, .loopText {
+              font-size: 12px;
+            }
+            g rect, polygon.labelBox {
+              stroke-width: 2px;
+            }
+            g rect.actor {
+              stroke: ${colors.tertiary};
+              fill: white;
+            }
+            g rect.note {
+              stroke: ${colors.secondary};
+              fill: white;
+            }
+            g line.loopLine, polygon.labelBox {
+              stroke: ${colors.primary};
+              fill: white;
+            }
           `
         }
       }
