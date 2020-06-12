@@ -42,9 +42,6 @@ const BodyContent = styled.div({
       textDecoration: 'none',
       ':hover': {
         color: colors.text2
-      },
-      '&.anchor': {
-        display: 'none'
       }
     }
   },
