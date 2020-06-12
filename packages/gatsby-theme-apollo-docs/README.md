@@ -143,7 +143,7 @@ description: What is Apollo Server and what does it do?
 Apollo Server is the best way to quickly build a production-ready, self-documenting API for GraphQL clients, using data from any source.
 ```
 
-Page URLs will be derived from the file paths of your Markdown. You can nest Markdown files within directories to create pages with additional path segments.
+Page URLs will be derived from the file paths of your Markdown. You can nest Markdown files within directories to create pages with additional path segments. You can overwrite this default path by adding a `slug` field to your Markdown frontmatter header.
 
 ## Component shadowing
 

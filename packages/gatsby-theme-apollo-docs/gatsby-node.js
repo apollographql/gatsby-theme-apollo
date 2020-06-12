@@ -41,6 +41,10 @@ async function onCreateNode(
       getNode
     });
 
+    if(node.frontmatter.slug) {
+      slug = node.frontmatter.slug;
+    }
+
     let category;
     const fileName = parent.name;
     const outputDir = 'social-cards';
