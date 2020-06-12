@@ -24,19 +24,19 @@ This installs the CLI globally, but you can also install the CLI in your project
 
 <h4>Obtain a personal API key</h4>
 
-If you haven't yet, [log in to Graph Manager](https://engine.apollographql.com) and create a graph for your organization by clicking **New Graph** in the upper right.
+If you haven't yet, [log in to Studio](https://studio.apollographql.com) and create a graph for your organization by clicking **New Graph** in the upper right.
 
-Then go to your [Personal Settings page](https://engine.apollographql.com/user-settings) and obtain or create a new personal API key.
+Then go to your [Personal Settings page](https://studio.apollographql.com/user-settings) and obtain or create a new personal API key.
 
 When you have your API key, add it to a `.env` file in the root directory of your project, like so:
 
 ```js:title=.env
-ENGINE_API_KEY=user:gh.StephenBarlow:uB0sLhga7EemND1wTa6BcZ
+APOLLO_KEY=user:gh.StephenBarlow:uB0sLhga7EemND1wTa6BcZ
 ```
 
 **Do not add the `.env` file to version control.** It contains secrets that differ both per user and per environment.
 
-When you execute Apollo CLI commands (such as to register a schema), the CLI obtains your API key from the `.env` file and uses it to authenticate with Graph Manager.
+When you execute Apollo CLI commands (such as to register a schema), the CLI obtains your API key from the `.env` file and uses it to authenticate with Studio.
 
 </ExpansionPanelListItem>
 <ExpansionPanelListItem number="3">
@@ -51,7 +51,7 @@ A basic `apollo.config.js` file looks like this:
 // apollo.config.js
 module.exports = {
   service: {
-    // Must match the name of your graph in Graph Manager
+    // Must match the name of your graph in Studio
     name: 'docs-example-graph',
 
     // EITHER THIS
@@ -64,7 +64,7 @@ module.exports = {
 };
 ```
 
-To register your schema with Graph Manager, the Apollo CLI needs to know how to access the schema. You can do this by providing either a `service.endpoint` object or a `service.localSchemaFile` string in `apollo.config.js`.
+To register your schema with Studio, the Apollo CLI needs to know how to access the schema. You can do this by providing either a `service.endpoint` object or a `service.localSchemaFile` string in `apollo.config.js`.
 
 * If you provide an `endpoint` object, the CLI executes an introspection query on the GraphQL endpoint at the provided `url` to obtain your schema. To use this method, introspection must be enabled on your server.
 * If you provide a `localSchemaFile` string, the CLI obtains your schema via the specified file path.
