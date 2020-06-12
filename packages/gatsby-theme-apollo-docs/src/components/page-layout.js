@@ -208,7 +208,7 @@ export default function PageLayout(props) {
                   color={colors.primary}
                   size="small"
                   onClick={openMenu}
-                  style={{display: 'block'}}
+                  style={{display: 'flex'}}
                 >
                   {sidebarTitle}
                   <StyledIcon />

@@ -91,15 +91,19 @@ function CustomTable(props) {
 
 function createCustomHeading(tag) {
   // eslint-disable-next-line react/display-name, react/prop-types
-  return ({children, ...props}) =>
-    React.createElement(
+  return ({children, ...props}) => {
+    // filter children to avoid rendering nested anchors
+    // eslint-disable-next-line react/prop-types
+    const strings = children.filter(child => typeof child === 'string');
+    return React.createElement(
       tag,
       props,
       // eslint-disable-next-line react/prop-types
       <a className="headingLink" href={'#' + props.id}>
-        {children}
+        {strings}
       </a>
     );
+  };
 }
 
 const components = {
