@@ -199,7 +199,7 @@ export default function SidebarNav(props) {
             key={title}
             title={title}
             path={path}
-            icon={isExpanded ? IconArrowUp : IconArrowDown}
+            icon={isExpanded ? <IconArrowUp /> : <IconArrowDown />}
             active={isCategorySelected({pages, path}, props.pathname)}
             onClick={props.alwaysExpanded ? null : toggleCategory}
           >

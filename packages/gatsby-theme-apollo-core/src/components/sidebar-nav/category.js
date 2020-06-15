@@ -50,7 +50,7 @@ export default function Category(props) {
   const contents = (
     <Fragment>
       <h6>{props.title}</h6>
-      {React.createElement(props.icon, {
+      {React.cloneElement(props.icon, {
         style: {
           visibility: props.onClick ? 'visible' : 'hidden'
         }
@@ -81,7 +81,7 @@ export default function Category(props) {
 Category.propTypes = {
   title: PropTypes.string.isRequired,
   path: PropTypes.string,
-  icon: PropTypes.func.isRequired,
+  icon: PropTypes.element.isRequired,
   children: PropTypes.node.isRequired,
   active: PropTypes.bool.isRequired,
   onClick: PropTypes.func
