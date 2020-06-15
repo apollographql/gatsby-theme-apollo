@@ -94,7 +94,9 @@ function createCustomHeading(tag) {
   return ({children, ...props}) => {
     // filter children to avoid rendering nested anchors
     // eslint-disable-next-line react/prop-types
-    const strings = children.filter(child => typeof child === 'string');
+    const strings = children.filter(
+      (child) => typeof child === 'string' || child.type === 'code'
+    );
     return React.createElement(
       tag,
       props,
