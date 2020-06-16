@@ -163,7 +163,8 @@ function getSidebarContents(sidebarCategories, edges, version, dirPattern) {
 
         const {frontmatter, fields} = getPageFromEdge(edge);
         return {
-          title: fields.sidebarTitle || frontmatter.title,
+          title: frontmatter.title,
+          sidebarTitle: fields.sidebarTitle,
           description: frontmatter.description,
           path: fields.slug
         };

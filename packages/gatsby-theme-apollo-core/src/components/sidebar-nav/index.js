@@ -156,27 +156,30 @@ export default function SidebarNav(props) {
   return (
     <Fragment>
       {props.contents.map(({title, path, pages}, index, array) => {
-        const contents = pages.map(page => (
-          <StyledListItem key={page.path}>
-            {page.anchor ? (
-              <a href={page.path} target="_blank" rel="noopener noreferrer">
-                {page.title}
-                <StyledOutlinkIcon />
-              </a>
-            ) : (
-              <Link
-                className={
-                  isPageSelected(page.path, props.pathname) ? 'active' : null
-                }
-                to={page.path}
-                title={page.description}
-                onClick={props.onLinkClick}
-              >
-                {page.title}
-              </Link>
-            )}
-          </StyledListItem>
-        ));
+        const contents = pages.map(page => {
+          const pageTitle = page.sidebarTitle || page.title;
+          return (
+            <StyledListItem key={page.path}>
+              {page.anchor ? (
+                <a href={page.path} target="_blank" rel="noopener noreferrer">
+                  {pageTitle}
+                  <StyledOutlinkIcon />
+                </a>
+              ) : (
+                <Link
+                  className={
+                    isPageSelected(page.path, props.pathname) ? 'active' : null
+                  }
+                  to={page.path}
+                  title={page.description}
+                  onClick={props.onLinkClick}
+                >
+                  {pageTitle}
+                </Link>
+              )}
+            </StyledListItem>
+          );
+        });
 
         if (!title) {
           const Icon = allExpanded ? IconCollapseList : IconExpandList;
