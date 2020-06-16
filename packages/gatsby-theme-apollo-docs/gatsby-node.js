@@ -1,5 +1,6 @@
 const jsYaml = require('js-yaml');
 const path = require('path');
+const git = require('simple-git')();
 const {createFilePath} = require('gatsby-source-filesystem');
 const {getVersionBasePath, getSpectrumUrl} = require('./src/utils');
 const {createPrinterNode} = require('gatsby-plugin-printer');
@@ -41,8 +42,8 @@ async function onCreateNode(
       getNode
     });
 
-    if(node.frontmatter.slug) {
-      slug = node.frontmatter.slug;
+    if (node.frontmatter.slug) {
+      slug = node.frontmatter.slug; // eslint-disable-line prefer-destructuring
     }
 
     let category;
@@ -306,6 +307,9 @@ exports.createPages = async (
     // let it slide
   }
 
+  // get the current git branch
+  const currentBranch = await git.revparse(['--abbrev-ref', 'HEAD']);
+
   const template = require.resolve('./src/components/template');
   edges.forEach(edge => {
     const {id, relativePath} = edge.node;
@@ -333,7 +337,7 @@ exports.createPages = async (
           owner,
           repo,
           'tree',
-          fields.versionRef || path.join('master', contentPath),
+          fields.versionRef || path.join(currentBranch, contentPath),
           relativePath
         );
 
