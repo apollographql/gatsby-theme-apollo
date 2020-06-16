@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo-docs",
-  "version": "4.2.7",
+  "version": "4.2.8",
   "main": "index.js",
   "description": "A Gatsby theme for building documentation websites",
   "author": "Trevor Blades <blades@apollographql.com>",
