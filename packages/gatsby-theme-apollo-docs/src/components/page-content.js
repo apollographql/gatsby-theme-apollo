@@ -213,7 +213,7 @@ export default function PageContent(props) {
         )}
         {props.graphManagerUrl && (
           <AsideLink href={props.graphManagerUrl}>
-            <IconSchema /> Demo Graph Manager
+            <IconSchema /> Demo Apollo Studio
           </AsideLink>
         )}
       </Aside>

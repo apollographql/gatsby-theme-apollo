@@ -41,7 +41,7 @@ export default function HeaderButton() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        Launch Graph Manager
+        Launch Studio
         <StyledIcon weight="thin" />
       </StyledLink>
     </Container>
