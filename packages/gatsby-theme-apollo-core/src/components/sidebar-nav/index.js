@@ -58,12 +58,6 @@ import {smallCaps} from '../../utils/typography';
 //   }
 // });
 
-// const StyledOutlinkIcon = styled(IconOutlink)(size(14), {
-//   verticalAlign: -1,
-//   marginLeft: 8,
-//   color: colors.text3
-// });
-
 // function getId(title) {
 //   return withPrefix(title);
 // }
@@ -134,17 +128,74 @@ const StyledCheckbox = styled.input({
   }
 });
 
+const StyledOutlinkIcon = styled(IconOutlink)(size(14), {
+  verticalAlign: -1,
+  marginLeft: 8,
+  color: colors.text3
+});
+
+function isPageSelected(path, pathname) {
+  const [a, b] = [withPrefix(path), pathname].map(string =>
+    string.replace(/\/$/, '')
+  );
+  return a === b;
+}
+
+function isCategorySelected(path, pages, pathname) {
+  return path
+    ? isPageSelected(path, pathname)
+    : pages.some(page => isPageSelected(page.path, pathname));
+}
+
 export default function SidebarNav(props) {
   return (
     <>
-      <Category>
-        <StyledCheckbox type="checkbox" defaultChecked={false} />
-        <span>test</span>
-        <IconArrowUp />
-        <StyledList>
-          <li>contents</li>
-        </StyledList>
-      </Category>
+      {props.contents
+        .filter(content => content.title)
+        .map((category, index) => {
+          const isSelected = category.pages.some(page =>
+            isPageSelected(page.path, props.pathname)
+          );
+          return (
+            <Category key={index}>
+              <StyledCheckbox type="checkbox" defaultChecked={isSelected} />
+              <span>{category.title}</span>
+              <IconArrowUp />
+              <StyledList>
+                {category.pages.map((page, index) => {
+                  const pageTitle = page.sidebarTitle || page.title;
+                  return (
+                    <li key={index}>
+                      {page.anchor ? (
+                        <a
+                          href={page.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {pageTitle}
+                          <StyledOutlinkIcon />
+                        </a>
+                      ) : (
+                        <Link
+                          className={
+                            isPageSelected(page.path, props.pathname)
+                              ? 'active'
+                              : null
+                          }
+                          to={page.path}
+                          title={page.description}
+                          onClick={props.onLinkClick}
+                        >
+                          {pageTitle}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
+              </StyledList>
+            </Category>
+          );
+        })}
     </>
   );
 }
