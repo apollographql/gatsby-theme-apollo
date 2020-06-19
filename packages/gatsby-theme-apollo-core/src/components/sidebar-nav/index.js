@@ -19,19 +19,12 @@ import {smallCaps} from '../../utils/typography';
 //   marginBottom: 32
 // });
 
-// const listItemStyles = {
-//   color: 'inherit',
-//   ':hover': {
-//     opacity: colors.hoverOpacity
-//   }
-// };
-
 // const StyledListItem = styled.li({
 //   fontSize: '1rem',
 //   lineHeight: 1.5,
 //   marginBottom: '0.8125rem',
 //   a: {
-//     ...listItemStyles,
+//     ...hoverStyle,
 //     textDecoration: 'none',
 //     '&.active': {
 //       color: colors.primary,
@@ -40,23 +33,27 @@ import {smallCaps} from '../../utils/typography';
 //   }
 // });
 
-// const ExpandAll = styled.button(listItemStyles, smallCaps, {
-//   display: 'flex',
-//   alignItems: 'center',
-//   marginBottom: 12,
-//   padding: '4px 0',
-//   border: 0,
-//   fontSize: 12,
-//   fontWeight: 600,
-//   lineHeight: 1,
-//   background: 'none',
-//   outline: 'none',
-//   cursor: 'pointer',
-//   svg: {
-//     ...size(12),
-//     marginRight: 8
-//   }
-// });
+const ExpandAll = styled.button(smallCaps, {
+  display: 'flex',
+  alignItems: 'center',
+  marginBottom: 12,
+  padding: '4px 0',
+  border: 0,
+  fontSize: 12,
+  fontWeight: 600,
+  lineHeight: 1,
+  background: 'none',
+  outline: 'none',
+  cursor: 'pointer',
+  color: 'inherit',
+  ':hover': {
+    opacity: colors.hoverOpacity
+  },
+  svg: {
+    ...size(12),
+    marginRight: 8
+  }
+});
 
 // function getId(title) {
 //   return withPrefix(title);
@@ -87,39 +84,66 @@ import {smallCaps} from '../../utils/typography';
 // }
 
 const StyledList = styled.ul({
-  margin: 0,
+  marginLeft: 0,
+  marginBottom: 32,
   listStyle: 'none'
 });
 
+const StyledListItem = styled.li({
+  fontSize: '1rem',
+  lineHeight: 1.5,
+  marginBottom: '0.8125rem',
+  a: {
+    color: 'inherit',
+    textDecoration: 'none',
+    ':hover': {
+      opacity: colors.hoverOpacity
+    },
+    '&.active': {
+      color: colors.primary,
+      pointerEvents: 'none'
+    }
+  }
+});
+
 const Category = styled.div({
-  display: 'flex',
-  alignItems: 'center',
-  flexWrap: 'wrap',
   position: 'relative',
   zIndex: 0,
-  svg: {
-    width: 10,
-    height: 10,
-    marginLeft: 'auto'
-  },
   [StyledList]: {
-    width: '100%',
     position: 'relative',
     zIndex: 2
   }
 });
 
+const CategoryTitle = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '0.75em 0',
+  color: colors.text1,
+  fontWeight: 'bold',
+  fontSize: 14,
+  lineHeight: 'normal',
+  ...smallCaps,
+  svg: size(10),
+  '&.active': {
+    color: colors.primary
+  }
+});
+
 const StyledCheckbox = styled.input({
-  width: '100%',
-  height: '100%',
+  ...size('100%'),
   cursor: 'pointer',
   position: 'absolute',
   top: 0,
   left: 0,
   opacity: 0,
   zIndex: 1,
+  [`:hover ~ ${CategoryTitle}`]: {
+    opacity: colors.hoverOpacity
+  },
   ':not(:checked) ~': {
-    svg: {
+    [`${CategoryTitle} svg`]: {
       transform: 'scaleY(-1)'
     },
     [StyledList]: {
@@ -148,54 +172,62 @@ function isCategorySelected(path, pages, pathname) {
 }
 
 export default function SidebarNav(props) {
+  const allExpanded = false;
+  const categories = props.contents.filter(content => content.title);
   return (
     <>
-      {props.contents
-        .filter(content => content.title)
-        .map((category, index) => {
-          const isSelected = category.pages.some(page =>
-            isPageSelected(page.path, props.pathname)
-          );
-          return (
-            <Category key={index}>
-              <StyledCheckbox type="checkbox" defaultChecked={isSelected} />
-              <span>{category.title}</span>
+      {categories.length > 1 && (
+        <ExpandAll>
+          {React.createElement(allExpanded ? IconCollapseList : IconExpandList)}
+          {allExpanded ? 'Collapse' : 'Expand'} all
+        </ExpandAll>
+      )}
+      {categories.map((category, index) => {
+        const isSelected = category.pages.some(page =>
+          isPageSelected(page.path, props.pathname)
+        );
+        return (
+          <Category key={index}>
+            <StyledCheckbox type="checkbox" defaultChecked={isSelected} />
+            <CategoryTitle className={isSelected ? 'active' : null}>
+              {category.title}
               <IconArrowUp />
-              <StyledList>
-                {category.pages.map((page, index) => {
-                  const pageTitle = page.sidebarTitle || page.title;
-                  return (
-                    <li key={index}>
-                      {page.anchor ? (
-                        <a
-                          href={page.path}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {pageTitle}
-                          <StyledOutlinkIcon />
-                        </a>
-                      ) : (
-                        <Link
-                          className={
-                            isPageSelected(page.path, props.pathname)
-                              ? 'active'
-                              : null
-                          }
-                          to={page.path}
-                          title={page.description}
-                          onClick={props.onLinkClick}
-                        >
-                          {pageTitle}
-                        </Link>
-                      )}
-                    </li>
-                  );
-                })}
-              </StyledList>
-            </Category>
-          );
-        })}
+            </CategoryTitle>
+            <StyledList>
+              {category.pages.map((page, index) => {
+                const pageTitle = page.sidebarTitle || page.title;
+                return (
+                  <StyledListItem key={index}>
+                    {page.anchor ? (
+                      <a
+                        href={page.path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {pageTitle}
+                        <StyledOutlinkIcon />
+                      </a>
+                    ) : (
+                      <Link
+                        className={
+                          isPageSelected(page.path, props.pathname)
+                            ? 'active'
+                            : null
+                        }
+                        to={page.path}
+                        title={page.description}
+                        onClick={props.onLinkClick}
+                      >
+                        {pageTitle}
+                      </Link>
+                    )}
+                  </StyledListItem>
+                );
+              })}
+            </StyledList>
+          </Category>
+        );
+      })}
     </>
   );
 }
@@ -296,7 +328,9 @@ function SidebarNav2(props) {
               <StyledList>{contents}</StyledList>
               {array.length > 2 && (
                 <ExpandAll onClick={toggleAll}>
-                  <Icon />
+                  {React.createElement(
+                    allExpanded ? IconCollapseList : IconExpandList
+                  )}
                   {allExpanded ? 'Collapse' : 'Expand'} all
                 </ExpandAll>
               )}
