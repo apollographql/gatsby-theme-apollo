@@ -1,4 +1,4 @@
-import Category from './category';
+// import Category from './category';
 import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useMemo, useState} from 'react';
 import styled from '@emotion/styled';
@@ -13,86 +13,143 @@ import {colors} from '../../utils/colors';
 import {size} from 'polished';
 import {smallCaps} from '../../utils/typography';
 
+// const StyledList = styled.ul({
+//   marginLeft: 0,
+//   listStyle: 'none',
+//   marginBottom: 32
+// });
+
+// const listItemStyles = {
+//   color: 'inherit',
+//   ':hover': {
+//     opacity: colors.hoverOpacity
+//   }
+// };
+
+// const StyledListItem = styled.li({
+//   fontSize: '1rem',
+//   lineHeight: 1.5,
+//   marginBottom: '0.8125rem',
+//   a: {
+//     ...listItemStyles,
+//     textDecoration: 'none',
+//     '&.active': {
+//       color: colors.primary,
+//       pointerEvents: 'none'
+//     }
+//   }
+// });
+
+// const ExpandAll = styled.button(listItemStyles, smallCaps, {
+//   display: 'flex',
+//   alignItems: 'center',
+//   marginBottom: 12,
+//   padding: '4px 0',
+//   border: 0,
+//   fontSize: 12,
+//   fontWeight: 600,
+//   lineHeight: 1,
+//   background: 'none',
+//   outline: 'none',
+//   cursor: 'pointer',
+//   svg: {
+//     ...size(12),
+//     marginRight: 8
+//   }
+// });
+
+// const StyledOutlinkIcon = styled(IconOutlink)(size(14), {
+//   verticalAlign: -1,
+//   marginLeft: 8,
+//   color: colors.text3
+// });
+
+// function getId(title) {
+//   return withPrefix(title);
+// }
+
+// function isPageSelected(path, pathname) {
+//   const [a, b] = [withPrefix(path), pathname].map(string =>
+//     string.replace(/\/$/, '')
+//   );
+//   return a === b;
+// }
+
+// function isCategorySelected({path, pages}, pathname) {
+//   return path
+//     ? isPageSelected(path, pathname)
+//     : pages.some(page => isPageSelected(page.path, pathname));
+// }
+
+// function getSidebarState(contents, pathname) {
+//   const activeCategory = contents.find(category =>
+//     isCategorySelected(category, pathname)
+//   );
+//   if (activeCategory) {
+//     return {[getId(activeCategory.title)]: true};
+//   }
+
+//   return {};
+// }
+
 const StyledList = styled.ul({
-  marginLeft: 0,
-  listStyle: 'none',
-  marginBottom: 32
+  margin: 0,
+  listStyle: 'none'
 });
 
-const listItemStyles = {
-  color: 'inherit',
-  ':hover': {
-    opacity: colors.hoverOpacity
+const Category = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  position: 'relative',
+  zIndex: 0,
+  svg: {
+    width: 10,
+    height: 10,
+    marginLeft: 'auto'
+  },
+  [StyledList]: {
+    width: '100%',
+    position: 'relative',
+    zIndex: 2
   }
-};
+});
 
-const StyledListItem = styled.li({
-  fontSize: '1rem',
-  lineHeight: 1.5,
-  marginBottom: '0.8125rem',
-  a: {
-    ...listItemStyles,
-    textDecoration: 'none',
-    '&.active': {
-      color: colors.primary,
-      pointerEvents: 'none'
+const StyledCheckbox = styled.input({
+  width: '100%',
+  height: '100%',
+  cursor: 'pointer',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  opacity: 0,
+  zIndex: 1,
+  ':not(:checked) ~': {
+    svg: {
+      transform: 'scaleY(-1)'
+    },
+    [StyledList]: {
+      display: 'none'
     }
   }
 });
 
-const ExpandAll = styled.button(listItemStyles, smallCaps, {
-  display: 'flex',
-  alignItems: 'center',
-  marginBottom: 12,
-  padding: '4px 0',
-  border: 0,
-  fontSize: 12,
-  fontWeight: 600,
-  lineHeight: 1,
-  background: 'none',
-  outline: 'none',
-  cursor: 'pointer',
-  svg: {
-    ...size(12),
-    marginRight: 8
-  }
-});
-
-const StyledOutlinkIcon = styled(IconOutlink)(size(14), {
-  verticalAlign: -1,
-  marginLeft: 8,
-  color: colors.text3
-});
-
-function getId(title) {
-  return withPrefix(title);
-}
-
-function isPageSelected(path, pathname) {
-  const [a, b] = [withPrefix(path), pathname].map(string =>
-    string.replace(/\/$/, '')
-  );
-  return a === b;
-}
-
-function isCategorySelected({path, pages}, pathname) {
-  return path
-    ? isPageSelected(path, pathname)
-    : pages.some(page => isPageSelected(page.path, pathname));
-}
-
-function getSidebarState(contents, pathname) {
-  const activeCategory = contents.find(category =>
-    isCategorySelected(category, pathname)
-  );
-  if (activeCategory) {
-    return {[getId(activeCategory.title)]: true};
-  }
-
-  return {};
-}
-
 export default function SidebarNav(props) {
+  return (
+    <>
+      <Category>
+        <StyledCheckbox type="checkbox" defaultChecked={false} />
+        <span>test</span>
+        <IconArrowUp />
+        <StyledList>
+          <li>contents</li>
+        </StyledList>
+      </Category>
+    </>
+  );
+}
+
+function SidebarNav2(props) {
   const prevPathname = usePrevious(props.pathname);
   const [state, setState] = useState(
     getSidebarState(props.contents, props.pathname)
