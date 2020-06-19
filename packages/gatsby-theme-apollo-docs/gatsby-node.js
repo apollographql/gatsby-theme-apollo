@@ -309,7 +309,10 @@ exports.createPages = async (
   }
 
   // get the current git branch
-  const currentBranch = await git.revparse(['--abbrev-ref', 'HEAD']);
+  // try to use the BRANCH env var from Netlify
+  // fall back to using git rev-parse if BRANCH is not available
+  const currentBranch =
+    process.env.BRANCH || (await git.revparse(['--abbrev-ref', 'HEAD']));
 
   const template = require.resolve('./src/components/template');
   edges.forEach(edge => {
