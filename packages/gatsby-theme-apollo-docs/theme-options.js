@@ -15,10 +15,10 @@ const navConfig = {
     description:
       "Manage the entirety of your React app's state and seamlessly execute GraphQL operations."
   },
-  'Apollo Graph Manager': {
+  'Apollo Studio': {
     url: 'https://www.apollographql.com/docs/graph-manager',
     description:
-      "Integrate with Apollo's cloud service for schema versioning, metrics, and enhanced security."
+      "Build your graph with your team, evolve it safely, and keep it running smoothly."
   },
   'Apollo Client (iOS)': {
     url: 'https://www.apollographql.com/docs/ios',
