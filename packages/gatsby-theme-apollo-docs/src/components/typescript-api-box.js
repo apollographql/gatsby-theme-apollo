@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import React, {Component, Fragment, createContext} from 'react';
+import React, {Component, Fragment} from 'react';
+import docs from '../docs.json';
 import extend from 'lodash/extend';
 import partition from 'lodash/partition';
 import remark from 'remark';
@@ -129,7 +130,7 @@ export class TypescriptApiBox extends Component {
       }
     }
 
-    traverse(this.context.data);
+    traverse(docs);
 
     return dataByKey;
   }
@@ -439,6 +440,3 @@ export class TypescriptApiBox extends Component {
     );
   }
 }
-
-export const TypescriptApiBoxContext = createContext();
-TypescriptApiBox.contextType = TypescriptApiBoxContext;

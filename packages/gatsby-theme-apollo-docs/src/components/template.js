@@ -10,7 +10,6 @@ import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
 import {ContentWrapper, colors, smallCaps} from 'gatsby-theme-apollo-core';
 import {MDXProvider} from '@mdx-js/react';
-import {TypescriptApiBoxContext} from './typescript-api-box';
 import {graphql, navigate} from 'gatsby';
 
 const StyledContentWrapper = styled(ContentWrapper)({
@@ -130,7 +129,6 @@ export default function Template(props) {
     sidebarContents,
     githubUrl,
     spectrumUrl,
-    typescriptApiBox,
     twitterHandle,
     baseUrl
   } = props.pageContext;
@@ -169,11 +167,9 @@ export default function Template(props) {
             }}
           >
             {file.childMdx ? (
-              <TypescriptApiBoxContext.Provider value={typescriptApiBox}>
-                <MDXProvider components={components}>
-                  <MDXRenderer>{file.childMdx.body}</MDXRenderer>
-                </MDXProvider>
-              </TypescriptApiBoxContext.Provider>
+              <MDXProvider components={components}>
+                <MDXRenderer>{file.childMdx.body}</MDXRenderer>
+              </MDXProvider>
             ) : (
               renderAst(file.childMarkdownRemark.htmlAst)
             )}
