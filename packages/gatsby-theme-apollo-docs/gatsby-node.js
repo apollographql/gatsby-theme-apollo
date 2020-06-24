@@ -227,7 +227,6 @@ exports.createPages = async (
     spectrumHandle,
     spectrumPath,
     twitterHandle,
-    typescriptApiBox,
     localVersion,
     baseUrl
   }
@@ -362,7 +361,6 @@ exports.createPages = async (
           spectrumHandle &&
           getSpectrumUrl(spectrumHandle) + (spectrumPath || repoPath),
         twitterHandle,
-        typescriptApiBox,
         versions: versionKeys, // only need to send version labels to client
         defaultVersion,
         baseUrl

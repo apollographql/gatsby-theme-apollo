@@ -1,7 +1,4 @@
-export {
-  TypescriptApiBox,
-  TypescriptApiBoxContext
-} from './src/components/typescript-api-box';
+export {TypescriptApiBox} from './src/components/typescript-api-box';
 export {MultiCodeBlock} from './src/components/multi-code-block';
 export {
   ExpansionPanel,
