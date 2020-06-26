@@ -97,7 +97,9 @@ function createCustomHeading(tag) {
       // eslint-disable-next-line react/prop-types
       <a className="headingLink" href={'#' + props.id}>
         {/* eslint-disable-next-line react/prop-types */}
-        {children.filter(child => child.type !== CustomLink)}
+        {children.filter(
+          child => child.type !== CustomLink && child.props?.mdxType !== 'a'
+        )}
       </a>
     );
 }
