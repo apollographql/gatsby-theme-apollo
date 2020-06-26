@@ -164,7 +164,7 @@ export default function SidebarNav(props) {
 
   const [allExpanded, setAllExpanded] = useState(false);
   const categories = props.contents.filter(content => content.title);
-  const [{pages}] = props.contents.filter(content => !content.title);
+  const [root] = props.contents.filter(content => !content.title);
 
   function toggleAll() {
     const checkboxes = Array.from(
@@ -196,11 +196,13 @@ export default function SidebarNav(props) {
 
   return (
     <>
-      <NavItems
-        pages={pages}
-        pathname={props.pathname}
-        onLinkClick={props.onLinkClick}
-      />
+      {root && (
+        <NavItems
+          pages={root.pages}
+          pathname={props.pathname}
+          onLinkClick={props.onLinkClick}
+        />
+      )}
       {!props.alwaysExpanded && categories.length > 1 && (
         <ExpandAll onClick={toggleAll}>
           {React.createElement(allExpanded ? IconCollapseList : IconExpandList)}
