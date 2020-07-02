@@ -78,6 +78,7 @@ module.exports = {
 | pageTitle         | string | No       | The string to be rendered in the page's `<title>` tag. If omitted, `siteName` will be used.                                             |
 | baseDir           | string | No       | If your Gatsby site does not live in the root of your project directory/git repo, pass the subdirectory name here (`docs`, for example) |
 | contentDir        | string | No       | The directory where docs content exists (`content` by default)                                                                          |
+| githubHost        | string | No       | The hostname of github server (`github.com` by default)                                                                                  |
 | githubRepo        | string | No       | The owner and name of the content repository on GitHub                                                                                  |
 | spectrumPath      | string | No       | The path to be appended to Spectrum links                                                                                               |
 | gaTrackingId      | string | No       | Your site's Google Analytics tracking ID                                                                                                |

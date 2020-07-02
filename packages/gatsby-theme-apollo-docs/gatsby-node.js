@@ -223,6 +223,7 @@ exports.createPages = async (
     versions = {},
     subtitle,
     githubRepo,
+    githubHost = 'github.com',
     sidebarCategories,
     spectrumHandle,
     spectrumPath,
@@ -336,7 +337,7 @@ exports.createPages = async (
       githubUrl =
         'https://' +
         path.join(
-          'github.com',
+          githubHost,
           owner,
           repo,
           'tree',

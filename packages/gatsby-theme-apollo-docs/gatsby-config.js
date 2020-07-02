@@ -8,6 +8,7 @@ module.exports = ({
   siteName,
   pageTitle,
   description,
+  githubHost = 'github.com',
   githubRepo,
   baseDir = '',
   contentDir = 'content',
@@ -133,7 +134,7 @@ module.exports = ({
       options: {
         name,
         branch,
-        remote: `https://github.com/${githubRepo}`,
+        remote: `https://${githubHost}/${githubRepo}`,
         patterns: [
           path.join(baseDir, contentDir, '**'),
           path.join(baseDir, 'gatsby-config.js'),
