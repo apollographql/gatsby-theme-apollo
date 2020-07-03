@@ -1,0 +1,17 @@
+{
+  "name": "example",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "prepare": "gatsby build",
+    "test": "$npm_execpath build"
+  },
+  "dependencies": {
+    "gatsby": "^2.23.18",
+    "gatsby-theme-apollo-docs": "^4.3.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
