@@ -92,6 +92,7 @@ module.exports = {
 | versions          | array  | No       | An array of objects representing the versions that the website should generate                                                          |
 | navConfig         | object | No       | An object defining the top-left navigation links (see [`navConfig` reference](#navconfig))                                              |
 | checkLinksOptions | object | No       | Options accepted by [`gastby-remark-check-links`](https://github.com/trevorblades/gatsby-remark-check-links#options)                    |
+| ignore            | array  | No       | Files to ignore using [anymatch](https://github.com/es128/anymatch)-compatible definition pattern
 
 ### `versions`
 
