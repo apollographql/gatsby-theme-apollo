@@ -25,10 +25,10 @@ const navConfig = {
     description:
       "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations."
   },
-  'Apollo Link': {
-    url: 'https://www.apollographql.com/docs/link',
+  'Apollo Client (Android)': {
+    url: 'https://www.apollographql.com/docs/android',
     description:
-      'Define a custom chain of actions that your client performs with each GraphQL operation.',
+      "Manage the entirety of your Android app's state and seamlessly execute GraphQL operations.",
     omitLandingPage: true
   }
 };
