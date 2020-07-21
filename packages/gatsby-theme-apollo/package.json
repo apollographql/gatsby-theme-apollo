@@ -12,16 +12,15 @@
   },
   "keywords": [
     "gatsby",
-    "gatsby-plugin",
-    "apollo",
+    "gatsby-plugin",    
     "apollo-client"
   ],
   "peerDependencies": {
-    "@apollo/client": ">=3.0.0-beta.1",
+    "@apollo/client": "^3.0.2",
     "gatsby": ">=2.13.80"
   },
   "devDependencies": {
-    "@apollo/client": "^3.0.0-beta.1",
+    "@apollo/client": "^3.0.2",
     "gatsby": "^2.19.49"
   }
 }
