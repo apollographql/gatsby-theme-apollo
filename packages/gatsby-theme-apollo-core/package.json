@@ -27,7 +27,7 @@
     "react-use": "^9.11.0"
   },
   "devDependencies": {
-    "gatsby": "^2.19.49",
+    "gatsby": "^2.24.23",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   },
