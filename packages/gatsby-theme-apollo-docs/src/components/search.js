@@ -162,7 +162,7 @@ export default function Search(props) {
   // focus the input when the slash key is pressed
   useKey(
     event =>
-      event.keyCode === 191 && event.target.tagName.toUpperCase() !== 'INPUT',
+      event.key === '/' && event.target.tagName.toUpperCase() !== 'INPUT',
     event => {
       event.preventDefault();
       inputRef.current.focus();
