@@ -130,7 +130,6 @@ export default function Template(props) {
   const {
     sidebarContents,
     githubUrl,
-    githubHost,
     spectrumUrl,
     twitterHandle,
     baseUrl
@@ -161,7 +160,6 @@ export default function Template(props) {
           headings={headings}
           hash={hash}
           githubUrl={githubUrl}
-          githubHost={githubHost}
           spectrumUrl={spectrumUrl}
         >
           <CustomLinkContext.Provider
