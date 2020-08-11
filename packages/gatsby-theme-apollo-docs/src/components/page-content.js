@@ -110,9 +110,6 @@ const AsideLinkInner = styled.a({
   }
 });
 
-const makeGithubUrl = (host, repo) => host ? `https://${host}/${repo}` : repo;
-
-
 function AsideLink(props) {
   return (
     <AsideLinkWrapper>
@@ -182,8 +179,8 @@ export default function PageContent(props) {
   });
 
   const editLink = props.githubUrl && (
-    <AsideLink href={makeGithubUrl(props.githubHost, props.githubUrl)}>
-      <IconGithub /> Edit on GitHub ${props.githubHost && `(${props.githubHost})`}
+    <AsideLink href={props.githubUrl}>
+      <IconGithub /> Edit on GitHub
     </AsideLink>
   );
 
@@ -228,7 +225,6 @@ PageContent.propTypes = {
   children: PropTypes.node.isRequired,
   pathname: PropTypes.string.isRequired,
   githubUrl: PropTypes.string,
-  githubHost:PropTypes.string,
   pages: PropTypes.array.isRequired,
   hash: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
