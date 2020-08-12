@@ -15,9 +15,11 @@ module.exports = ({
   versions = {},
   gaTrackingId,
   ignore,
-  checkLinksOptions
+  checkLinksOptions,
+  gatsbyRemarkPlugins = [],
+  remarkPlugins = []
 }) => {
-  const gatsbyRemarkPlugins = [
+  const allGatsbyRemarkPlugins = [
     {
       resolve: 'gatsby-remark-autolink-headers',
       options: {
@@ -102,7 +104,8 @@ module.exports = ({
     {
       resolve: 'gatsby-remark-check-links',
       options: checkLinksOptions
-    }
+    },
+    ...gatsbyRemarkPlugins
   ];
 
   const plugins = [
@@ -112,21 +115,22 @@ module.exports = ({
       options: {
         path: path.join(root, contentDir),
         name: 'docs',
-        ignore,
+        ignore
       }
     },
     {
       resolve: 'gatsby-transformer-remark',
       options: {
-        plugins: gatsbyRemarkPlugins
+        plugins: allGatsbyRemarkPlugins
       }
     },
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
-        gatsbyRemarkPlugins,
+        gatsbyRemarkPlugins: allGatsbyRemarkPlugins,
         remarkPlugins: [
-          [remarkTypescript, {wrapperComponent: 'MultiCodeBlock'}]
+          [remarkTypescript, {wrapperComponent: 'MultiCodeBlock'}],
+          ...remarkPlugins
         ]
       }
     },
