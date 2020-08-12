@@ -8,6 +8,7 @@ This is an entirely configuration-based Gatsby theme that generates a documentat
   - [`versions`](#versions)
   - [`sidebarCategories`](#sidebarcategories)
   - [`navConfig`](#navconfig)
+  - [Algolia configuration](#algolia-configuration)
 - [Creating pages](#creating-pages)
 - [Component shadowing](#component-shadowing)
 - [Components](#components)
@@ -131,6 +132,12 @@ The `sidebarCategories` option is an object keyed by category titles. Each entry
 ### `navConfig`
 
 The `navConfig` option should be an object keyed by link titles. The values should be objects with `description`, and `url` properties. Check out the [default theme options](./theme-options.js) for an example of the expected shape of this data.
+
+### Algolia configuration
+
+This theme allows you to use Algolia DocSearch to power a search bar in the site. You'll need to provide your API key and index name to the theme in the form of `algoliaApiKey` and `algoliaIndexName` options.
+
+To get these, [sign up with DocSearch](https://docsearch.algolia.com/apply/) for an open source repo. You'll be able to configure your indexing strategy by submitting a PR to edit your config file in [the `docsearch-configs` repo](https://github.com/algolia/docsearch-configs).
 
 ## Creating pages
 
