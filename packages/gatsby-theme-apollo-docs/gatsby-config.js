@@ -68,11 +68,17 @@ module.exports = ({
               fill: none;
               stroke-width: 2px;
             }
-            .edgeLabel {
+            .label, .edgeLabel {
               background-color: white;
+              line-height: 1.3;
+            }
+            .edgeLabel rect {
+              background: none;
+              fill: none;
             }
             .messageText, .noteText, .loopText {
               font-size: 12px;
+              stroke: none;
             }
             g rect, polygon.labelBox {
               stroke-width: 2px;
