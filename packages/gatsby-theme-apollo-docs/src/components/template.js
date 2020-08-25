@@ -76,6 +76,9 @@ const StyledTable = styled.table({
     },
     code: {
       whiteSpace: 'normal'
+    },
+    '> :last-child': {
+      marginBottom: 0
     }
   }
 });
