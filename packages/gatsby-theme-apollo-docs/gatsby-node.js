@@ -61,7 +61,12 @@ async function onCreateNode(
       }
     }
 
-    const {title, sidebar_title, graphManagerUrl} = node.frontmatter;
+    const {
+      title,
+      sidebar_title,
+      api_reference,
+      graphManagerUrl
+    } = node.frontmatter;
     createPrinterNode({
       id: `${node.id} >>> Printer`,
       fileName,
@@ -116,6 +121,12 @@ async function onCreateNode(
       node,
       name: 'sidebarTitle',
       value: sidebar_title || ''
+    });
+
+    actions.createNodeField({
+      node,
+      name: 'apiReference',
+      value: Boolean(api_reference)
     });
 
     actions.createNodeField({

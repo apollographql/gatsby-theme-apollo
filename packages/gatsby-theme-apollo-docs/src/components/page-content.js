@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useRef, useState} from 'react';
 import SectionNav from './section-nav';
+import cn from 'classnames';
 import styled from '@emotion/styled';
 import useMount from 'react-use/lib/useMount';
 import {HEADER_HEIGHT} from '../utils';
@@ -17,7 +18,19 @@ const Wrapper = styled.div({
 
 const InnerWrapper = styled.div({
   flexGrow: 1,
-  width: 0
+  width: 0,
+  '.api-ref': {
+    '*:not(pre) > code[class*="language-"]': {
+      padding: 0,
+      background: 'none'
+    },
+    h2: {
+      background: 'white',
+      position: 'sticky !important',
+      top: HEADER_HEIGHT,
+      zIndex: 1
+    }
+  }
 });
 
 const BodyContent = styled.div({
@@ -184,10 +197,15 @@ export default function PageContent(props) {
     </AsideLink>
   );
 
+  console.log(props.apiReference);
+
   return (
     <Wrapper>
       <InnerWrapper>
-        <BodyContent ref={contentRef} className="content-wrapper">
+        <BodyContent
+          ref={contentRef}
+          className={cn('content-wrapper', {'api-ref': props.apiReference})}
+        >
           {props.children}
         </BodyContent>
         <EditLink>{editLink}</EditLink>
@@ -229,6 +247,7 @@ PageContent.propTypes = {
   hash: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   graphManagerUrl: PropTypes.string.isRequired,
+  apiReference: PropTypes.bool.isRequired,
   headings: PropTypes.array.isRequired,
   spectrumUrl: PropTypes.string
 };
