@@ -29,6 +29,9 @@ const InnerWrapper = styled.div({
       position: 'sticky !important',
       top: HEADER_HEIGHT,
       zIndex: 1
+    },
+    'table td:nth-child(2) code': {
+      color: colors.tertiary
     }
   }
 });
