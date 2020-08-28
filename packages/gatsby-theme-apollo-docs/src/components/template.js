@@ -163,7 +163,11 @@ export default function Template(props) {
           apiReference={fields.apiReference}
           pathname={pathname}
           pages={pages}
-          headings={headings}
+          headings={headings.filter(
+            heading =>
+              heading.depth === 2 ||
+              heading.depth === (fields.apiReference ? 4 : 3)
+          )}
           hash={hash}
           githubUrl={githubUrl}
           spectrumUrl={spectrumUrl}
@@ -210,8 +214,9 @@ export const pageQuery = graphql`
           title
           description
         }
-        headings(depth: h2) {
+        headings {
           value
+          depth
         }
         fields {
           image
@@ -225,8 +230,9 @@ export const pageQuery = graphql`
           title
           description
         }
-        headings(depth: h2) {
+        headings {
           value
+          depth
         }
         fields {
           image

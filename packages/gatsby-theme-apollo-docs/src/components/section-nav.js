@@ -43,7 +43,11 @@ export default function SectionNav(props) {
 
   const {contentRef, imagesLoaded} = props;
   useEffect(() => {
-    const headings = contentRef.current.querySelectorAll('h1, h2');
+    const headings = contentRef.current.querySelectorAll(
+      [1, ...props.headings.map(heading => heading.depth)]
+        .map(depth => 'h' + depth)
+        .toString()
+    );
     setOffsets(
       Array.from(headings)
         .map(heading => {
@@ -59,7 +63,7 @@ export default function SectionNav(props) {
         })
         .filter(Boolean)
     );
-  }, [width, height, contentRef, imagesLoaded]);
+  }, [width, height, contentRef, imagesLoaded, props.headings]);
 
   let activeHeading = null;
   const windowOffset = height / 2;
@@ -75,11 +79,15 @@ export default function SectionNav(props) {
   const slugger = new Slugger();
   return (
     <StyledList>
-      {props.headings.map(({value}) => {
+      {props.headings.map(({depth, value}) => {
         const text = striptags(value);
         const slug = slugger.slug(text);
         return (
-          <StyledListItem key={slug} active={slug === activeHeading}>
+          <StyledListItem
+            key={slug}
+            active={slug === activeHeading}
+            style={{paddingLeft: depth !== 2 && 16}}
+          >
             <a href={`#${slug}`} onClick={handleHeadingClick}>
               {text}
             </a>
