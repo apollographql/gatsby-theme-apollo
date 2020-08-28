@@ -19,18 +19,15 @@ const InnerWrapper = styled.div({
   flexGrow: 1,
   width: 0,
   '.api-ref': {
+    h4: {
+      marginTop: 50,
+      code: {
+        fontSize: '1.1em'
+      }
+    },
     '*:not(pre) > code[class*="language-"]': {
       padding: 0,
       background: 'none'
-    },
-    h2: {
-      background: 'white',
-      position: 'sticky !important',
-      top: HEADER_HEIGHT,
-      zIndex: 1
-    },
-    'table td:nth-child(2) code': {
-      color: colors.tertiary
     }
   }
 });

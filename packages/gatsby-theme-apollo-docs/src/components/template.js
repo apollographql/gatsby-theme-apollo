@@ -80,6 +80,20 @@ const StyledTable = styled.table({
     '> :last-child': {
       marginBottom: 0
     }
+  },
+  '&.field-table': {
+    td: {
+      h6: {
+        fontSize: 'inherit',
+        lineHeight: 'inherit'
+      },
+      '&:nth-child(2) code': {
+        color: colors.tertiary
+      }
+    },
+    'tr.required td': {
+      background: colors.background
+    }
   }
 });
 
