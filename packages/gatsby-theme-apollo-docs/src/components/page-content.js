@@ -6,7 +6,6 @@ import styled from '@emotion/styled';
 import useMount from 'react-use/lib/useMount';
 import {HEADER_HEIGHT} from '../utils';
 import {IconGithub} from '@apollo/space-kit/icons/IconGithub';
-import {IconSchema} from '@apollo/space-kit/icons/IconSchema';
 import {PageNav, breakpoints, colors} from 'gatsby-theme-apollo-core';
 import {ReactComponent as SpectrumLogo} from '../assets/spectrum.svg';
 import {withPrefix} from 'gatsby';
@@ -200,8 +199,6 @@ export default function PageContent(props) {
     </AsideLink>
   );
 
-  console.log(props.apiReference);
-
   return (
     <Wrapper>
       <InnerWrapper>
@@ -232,11 +229,6 @@ export default function PageContent(props) {
             <SpectrumLogo /> Discuss on Spectrum
           </AsideLink>
         )}
-        {props.graphManagerUrl && (
-          <AsideLink href={props.graphManagerUrl}>
-            <IconSchema /> Demo Apollo Studio
-          </AsideLink>
-        )}
       </Aside>
     </Wrapper>
   );
@@ -249,7 +241,6 @@ PageContent.propTypes = {
   pages: PropTypes.array.isRequired,
   hash: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  graphManagerUrl: PropTypes.string.isRequired,
   apiReference: PropTypes.bool.isRequired,
   headings: PropTypes.array.isRequired,
   spectrumUrl: PropTypes.string
