@@ -85,9 +85,14 @@ const StyledTable = styled.table({
     td: {
       h6: {
         fontSize: 'inherit',
-        lineHeight: 'inherit'
+        lineHeight: 'inherit',
+        fontWeight: 'bold',
+        marginBottom: '5px'
       },
-      '&:nth-child(2) code': {
+      '&:first-child p': {
+        fontSize: '14px'
+      },
+      '&:first-child p code': {
         color: colors.tertiary
       }
     },
