@@ -90,10 +90,10 @@ const StyledTable = styled.table({
         marginBottom: '5px'
       },
       '&:first-child p': {
-        fontSize: '14px'
-      },
-      '&:first-child p code': {
-        color: colors.tertiary
+        fontSize: '14px',
+        code: {
+          color: colors.tertiary
+        }
       }
     },
     'tr.required td': {

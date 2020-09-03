@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import Slugger from 'github-slugger';
+import cn from 'classnames';
 import striptags from 'striptags';
 import styled from '@emotion/styled';
 import useWindowScroll from 'react-use/lib/useWindowScroll';
@@ -14,12 +15,14 @@ const StyledList = styled.ul({
   overflow: 'auto'
 });
 
-const StyledListItem = styled.li(props => ({
+const StyledListItem = styled.li({
   listStyle: 'none',
   fontSize: '1rem',
   lineHeight: 'inherit',
-  color: props.active && colors.primary,
-  fontWeight: props.active && 'bold',
+  '&.active': {
+    color: colors.primary,
+    fontWeight: 'bold'
+  },
   a: {
     color: 'inherit',
     textDecoration: 'none',
@@ -27,7 +30,7 @@ const StyledListItem = styled.li(props => ({
       opacity: colors.hoverOpacity
     }
   }
-}));
+});
 
 function handleHeadingClick(event) {
   trackCustomEvent({
@@ -86,7 +89,7 @@ export default function SectionNav(props) {
         return (
           <StyledListItem
             key={slug}
-            active={slug === activeHeading}
+            className={cn({active: slug === activeHeading})}
             style={{paddingLeft: depth !== 2 && 16}}
           >
             <a href={`#${slug}`} onClick={handleHeadingClick}>
