@@ -19,6 +19,7 @@ const StyledListItem = styled.li(props => ({
   fontSize: '1rem',
   lineHeight: 'inherit',
   color: props.active && colors.primary,
+  fontWeight: props.active && 'bold',
   a: {
     color: 'inherit',
     textDecoration: 'none',
