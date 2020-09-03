@@ -39,7 +39,7 @@ function CodeBlockHeader(props) {
   const [copied, copyToClipboard] = useCopyToClipboard();
 
   function handleCopy() {
-    copyToClipboard(props.codeRef.current.innerText);
+    copyToClipboard(props.codeRef.current.innerText + '\n\n');
     trackCustomEvent({
       category: GA_EVENT_CATEGORY_CODE_BLOCK,
       action: 'Copy'
