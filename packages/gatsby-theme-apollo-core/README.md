@@ -306,7 +306,7 @@ We use [Netlify](https://netlify.com) to deploy our websites, so to express this
 We use [Netlify redirects](https://docs.netlify.com/routing/redirects/#syntax-for-the-redirects-file) to manage our server rewrites and redirects. To point your new Netlify deployment to a page on apollographql.com, add a rule to our [website router `_redirects` file](https://github.com/apollographql/website-router/blob/master/_redirects#L57-L59). It should look something like this:
 
 ```
-/YOUR_PATH_PREFIX/* YOUR_NETLIFY_URL/:splat 200!
+/YOUR_PATH_PREFIX/* YOUR_NETLIFY_URL/YOUR_PATH_PREFIX/:splat 200!
 ```
 
 ## Examples
