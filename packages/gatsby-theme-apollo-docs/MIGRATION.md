@@ -106,7 +106,7 @@ module.exports = {
 
 ## 4. Add a Netlify config
 
-Add a _netlify.toml_ file to the repo root. It should contain `base`, `publish`, and `command` properties. The `base` and `publish` properties should always be `docs/` and `docs/public/`, respectively. The `command` property will build the site using the `gatsby build` command, and then move the built website into the appropriate directory to be served using Fly.io. You should edit the directory names in that property to reflect the `pathPrefix` option that you provided in your _gatsby-config.js_ file. Here's an example of the iOS docs Netlify config:
+Add a _netlify.toml_ file to the repo root. It should contain `base`, `publish`, and `command` properties. The `base` and `publish` properties should always be `docs/` and `docs/public/`, respectively. The `command` property will build the site using the `gatsby build` command, and then move the built website into the appropriate directory to be served using our [website router](https://github.com/apollographql/website-router/blob/master/_redirects). You should edit the directory names in that property to reflect the `pathPrefix` option that you provided in your _gatsby-config.js_ file. Here's an example of the iOS docs Netlify config:
 
 ```toml
 [build]
