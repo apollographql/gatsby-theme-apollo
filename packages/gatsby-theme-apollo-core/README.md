@@ -303,12 +303,11 @@ We use [Netlify](https://netlify.com) to deploy our websites, so to express this
   command = "gatsby build --prefix-paths && mkdir -p YOUR_PATH_PREFIX && mv public/* YOUR_PATH_PREFIX && mv YOUR_PATH_PREFIX public/"
 ```
 
-We use [Fly](https://fly.io) to manage our server rewrites and redirects. To point your new Netlify deployment to a page on apollographql.com, first [create a new backend](https://fly.io/sites/www-apollodata-com/backends) using your site's Netlify alias. Next, you'll need to [add _two_ rewrite rules](https://fly.io/sites/www-apollodata-com/rules):
+We use [Netlify redirects](https://docs.netlify.com/routing/redirects/#syntax-for-the-redirects-file) to manage our server rewrites and redirects. To point your new Netlify deployment to a page on apollographql.com, add a rule to our [website router `_redirects` file](https://github.com/apollographql/website-router/blob/master/_redirects#L57-L59). It should look something like this:
 
-- `/YOUR_PATH_PREFIX/:page` ➡️ `/YOUR_PATH_PREFIX/$page`
-- `/YOUR_PATH_PREFIX` ➡️ `/YOUR_PATH_PREFIX`
-
-Be sure to set the priority of each of these rules to `3`, or a value lower than the top two redirect rules that apply to our website root. Once these rewrite rules take effect, your site will be live at https://apollographql.com/YOUR_PATH_PREFIX.
+```
+/YOUR_PATH_PREFIX/* YOUR_NETLIFY_URL/:splat 200!
+```
 
 ## Examples
 
