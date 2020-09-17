@@ -27,7 +27,7 @@ const Wrapper = styled.div({
 
 const transitionDuration = 150; // in ms
 const Menu = styled.div({
-  width: 700,
+  width: 400,
   marginBottom: 24,
   borderRadius: 4,
   boxShadow,
@@ -45,18 +45,70 @@ const Menu = styled.div({
   }
 });
 
-const MenuTitle = styled.h6(smallCaps, {
-  margin: 24,
+const MenuTitle = styled.h6({
+  padding: 15,
+  marginBottom: 0,
+  fontSize: 22,
+  color: colors.text2,
+  background: colors.background
+});
+
+const NavListTitle = styled.h6(smallCaps, {
+  marginLeft: 12,
   marginBottom: 0,
   fontSize: 13,
   fontWeight: 600,
   color: colors.text3
 });
 
+const NavList = styled.ul({
+  margin: 0,
+  marginBottom: 20
+});
+
+const NavListItem = styled.li({
+  listStyle: 'none',
+  margin: 2,
+  marginLeft: 3
+});
+
+const NavListItemLink = styled.a({
+  display: 'block',
+  height: '100%',
+  padding: 8,
+  borderRadius: 4,
+  textDecoration: 'none',
+  backgroundColor: 'transparent',
+  transitionProperty: 'color, background-color',
+  transitionDuration: '150ms',
+  transitionTimingFunction: 'ease-in-out',
+  '@media (hover: hover)': {
+    ':hover': {
+      backgroundColor: colors.primary,
+      'h4': {
+        color: 'white'
+      }
+    }
+  }
+});
+
+const NavListItemTitle = styled.h4({
+  marginBottom: 0,
+  fontWeight: 600,
+  color: colors.text1
+});
+
 const StyledNav = styled.nav({
   display: 'flex',
   flexWrap: 'wrap',
-  margin: 12
+  flexDirection: 'column',
+  margin: 12,
+  maxHeight: 250,
+  paddingTop: 15,
+  [breakpoints.md]: {
+    maxHeight: 'none',
+    width: 300
+  }
 });
 
 const NavItem = styled.div({
@@ -65,42 +117,6 @@ const NavItem = styled.div({
   [breakpoints.md]: {
     width: '100%'
   }
-});
-
-const NavItemInner = styled.a({
-  display: 'block',
-  height: '100%',
-  padding: 12,
-  borderRadius: 4,
-  color: colors.text1,
-  textDecoration: 'none',
-  backgroundColor: 'transparent',
-  transitionProperty: 'color, background-color',
-  transitionDuration: '150ms',
-  transitionTimingFunction: 'ease-in-out',
-  '@media (hover: hover)': {
-    ':hover': {
-      color: 'white',
-      backgroundColor: colors.primary,
-      p: {
-        color: colors.primaryLight
-      }
-    }
-  }
-});
-
-export const NavItemTitle = styled.h4({
-  marginBottom: 8,
-  fontWeight: 600,
-  color: 'inherit'
-});
-
-export const NavItemDescription = styled.p({
-  marginBottom: 0,
-  fontSize: 14,
-  lineHeight: 1.5,
-  color: colors.text3,
-  transition: 'color 150ms ease-in-out'
 });
 
 const FooterNav = styled.nav({
@@ -202,13 +218,24 @@ export default function DocsetSwitcher(props) {
         }}
       >
         <MenuTitle>{props.siteName}</MenuTitle>
+
         <StyledNav>
-          {props.navItems.map(navItem => (
-            <NavItem key={navItem.url}>
-              <NavItemInner href={navItem.url}>
-                <NavItemTitle>{navItem.title}</NavItemTitle>
-                <NavItemDescription>{navItem.description}</NavItemDescription>
-              </NavItemInner>
+          {props.navCategories.map(navCategory => (
+            <NavItem>
+              {(navCategory.categoryTitle !== 'null') && (
+                <NavListTitle>{navCategory.categoryTitle}</NavListTitle>
+              )}
+              <NavList key={navCategory.categoryTitle}>
+                {console.log(navCategory)}
+                {Object.entries(navCategory).map(([title, navItem]) => (<>
+                  {(title !== 'categoryTitle') &&
+                  (<NavListItem key={navItem.url}>
+                    <NavListItemLink href={navItem.url} title={navItem.description}>
+                      <NavListItemTitle>{title}</NavListItemTitle>
+                    </NavListItemLink>
+                  </NavListItem>)}
+                </>))}
+              </NavList>
             </NavItem>
           ))}
         </StyledNav>
@@ -266,6 +293,7 @@ DocsetSwitcher.propTypes = {
   buttonRef: PropTypes.object.isRequired,
   siteName: PropTypes.string.isRequired,
   navItems: PropTypes.array.isRequired,
+  navCategories: PropTypes.array.isRequired,
   footerNavConfig: PropTypes.object.isRequired,
   spectrumUrl: PropTypes.string,
   twitterUrl: PropTypes.string,

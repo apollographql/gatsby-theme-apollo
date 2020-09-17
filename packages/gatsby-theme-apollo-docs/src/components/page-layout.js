@@ -156,12 +156,23 @@ export default function PageLayout(props) {
     twitterHandle,
     youtubeUrl,
     navConfig = {},
+    categorizedNavConfig = {},
     footerNavConfig,
     logoLink,
     algoliaApiKey,
     algoliaIndexName,
     menuTitle
   } = props.pluginOptions;
+
+
+  const navCategories = useMemo(
+    () =>
+      Object.entries(categorizedNavConfig).map(([categoryTitle, navItems]) => ({
+        ...navItems,
+        categoryTitle
+      })),
+      [categorizedNavConfig]
+  );
 
   const navItems = useMemo(
     () =>
@@ -289,6 +300,7 @@ export default function PageLayout(props) {
           twitterUrl={twitterHandle && `https://twitter.com/${twitterHandle}`}
           youtubeUrl={youtubeUrl}
           navItems={navItems}
+          navCategories={navCategories}
           footerNavConfig={footerNavConfig}
           open={menuOpen}
           buttonRef={buttonRef}
