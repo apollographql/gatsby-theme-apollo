@@ -1,79 +1,53 @@
-const categorizedNavConfig = {
-  'Core': {
-    'Apollo Basics': {
+const navConfig = {
+  navItems: [
+    {
+      category: 'Core',
+      name: 'Apollo Basics',
       url: 'https://www.apollographql.com/docs',
       description:
         'Learn about each part of the Apollo platform and how they all work together.',
       omitLandingPage: true
-    }
-  },
-  'Apollo Client (Frontend)': {
-    'React / JS': {
+    },
+    {
+      category: 'Apollo Client',
+      name: 'Apollo Client (React)',
+      shortName: 'React / JS',
       url: 'https://www.apollographql.com/docs/react',
       description:
         "Manage the entirety of your React app's state and seamlessly execute GraphQL operations."
     },
-    'iOS': {
+    {
+      category: 'Apollo Client',
+      name: 'Apollo Client (iOS)',
+      shortName: 'iOS',
       url: 'https://www.apollographql.com/docs/ios',
       description:
         "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations."
     },
-    'Android': {
+    {
+      category: 'Apollo Client',
+      name: 'Apollo Client (Android)',
+      shortName: 'Android',
       url: 'https://www.apollographql.com/docs/android',
       description:
         "Manage the entirety of your Android app's state and seamlessly execute GraphQL operations.",
       omitLandingPage: true
-    }
-  },
-  'Backend': {
-    'Apollo Server': {
+    },
+    {
+      category: 'Backend',
+      name: 'Apollo Server',
       url: 'https://www.apollographql.com/docs/apollo-server',
       description:
         'Configure a production-ready GraphQL server to fetch and combine data from multiple sources.'
-    }
-  },
-  'Tools': {
-    'Apollo Studio': {
+    },
+    {
+      category: 'Tools',
+      name: 'Apollo Studio',
       url: 'https://www.apollographql.com/docs/graph-manager',
       description:
         "Build your graph with your team, evolve it safely, and keep it running smoothly."
     }
-  }
-};
-
-const navConfig = {
-  'Apollo Basics': {
-    url: 'https://www.apollographql.com/docs',
-    description:
-      'Learn about each part of the Apollo platform and how they all work together.',
-    omitLandingPage: true
-  },
-  'Apollo Server': {
-    url: 'https://www.apollographql.com/docs/apollo-server',
-    description:
-      'Configure a production-ready GraphQL server to fetch and combine data from multiple sources.'
-  },
-  'Apollo Client (React)': {
-    url: 'https://www.apollographql.com/docs/react',
-    description:
-      "Manage the entirety of your React app's state and seamlessly execute GraphQL operations."
-  },
-  'Apollo Studio': {
-    url: 'https://www.apollographql.com/docs/graph-manager',
-    description:
-      "Build your graph with your team, evolve it safely, and keep it running smoothly."
-  },
-  'Apollo Client (iOS)': {
-    url: 'https://www.apollographql.com/docs/ios',
-    description:
-      "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations."
-  },
-  'Apollo Client (Android)': {
-    url: 'https://www.apollographql.com/docs/android',
-    description:
-      "Manage the entirety of your Android app's state and seamlessly execute GraphQL operations.",
-    omitLandingPage: true
-  }
+  ]
 };
 
 const footerNavConfig = {
@@ -95,7 +69,7 @@ const footerNavConfig = {
 module.exports = {
   siteName: 'Apollo Docs',
   pageTitle: 'Apollo GraphQL Docs',
-  menuTitle: 'All Docs',
+  menuTitle: 'Apollo Platform',
   gaTrackingId: 'UA-74643563-13',
   algoliaApiKey: '768e823959d35bbd51e4b2439be13fb7',
   algoliaIndexName: 'apollodata',
@@ -107,6 +81,5 @@ module.exports = {
   baseDir: 'docs',
   contentDir: 'source',
   navConfig,
-  categorizedNavConfig,
   footerNavConfig
 };

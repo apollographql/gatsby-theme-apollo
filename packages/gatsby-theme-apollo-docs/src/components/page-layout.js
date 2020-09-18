@@ -19,6 +19,7 @@ import {
   colors,
   useResponsiveSidebar
 } from 'gatsby-theme-apollo-core';
+import {groupBy} from 'lodash';
 import {Helmet} from 'react-helmet';
 import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
 import {Link, graphql, navigate, useStaticQuery} from 'gatsby';
@@ -156,7 +157,6 @@ export default function PageLayout(props) {
     twitterHandle,
     youtubeUrl,
     navConfig = {},
-    categorizedNavConfig = {},
     footerNavConfig,
     logoLink,
     algoliaApiKey,
@@ -164,22 +164,14 @@ export default function PageLayout(props) {
     menuTitle
   } = props.pluginOptions;
 
-
   const navCategories = useMemo(
     () =>
-      Object.entries(categorizedNavConfig).map(([categoryTitle, navItems]) => ({
-        ...navItems,
-        categoryTitle
-      })),
-      [categorizedNavConfig]
+      Object.entries(groupBy(navConfig.navItems, 'category')),
+      [navConfig]
   );
 
   const navItems = useMemo(
-    () =>
-      Object.entries(navConfig).map(([title, navItem]) => ({
-        ...navItem,
-        title
-      })),
+    () => navConfig.navItems,
     [navConfig]
   );
 

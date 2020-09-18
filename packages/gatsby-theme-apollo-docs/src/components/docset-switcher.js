@@ -27,7 +27,7 @@ const Wrapper = styled.div({
 
 const transitionDuration = 150; // in ms
 const Menu = styled.div({
-  width: 400,
+
   marginBottom: 24,
   borderRadius: 4,
   boxShadow,
@@ -37,20 +37,9 @@ const Menu = styled.div({
   transformOrigin: '25% 25%',
   transition: `transform ${transitionDuration}ms ease-in-out`,
   outline: 'none',
-  [breakpoints.md]: {
-    width: 450
-  },
   [breakpoints.sm]: {
     width: 'calc(100vw - 48px)'
   }
-});
-
-const MenuTitle = styled.h6({
-  padding: 15,
-  marginBottom: 0,
-  fontSize: 22,
-  color: colors.text2,
-  background: colors.background
 });
 
 const NavListTitle = styled.h6(smallCaps, {
@@ -100,20 +89,21 @@ const NavListItemTitle = styled.h4({
 
 const StyledNav = styled.nav({
   display: 'flex',
-  flexWrap: 'wrap',
-  flexDirection: 'column',
+  flexFlow: 'row wrap',
+  writingMode: 'vertical-lr',
   margin: 12,
-  maxHeight: 250,
+  height: 240,
   paddingTop: 15,
   [breakpoints.md]: {
-    maxHeight: 'none',
+    height: 'auto',
     width: 300
   }
 });
 
 const NavItem = styled.div({
   display: 'block',
-  width: '50%',
+  width: 220,
+  writingMode: 'horizontal-tb',
   [breakpoints.md]: {
     width: '100%'
   }
@@ -217,21 +207,18 @@ export default function DocsetSwitcher(props) {
             !props.open && 'translate3d(0,-24px,-16px) rotate3d(1,0,0.1,8deg)'
         }}
       >
-        <MenuTitle>{props.siteName}</MenuTitle>
-
         <StyledNav>
-          {props.navCategories.map(navCategory => (
+          {props.navCategories.map(([categoryName, navItems]) => (
             <NavItem>
-              {(navCategory.categoryTitle !== 'null') && (
-                <NavListTitle>{navCategory.categoryTitle}</NavListTitle>
+              {(categoryName !== 'undefined') && (
+                <NavListTitle>{categoryName}</NavListTitle>
               )}
-              <NavList key={navCategory.categoryTitle}>
-                {console.log(navCategory)}
-                {Object.entries(navCategory).map(([title, navItem]) => (<>
-                  {(title !== 'categoryTitle') &&
-                  (<NavListItem key={navItem.url}>
-                    <NavListItemLink href={navItem.url} title={navItem.description}>
-                      <NavListItemTitle>{title}</NavListItemTitle>
+              <NavList key={categoryName}>
+                {navItems.map(item => (<>
+                  {console.log(item)}
+                  {(<NavListItem key={item.url}>
+                    <NavListItemLink href={item.url} title={item.description}>
+                      <NavListItemTitle>{item.shortName || item.name}</NavListItemTitle>
                     </NavListItemLink>
                   </NavListItem>)}
                 </>))}
