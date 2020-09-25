@@ -8,21 +8,13 @@ import remark2react from 'remark-react';
 import styled from '@emotion/styled';
 import withProps from 'recompose/withProps';
 import {colors, smallCaps} from 'gatsby-theme-apollo-core';
+import { TableWrapper, StyledTable } from './template';
 
-const Container = styled.div({
-  border: `1px solid ${colors.divider}`,
-  borderRadius: 4,
-  margin: '1.5em 0',
-  overflow: 'hidden'
-});
 
-const Header = styled.div({
-  padding: '1.25rem',
-  backgroundColor: colors.background
-});
+const Header = styled.div({});
 
-const MainHeading = styled.h4({
-  marginBottom: 0
+const MainHeading = styled.h3({
+  paddingTop: 20
 });
 
 const StyledCode = styled.code({
@@ -32,28 +24,13 @@ const StyledCode = styled.code({
 
 const Subheading = styled.h6({
   marginTop: 12,
-  marginBottom: 0
+  marginBottom: 10
 });
 
-const Body = styled.div({
-  padding: '1.25rem'
-});
+const Body = styled.div({});
 
 const BodySubheading = styled.h6(smallCaps, {
   fontWeight: 'bold'
-});
-
-const StyledTerm = styled.dt({
-  marginBottom: 8,
-  fontFamily: "'Source Code Pro', monospace",
-  fontWeight: 'normal'
-});
-
-const StyledDescription = styled.dd({
-  fontSize: '0.5em',
-  [['p', 'li']]: {
-    fontSize: '1rem'
-  }
 });
 
 function _summary(rawData) {
@@ -392,7 +369,7 @@ export class TypescriptApiBox extends Component {
 
     const args = this.templateArgs(rawData);
     return (
-      <Container>
+      <>
         <Header>
           <MainHeading title={args.name} id={args.id}>
             <StyledCode className="language-">
@@ -419,24 +396,33 @@ export class TypescriptApiBox extends Component {
             .map((group, index) => (
               <Fragment key={index}>
                 <BodySubheading>{group.name}</BodySubheading>
-                <dl>
-                  {group.members.map((member, index) => (
-                    <Fragment key={index}>
-                      <StyledTerm>
-                        {member.name} {member.type}
-                      </StyledTerm>
-                      {member.description && (
-                        <StyledDescription>
-                          {mdToReact(member.description)}
-                        </StyledDescription>
-                      )}
-                    </Fragment>
-                  ))}
-                </dl>
+                <TableWrapper>
+                  <StyledTable className="field-table">
+                    <thead>
+                      <tr>
+                        <th>Name /<br/>Type</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {group.members.map((member, index) => (
+                        <tr>
+                          <td>
+                            <h6><StyledCode className="language-">{member.name}</StyledCode></h6>
+                            <p><StyledCode className="language-">{member.type}</StyledCode></p>
+                          </td>
+                          <td>
+                            {member.description && mdToReact(member.description)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </StyledTable>
+                </TableWrapper>
               </Fragment>
             ))}
         </Body>
-      </Container>
+        </>
     );
   }
 }

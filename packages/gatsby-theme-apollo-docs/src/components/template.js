@@ -44,13 +44,13 @@ CustomLink.propTypes = {
   href: PropTypes.string
 };
 
-const TableWrapper = styled.div({
+export const TableWrapper = styled.div({
   overflow: 'auto',
   marginBottom: '1.45rem'
 });
 
 const tableBorder = `1px solid ${colors.divider}`;
-const StyledTable = styled.table({
+export const StyledTable = styled.table({
   border: tableBorder,
   borderSpacing: 0,
   borderRadius: 4,
