@@ -134,20 +134,24 @@ function AsideLink(props) {
 }
 
 function FeedbackLink(props) {
-  function handleClick(e) {
-    e.preventDefault();
-    freddyWidget.show({
-      custom_fields: {
-        title: props.title
-      }
-    });
-  }
+  if (freddyWidget) {
+    function handleClick(e) {
+      e.preventDefault();
+      freddyWidget.show({
+        custom_fields: {
+          title: props.title
+        }
+      });
+    }
 
-  return (
-    <AsideLinkWrapper>
-      <AsideLinkInner onClick={handleClick} {...props} />
-    </AsideLinkWrapper>
-  )
+    return (
+      <AsideLinkWrapper>
+        <AsideLinkInner onClick={handleClick} {...props} />
+      </AsideLinkWrapper>
+    )
+  } else {
+    return (null)
+  }
 }
 
 const EditLink = styled.div({
