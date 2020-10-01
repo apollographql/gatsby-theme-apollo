@@ -148,7 +148,9 @@ function FeedbackLink(props) {
 
   return (
     <AsideLinkWrapper>
-      <AsideLinkInner onClick={handleClick} {...props} />
+      <AsideLinkInner onClick={handleClick}>
+        <IconStar style={{marginTop: -2}} /> Rate article
+      </AsideLinkInner>
     </AsideLinkWrapper>
   )
 }
@@ -213,11 +215,6 @@ export default function PageContent(props) {
     );
   });
 
-  const starIconOffset = {
-    position: "relative",
-    top: -2
-  };
-
   const editLink = props.githubUrl && (
     <AsideLink href={props.githubUrl}>
       <IconGithub /> Edit on GitHub
@@ -249,9 +246,7 @@ export default function PageContent(props) {
           />
         )}
         { props.ffWidgetId && (
-          <FeedbackLink>
-            <IconStar style={starIconOffset} /> Rate article
-          </FeedbackLink>
+          <FeedbackLink />
         )}
         {editLink}
         {props.spectrumUrl && (
