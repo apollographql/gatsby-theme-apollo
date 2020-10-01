@@ -134,24 +134,23 @@ function AsideLink(props) {
 }
 
 function FeedbackLink(props) {
-  if (freddyWidget) {
-    function handleClick(e) {
-      e.preventDefault();
+  function handleClick(e) {
+    e.preventDefault();
+
+    if (window.freddyWidget) {
       freddyWidget.show({
         custom_fields: {
           title: props.title
         }
       });
     }
-
-    return (
-      <AsideLinkWrapper>
-        <AsideLinkInner onClick={handleClick} {...props} />
-      </AsideLinkWrapper>
-    )
-  } else {
-    return (null)
   }
+
+  return (
+    <AsideLinkWrapper>
+      <AsideLinkInner onClick={handleClick} {...props} />
+    </AsideLinkWrapper>
+  )
 }
 
 const EditLink = styled.div({
@@ -249,9 +248,11 @@ export default function PageContent(props) {
             imagesLoaded={imagesLoaded === imagesToLoad}
           />
         )}
-        <FeedbackLink>
-          <IconStar style={starIconOffset} /> Rate article
-        </FeedbackLink>
+        { props.ffWidgetId && (
+          <FeedbackLink>
+            <IconStar style={starIconOffset} /> Rate article
+          </FeedbackLink>
+        )}
         {editLink}
         {props.spectrumUrl && (
           <AsideLink href={props.spectrumUrl}>
