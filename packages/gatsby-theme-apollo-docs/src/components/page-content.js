@@ -136,7 +136,11 @@ function AsideLink(props) {
 function FeedbackLink(props) {
   function handleClick(e) {
     e.preventDefault();
-    freddyWidget.show();
+    freddyWidget.show({
+      custom_fields: {
+        title: props.title
+      }
+    });
   }
 
   return (
