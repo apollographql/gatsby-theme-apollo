@@ -206,6 +206,11 @@ export default function PageContent(props) {
     );
   });
 
+  const starIconOffset = {
+    position: "relative",
+    top: -2
+  };
+
   const editLink = props.githubUrl && (
     <AsideLink href={props.githubUrl}>
       <IconGithub /> Edit on GitHub
@@ -237,7 +242,7 @@ export default function PageContent(props) {
           />
         )}
         <FeedbackLink>
-          <IconStar /> Send feedback
+          <IconStar style={starIconOffset} /> Rate article
         </FeedbackLink>
         {editLink}
         {props.spectrumUrl && (
