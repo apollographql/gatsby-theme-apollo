@@ -26,6 +26,7 @@ import {MobileLogo} from './mobile-logo';
 import {Select} from './select';
 import {SelectedLanguageContext} from './multi-code-block';
 import {getSpectrumUrl, getVersionBasePath} from '../utils';
+import {groupBy} from 'lodash';
 import {size} from 'polished';
 import {trackCustomEvent} from 'gatsby-plugin-google-analytics';
 
@@ -163,14 +164,16 @@ export default function PageLayout(props) {
     menuTitle
   } = props.pluginOptions;
 
-  const navItems = useMemo(
-    () =>
-      Object.entries(navConfig).map(([title, navItem]) => ({
-        ...navItem,
-        title
-      })),
-    [navConfig]
-  );
+  const {navItems, navCategories} = useMemo(() => {
+    const navItems = Object.entries(navConfig).map(([title, navItem]) => ({
+      ...navItem,
+      title
+    }));
+    return {
+      navItems,
+      navCategories: Object.entries(groupBy(navItems, 'category'))
+    };
+  }, [navConfig]);
 
   const hasNavItems = navItems.length > 0;
   const sidebarTitle = (
@@ -289,6 +292,7 @@ export default function PageLayout(props) {
           twitterUrl={twitterHandle && `https://twitter.com/${twitterHandle}`}
           youtubeUrl={youtubeUrl}
           navItems={navItems}
+          navCategories={navCategories}
           footerNavConfig={footerNavConfig}
           open={menuOpen}
           buttonRef={buttonRef}

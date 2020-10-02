@@ -27,7 +27,6 @@ const Wrapper = styled.div({
 
 const transitionDuration = 150; // in ms
 const Menu = styled.div({
-  width: 700,
   marginBottom: 24,
   borderRadius: 4,
   boxShadow,
@@ -37,42 +36,35 @@ const Menu = styled.div({
   transformOrigin: '25% 25%',
   transition: `transform ${transitionDuration}ms ease-in-out`,
   outline: 'none',
-  [breakpoints.md]: {
-    width: 450
-  },
   [breakpoints.sm]: {
     width: 'calc(100vw - 48px)'
   }
 });
 
-const MenuTitle = styled.h6(smallCaps, {
-  margin: 24,
+const NavListTitle = styled.h6(smallCaps, {
+  marginLeft: 12,
   marginBottom: 0,
   fontSize: 13,
   fontWeight: 600,
   color: colors.text3
 });
 
-const StyledNav = styled.nav({
-  display: 'flex',
-  flexWrap: 'wrap',
-  margin: 12
+const NavList = styled.ul({
+  margin: 0,
+  marginBottom: 20
 });
 
-const NavItem = styled.div({
-  display: 'block',
-  width: '50%',
-  [breakpoints.md]: {
-    width: '100%'
-  }
+const NavListItem = styled.li({
+  listStyle: 'none',
+  margin: 2,
+  marginLeft: 3
 });
 
-const NavItemInner = styled.a({
+const NavListItemLink = styled.a({
   display: 'block',
   height: '100%',
-  padding: 12,
+  padding: 8,
   borderRadius: 4,
-  color: colors.text1,
   textDecoration: 'none',
   backgroundColor: 'transparent',
   transitionProperty: 'color, background-color',
@@ -80,12 +72,39 @@ const NavItemInner = styled.a({
   transitionTimingFunction: 'ease-in-out',
   '@media (hover: hover)': {
     ':hover': {
-      color: 'white',
-      backgroundColor: colors.primary,
-      p: {
-        color: colors.primaryLight
+      backgroundColor: colors.primaryLight,
+      h4: {
+        color: colors.primary
       }
     }
+  }
+});
+
+const NavListItemTitle = styled.h4({
+  marginBottom: 0,
+  fontWeight: 600,
+  color: colors.text1
+});
+
+const StyledNav = styled.nav({
+  display: 'flex',
+  flexFlow: 'row wrap',
+  writingMode: 'vertical-lr',
+  margin: 12,
+  height: 240,
+  paddingTop: 15,
+  [breakpoints.md]: {
+    height: 'auto',
+    width: 300
+  }
+});
+
+const NavItem = styled.div({
+  display: 'block',
+  width: 220,
+  writingMode: 'horizontal-tb',
+  [breakpoints.md]: {
+    width: '100%'
   }
 });
 
@@ -201,14 +220,23 @@ export default function DocsetSwitcher(props) {
             !props.open && 'translate3d(0,-24px,-16px) rotate3d(1,0,0.1,8deg)'
         }}
       >
-        <MenuTitle>{props.siteName}</MenuTitle>
         <StyledNav>
-          {props.navItems.map(navItem => (
-            <NavItem key={navItem.url}>
-              <NavItemInner href={navItem.url}>
-                <NavItemTitle>{navItem.title}</NavItemTitle>
-                <NavItemDescription>{navItem.description}</NavItemDescription>
-              </NavItemInner>
+          {props.navCategories.map(([categoryName, navItems]) => (
+            <NavItem key={categoryName}>
+              {categoryName !== 'undefined' && (
+                <NavListTitle>{categoryName}</NavListTitle>
+              )}
+              <NavList key={categoryName}>
+                {navItems.map(item => (
+                  <NavListItem key={item.url}>
+                    <NavListItemLink href={item.url} title={item.description}>
+                      <NavListItemTitle>
+                        {item.shortName || item.name}
+                      </NavListItemTitle>
+                    </NavListItemLink>
+                  </NavListItem>
+                ))}
+              </NavList>
             </NavItem>
           ))}
         </StyledNav>
@@ -264,8 +292,7 @@ DocsetSwitcher.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   buttonRef: PropTypes.object.isRequired,
-  siteName: PropTypes.string.isRequired,
-  navItems: PropTypes.array.isRequired,
+  navCategories: PropTypes.array.isRequired,
   footerNavConfig: PropTypes.object.isRequired,
   spectrumUrl: PropTypes.string,
   twitterUrl: PropTypes.string,
