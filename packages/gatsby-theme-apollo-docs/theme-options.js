@@ -34,6 +34,12 @@ const navConfig = {
     description:
       'Configure a production-ready GraphQL server to fetch and combine data from multiple sources.'
   },
+  'Apollo Federation': {
+    category: 'Backend',
+    url: 'https://www.apollographql.com/docs/federation',
+    omitLandingPage: true,
+    description: 'Implement a single data graph across multiple services.'
+  },
   'Apollo Studio': {
     category: 'Tools',
     url: 'https://www.apollographql.com/docs/graph-manager',
