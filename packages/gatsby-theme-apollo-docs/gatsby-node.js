@@ -227,6 +227,7 @@ exports.createPages = async (
     sidebarCategories,
     spectrumHandle,
     spectrumPath,
+    ffWidgetId,
     twitterHandle,
     localVersion,
     baseUrl
@@ -358,6 +359,7 @@ exports.createPages = async (
         versionBasePath: getVersionBasePath(fields.version),
         sidebarContents: sidebarContents[fields.version],
         githubUrl,
+        ffWidgetId,
         spectrumUrl:
           spectrumHandle &&
           getSpectrumUrl(spectrumHandle) + (spectrumPath || repoPath),

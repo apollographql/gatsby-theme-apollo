@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import useMount from 'react-use/lib/useMount';
 import {HEADER_HEIGHT} from '../utils';
 import {IconGithub} from '@apollo/space-kit/icons/IconGithub';
+import {IconStar} from '@apollo/space-kit/icons/IconStar';
 import {PageNav, breakpoints, colors} from 'gatsby-theme-apollo-core';
 import {ReactComponent as SpectrumLogo} from '../assets/spectrum.svg';
 import {withPrefix} from 'gatsby';
@@ -112,6 +113,7 @@ const AsideLinkInner = styled.a({
   alignItems: 'center',
   color: colors.text2,
   textDecoration: 'none',
+  cursor: 'pointer',
   ':hover': {
     color: colors.text3
   },
@@ -129,6 +131,28 @@ function AsideLink(props) {
       <AsideLinkInner target="_blank" rel="noopener noreferrer" {...props} />
     </AsideLinkWrapper>
   );
+}
+
+function FeedbackLink(props) {
+  function handleClick(e) {
+    e.preventDefault();
+
+    if (window.freddyWidget) {
+      freddyWidget.show({
+        custom_fields: {
+          title: props.title
+        }
+      });
+    }
+  }
+
+  return (
+    <AsideLinkWrapper>
+      <AsideLinkInner onClick={handleClick}>
+        <IconStar style={{marginTop: -2}} /> Rate article
+      </AsideLinkInner>
+    </AsideLinkWrapper>
+  )
 }
 
 const EditLink = styled.div({
@@ -220,6 +244,9 @@ export default function PageContent(props) {
             contentRef={contentRef}
             imagesLoaded={imagesLoaded === imagesToLoad}
           />
+        )}
+        { props.ffWidgetId && (
+          <FeedbackLink />
         )}
         {editLink}
         {props.spectrumUrl && (

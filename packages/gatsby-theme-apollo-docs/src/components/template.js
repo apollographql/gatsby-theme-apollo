@@ -156,7 +156,8 @@ export default function Template(props) {
     githubUrl,
     spectrumUrl,
     twitterHandle,
-    baseUrl
+    baseUrl,
+    ffWidgetId
   } = props.pageContext;
 
   const pages = sidebarContents
@@ -189,6 +190,7 @@ export default function Template(props) {
           hash={hash}
           githubUrl={githubUrl}
           spectrumUrl={spectrumUrl}
+          ffWidgetId={ffWidgetId}
         >
           <CustomLinkContext.Provider
             value={{
