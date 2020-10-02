@@ -19,7 +19,6 @@ import {
   colors,
   useResponsiveSidebar
 } from 'gatsby-theme-apollo-core';
-import {groupBy} from 'lodash';
 import {Helmet} from 'react-helmet';
 import {IconLayoutModule} from '@apollo/space-kit/icons/IconLayoutModule';
 import {Link, graphql, navigate, useStaticQuery} from 'gatsby';
@@ -27,6 +26,7 @@ import {MobileLogo} from './mobile-logo';
 import {Select} from './select';
 import {SelectedLanguageContext} from './multi-code-block';
 import {getSpectrumUrl, getVersionBasePath} from '../utils';
+import {groupBy} from 'lodash';
 import {size} from 'polished';
 import {trackCustomEvent} from 'gatsby-plugin-google-analytics';
 
@@ -164,16 +164,16 @@ export default function PageLayout(props) {
     menuTitle
   } = props.pluginOptions;
 
-  const navCategories = useMemo(
-    () =>
-      Object.entries(groupBy(navConfig.navItems, 'category')),
-      [navConfig]
-  );
-
-  const navItems = useMemo(
-    () => navConfig.navItems,
-    [navConfig]
-  );
+  const {navItems, navCategories} = useMemo(() => {
+    const navItems = Object.entries(navConfig).map(([title, navItem]) => ({
+      ...navItem,
+      title
+    }));
+    return {
+      navItems,
+      navCategories: Object.entries(groupBy(navItems, 'category'))
+    };
+  }, [navConfig]);
 
   const hasNavItems = navItems.length > 0;
   const sidebarTitle = (

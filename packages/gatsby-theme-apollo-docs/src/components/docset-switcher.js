@@ -27,7 +27,6 @@ const Wrapper = styled.div({
 
 const transitionDuration = 150; // in ms
 const Menu = styled.div({
-
   marginBottom: 24,
   borderRadius: 4,
   boxShadow,
@@ -73,9 +72,9 @@ const NavListItemLink = styled.a({
   transitionTimingFunction: 'ease-in-out',
   '@media (hover: hover)': {
     ':hover': {
-      backgroundColor: colors.primary,
-      'h4': {
-        color: 'white'
+      backgroundColor: colors.primaryLight,
+      h4: {
+        color: colors.primary
       }
     }
   }
@@ -107,6 +106,20 @@ const NavItem = styled.div({
   [breakpoints.md]: {
     width: '100%'
   }
+});
+
+export const NavItemTitle = styled.h4({
+  marginBottom: 8,
+  fontWeight: 600,
+  color: 'inherit'
+});
+
+export const NavItemDescription = styled.p({
+  marginBottom: 0,
+  fontSize: 14,
+  lineHeight: 1.5,
+  color: colors.text3,
+  transition: 'color 150ms ease-in-out'
 });
 
 const FooterNav = styled.nav({
@@ -209,19 +222,20 @@ export default function DocsetSwitcher(props) {
       >
         <StyledNav>
           {props.navCategories.map(([categoryName, navItems]) => (
-            <NavItem>
-              {(categoryName !== 'undefined') && (
+            <NavItem key={categoryName}>
+              {categoryName !== 'undefined' && (
                 <NavListTitle>{categoryName}</NavListTitle>
               )}
               <NavList key={categoryName}>
-                {navItems.map(item => (<>
-                  {console.log(item)}
-                  {(<NavListItem key={item.url}>
+                {navItems.map(item => (
+                  <NavListItem key={item.url}>
                     <NavListItemLink href={item.url} title={item.description}>
-                      <NavListItemTitle>{item.shortName || item.name}</NavListItemTitle>
+                      <NavListItemTitle>
+                        {item.shortName || item.name}
+                      </NavListItemTitle>
                     </NavListItemLink>
-                  </NavListItem>)}
-                </>))}
+                  </NavListItem>
+                ))}
               </NavList>
             </NavItem>
           ))}
@@ -278,8 +292,6 @@ DocsetSwitcher.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   buttonRef: PropTypes.object.isRequired,
-  siteName: PropTypes.string.isRequired,
-  navItems: PropTypes.array.isRequired,
   navCategories: PropTypes.array.isRequired,
   footerNavConfig: PropTypes.object.isRequired,
   spectrumUrl: PropTypes.string,

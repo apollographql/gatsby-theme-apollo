@@ -1,53 +1,45 @@
 const navConfig = {
-  navItems: [
-    {
-      category: 'Core',
-      name: 'Apollo Basics',
-      url: 'https://www.apollographql.com/docs',
-      description:
-        'Learn about each part of the Apollo platform and how they all work together.',
-      omitLandingPage: true
-    },
-    {
-      category: 'Apollo Client',
-      name: 'Apollo Client (React)',
-      shortName: 'React / JS',
-      url: 'https://www.apollographql.com/docs/react',
-      description:
-        "Manage the entirety of your React app's state and seamlessly execute GraphQL operations."
-    },
-    {
-      category: 'Apollo Client',
-      name: 'Apollo Client (iOS)',
-      shortName: 'iOS',
-      url: 'https://www.apollographql.com/docs/ios',
-      description:
-        "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations."
-    },
-    {
-      category: 'Apollo Client',
-      name: 'Apollo Client (Android)',
-      shortName: 'Android',
-      url: 'https://www.apollographql.com/docs/android',
-      description:
-        "Manage the entirety of your Android app's state and seamlessly execute GraphQL operations.",
-      omitLandingPage: true
-    },
-    {
-      category: 'Backend',
-      name: 'Apollo Server',
-      url: 'https://www.apollographql.com/docs/apollo-server',
-      description:
-        'Configure a production-ready GraphQL server to fetch and combine data from multiple sources.'
-    },
-    {
-      category: 'Tools',
-      name: 'Apollo Studio',
-      url: 'https://www.apollographql.com/docs/graph-manager',
-      description:
-        "Build your graph with your team, evolve it safely, and keep it running smoothly."
-    }
-  ]
+  'Apollo Basics': {
+    category: 'Core',
+    url: 'https://www.apollographql.com/docs',
+    description:
+      'Learn about each part of the Apollo platform and how they all work together.',
+    omitLandingPage: true
+  },
+  'Apollo Client (React)': {
+    category: 'Apollo Client',
+    shortName: 'React / JS',
+    url: 'https://www.apollographql.com/docs/react',
+    description:
+      "Manage the entirety of your React app's state and seamlessly execute GraphQL operations."
+  },
+  'Apollo Client (iOS)': {
+    category: 'Apollo Client',
+    shortName: 'iOS',
+    url: 'https://www.apollographql.com/docs/ios',
+    description:
+      "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations."
+  },
+  'Apollo Client (Android)': {
+    category: 'Apollo Client',
+    shortName: 'Android',
+    url: 'https://www.apollographql.com/docs/android',
+    description:
+      "Manage the entirety of your Android app's state and seamlessly execute GraphQL operations.",
+    omitLandingPage: true
+  },
+  'Apollo Server': {
+    category: 'Backend',
+    url: 'https://www.apollographql.com/docs/apollo-server',
+    description:
+      'Configure a production-ready GraphQL server to fetch and combine data from multiple sources.'
+  },
+  'Apollo Studio': {
+    category: 'Tools',
+    url: 'https://www.apollographql.com/docs/graph-manager',
+    description:
+      'Build your graph with your team, evolve it safely, and keep it running smoothly.'
+  }
 };
 
 const footerNavConfig = {
