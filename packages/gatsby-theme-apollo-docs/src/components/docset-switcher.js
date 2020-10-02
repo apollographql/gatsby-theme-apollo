@@ -35,10 +35,7 @@ const Menu = styled.div({
   position: 'absolute',
   transformOrigin: '25% 25%',
   transition: `transform ${transitionDuration}ms ease-in-out`,
-  outline: 'none',
-  [breakpoints.sm]: {
-    width: 'calc(100vw - 48px)'
-  }
+  outline: 'none'
 });
 
 const NavListTitle = styled.h6(smallCaps, {
@@ -231,7 +228,7 @@ export default function DocsetSwitcher(props) {
                   <NavListItem key={item.url}>
                     <NavListItemLink href={item.url} title={item.description}>
                       <NavListItemTitle>
-                        {item.shortName || item.name}
+                        {item.shortName || item.title}
                       </NavListItemTitle>
                     </NavListItemLink>
                   </NavListItem>
