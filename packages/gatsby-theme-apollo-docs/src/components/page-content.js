@@ -138,7 +138,7 @@ function FeedbackLink(props) {
     e.preventDefault();
 
     if (window.freddyWidget) {
-      freddyWidget.show({
+      window.freddyWidget.show({
         custom_fields: {
           title: props.title
         }
@@ -152,8 +152,12 @@ function FeedbackLink(props) {
         <IconStar style={{marginTop: -2}} /> Rate article
       </AsideLinkInner>
     </AsideLinkWrapper>
-  )
+  );
 }
+
+FeedbackLink.propTypes = {
+  title: PropTypes.string.isRequired
+};
 
 const EditLink = styled.div({
   display: 'none',
@@ -245,9 +249,7 @@ export default function PageContent(props) {
             imagesLoaded={imagesLoaded === imagesToLoad}
           />
         )}
-        { props.ffWidgetId && (
-          <FeedbackLink />
-        )}
+        {props.ffWidgetId && <FeedbackLink title={props.title} />}
         {editLink}
         {props.spectrumUrl && (
           <AsideLink href={props.spectrumUrl}>
@@ -263,6 +265,7 @@ PageContent.propTypes = {
   children: PropTypes.node.isRequired,
   pathname: PropTypes.string.isRequired,
   githubUrl: PropTypes.string,
+  ffWidgetId: PropTypes.string,
   pages: PropTypes.array.isRequired,
   hash: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
