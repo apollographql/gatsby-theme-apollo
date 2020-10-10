@@ -21,7 +21,6 @@ const InnerWrapper = styled.div({
   width: 0,
   '.api-ref': {
     h4: {
-      marginTop: 50,
       code: {
         fontSize: '1.1em'
       }
@@ -59,9 +58,17 @@ const BodyContent = styled.div({
     }
   },
   '*:not(style) +': {
-    [['h2', 'h3', 'h4']]: {
-      marginTop: -16,
+    [['h2', 'h3', 'h4', 'h5']]: {
       paddingTop: HEADER_HEIGHT
+    },
+    [['h2']]: {
+      marginTop: -25,
+    },
+    [['h3']]: {
+      marginTop: -30,
+    },
+    [['h4', 'h5']]: {
+      marginTop: -40,
     }
   },
   img: {
