@@ -73,8 +73,7 @@ const BodyContent = styled.div({
   },
   img: {
     display: 'block',
-    maxWidth: '100%',
-    margin: '0 auto'
+    maxWidth: '100%'
   },
   '.mermaid svg': {
     maxWidth: '100%'
