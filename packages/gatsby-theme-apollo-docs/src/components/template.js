@@ -4,6 +4,7 @@ import Footer from './footer';
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer';
 import PageContent from './page-content';
 import PageHeader from './page-header';
+import {HEADER_HEIGHT} from '../utils';
 import PropTypes from 'prop-types';
 import React, {Fragment, createContext, useContext} from 'react';
 import rehypeReact from 'rehype-react';
@@ -87,7 +88,9 @@ export const StyledTable = styled.table({
         fontSize: 'inherit',
         lineHeight: 'inherit',
         fontWeight: 'bold',
-        marginBottom: '5px'
+        marginBottom: '5px',
+        paddingTop: (HEADER_HEIGHT + 20),
+        marginTop: -(HEADER_HEIGHT + 20)
       },
       '&:first-child p': {
         fontSize: '14px',
