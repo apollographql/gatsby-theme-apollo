@@ -25,8 +25,7 @@ const navConfig = {
     shortName: 'Android',
     url: 'https://www.apollographql.com/docs/android',
     description:
-      "Manage the entirety of your Android app's state and seamlessly execute GraphQL operations.",
-    omitLandingPage: true
+      "Manage the entirety of your Android app's state and seamlessly execute GraphQL operations."
   },
   'Apollo Server': {
     category: 'Backend',
@@ -37,7 +36,6 @@ const navConfig = {
   'Apollo Federation': {
     category: 'Backend',
     url: 'https://www.apollographql.com/docs/federation',
-    omitLandingPage: true,
     description: 'Implement a single data graph across multiple services.'
   },
   'Apollo Studio': {
