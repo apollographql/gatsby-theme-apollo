@@ -59,16 +59,8 @@ const BodyContent = styled.div({
   },
   '*:not(style) +': {
     [['h2', 'h3', 'h4', 'h5']]: {
-      paddingTop: HEADER_HEIGHT
-    },
-    [['h2']]: {
-      marginTop: -25
-    },
-    [['h3']]: {
-      marginTop: -30
-    },
-    [['h4', 'h5']]: {
-      marginTop: -40
+      paddingTop: HEADER_HEIGHT,
+      marginTop: -24
     }
   },
   img: {
@@ -236,7 +228,9 @@ export default function PageContent(props) {
       <InnerWrapper>
         <BodyContent
           ref={contentRef}
-          className={cn('content-wrapper', {'api-ref': props.apiReference})}
+          className={cn('content-wrapper', {
+            'api-ref': props.apiReference
+          })}
         >
           {props.children}
         </BodyContent>
