@@ -10,3 +10,4 @@ export {
   NavItemDescription,
   NavItemTitle
 } from './src/components/docset-switcher';
+export {VideoFrame} from './src/components/video-frame';
