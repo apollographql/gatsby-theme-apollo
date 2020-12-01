@@ -79,8 +79,9 @@ const Aside = styled.aside({
   width: 240,
   maxHeight: `calc(100vh - ${HEADER_HEIGHT}px)`,
   marginTop: -36,
-  padding: '40px 0',
+  padding: '40px 0 0 16px',
   marginLeft: 40,
+  backgroundColor: 'white',
   position: 'sticky',
   top: HEADER_HEIGHT,
   [breakpoints.lg]: {
