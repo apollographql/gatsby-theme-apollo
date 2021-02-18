@@ -3,7 +3,7 @@ const path = require('path');
 const git = require('simple-git')();
 const {createFilePath} = require('gatsby-source-filesystem');
 const {getVersionBasePath, getSpectrumUrl} = require('./src/utils');
-const getShareImage = require('@jlengstorf/get-share-image');
+const {default: getShareImage} = require('@jlengstorf/get-share-image');
 
 function getConfigPaths(baseDir) {
   return [
