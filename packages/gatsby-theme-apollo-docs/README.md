@@ -85,6 +85,7 @@ module.exports = {
 | gaTrackingId        | string | No       | Your site's Google Analytics tracking ID                                                                                                |
 | algoliaApiKey       | string | No       | Your [Algolia DocSearch](https://community.algolia.com/docsearch/) API key                                                              |
 | algoliaIndexName    | string | No       | The name of your DocSearch index                                                                                                        |
+| shareImageConfig    | string | No       | The configuration object for Cloudinary social cards [see docs for options](https://www.npmjs.com/package/@jlengstorf/get-share-image)  |
 | baseUrl             | string | No       | The origin where your website will be hosted (e.g. `https://www.apollographql.com`)                                                     |
 | spectrumHandle      | string | No       | Your Spectrum community's handle/slug                                                                                                   |
 | twitterHandle       | string | No       | Your Twitter handle, without the "@"                                                                                                    |
