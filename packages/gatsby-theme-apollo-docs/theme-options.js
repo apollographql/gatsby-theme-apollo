@@ -62,6 +62,19 @@ const footerNavConfig = {
   }
 };
 
+const titleFont = encodeURIComponent('Source Sans Pro');
+const shareImageConfig = {
+  titleFont,
+  titleFontSize: 80,
+  titleExtraConfig: '_bold',
+  taglineFont: titleFont,
+  textColor: 'FFFFFF',
+  textLeftOffset: 80,
+  textAreaWidth: 1120,
+  cloudName: 'apollographql',
+  imagePublicID: 'apollo-docs-template2_dohzxt'
+};
+
 module.exports = {
   siteName: 'Apollo Docs',
   pageTitle: 'Apollo GraphQL Docs',
@@ -78,5 +91,6 @@ module.exports = {
   contentDir: 'source',
   navConfig,
   footerNavConfig,
-  ffWidgetId: '3131c43c-bfb5-44e6-9a72-b4094f7ec028'
+  ffWidgetId: '3131c43c-bfb5-44e6-9a72-b4094f7ec028',
+  shareImageConfig
 };

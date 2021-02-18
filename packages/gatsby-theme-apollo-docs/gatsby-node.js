@@ -3,7 +3,7 @@ const path = require('path');
 const git = require('simple-git')();
 const {createFilePath} = require('gatsby-source-filesystem');
 const {getVersionBasePath, getSpectrumUrl} = require('./src/utils');
-const {createPrinterNode} = require('gatsby-plugin-printer');
+const {default: getShareImage} = require('@jlengstorf/get-share-image');
 
 function getConfigPaths(baseDir) {
   return [
@@ -21,7 +21,8 @@ async function onCreateNode(
     localVersion,
     siteName,
     subtitle,
-    sidebarCategories
+    sidebarCategories,
+    shareImageConfig
   }
 ) {
   const configPaths = getConfigPaths(baseDir);
@@ -46,39 +47,31 @@ async function onCreateNode(
       slug = node.frontmatter.slug; // eslint-disable-line prefer-destructuring
     }
 
-    let category;
-    const fileName = parent.name;
-    const outputDir = 'social-cards';
+    const {title, sidebar_title, api_reference} = node.frontmatter;
 
+    let tagline = subtitle || siteName;
     for (const key in sidebarCategories) {
       if (key !== 'null') {
         const categories = sidebarCategories[key];
         const trimmedSlug = slug.replace(/^\/|\/$/g, '');
         if (categories.includes(trimmedSlug)) {
-          category = key;
+          tagline += ` › ${key}`;
           break;
         }
       }
     }
 
-    const {title, sidebar_title, api_reference} = node.frontmatter;
-    createPrinterNode({
-      id: `${node.id} >>> Printer`,
-      fileName,
-      outputDir,
-      data: {
-        title,
-        subtitle: subtitle || siteName,
-        category
-      },
-      component: require.resolve('./src/components/social-card.js')
-    });
-
-    actions.createNodeField({
-      name: 'image',
-      node,
-      value: path.join(outputDir, fileName + '.png')
-    });
+    if (shareImageConfig) {
+      actions.createNodeField({
+        name: 'image',
+        node,
+        value: getShareImage({
+          title,
+          tagline,
+          ...shareImageConfig
+        })
+      });
+    }
 
     let versionRef = '';
     if (parent.gitRemote___NODE) {

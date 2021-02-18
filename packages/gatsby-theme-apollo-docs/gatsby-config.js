@@ -140,7 +140,6 @@ module.exports = ({
         ]
       }
     },
-    'gatsby-plugin-printer',
     ...Object.entries(versions).map(([name, branch]) => ({
       resolve: 'gatsby-source-git',
       options: {
