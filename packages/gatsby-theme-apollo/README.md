@@ -1,6 +1,6 @@
 # gatsby-theme-apollo
 
-A Gatsby theme that sets up your website for use with [Apollo Client](https://www.apollographql.com/docs/react/v3.0-beta).
+A Gatsby theme that sets up your website for use with [Apollo Client](https://www.apollographql.com/docs/react/v3.0-beta). 
 
 ## Installation
 
