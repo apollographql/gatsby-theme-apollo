@@ -2,7 +2,7 @@
 
 This is the base theme for building Apollo-branded Gatsby sites. It contains a small amount of configuration, and a handful of components that make it easy to build consistent-looking UIs.
 
-It comes with a few Gatsby plugins:
+It comes with a few Gatsby plugins: 
 
  - `gatsby-plugin-svgr` enables [importing SVGs as React components](https://www.gatsbyjs.org/packages/gatsby-plugin-svgr)
  - `gatsby-plugin-emotion` server renders your [Emotion](https://emotion.sh) styles

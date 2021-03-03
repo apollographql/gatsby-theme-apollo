@@ -1,6 +1,6 @@
 # gatsby-theme-apollo-docs
 
-This is an entirely configuration-based Gatsby theme that generates a documentation website based on a series of Markdown or MDX files. It also exports a series of [components](#components) that can be used within MDX pages.
+This is an entirely configuration-based Gatsby theme that generates a documentation website based on a series of Markdown or MDX files. It also exports a series of [components](#components) that can be used within MDX pages. 
 
 - [Installation](#installation)
 - [Configuration](#configuration)

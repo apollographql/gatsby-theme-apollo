@@ -3,7 +3,7 @@
   <h1 align="center">Apollo Gatsby Themes</h1>
 </div>
 
-This repo contains [Gatsby](https://gatsbyjs.org) themes made by Apollo.
+This repo contains [Gatsby](https://gatsbyjs.org) themes made by Apollo. 
 
 ## Packages
 
