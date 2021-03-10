@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 import useWindowScroll from 'react-use/lib/useWindowScroll';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import {colors} from 'gatsby-theme-apollo-core';
-import {trackCustomEvent} from '../helpers/trackCustomEvent';
+import {trackCustomEvent} from '../utils';
 
 const StyledList = styled.ul({
   marginLeft: 0,

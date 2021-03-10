@@ -9,7 +9,7 @@ import {
 } from './multi-code-block';
 import {Select} from './select';
 import {colors} from 'gatsby-theme-apollo-core';
-import {trackCustomEvent} from '../helpers/trackCustomEvent';
+import {trackCustomEvent} from '../utils';
 
 const Container = styled.div({
   marginBottom: '1.45rem',

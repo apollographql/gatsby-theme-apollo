@@ -156,16 +156,10 @@ module.exports = ({
   ];
 
   if (gaTrackingId) {
-    let trackingIds = [];
-    if (Array.isArray(gaTrackingId)) {
-      trackingIds = gaTrackingId;
-    } else {
-      trackingIds.push(gaTrackingId);
-    }
     plugins.push({
       resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingIds
+        trackingIds: Array.isArray(gaTrackingId) ? gaTrackingId : [gaTrackingId]
       }
     });
   }
