@@ -14,7 +14,8 @@
     "gatsby",
     "gatsby-plugin",
     "apollo",
-    "docs"
+    "docs",
+    "theme"
   ],
   "dependencies": {
     "@jlengstorf/get-share-image": "^0.8.0",
