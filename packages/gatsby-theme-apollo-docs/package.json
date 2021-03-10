@@ -23,6 +23,7 @@
     "@mdx-js/react": "^1.0.27",
     "classnames": "^2.2.6",
     "gatsby-plugin-google-analytics": "^2.2.5",
+    "gatsby-plugin-google-gtag": "^3.0.0",
     "gatsby-plugin-mdx": "^1.0.23",
     "gatsby-remark-autolink-headers": "^2.3.11",
     "gatsby-remark-check-links": "^2.1.0",
@@ -37,7 +38,6 @@
     "gatsby-transformer-remark": "^2.6.30",
     "js-yaml": "^3.13.1",
     "prismjs": "^1.15.0",
-    "react-use": "^17.1.1",
     "recompose": "^0.30.0",
     "rehype-react": "^3.1.0",
     "remark": "^10.0.1",
@@ -56,5 +56,6 @@
     "gatsby": "^2.13.80",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
-  }
+  },
+  "gitHead": "4d272dbde806f86aa98b4d8ee901336eed6101ae"
 }
