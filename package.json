@@ -9,7 +9,5 @@
     "eslint": "^5.13.0",
     "lerna": "^3.10.7"
   },
-  "dependencies": {
-    "gatsby-plugin-google-gtag": "^3.0.0"
-  }
+  "dependencies": {}
 }
