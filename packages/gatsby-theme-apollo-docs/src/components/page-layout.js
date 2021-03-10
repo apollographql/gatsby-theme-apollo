@@ -28,7 +28,7 @@ import {SelectedLanguageContext} from './multi-code-block';
 import {getSpectrumUrl, getVersionBasePath} from '../utils';
 import {groupBy} from 'lodash';
 import {size} from 'polished';
-import {trackCustomEvent} from 'gatsby-plugin-google-analytics';
+import {trackCustomEvent} from '../helpers/trackCustomEvent';
 
 const Main = styled.main({
   flexGrow: 1
