@@ -1,7 +1,7 @@
 const path = require('path');
 const remarkTypescript = require('remark-typescript');
-const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
-const {HEADER_HEIGHT} = require('./src/utils');
+const { colors } = require('gatsby-theme-apollo-core/src/utils/colors');
+const { HEADER_HEIGHT } = require('./src/utils');
 
 module.exports = ({
   root,
@@ -135,7 +135,7 @@ module.exports = ({
       options: {
         gatsbyRemarkPlugins: allGatsbyRemarkPlugins,
         remarkPlugins: [
-          [remarkTypescript, {wrapperComponent: 'MultiCodeBlock'}],
+          [remarkTypescript, { wrapperComponent: 'MultiCodeBlock' }],
           ...remarkPlugins
         ]
       }
@@ -156,10 +156,16 @@ module.exports = ({
   ];
 
   if (gaTrackingId) {
+    let trackingIds = [];
+    if (Array.isArray(gaTrackingId)) {
+      trackingIds = gaTrackingId;
+    } else {
+      trackingIds.push(gaTrackingId);
+    }
     plugins.push({
-      resolve: 'gatsby-plugin-google-analytics',
+      resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingId: gaTrackingId
+        trackingIds
       }
     });
   }
