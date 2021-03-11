@@ -25,10 +25,9 @@ import {Link, graphql, navigate, useStaticQuery} from 'gatsby';
 import {MobileLogo} from './mobile-logo';
 import {Select} from './select';
 import {SelectedLanguageContext} from './multi-code-block';
-import {getSpectrumUrl, getVersionBasePath} from '../utils';
+import {getSpectrumUrl, getVersionBasePath, trackCustomEvent} from '../utils';
 import {groupBy} from 'lodash';
 import {size} from 'polished';
-import {trackCustomEvent} from 'gatsby-plugin-google-analytics';
 
 const Main = styled.main({
   flexGrow: 1

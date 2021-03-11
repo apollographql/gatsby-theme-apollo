@@ -157,9 +157,9 @@ module.exports = ({
 
   if (gaTrackingId) {
     plugins.push({
-      resolve: 'gatsby-plugin-google-analytics',
+      resolve: 'gatsby-plugin-google-gtag',
       options: {
-        trackingId: gaTrackingId
+        trackingIds: Array.isArray(gaTrackingId) ? gaTrackingId : [gaTrackingId]
       }
     });
   }

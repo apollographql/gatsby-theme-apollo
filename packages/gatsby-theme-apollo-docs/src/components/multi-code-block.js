@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {createContext, useContext, useMemo} from 'react';
 import styled from '@emotion/styled';
-import {trackCustomEvent} from 'gatsby-plugin-google-analytics';
+import {trackCustomEvent} from '../utils';
 
 export const GA_EVENT_CATEGORY_CODE_BLOCK = 'Code Block';
 export const MultiCodeBlockContext = createContext({});
