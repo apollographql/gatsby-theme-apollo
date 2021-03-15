@@ -14,6 +14,7 @@ module.exports = ({
   contentDir = 'content',
   versions = {},
   gaTrackingId,
+  gtmContainerId,
   ignore,
   checkLinksOptions,
   gatsbyRemarkPlugins = [],
@@ -160,6 +161,15 @@ module.exports = ({
       resolve: 'gatsby-plugin-google-gtag',
       options: {
         trackingIds: Array.isArray(gaTrackingId) ? gaTrackingId : [gaTrackingId]
+      }
+    });
+  }
+
+  if (gtmContainerId) {
+    plugins.push({
+      resolve: 'gatsby-plugin-google-tagmanager',
+      options: {
+        id: gtmContainerId
       }
     });
   }
