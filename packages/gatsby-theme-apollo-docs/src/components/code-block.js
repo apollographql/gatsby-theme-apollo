@@ -21,7 +21,7 @@ const Header = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
-  padding: 10,
+  padding: 4,
   borderBottom: `1px solid ${colors.divider}`
 });
 
