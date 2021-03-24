@@ -37,7 +37,7 @@ export default function HeaderButton() {
   return (
     <Container>
       <StyledLink
-        href="https://studio.apollographql.com?utm_source=docs-button&referrer=docs"
+        href="https://studio.apollographql.com?referrer=docs"
         target="_blank"
         rel="noopener noreferrer"
       >
