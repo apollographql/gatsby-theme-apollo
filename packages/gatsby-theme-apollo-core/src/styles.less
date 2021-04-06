@@ -81,6 +81,11 @@ li {
     line-height: 1.7;
 }
 
+li li {
+    line-height: 1.4;
+    font-size: 1.05rem;
+}
+
 ul,
 ol {
     margin-left: @default-margin;
@@ -101,11 +106,16 @@ blockquote {
     border-left: 2px solid @color-primary;
 }
 
-blockquote > p {
+blockquote > p, blockquote > ul, blockquote > ol {
     font-size: inherit;
     &:last-child {
         margin-bottom: 0;
     }
+}
+
+blockquote li, td li {
+    font-size: inherit;
+    line-height: 1.1;
 }
 
 form {
