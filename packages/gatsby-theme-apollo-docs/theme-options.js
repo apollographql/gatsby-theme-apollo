@@ -43,6 +43,13 @@ const navConfig = {
     url: 'https://www.apollographql.com/docs/graph-manager',
     description:
       'Build your graph with your team, evolve it safely, and keep it running smoothly.'
+  },
+  'Rover CLI (Preview)': {
+    category: 'Tools',
+    url: 'https://www.apollographql.com/docs/rover',
+    description:
+      'Manage your Studio graphs and schemas from the command line.',
+    omitLandingPage: true
   }
 };
 
