@@ -2,7 +2,7 @@ const jsYaml = require('js-yaml');
 const path = require('path');
 const git = require('simple-git')();
 const {createFilePath} = require('gatsby-source-filesystem');
-const {getVersionBasePath, getSpectrumUrl} = require('./src/utils');
+const {getVersionBasePath} = require('./src/utils');
 const {default: getShareImage} = require('@jlengstorf/get-share-image');
 
 function getConfigPaths(baseDir) {
@@ -218,8 +218,6 @@ exports.createPages = async (
     githubRepo,
     githubHost = 'github.com',
     sidebarCategories,
-    spectrumHandle,
-    spectrumPath,
     ffWidgetId,
     twitterHandle,
     localVersion,
@@ -353,9 +351,6 @@ exports.createPages = async (
         sidebarContents: sidebarContents[fields.version],
         githubUrl,
         ffWidgetId,
-        spectrumUrl:
-          spectrumHandle &&
-          getSpectrumUrl(spectrumHandle) + (spectrumPath || repoPath),
         twitterHandle,
         versions: versionKeys, // only need to send version labels to client
         defaultVersion,

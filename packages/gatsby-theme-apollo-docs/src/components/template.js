@@ -156,7 +156,7 @@ export default function Template(props) {
   const {
     sidebarContents,
     githubUrl,
-    spectrumUrl,
+    forumUrl,
     twitterHandle,
     baseUrl,
     ffWidgetId
@@ -197,7 +197,7 @@ export default function Template(props) {
           )}
           hash={hash}
           githubUrl={githubUrl}
-          spectrumUrl={spectrumUrl}
+          forumUrl={forumUrl}
           ffWidgetId={ffWidgetId}
         >
           <CustomLinkContext.Provider

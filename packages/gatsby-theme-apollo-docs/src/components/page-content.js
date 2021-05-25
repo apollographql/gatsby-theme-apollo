@@ -252,7 +252,7 @@ export default function PageContent(props) {
         {editLink}
         {props.spectrumUrl && (
           <AsideLink href={props.spectrumUrl}>
-            <SpectrumLogo /> Discuss on Spectrum
+            <SpectrumLogo /> Discuss in forums
           </AsideLink>
         )}
       </Aside>
@@ -264,11 +264,11 @@ PageContent.propTypes = {
   children: PropTypes.node.isRequired,
   pathname: PropTypes.string.isRequired,
   githubUrl: PropTypes.string,
+  forumUrl: PropTypes.string,
   ffWidgetId: PropTypes.string,
   pages: PropTypes.array.isRequired,
   hash: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   apiReference: PropTypes.bool.isRequired,
   headings: PropTypes.array.isRequired,
-  spectrumUrl: PropTypes.string
 };
