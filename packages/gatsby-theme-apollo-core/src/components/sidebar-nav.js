@@ -34,23 +34,28 @@ const ExpandAll = styled.button(smallCaps, {
 
 const StyledList = styled.ul({
   marginLeft: 0,
-  marginBottom: 32,
+  marginBottom: 24,
   listStyle: 'none'
 });
 
 const StyledListItem = styled.li({
   fontSize: '1rem',
-  lineHeight: 1.5,
+  lineHeight: 1,
   marginBottom: '0.8125rem',
   a: {
     color: 'inherit',
     textDecoration: 'none',
+    padding: '4px',
+    borderRadius: '0.3em',
+    marginLeft: '-4px',
     ':hover': {
       opacity: colors.hoverOpacity
     },
     '&.active': {
       color: colors.primary,
-      pointerEvents: 'none'
+      pointerEvents: 'none',
+      fontWeight: 600,
+      background: colors.background2
     }
   }
 });
@@ -162,7 +167,7 @@ NavItems.propTypes = {
 export default function SidebarNav(props) {
   const categoriesRef = useRef();
 
-  const [allExpanded, setAllExpanded] = useState(false);
+  const [allExpanded, setAllExpanded] = useState(true);
   const categories = props.contents.filter(content => content.title);
   const [root] = props.contents.filter(content => !content.title);
 
@@ -222,7 +227,7 @@ export default function SidebarNav(props) {
                   type="checkbox"
                   value={category.title}
                   onChange={toggleCategory}
-                  defaultChecked={isSelected}
+                  defaultChecked={true}
                 />
               )}
               {props.alwaysExpanded && category.path ? (
