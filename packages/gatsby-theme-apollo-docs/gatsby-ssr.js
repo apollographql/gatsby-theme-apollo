@@ -21,7 +21,7 @@ export const onRenderBody = (
           }}
         />
       ],
-      <script src="https://apollographql.com/utm-grabber.js" />
+      <script src="https://www.apollographql.com/utm-grabber.js" />
     );
   }
 
