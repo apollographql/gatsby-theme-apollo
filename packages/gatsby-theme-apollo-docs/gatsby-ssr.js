@@ -1,22 +1,28 @@
 import PageLayout from './src/components/page-layout';
 import React from 'react';
 
-export const onRenderBody = ({setPostBodyComponents, setHeadComponents}, {ffWidgetId}) => {
+export const onRenderBody = (
+  {setPostBodyComponents, setHeadComponents},
+  {ffWidgetId}
+) => {
   if (ffWidgetId) {
-    setHeadComponents([
-      <script
-        key="feedback"
-        dangerouslySetInnerHTML={{
-          __html: `
+    setHeadComponents(
+      [
+        <script
+          key="feedback"
+          dangerouslySetInnerHTML={{
+            __html: `
           var ffWidgetId = '${ffWidgetId}';
           var ffWidgetScript = document.createElement("script");
           ffWidgetScript.type = "text/javascript";
           ffWidgetScript.src = 'https://freddyfeedback.com/widget/freddyfeedback.js';
           document.head.appendChild(ffWidgetScript);
-        `,
-        }}
-      />
-    ]);
+        `
+          }}
+        />
+      ],
+      <script src="https://apollographql.com/utm-grabber.js" />
+    );
   }
 
   setPostBodyComponents([
