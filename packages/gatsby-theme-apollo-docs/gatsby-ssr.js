@@ -1,7 +1,10 @@
 import PageLayout from './src/components/page-layout';
 import React from 'react';
 
-export const onRenderBody = ({setPostBodyComponents, setHeadComponents}, {ffWidgetId}) => {
+export const onRenderBody = (
+  {setPostBodyComponents, setHeadComponents},
+  {ffWidgetId}
+) => {
   if (ffWidgetId) {
     setHeadComponents([
       <script
@@ -13,9 +16,10 @@ export const onRenderBody = ({setPostBodyComponents, setHeadComponents}, {ffWidg
           ffWidgetScript.type = "text/javascript";
           ffWidgetScript.src = 'https://freddyfeedback.com/widget/freddyfeedback.js';
           document.head.appendChild(ffWidgetScript);
-        `,
+        `
         }}
-      />
+      />,
+      <script key="utm" src="https://www.apollographql.com/utm-grabber.js" />
     ]);
   }
 
