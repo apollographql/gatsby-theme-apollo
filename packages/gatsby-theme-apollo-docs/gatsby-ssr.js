@@ -6,23 +6,21 @@ export const onRenderBody = (
   {ffWidgetId}
 ) => {
   if (ffWidgetId) {
-    setHeadComponents(
-      [
-        <script
-          key="feedback"
-          dangerouslySetInnerHTML={{
-            __html: `
-          var ffWidgetId = '${ffWidgetId}';
-          var ffWidgetScript = document.createElement("script");
-          ffWidgetScript.type = "text/javascript";
-          ffWidgetScript.src = 'https://freddyfeedback.com/widget/freddyfeedback.js';
-          document.head.appendChild(ffWidgetScript);
-        `
-          }}
-        />
-      ],
+    setHeadComponents([
+      <script
+        key="feedback"
+        dangerouslySetInnerHTML={{
+          __html: `
+            var ffWidgetId = '${ffWidgetId}';
+            var ffWidgetScript = document.createElement("script");
+            ffWidgetScript.type = "text/javascript";
+            ffWidgetScript.src = 'https://freddyfeedback.com/widget/freddyfeedback.js';
+            document.head.appendChild(ffWidgetScript);
+          `
+        }}
+      />,
       <script key="utm" src="https://www.apollographql.com/utm-grabber.js" />
-    );
+    ]);
   }
 
   setPostBodyComponents([
