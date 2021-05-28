@@ -12,7 +12,8 @@ This repo contains [Gatsby](https://gatsbyjs.org) themes made by Apollo.
 - [`gatsby-theme-apollo-docs`](./packages/gatsby-theme-apollo-docs)
 
 ## Example
-- [`example`](./example)
+
+- [Basic usage with overrides](./example)
 
 ## License
 
