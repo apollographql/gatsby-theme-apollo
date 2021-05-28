@@ -39,18 +39,25 @@ const StyledList = styled.ul({
 });
 
 const StyledListItem = styled.li({
+  display: 'flex',
   fontSize: '1rem',
   lineHeight: 1.5,
-  marginBottom: '0.8125rem',
+  marginBottom: 13,
   a: {
     color: 'inherit',
     textDecoration: 'none',
+    // create space around the link and cancel it out
+    padding: '3px 10px',
+    margin: '-3px -10px',
+    borderRadius: 4,
     ':hover': {
       opacity: colors.hoverOpacity
     },
     '&.active': {
       color: colors.primary,
-      pointerEvents: 'none'
+      pointerEvents: 'none',
+      fontWeight: 600,
+      background: colors.background
     }
   }
 });
@@ -162,7 +169,7 @@ NavItems.propTypes = {
 export default function SidebarNav(props) {
   const categoriesRef = useRef();
 
-  const [allExpanded, setAllExpanded] = useState(false);
+  const [allExpanded, setAllExpanded] = useState(true);
   const categories = props.contents.filter(content => content.title);
   const [root] = props.contents.filter(content => !content.title);
 
@@ -222,7 +229,7 @@ export default function SidebarNav(props) {
                   type="checkbox"
                   value={category.title}
                   onChange={toggleCategory}
-                  defaultChecked={isSelected}
+                  defaultChecked
                 />
               )}
               {props.alwaysExpanded && category.path ? (
