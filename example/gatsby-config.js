@@ -13,7 +13,7 @@ module.exports = {
                 sidebarCategories: {
                     //Null is an alias for index page.
                     null: ['index'],
-                    More: ['other']
+                    More: ['other', 'dummy']
                 }
             }
         }
