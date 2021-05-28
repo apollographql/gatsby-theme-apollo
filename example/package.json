@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "start": "gatsby develop",
-    "build": "gatsby build",
-    "prepare": "gatsby build",
-    "test": "$npm_execpath build"
+    "build": "gatsby build"
   },
   "dependencies": {
     "gatsby": "^2.23.18",

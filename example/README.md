@@ -2,8 +2,13 @@
 
 This directory is an example project to show how you can use Apollo's docs theme for non-Apollo usage.
 
-## Changing the logo
+## Overrides
 
-This also shows how to override the logo and remove the header button.
+To replace the logo, create a custom React component in `src/gatsby-theme-apollo-core/components/logo.js`. You can import your own SVG and use styled components to achieve your desired look.
 
-To replace the logo, add your `logo.svg` into `src/assets`. However you may need to modify the React component in `gatsby-theme-apollo-core/components/logo.js` to achieve your desired look.
+This example removes the header button by supplying a React component that renders nothing at `src/gatsby-theme-apollo-docs/components/header-button.js`.
+
+```js
+// this is a "component" that renders nothing
+export default () => null;
+```

@@ -1,7 +1,8 @@
 ---
-title: Hello from other
-description: Writing filler content is soo hard.
+title: Hello from the other side
+description: I must've called a thousand times
 ---
-This is the other
-===
-Markdown file.
+
+## To tell you I'm sorry for everything that I've done
+
+But when I call, you never seem to be home
