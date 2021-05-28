@@ -17,7 +17,7 @@
   ],
   "peerDependencies": {
     "@apollo/client": "^3.0.2",
-    "gatsby": "^2.13.80"
+    "gatsby": ">=2.13.80"
   },
   "devDependencies": {
     "@apollo/client": "^3.0.2",
