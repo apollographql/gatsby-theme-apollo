@@ -33,14 +33,18 @@ const BodySubheading = styled.h6(smallCaps, {
   fontWeight: 'bold'
 });
 
+function _allText(data) {
+  return [data.shortText, data.text].filter(Boolean).join('\n\n');
+}
+
 function _summary(rawData) {
   if (rawData.comment) {
-    return rawData.comment.shortText;
+    return _allText(rawData.comment);
   }
   return (
     rawData.signatures &&
     rawData.signatures[0].comment &&
-    rawData.signatures[0].comment.shortText
+    _allText(rawData.signatures[0].comment)
   );
 }
 
