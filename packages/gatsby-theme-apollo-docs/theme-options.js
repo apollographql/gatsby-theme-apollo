@@ -47,8 +47,7 @@ const navConfig = {
   'Rover CLI': {
     category: 'Tools',
     url: 'https://www.apollographql.com/docs/rover',
-    description:
-      'Manage your Studio graphs and schemas from the command line.'
+    description: 'Manage your Studio graphs and schemas from the command line.'
   }
 };
 
