@@ -34,7 +34,7 @@ const BodySubheading = styled.h6(smallCaps, {
 });
 
 function _allText(data) {
-  return [data.shortText, data.text].filter(v => v).join('\n\n');
+  return [data.shortText, data.text].filter(Boolean).join('\n\n');
 }
 
 function _summary(rawData) {
