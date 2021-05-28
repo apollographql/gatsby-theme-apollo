@@ -7,6 +7,9 @@ const StyledImage = styled.img({
 
 export default function Logo() {
   return (
-    <StyledImage src="https://upload.wikimedia.org/wikipedia/commons/2/28/HelloWorld.svg" />
+    <StyledImage
+      alt="Hello world"
+      src="https://upload.wikimedia.org/wikipedia/commons/2/28/HelloWorld.svg"
+    />
   );
 }

@@ -2,5 +2,5 @@
 title: Hello world from index
 description: Hello world from apollo
 ---
-This is a place holder.
-[dummy link](./dummy)
+
+This is a placeholder. [Link to dummy page](./dummy)
