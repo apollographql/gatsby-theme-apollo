@@ -9,6 +9,7 @@ import React, {Fragment, createContext, useContext} from 'react';
 import rehypeReact from 'rehype-react';
 import styled from '@emotion/styled';
 import {ContentWrapper, colors, smallCaps} from 'gatsby-theme-apollo-core';
+import {Global} from '@emotion/core';
 import {HEADER_HEIGHT} from '../utils';
 import {MDXProvider} from '@mdx-js/react';
 import {graphql, navigate} from 'gatsby';
@@ -88,9 +89,7 @@ export const StyledTable = styled.table({
         fontSize: 'inherit',
         lineHeight: 'inherit',
         fontWeight: 'bold',
-        marginBottom: '5px',
-        paddingTop: HEADER_HEIGHT + 20,
-        marginTop: -(HEADER_HEIGHT + 20)
+        marginBottom: '5px'
       },
       '&:first-child p': {
         fontSize: '14px',
@@ -175,6 +174,13 @@ export default function Template(props) {
         siteName={title}
         image={fields.image}
         twitterHandle={twitterHandle}
+      />
+      <Global
+        styles={{
+          html: {
+            scrollPaddingTop: HEADER_HEIGHT + 20
+          }
+        }}
       />
       <StyledContentWrapper>
         <PageHeader {...frontmatter} />

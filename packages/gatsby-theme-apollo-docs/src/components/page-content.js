@@ -59,8 +59,7 @@ const BodyContent = styled.div({
   },
   '*:not(style) +': {
     [['h2', 'h3', 'h4', 'h5']]: {
-      marginTop: -24,
-      paddingTop: HEADER_HEIGHT
+      marginTop: 64
     }
   },
   img: {
