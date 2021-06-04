@@ -18,7 +18,8 @@ module.exports = ({
   ignore,
   checkLinksOptions,
   gatsbyRemarkPlugins = [],
-  remarkPlugins = []
+  remarkPlugins = [],
+  algoliaConfig
 }) => {
   const allGatsbyRemarkPlugins = [
     {
@@ -170,6 +171,66 @@ module.exports = ({
       resolve: 'gatsby-plugin-google-tagmanager',
       options: {
         id: gtmContainerId
+      }
+    });
+  }
+
+  if (algoliaConfig) {
+    plugins.push({
+      resolve: 'gatsby-plugin-algolia',
+      options: {
+        appId: algoliaConfig.appId,
+        apiKey: algoliaConfig.apiKey,
+        queries: [
+          {
+            query: `{
+              pagesMD: allMarkdownRemark {
+                edges {
+                  node {
+                    excerpt(pruneLength: 100)
+                    htmlAst
+                    id
+                    frontmatter {
+                      title
+                      description
+                    }
+                    fields {
+                      slug
+                      apiReference
+                      sidebarTitle
+                    }
+                  }
+                }
+              }
+              pagesMDX: allMdx {
+                edges {
+                  node {
+                    excerpt(pruneLength: 100)
+                    mdxAST
+                    id
+                    frontmatter {
+                      title
+                      description
+                    }
+                    fields {
+                      slug         
+                      apiReference
+                      sidebarTitle   
+                    }
+                  }
+                }
+              }
+            }`,
+            transformer: ({data}) => {
+              return algoliaParse.parse({
+                data,
+                baseUrl: algoliaConfig.baseUrl
+              });
+            },
+            indexName: algoliaConfig.indexName,
+            settings: algoliaParse.algoliaSettings.default
+          }
+        ]
       }
     });
   }
