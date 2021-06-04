@@ -2,9 +2,12 @@ const path = require('path');
 const remarkTypescript = require('remark-typescript');
 const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
 const {HEADER_HEIGHT} = require('./src/utils');
+const {queries, parse, algoliaSettings} = require('gatsby-algolia-transform');
 
 module.exports = ({
   root,
+  baseUrl,
+  pathPrefix,
   siteName,
   pageTitle,
   description,
@@ -19,7 +22,8 @@ module.exports = ({
   checkLinksOptions,
   gatsbyRemarkPlugins = [],
   remarkPlugins = [],
-  oneTrust
+  oneTrust,
+  algoliaConfig
 }) => {
   const allGatsbyRemarkPlugins = [
     {
@@ -186,7 +190,31 @@ module.exports = ({
     });
   }
 
+  if (algoliaConfig) {
+    const {appId, apiKey, indexName} = algoliaConfig;
+    plugins.push({
+      resolve: 'gatsby-plugin-algolia',
+      options: {
+        appId,
+        apiKey,
+        queries: [
+          {
+            query: queries.docs,
+            transformer: ({data}) =>
+              parse({
+                data,
+                baseUrl: baseUrl + pathPrefix
+              }),
+            indexName,
+            settings: algoliaSettings.default
+          }
+        ]
+      }
+    });
+  }
+
   return {
+    pathPrefix,
     siteMetadata: {
       title: pageTitle || siteName,
       siteName,
