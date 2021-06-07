@@ -91,8 +91,6 @@ module.exports = {
   menuTitle: 'Apollo Platform',
   gaTrackingId: ['UA-74643563-13', 'G-0BGG5V2W2K'],
   gtmContainerId: 'GTM-M964NS9',
-  algoliaApiKey: '768e823959d35bbd51e4b2439be13fb7',
-  algoliaIndexName: 'apollodata',
   baseUrl: 'https://www.apollographql.com',
   twitterHandle: 'apollographql',
   youtubeUrl: 'https://www.youtube.com/channel/UC0pEW_GOrMJ23l8QcrGdKSw',
