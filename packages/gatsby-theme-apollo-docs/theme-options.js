@@ -94,8 +94,6 @@ module.exports = {
     'G-0BGG5V2W2K' // unified ga property
   ],
   gtmContainerId: 'GTM-W35X9LM',
-  algoliaApiKey: '768e823959d35bbd51e4b2439be13fb7',
-  algoliaIndexName: 'apollodata',
   baseUrl: 'https://www.apollographql.com',
   twitterHandle: 'apollographql',
   youtubeUrl: 'https://www.youtube.com/channel/UC0pEW_GOrMJ23l8QcrGdKSw',
