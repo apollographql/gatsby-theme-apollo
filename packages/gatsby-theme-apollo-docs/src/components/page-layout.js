@@ -68,9 +68,9 @@ const HeaderInner = styled.span({
 const Eyebrow = styled.div({
   flexShrink: 0,
   padding: '8px 56px',
-  backgroundColor: colors.background,
-  color: colors.primary,
-  fontSize: 14,
+  backgroundColor: colors.backgroundNotice,
+  color: colors.textNotice,
+  fontSize: 16,
   position: 'sticky',
   top: 0,
   a: {
