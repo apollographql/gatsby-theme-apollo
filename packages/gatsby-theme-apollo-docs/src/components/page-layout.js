@@ -158,7 +158,6 @@ export default function PageLayout(props) {
     navConfig = {},
     footerNavConfig,
     logoLink,
-    algoliaIndexName,
     menuTitle
   } = props.pluginOptions;
 
@@ -271,7 +270,6 @@ export default function PageLayout(props) {
               <Autocomplete
                 appId={GATSBY_ALGOLIA_APP_ID}
                 apiKey={GATSBY_ALGOLIA_SEARCH_KEY}
-                currentSource={algoliaIndexName}
               />
             )}
             <HeaderButton />
