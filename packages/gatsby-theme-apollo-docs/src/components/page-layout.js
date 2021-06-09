@@ -1,4 +1,5 @@
 import '../prism.less';
+import 'apollo-algolia-autocomplete/styles.css';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import Autocomplete from 'apollo-algolia-autocomplete';
 import DocsetSwitcher from './docset-switcher';
