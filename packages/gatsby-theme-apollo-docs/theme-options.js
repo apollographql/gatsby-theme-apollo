@@ -7,6 +7,7 @@ const navConfig = {
     omitLandingPage: true
   },
   'Apollo Client (React)': {
+    docset: 'react',
     category: 'Apollo Client',
     shortName: 'React / JS',
     url: 'https://www.apollographql.com/docs/react',
@@ -14,6 +15,7 @@ const navConfig = {
       "Manage the entirety of your React app's state and seamlessly execute GraphQL operations."
   },
   'Apollo Client (iOS)': {
+    docset: 'ios',
     category: 'Apollo Client',
     shortName: 'iOS',
     url: 'https://www.apollographql.com/docs/ios',
@@ -21,6 +23,7 @@ const navConfig = {
       "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations."
   },
   'Apollo Client (Android)': {
+    docset: 'android',
     category: 'Apollo Client',
     shortName: 'Android',
     url: 'https://www.apollographql.com/docs/android',
@@ -28,23 +31,27 @@ const navConfig = {
       "Manage the entirety of your Android app's state and seamlessly execute GraphQL operations."
   },
   'Apollo Server': {
+    docset: 'apollo-server',
     category: 'Backend',
     url: 'https://www.apollographql.com/docs/apollo-server',
     description:
       'Configure a production-ready GraphQL server to fetch and combine data from multiple sources.'
   },
   'Apollo Federation': {
+    docset: 'federation',
     category: 'Backend',
     url: 'https://www.apollographql.com/docs/federation',
     description: 'Implement a single data graph across multiple services.'
   },
   'Apollo Studio': {
+    docset: 'studio',
     category: 'Tools',
     url: 'https://www.apollographql.com/docs/graph-manager',
     description:
       'Build your graph with your team, evolve it safely, and keep it running smoothly.'
   },
   'Rover CLI': {
+    docset: 'rover',
     category: 'Tools',
     url: 'https://www.apollographql.com/docs/rover',
     description: 'Manage your Studio graphs and schemas from the command line.'
