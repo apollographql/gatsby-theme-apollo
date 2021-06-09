@@ -1,11 +1,11 @@
 import '../prism.less';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+import Autocomplete from 'apollo-algolia-autocomplete';
 import DocsetSwitcher from './docset-switcher';
 import Header from './header';
 import HeaderButton from './header-button';
 import PropTypes from 'prop-types';
 import React, {createContext, useMemo, useRef, useState} from 'react';
-import Search from './search';
 import styled from '@emotion/styled';
 import useLocalStorage from 'react-use/lib/useLocalStorage';
 import {Button} from '@apollo/space-kit/Button';
@@ -87,6 +87,7 @@ function getVersionLabel(version) {
 }
 
 const GA_EVENT_CATEGORY_SIDEBAR = 'Sidebar';
+const {GATSBY_ALGOLIA_APP_ID, GATSBY_ALGOLIA_SEARCH_KEY} = process.env;
 
 function handleToggleAll(expanded) {
   trackCustomEvent({
@@ -158,7 +159,6 @@ export default function PageLayout(props) {
     navConfig = {},
     footerNavConfig,
     logoLink,
-    algoliaApiKey,
     algoliaIndexName,
     menuTitle
   } = props.pluginOptions;
@@ -268,11 +268,11 @@ export default function PageLayout(props) {
               <MenuButton onClick={openSidebar} />
               <MobileLogo width={32} fill="currentColor" />
             </MobileNav>
-            {algoliaApiKey && algoliaIndexName && (
-              <Search
-                siteName={siteName}
-                apiKey={algoliaApiKey}
-                indexName={algoliaIndexName}
+            {GATSBY_ALGOLIA_APP_ID && GATSBY_ALGOLIA_SEARCH_KEY && (
+              <Autocomplete
+                appId={GATSBY_ALGOLIA_APP_ID}
+                apiKey={GATSBY_ALGOLIA_SEARCH_KEY}
+                currentSource={algoliaIndexName}
               />
             )}
             <HeaderButton />
