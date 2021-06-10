@@ -83,6 +83,14 @@ const Eyebrow = styled.div({
   }
 });
 
+const SearchContainer = styled.div({
+  flexGrow: 1,
+  marginRight: 40,
+  [breakpoints.md]: {
+    marginRight: 0
+  }
+});
+
 function getVersionLabel(version) {
   return `v${version}`;
 }
@@ -270,7 +278,9 @@ export default function PageLayout(props) {
               <MobileLogo width={32} fill="currentColor" />
             </MobileNav>
             {algoliaAppId && algoliaSearchKey && (
-              <Autocomplete appId={algoliaAppId} apiKey={algoliaSearchKey} />
+              <SearchContainer>
+                <Autocomplete appId={algoliaAppId} apiKey={algoliaSearchKey} />
+              </SearchContainer>
             )}
             <HeaderButton />
           </Header>
