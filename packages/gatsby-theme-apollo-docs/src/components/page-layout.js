@@ -88,7 +88,6 @@ function getVersionLabel(version) {
 }
 
 const GA_EVENT_CATEGORY_SIDEBAR = 'Sidebar';
-const {GATSBY_ALGOLIA_APP_ID, GATSBY_ALGOLIA_SEARCH_KEY} = process.env;
 
 function handleToggleAll(expanded) {
   trackCustomEvent({
@@ -160,7 +159,9 @@ export default function PageLayout(props) {
     navConfig = {},
     footerNavConfig,
     logoLink,
-    menuTitle
+    menuTitle,
+    algoliaAppId,
+    algoliaSearchKey
   } = props.pluginOptions;
 
   const {navItems, navCategories} = useMemo(() => {
@@ -268,11 +269,8 @@ export default function PageLayout(props) {
               <MenuButton onClick={openSidebar} />
               <MobileLogo width={32} fill="currentColor" />
             </MobileNav>
-            {GATSBY_ALGOLIA_APP_ID && GATSBY_ALGOLIA_SEARCH_KEY && (
-              <Autocomplete
-                appId={GATSBY_ALGOLIA_APP_ID}
-                apiKey={GATSBY_ALGOLIA_SEARCH_KEY}
-              />
+            {algoliaAppId && algoliaSearchKey && (
+              <Autocomplete appId={algoliaAppId} apiKey={algoliaSearchKey} />
             )}
             <HeaderButton />
           </Header>
