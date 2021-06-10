@@ -4,8 +4,6 @@ const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
 const {HEADER_HEIGHT} = require('./src/utils');
 const {queries, parse, algoliaSettings} = require('apollo-algolia-transform');
 
-const {GATSBY_ALGOLIA_APP_ID, ALGOLIA_WRITE_KEY} = process.env;
-
 module.exports = ({
   root,
   baseUrl,
@@ -25,6 +23,8 @@ module.exports = ({
   gatsbyRemarkPlugins = [],
   remarkPlugins = [],
   oneTrust,
+  algoliaAppId,
+  algoliaWriteKey,
   algoliaIndexName
 }) => {
   const allGatsbyRemarkPlugins = [
@@ -192,12 +192,12 @@ module.exports = ({
     });
   }
 
-  if (GATSBY_ALGOLIA_APP_ID && ALGOLIA_WRITE_KEY && algoliaIndexName) {
+  if (algoliaAppId && algoliaWriteKey && algoliaIndexName) {
     plugins.push({
       resolve: 'gatsby-plugin-algolia',
       options: {
-        appId: GATSBY_ALGOLIA_APP_ID,
-        apiKey: ALGOLIA_WRITE_KEY,
+        appId: algoliaAppId,
+        apiKey: algoliaWriteKey,
         queries: [
           {
             query: queries.docs,
