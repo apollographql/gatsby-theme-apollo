@@ -25,7 +25,7 @@ import {Link, graphql, navigate, useStaticQuery} from 'gatsby';
 import {MobileLogo} from './mobile-logo';
 import {Select} from './select';
 import {SelectedLanguageContext} from './multi-code-block';
-import {getSpectrumUrl, getVersionBasePath, trackCustomEvent} from '../utils';
+import {getVersionBasePath, trackCustomEvent} from '../utils';
 import {groupBy} from 'lodash';
 import {size} from 'polished';
 
@@ -152,7 +152,6 @@ export default function PageLayout(props) {
     defaultVersion
   } = props.pageContext;
   const {
-    spectrumHandle,
     twitterHandle,
     youtubeUrl,
     navConfig = {},
@@ -287,7 +286,6 @@ export default function PageLayout(props) {
       {hasNavItems && (
         <DocsetSwitcher
           siteName={menuTitle || siteName}
-          spectrumUrl={spectrumHandle && getSpectrumUrl(spectrumHandle)}
           twitterUrl={twitterHandle && `https://twitter.com/${twitterHandle}`}
           youtubeUrl={youtubeUrl}
           navItems={navItems}

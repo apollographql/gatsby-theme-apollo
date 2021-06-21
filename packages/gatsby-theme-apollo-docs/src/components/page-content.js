@@ -7,8 +7,8 @@ import useMount from 'react-use/lib/useMount';
 import {HEADER_HEIGHT} from '../utils';
 import {IconGithub} from '@apollo/space-kit/icons/IconGithub';
 import {IconStar} from '@apollo/space-kit/icons/IconStar';
+import {IconComment} from '@apollo/space-kit/icons/IconComment';
 import {PageNav, breakpoints, colors} from 'gatsby-theme-apollo-core';
-import {ReactComponent as SpectrumLogo} from '../assets/spectrum.svg';
 import {withPrefix} from 'gatsby';
 
 const Wrapper = styled.div({
@@ -250,9 +250,9 @@ export default function PageContent(props) {
         )}
         {props.ffWidgetId && <FeedbackLink title={props.title} />}
         {editLink}
-        {props.spectrumUrl && (
-          <AsideLink href={props.spectrumUrl}>
-            <SpectrumLogo /> Discuss on Spectrum
+        {props.forumUrl && (
+          <AsideLink href={props.forumUrl}>
+            <IconComment /> Discuss in forums
           </AsideLink>
         )}
       </Aside>
@@ -264,11 +264,11 @@ PageContent.propTypes = {
   children: PropTypes.node.isRequired,
   pathname: PropTypes.string.isRequired,
   githubUrl: PropTypes.string,
+  forumUrl: PropTypes.string,
   ffWidgetId: PropTypes.string,
   pages: PropTypes.array.isRequired,
   hash: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   apiReference: PropTypes.bool.isRequired,
   headings: PropTypes.array.isRequired,
-  spectrumUrl: PropTypes.string
 };

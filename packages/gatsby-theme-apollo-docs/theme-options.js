@@ -52,6 +52,11 @@ const navConfig = {
 };
 
 const footerNavConfig = {
+  Forums: {
+    href: 'https://community.apollographql.com/',
+    target: '_blank',
+    rel: 'noopener noreferrer'
+  },
   Blog: {
     href: 'https://blog.apollographql.com/',
     target: '_blank',
@@ -60,7 +65,7 @@ const footerNavConfig = {
   Contribute: {
     href: 'https://www.apollographql.com/docs/community/'
   },
-  'GraphQL Summit': {
+  Summit: {
     href: 'https://summit.graphql.com/',
     target: '_blank',
     rel: 'noopener noreferrer'
@@ -93,7 +98,6 @@ module.exports = {
   algoliaIndexName: 'apollodata',
   baseUrl: 'https://www.apollographql.com',
   twitterHandle: 'apollographql',
-  spectrumHandle: 'apollo',
   youtubeUrl: 'https://www.youtube.com/channel/UC0pEW_GOrMJ23l8QcrGdKSw',
   logoLink: 'https://www.apollographql.com/docs/',
   baseDir: 'docs',

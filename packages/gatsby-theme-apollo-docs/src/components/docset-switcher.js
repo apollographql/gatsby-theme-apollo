@@ -198,7 +198,7 @@ export default function DocsetSwitcher(props) {
   }
 
   const hasSocialUrls = Boolean(
-    props.spectrumUrl || props.twitterUrl || props.youtubeUrl
+    props.twitterUrl || props.youtubeUrl
   );
   return (
     <Wrapper
@@ -248,15 +248,6 @@ export default function DocsetSwitcher(props) {
                 ))}
               {hasSocialUrls && (
                 <SocialLinks>
-                  {props.spectrumUrl && (
-                    <SocialLink
-                      href={props.spectrumUrl}
-                      title="Spectrum"
-                      target="_blank"
-                    >
-                      <SpectrumIcon />
-                    </SocialLink>
-                  )}
                   {props.twitterUrl && (
                     <SocialLink
                       href={props.twitterUrl}
@@ -291,7 +282,6 @@ DocsetSwitcher.propTypes = {
   buttonRef: PropTypes.object.isRequired,
   navCategories: PropTypes.array.isRequired,
   footerNavConfig: PropTypes.object.isRequired,
-  spectrumUrl: PropTypes.string,
   twitterUrl: PropTypes.string,
   youtubeUrl: PropTypes.string
 };
