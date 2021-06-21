@@ -219,6 +219,7 @@ exports.createPages = async (
     githubHost = 'github.com',
     sidebarCategories,
     ffWidgetId,
+    footerNavConfig,
     twitterHandle,
     localVersion,
     baseUrl
@@ -350,6 +351,7 @@ exports.createPages = async (
         versionBasePath: getVersionBasePath(fields.version),
         sidebarContents: sidebarContents[fields.version],
         githubUrl,
+        forumUrl: footerNavConfig && footerNavConfig.Forums && footerNavConfig.Forums.href,
         ffWidgetId,
         twitterHandle,
         versions: versionKeys, // only need to send version labels to client
