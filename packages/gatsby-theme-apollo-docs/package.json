@@ -21,7 +21,7 @@
     "@jlengstorf/get-share-image": "^0.8.0",
     "@mdx-js/mdx": "^1.1.0",
     "@mdx-js/react": "^1.0.27",
-    "apollo-algolia-autocomplete": "^1.0.4",
+    "apollo-algolia-autocomplete": "^1.1.1",
     "apollo-algolia-transform": "^1.0.0",
     "classnames": "^2.2.6",
     "gatsby-plugin-algolia": "^0.20.1",
