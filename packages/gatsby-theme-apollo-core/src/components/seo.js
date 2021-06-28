@@ -2,8 +2,18 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {Helmet} from 'react-helmet';
 
-export default function SEO(props) {
-  const {title, description, siteName, twitterCard, children, favicon} = props;
+export default function SEO({
+  title,
+  description,
+  siteName,
+  twitterCard = 'summary',
+  children,
+  favicon = [
+    'https://www.apollographql.com/favicon.ico',
+    'https://odyssey.apollographql.com/favicon.svg'
+  ]
+}) {
+  const favicons = Array.isArray(favicon) ? favicon : [favicon];
   return (
     <Helmet>
       <title>{title}</title>
@@ -13,7 +23,9 @@ export default function SEO(props) {
       <meta name="twitter:card" content={twitterCard} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <link rel="icon" href={favicon} />
+      {favicons.map((icon, index) => (
+        <link key={index} rel="icon" href={icon} />
+      ))}
       {children}
     </Helmet>
   );
@@ -25,10 +37,8 @@ SEO.propTypes = {
   siteName: PropTypes.string.isRequired,
   twitterCard: PropTypes.string,
   children: PropTypes.node,
-  favicon: PropTypes.string
-};
-
-SEO.defaultProps = {
-  twitterCard: 'summary',
-  favicon: 'https://apollographql.com/favicon.ico'
+  favicon: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string)
+  ])
 };
