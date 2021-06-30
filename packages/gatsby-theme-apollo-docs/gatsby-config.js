@@ -192,7 +192,13 @@ module.exports = ({
     });
   }
 
-  if (algoliaAppId && algoliaWriteKey && algoliaIndexName) {
+  if (
+    algoliaAppId &&
+    algoliaWriteKey &&
+    algoliaIndexName &&
+    // only index content on production
+    process.env.CONTEXT === 'production'
+  ) {
     plugins.push({
       resolve: 'gatsby-plugin-algolia',
       options: {
