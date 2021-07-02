@@ -1,6 +1,0 @@
-51 error Error: Command failed: git push --follow-tags --no-verify origin master
-51 error remote: Invalid username or password.
-51 error fatal: Authentication failed for 'https://github.com/apollographql/gatsby-theme-apollo.git/'
-51 error
-51 error     at makeError (/Users/janessagarrow/Dev/Apollo/gatsby-theme-apollo/node_modules/execa/index.js:174:9)
-51 error     at /Users/janessagarrow/Dev/Apollo/gatsby-theme-apollo/node_modules/execa/index.js:278:16

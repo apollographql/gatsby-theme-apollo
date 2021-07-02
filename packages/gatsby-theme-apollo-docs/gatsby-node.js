@@ -61,18 +61,6 @@ async function onCreateNode(
       }
     }
 
-    if (shareImageConfig) {
-      actions.createNodeField({
-        name: 'image',
-        node,
-        value: getShareImage({
-          title,
-          tagline,
-          ...shareImageConfig
-        })
-      });
-    }
-
     let versionRef = '';
     if (parent.gitRemote___NODE) {
       const gitRemote = getNode(parent.gitRemote___NODE);
@@ -86,6 +74,18 @@ async function onCreateNode(
     if (version !== defaultVersion) {
       slug = getVersionBasePath(version) + slug;
     }
+
+    actions.createNodeField({
+      name: 'image',
+      node,
+      value: shareImageConfig
+        ? getShareImage({
+            title,
+            tagline,
+            ...shareImageConfig
+          })
+        : ''
+    });
 
     actions.createNodeField({
       node,
@@ -323,7 +323,6 @@ exports.createPages = async (
     }
 
     let githubUrl;
-    let repoPath;
 
     if (githubRepo) {
       const [owner, repo] = githubRepo.split('/');
@@ -337,8 +336,6 @@ exports.createPages = async (
           fields.versionRef || path.join(currentBranch, contentPath),
           relativePath
         );
-
-      repoPath = `/${repo}`;
     }
 
     actions.createPage({
@@ -351,7 +348,10 @@ exports.createPages = async (
         versionBasePath: getVersionBasePath(fields.version),
         sidebarContents: sidebarContents[fields.version],
         githubUrl,
-        forumUrl: footerNavConfig && footerNavConfig.Forums && footerNavConfig.Forums.href,
+        forumUrl:
+          footerNavConfig &&
+          footerNavConfig.Forums &&
+          footerNavConfig.Forums.href,
         ffWidgetId,
         twitterHandle,
         versions: versionKeys, // only need to send version labels to client

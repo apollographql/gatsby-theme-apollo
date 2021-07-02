@@ -5,7 +5,6 @@ import useKey from 'react-use/lib/useKey';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import {IconTwitter} from '@apollo/space-kit/icons/IconTwitter';
 import {IconYoutube} from '@apollo/space-kit/icons/IconYoutube';
-import {ReactComponent as SpectrumIcon} from '../assets/spectrum.svg';
 import {boxShadow} from './search';
 import {breakpoints, colors, smallCaps} from 'gatsby-theme-apollo-core';
 import {size, transparentize} from 'polished';
@@ -197,9 +196,7 @@ export default function DocsetSwitcher(props) {
     }
   }
 
-  const hasSocialUrls = Boolean(
-    props.twitterUrl || props.youtubeUrl
-  );
+  const hasSocialUrls = Boolean(props.twitterUrl || props.youtubeUrl);
   return (
     <Wrapper
       onClick={handleWrapperClick}
