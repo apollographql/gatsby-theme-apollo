@@ -180,13 +180,7 @@ module.exports = ({
     });
   }
 
-  if (
-    algoliaAppId &&
-    algoliaWriteKey &&
-    algoliaIndexName &&
-    // only index content on production
-    process.env.CONTEXT === 'production'
-  ) {
+  if (algoliaAppId && algoliaWriteKey && algoliaIndexName) {
     plugins.push({
       resolve: 'gatsby-plugin-algolia',
       options: {
@@ -201,6 +195,8 @@ module.exports = ({
                 baseUrl: baseUrl + pathPrefix
               }),
             indexName: algoliaIndexName,
+            // only index when building for production on Netlify
+            skipIndexing: process.env.CONTEXT !== 'production',
             settings: algoliaSettings.default
           }
         ]
