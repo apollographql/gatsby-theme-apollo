@@ -106,6 +106,7 @@ module.exports = {
   algoliaAppId: 'Q0CJ63JM7B',
   algoliaWriteKey: process.env.ALGOLIA_WRITE_KEY,
   algoliaSearchKey: 'df3cd3578a152a63a9aa78c731ef64ca',
+  gaViewId: '163147389',
   youtubeUrl: 'https://www.youtube.com/channel/UC0pEW_GOrMJ23l8QcrGdKSw',
   logoLink: 'https://www.apollographql.com/docs/',
   baseDir: 'docs',
