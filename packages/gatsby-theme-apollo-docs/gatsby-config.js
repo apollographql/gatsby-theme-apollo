@@ -25,7 +25,8 @@ module.exports = ({
   oneTrust,
   algoliaAppId,
   algoliaWriteKey,
-  algoliaIndexName
+  algoliaIndexName,
+  gaViewId
 }) => {
   const allGatsbyRemarkPlugins = [
     {
@@ -192,7 +193,7 @@ module.exports = ({
     });
   }
 
-  if (algoliaAppId && algoliaWriteKey && algoliaIndexName) {
+  if (algoliaAppId && algoliaWriteKey && algoliaIndexName && gaViewId) {
     plugins.push({
       resolve: 'gatsby-plugin-algolia',
       options: {
@@ -204,7 +205,8 @@ module.exports = ({
             transformer: ({data}) =>
               parse({
                 data,
-                baseUrl: baseUrl + pathPrefix
+                baseUrl: baseUrl + pathPrefix,
+                viewId: gaViewId
               }),
             indexName: algoliaIndexName,
             // only index when building for production on Netlify
