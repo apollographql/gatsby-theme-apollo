@@ -1,7 +1,10 @@
 {
   "name": "root",
   "private": true,
-  "workspaces": ["packages/*", "example"],
+  "workspaces": [
+    "packages/*",
+    "example"
+  ],
   "eslintConfig": {
     "extends": "@trevorblades/eslint-config/react"
   },
@@ -10,5 +13,7 @@
     "eslint": "^5.13.0",
     "lerna": "^3.10.7"
   },
-  "dependencies": {}
+  "dependencies": {
+    "gatsby-plugin-google-tagmanager": "^2.11.0"
+  }
 }
