@@ -162,7 +162,8 @@ export class TypescriptApiBox extends Component {
       signature: this._signature(rawData, parameters),
       summary: _summary(rawData),
       groups,
-      repo: 'apollostack/apollo-client',
+      repo: 'apollographql/apollo-client',
+      branch: 'main',
       filepath: rawData.sources[0].fileName,
       lineno: rawData.sources[0].line
     };
@@ -383,7 +384,7 @@ export class TypescriptApiBox extends Component {
           {args.filepath && (
             <Subheading>
               <a
-                href={`https://github.com/${args.repo}/blob/master/${args.filepath}#L${args.lineno}`}
+                href={`https://github.com/${args.repo}/blob/${args.branch}/${args.filepath}#L${args.lineno}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
