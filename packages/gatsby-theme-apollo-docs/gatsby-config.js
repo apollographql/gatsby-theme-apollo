@@ -199,6 +199,8 @@ module.exports = ({
       options: {
         appId: algoliaAppId,
         apiKey: algoliaWriteKey,
+        // only index when building for production on Netlify
+        skipIndexing: process.env.CONTEXT !== 'production',
         queries: [
           {
             query: queries.docs,
@@ -209,8 +211,6 @@ module.exports = ({
                 viewId: gaViewId
               }),
             indexName: algoliaIndexName,
-            // only index when building for production on Netlify
-            skipIndexing: process.env.CONTEXT !== 'production',
             settings: algoliaSettings.default
           }
         ]
