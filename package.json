@@ -2,7 +2,18 @@
   "name": "root",
   "private": true,
   "eslintConfig": {
-    "extends": "@trevorblades/eslint-config/react"
+    "extends": "@trevorblades/eslint-config/react",
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.js",
+          "**.test.js"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
   },
   "devDependencies": {
     "@trevorblades/eslint-config": "^7.0.1",
