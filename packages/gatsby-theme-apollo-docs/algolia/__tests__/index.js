@@ -1,12 +1,8 @@
-const {parse} = require('../');
-const {data} = require('./mock-data');
-const {baseUrl} = require('../../theme-options');
+const {transformer} = require('../');
+const data = require('./mock-data');
 
 test('parse MDX', async () => {
-  const records = await parse({
-    data,
-    baseUrl
-  });
+  const records = await transformer(data);
 
   console.log(records);
 

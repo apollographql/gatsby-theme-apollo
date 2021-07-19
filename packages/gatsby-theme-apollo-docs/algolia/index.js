@@ -94,7 +94,13 @@ async function transformer({data}) {
           let ancestors = [];
           for (const section of acc) {
             if (section.depth < heading.depth) {
-              ancestors = [section.title, ...section.ancestors];
+              ancestors = [
+                {
+                  title: section.title,
+                  url: url + section.hash
+                },
+                ...section.ancestors
+              ];
               break;
             }
           }
@@ -124,8 +130,9 @@ async function transformer({data}) {
         objectID: `${id}_${index}`,
         index,
         type: 'docs',
-        url: hash ? url + hash : url,
         docset,
+        url: hash ? url + hash : url,
+        slug,
         title,
         sectionTitle,
         text,
