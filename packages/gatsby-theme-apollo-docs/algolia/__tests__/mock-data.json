@@ -1,7 +1,11 @@
 {
   "data": {
     "site": {
-      "pathPrefix": "/docs/studio"
+      "pathPrefix": "/docs/studio",
+      "siteMetadata": {
+        "siteUrl": "https://www.apollographql.com/docs/studio",
+        "gaViewId": "163147389"
+      }
     },
     "allMarkdownRemark": {
       "nodes": [
@@ -1666,6 +1670,7 @@
           },
           "fields": {
             "slug": "/build-status-notification/",
+            "isCurrentVersion": true,
             "apiReference": false,
             "sidebarTitle": "Build status (preview)"
           }
@@ -5502,6 +5507,7 @@
           },
           "fields": {
             "slug": "/client-awareness/",
+            "isCurrentVersion": true,
             "apiReference": false,
             "sidebarTitle": "Segmenting by client"
           }
@@ -6538,6 +6544,7 @@
           },
           "fields": {
             "slug": "/api-keys/",
+            "isCurrentVersion": true,
             "apiReference": false,
             "sidebarTitle": "API keys"
           }
@@ -10109,6 +10116,7 @@
           },
           "fields": {
             "slug": "/check-configurations/",
+            "isCurrentVersion": true,
             "apiReference": false,
             "sidebarTitle": ""
           }
