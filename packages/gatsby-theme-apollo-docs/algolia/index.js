@@ -114,7 +114,7 @@ async function parse({data, baseUrl, viewId}) {
       [{children: []}]
     );
 
-    const arr = sections.reverse().map((section, index) => {
+    return sections.reverse().map((section, index) => {
       const {title: sectionTitle, hash, children, ancestors = []} = section;
       // replace all whitespace with a single space
       const text = getChildrenText(children).replace(/\s+/g, ' ');
@@ -134,8 +134,6 @@ async function parse({data, baseUrl, viewId}) {
         pageviews: allGAData[url]?.[METRICS.uniquePageViews] || 0
       };
     });
-    console.log(arr);
-    return arr;
   });
 }
 
