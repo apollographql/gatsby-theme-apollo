@@ -47,7 +47,7 @@ async function transformer({data}) {
     }
 
     const sections = getSections({
-      ast: mdxAST || htmlAst,
+      children: (mdxAST || htmlAst).children,
       url,
       getHeading: mdxAST ? getMdxHeading : getMdHeading,
       tableOfContents
