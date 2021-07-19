@@ -2,7 +2,7 @@ const path = require('path');
 const remarkTypescript = require('remark-typescript');
 const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
 const {HEADER_HEIGHT} = require('./src/utils');
-const {parse} = require('./algolia');
+const {transformer} = require('./algolia');
 const {algoliaSettings} = require('apollo-algolia-transform');
 
 module.exports = ({
@@ -196,6 +196,10 @@ module.exports = ({
               {
                 site {
                   pathPrefix
+                  siteMetadata {
+                    siteUrl
+                    gaViewId
+                  }
                 }
                 allMarkdownRemark {
                   nodes {
@@ -235,12 +239,7 @@ module.exports = ({
                 }
               }
             `,
-            transformer: ({data}) =>
-              parse({
-                data,
-                baseUrl,
-                viewId: gaViewId
-              }),
+            transformer,
             indexName: algoliaIndexName,
             settings: algoliaSettings.default
           }
@@ -254,7 +253,9 @@ module.exports = ({
     siteMetadata: {
       title: pageTitle || siteName,
       siteName,
-      description
+      description,
+      siteUrl: baseUrl + pathPrefix,
+      gaViewId
     },
     plugins
   };
