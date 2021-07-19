@@ -1,17 +1,9 @@
-const {MetricsFetcher, METRICS} = require('apollo-algolia-transform');
+const {
+  MetricsFetcher,
+  METRICS,
+  getChildrenText
+} = require('apollo-algolia-transform');
 const {truncate} = require('lodash');
-
-// recursively get text from all nested children to form a single string of text
-const getChildrenText = children =>
-  Array.isArray(children)
-    ? children
-        .map(child =>
-          ['text', 'inlineCode'].includes(child.type)
-            ? child.value
-            : getChildrenText(child.children)
-        )
-        .join('')
-    : '';
 
 function headingsReducer(acc, {items = [], url, title}) {
   const existing = acc[title];
@@ -122,7 +114,7 @@ async function transformer({data}) {
       [{children: []}]
     );
 
-    return sections.reverse().map((section, index) => {
+    const records = sections.reverse().map((section, index) => {
       const {title: sectionTitle, hash, children, ancestors = []} = section;
       // replace all whitespace with a single space
       const text = getChildrenText(children).replace(/\s+/g, ' ');
@@ -143,6 +135,10 @@ async function transformer({data}) {
         pageviews: allGAData[url]?.[METRICS.uniquePageViews] || 0
       };
     });
+
+    console.log('Created %s records', records.length);
+
+    return records;
   });
 }
 
