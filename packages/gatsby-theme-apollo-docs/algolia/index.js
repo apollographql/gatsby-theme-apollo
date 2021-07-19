@@ -32,7 +32,7 @@ async function transformer({data}) {
   }
 
   const allPages = allMarkdownRemark.nodes.concat(allMdx.nodes);
-  return allPages.flatMap(page => {
+  const records = allPages.flatMap(page => {
     const {id, fields, frontmatter, tableOfContents, htmlAst, mdxAST} = page;
     const {slug, sidebarTitle, isCurrentVersion} = fields;
     // TODO: for auto-generated mobile docs, not all have frontmatter -- can either use the h1 or the last URL path before /index.html
@@ -53,7 +53,7 @@ async function transformer({data}) {
       tableOfContents
     });
 
-    const records = sections.reverse().map((section, index) => {
+    return sections.reverse().map((section, index) => {
       const {title: sectionTitle, hash, children, ancestors = []} = section;
       // replace all whitespace with a single space
       const text = getChildrenText(children).replace(/\s+/g, ' ');
@@ -74,11 +74,11 @@ async function transformer({data}) {
         pageviews: allGAData[url]?.[METRICS.uniquePageViews] || 0
       };
     });
-
-    console.log('Created %s records', records.length);
-
-    return records;
   });
+
+  console.log('Created %s Algolia records', records.length);
+
+  return records;
 }
 
 module.exports = {transformer};
