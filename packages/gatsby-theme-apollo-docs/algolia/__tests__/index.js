@@ -8,6 +8,8 @@ test('parse MDX', async () => {
     baseUrl
   });
 
+  console.log(records);
+
   // from original tests
   //   const firstRecord = mdxRecs[0];
   //   expect(mdxRecs.length).toBe(6);
