@@ -1,35 +1,11 @@
 const {
   MetricsFetcher,
   METRICS,
+  getSections,
+  getMdxHeading,
   getChildrenText
 } = require('apollo-algolia-transform');
 const {truncate} = require('lodash');
-
-function headingsReducer(acc, {items = [], url, title}) {
-  const existing = acc[title];
-  return items.reduce(headingsReducer, {
-    ...acc,
-    [title]: existing ? [...existing, url] : [url]
-  });
-}
-
-function getMdxHeading(child, headings) {
-  if (child.type === 'heading') {
-    // get text children from heading
-    const title = getChildrenText(child.children);
-
-    // splice the first result for that title in the headings object
-    // this lets us account for multiple headings with the same title
-    // but different URLs in the same page
-    const [hash] = headings[title].splice(0, 1);
-
-    return {
-      title,
-      hash,
-      depth: child.depth
-    };
-  }
-}
 
 function getMdHeading(child) {
   if (child.type === 'element') {
@@ -70,49 +46,12 @@ async function transformer({data}) {
       categories.push('client');
     }
 
-    // create a mapping of heading title -> url for MDX pages
-    const mdxHeadings = tableOfContents.items?.reduce(headingsReducer, {});
-
-    const sections = (mdxAST || htmlAst).children.reduce(
-      (acc, child) => {
-        // these will return a heading object if the child is a heading
-        const heading = mdxAST
-          ? getMdxHeading(child, mdxHeadings)
-          : getMdHeading(child);
-
-        if (heading) {
-          // determine the heading's ancestors by looping through existing
-          // sections and comparing their depth with the current heading's
-          let ancestors = [];
-          for (const section of acc) {
-            if (section.depth < heading.depth) {
-              ancestors = [
-                {
-                  title: section.title,
-                  url: url + section.hash
-                },
-                ...section.ancestors
-              ];
-              break;
-            }
-          }
-
-          return [
-            {
-              ...heading,
-              children: [],
-              ancestors
-            },
-            ...acc
-          ];
-        }
-
-        // if the child is not a heading, add it to the section as a child
-        acc[0].children.push(child);
-        return acc;
-      },
-      [{children: []}]
-    );
+    const sections = getSections({
+      ast: mdxAST || htmlAst,
+      url,
+      getHeading: mdxAST ? getMdxHeading : getMdHeading,
+      tableOfContents
+    });
 
     const records = sections.reverse().map((section, index) => {
       const {title: sectionTitle, hash, children, ancestors = []} = section;
