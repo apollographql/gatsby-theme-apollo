@@ -194,7 +194,7 @@ module.exports = ({
     });
   }
 
-  if (algoliaAppId && algoliaWriteKey && algoliaIndexName && gaViewId) {
+  if (algoliaAppId && algoliaWriteKey && algoliaIndexName) {
     plugins.push({
       resolve: 'gatsby-plugin-algolia',
       options: {
