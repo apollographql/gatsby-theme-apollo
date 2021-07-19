@@ -5,6 +5,14 @@ const {
 } = require('apollo-algolia-transform');
 const cheerio = require('cheerio');
 
+// recursively get text from all nested children to form a single string of text
+const getChildrenText = children =>
+  Array.isArray(children)
+    ? children
+        .map(child => child.value || getChildrenText(child.children))
+        .join('')
+    : '';
+
 function getMdHeadings(tableOfContents) {
   const $ = cheerio.load(tableOfContents);
 
@@ -31,7 +39,7 @@ function getMdHeadings(tableOfContents) {
     }, {});
 }
 
-export async function parse({data, baseUrl, viewId}) {
+async function parse({data, baseUrl, viewId}) {
   let allGAData = {};
   if (process.env.NODE_ENV !== 'test') {
     const metricsFetcher = new MetricsFetcher({viewId});
@@ -43,6 +51,7 @@ export async function parse({data, baseUrl, viewId}) {
   return allPages.flatMap(page => {
     const {id, fields, frontmatter, excerpt, tableOfContents, mdxAST} = page;
     const {slug, sidebarTitle, isCurrentVersion} = fields;
+    // TODO: for auto-generated mobile docs, not all have frontmatter -- can either use the h1 or the last URL path before /index.html
     const {title} = frontmatter;
 
     const url = baseUrl + site.pathPrefix + slug;
@@ -52,6 +61,40 @@ export async function parse({data, baseUrl, viewId}) {
     if (['react', 'ios', 'android'].includes(docset)) {
       categories.push('client');
     }
+
+    const sections = mdxAST
+      ? mdxAST.children.reduce(
+          (acc, child) => {
+            if (child.type === 'heading') {
+              let ancestors = [];
+              for (const section of acc) {
+                if (section.depth < child.depth) {
+                  ancestors = [section, ...section.ancestors];
+                  break;
+                }
+              }
+
+              // look at acc[acc.length - 1].ancestors
+              return [
+                {
+                  title: getChildrenText(child.children), // get text children from heading
+                  // TODO: get heading slug
+                  children: [],
+                  depth: child.depth,
+                  ancestors
+                },
+                ...acc
+              ];
+            }
+
+            acc[0].children.push(child);
+            return acc;
+          },
+          [{children: []}]
+        )
+      : [];
+
+    console.log(sections);
 
     // TODO: split page into sections by heading
     return [
@@ -74,3 +117,5 @@ export async function parse({data, baseUrl, viewId}) {
     ];
   });
 }
+
+module.exports = {parse};
