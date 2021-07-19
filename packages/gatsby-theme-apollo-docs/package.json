@@ -10,6 +10,9 @@
     "url": "https://github.com/apollographql/gatsby-theme-apollo.git",
     "directory": "packages/gatsby-theme-apollo-docs"
   },
+  "scripts": {
+    "test": "jest"
+  },
   "keywords": [
     "gatsby",
     "gatsby-plugin",
@@ -55,6 +58,7 @@
   },
   "devDependencies": {
     "gatsby": "^2.24.23",
+    "jest": "^27.0.6",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   },
