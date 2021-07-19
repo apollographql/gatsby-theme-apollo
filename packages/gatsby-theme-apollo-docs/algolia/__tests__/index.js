@@ -1,7 +1,6 @@
 const {parse} = require('../');
 const {data} = require('./mock-mdx');
-
-const baseUrl = 'https://www.apollographql.com/docs/studio';
+const {baseUrl} = require('../../theme-options');
 
 test('parse MDX', async () => {
   const mdxRecs = await parse({
