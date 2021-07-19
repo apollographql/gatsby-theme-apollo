@@ -53,14 +53,16 @@ function getMdHeading(child) {
   }
 }
 
-async function parse({data, baseUrl, viewId}) {
+async function transformer({data}) {
+  const {site, allMarkdownRemark, allMdx} = data;
+  const {siteUrl, gaViewId} = site.siteMetadata;
+
   let allGAData = {};
   if (process.env.NODE_ENV !== 'test') {
-    const metricsFetcher = new MetricsFetcher({viewId});
+    const metricsFetcher = new MetricsFetcher({viewId: gaViewId});
     allGAData = await metricsFetcher.fetchAll();
   }
 
-  const {site, allMarkdownRemark, allMdx} = data;
   const allPages = allMarkdownRemark.nodes.concat(allMdx.nodes);
   return allPages.flatMap(page => {
     const {id, fields, frontmatter, tableOfContents, htmlAst, mdxAST} = page;
@@ -68,7 +70,7 @@ async function parse({data, baseUrl, viewId}) {
     // TODO: for auto-generated mobile docs, not all have frontmatter -- can either use the h1 or the last URL path before /index.html
     const {title} = frontmatter;
 
-    const url = baseUrl + site.pathPrefix + slug;
+    const url = siteUrl + slug;
     const docset = site.pathPrefix.replace(/^\/docs\//, '');
 
     const categories = ['documentation', sidebarTitle.toLowerCase()];
@@ -137,4 +139,4 @@ async function parse({data, baseUrl, viewId}) {
   });
 }
 
-module.exports = {parse};
+module.exports = {transformer};
