@@ -4,13 +4,18 @@ const {
   METRICS
 } = require('apollo-algolia-transform');
 const cheerio = require('cheerio');
+const {truncate} = require('lodash');
 
 // recursively get text from all nested children to form a single string of text
 const getChildrenText = children =>
   Array.isArray(children)
     ? children
-        .map(child => child.value || getChildrenText(child.children))
-        .join('')
+        .map(child =>
+          ['text', 'inlineCode'].includes(child.type)
+            ? child.value
+            : getChildrenText(child.children)
+        )
+        .join(' ')
     : '';
 
 function getMdHeadings(tableOfContents) {
@@ -94,27 +99,32 @@ async function parse({data, baseUrl, viewId}) {
         )
       : [];
 
-    console.log(sections);
-
-    // TODO: split page into sections by heading
-    return [
-      {
+    // console.log(sections);
+    const arr = sections.reverse().map((section, index) => {
+      const text = getChildrenText(section.children)
+        .replace(/\n/g, ' ') // replace all new lines with space
+        .replace(/\s+/g, ' '); // replace all multi-spaces with a single space
+      return {
         objectID: id,
-        index: 0, // TODO: make dynamic
+        index,
         type: 'docs',
         url,
         docset,
         title,
-        excerpt,
+        excerpt: truncate(text, {length: 100, separator: ' '}),
+        text,
         categories,
         isCurrentVersion,
-        headings: mdxAST
+        sectionHeading: section.title,
+        headings: mdxAST // TODO: rework headings to use section ancestors
           ? getMdxHeadings(tableOfContents.items)
           : getMdHeadings(tableOfContents),
-        pageviews: allGAData[url]?.[METRICS.uniquePageViews] || 0
-        // TODO: needs text, probably other properties
-      }
-    ];
+        pageviews: allGAData[url]?.[METRICS.uniquePageViews] || 0,
+        ancestors: section.ancestors
+      };
+    });
+    console.log(arr);
+    return arr;
   });
 }
 
