@@ -53,7 +53,7 @@ async function transformer({data}) {
       tableOfContents
     });
 
-    return sections.reverse().map((section, index) => {
+    return sections.map((section, index) => {
       const {title: sectionTitle, hash, children, ancestors = []} = section;
       // replace all whitespace with a single space
       const text = getChildrenText(children).replace(/\s+/g, ' ');
