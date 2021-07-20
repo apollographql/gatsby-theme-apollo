@@ -34,6 +34,7 @@ async function transformer({data}) {
   const records = allPages.flatMap(page => {
     const {id, fields, frontmatter, tableOfContents, htmlAst, mdxAST} = page;
     const {slug, sidebarTitle, isCurrentVersion} = fields;
+
     // TODO: for auto-generated mobile docs, not all have frontmatter -- can either use the h1 or the last URL path before /index.html
     const {title} = frontmatter;
 
@@ -66,41 +67,6 @@ async function transformer({data}) {
         categories
       }
     });
-
-    // const sections = getSections({
-    //   children: (mdxAST || htmlAst).children,
-    //   url,
-    //   getHeading: mdxAST ? getMdxHeading : getMdHeading,
-    //   tableOfContents
-    // });
-
-    // return sections.map((section, index) => {
-    //   const {title: sectionTitle, hash, children, ancestors = []} = section;
-    //   const text = children
-    //     .map(getChildrenText)
-    //     .join(' ') // separate 'nodes' with a space
-    //     .replace(/\s+/g, ' ') // remove any duplicate spaces
-    //     .trim();
-
-    //   return {
-    //     objectID: `${id}_${index}`,
-    //     index,
-    //     sectionTitle,
-    //     text,
-    //     excerpt: truncate(text, {length: 100, separator: ' '}),
-    //     ancestors,
-    //     categories,
-    //     isCurrentVersion,
-    //     url: hash ? url + hash : url,
-
-    //     // unique things that originate outside of this 'map'
-    //     title,
-    //     type: 'docs',
-    //     docset,
-    //     slug,
-    //     pageviews: allGAData[url]?.[METRICS.uniquePageViews] || 0
-    //   };
-    // });
   });
 
   console.log('Created %s Algolia records', records.length);
