@@ -1,11 +1,10 @@
 const {
   MetricsFetcher,
   METRICS,
-  getSections,
+  createRecords,
   getMdxHeading,
   getChildrenText
 } = require('apollo-algolia-transform');
-const {truncate} = require('lodash');
 
 function getMdHeading(child) {
   if (child.type === 'element') {
@@ -13,7 +12,7 @@ function getMdHeading(child) {
     const match = child.tagName.match(/^h(\d)$/);
     if (match) {
       return {
-        title: getChildrenText(child.children),
+        title: getChildrenText(child),
         hash: '#' + child.properties.id,
         depth: Number(match[1]) // use the saved digit as the depth property
       };
@@ -41,39 +40,67 @@ async function transformer({data}) {
     const url = siteUrl + slug;
     const docset = site.pathPrefix.replace(/^\/docs\//, '');
 
-    const categories = ['documentation', sidebarTitle.toLowerCase()];
+    const categories = ['documentation'];
+
+    if (sidebarTitle) {
+      categories.push(sidebarTitle.toLowerCase());
+    }
+
     if (['react', 'ios', 'android'].includes(docset)) {
       categories.push('client');
     }
 
-    const sections = getSections({
+    return createRecords({
       children: (mdxAST || htmlAst).children,
       url,
+      id,
       getHeading: mdxAST ? getMdxHeading : getMdHeading,
-      tableOfContents
-    });
-
-    return sections.map((section, index) => {
-      const {title: sectionTitle, hash, children, ancestors = []} = section;
-      // replace all whitespace with a single space
-      const text = getChildrenText(children).replace(/\s+/g, ' ');
-      return {
-        objectID: `${id}_${index}`,
-        index,
+      tableOfContents,
+      otherProperties: {
+        title,
         type: 'docs',
         docset,
-        url: hash ? url + hash : url,
         slug,
-        title,
-        sectionTitle,
-        text,
-        excerpt: truncate(text, {length: 100, separator: ' '}),
-        ancestors,
-        categories,
         isCurrentVersion,
-        pageviews: allGAData[url]?.[METRICS.uniquePageViews] || 0
-      };
+        pageviews: allGAData[url]?.[METRICS.uniquePageViews] || 0,
+        categories
+      }
     });
+
+    // const sections = getSections({
+    //   children: (mdxAST || htmlAst).children,
+    //   url,
+    //   getHeading: mdxAST ? getMdxHeading : getMdHeading,
+    //   tableOfContents
+    // });
+
+    // return sections.map((section, index) => {
+    //   const {title: sectionTitle, hash, children, ancestors = []} = section;
+    //   const text = children
+    //     .map(getChildrenText)
+    //     .join(' ') // separate 'nodes' with a space
+    //     .replace(/\s+/g, ' ') // remove any duplicate spaces
+    //     .trim();
+
+    //   return {
+    //     objectID: `${id}_${index}`,
+    //     index,
+    //     sectionTitle,
+    //     text,
+    //     excerpt: truncate(text, {length: 100, separator: ' '}),
+    //     ancestors,
+    //     categories,
+    //     isCurrentVersion,
+    //     url: hash ? url + hash : url,
+
+    //     // unique things that originate outside of this 'map'
+    //     title,
+    //     type: 'docs',
+    //     docset,
+    //     slug,
+    //     pageviews: allGAData[url]?.[METRICS.uniquePageViews] || 0
+    //   };
+    // });
   });
 
   console.log('Created %s Algolia records', records.length);
