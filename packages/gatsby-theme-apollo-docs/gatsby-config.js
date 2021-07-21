@@ -201,7 +201,9 @@ module.exports = ({
         appId: algoliaAppId,
         apiKey: algoliaWriteKey,
         // only index when building for production on Netlify
-        skipIndexing: process.env.CONTEXT !== 'production',
+        skipIndexing:
+          process.env.CONTEXT !== 'production' &&
+          process.env.SKIP_INDEXING === 'false',
         queries: [
           {
             query: `
