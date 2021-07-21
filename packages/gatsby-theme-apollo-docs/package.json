@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-apollo-docs",
-  "version": "4.7.13",
+  "version": "4.8.0-alpha.30",
   "main": "index.js",
   "description": "A Gatsby theme for building documentation websites",
   "author": "Trevor Blades <blades@apollographql.com>",
@@ -9,6 +9,9 @@
     "type": "git",
     "url": "https://github.com/apollographql/gatsby-theme-apollo.git",
     "directory": "packages/gatsby-theme-apollo-docs"
+  },
+  "scripts": {
+    "test": "jest"
   },
   "keywords": [
     "gatsby",
@@ -21,7 +24,10 @@
     "@jlengstorf/get-share-image": "^0.8.0",
     "@mdx-js/mdx": "^1.1.0",
     "@mdx-js/react": "^1.0.27",
+    "apollo-algolia-autocomplete": "^1.1.7",
+    "apollo-algolia-transform": "^1.0.25",
     "classnames": "^2.2.6",
+    "gatsby-plugin-algolia": "^0.20.1",
     "gatsby-plugin-google-analytics": "^2.2.5",
     "gatsby-plugin-google-gtag": "^2.8.0",
     "gatsby-plugin-google-tagmanager": "^2.11.0",
@@ -38,6 +44,7 @@
     "gatsby-theme-apollo-core": "^3.0.32",
     "gatsby-transformer-remark": "^2.6.30",
     "js-yaml": "^3.13.1",
+    "lodash": "^4.17.21",
     "prismjs": "^1.15.0",
     "recompose": "^0.30.0",
     "rehype-react": "^3.1.0",
@@ -50,6 +57,7 @@
   },
   "devDependencies": {
     "gatsby": "^2.24.23",
+    "jest": "^27.0.6",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   },
@@ -57,6 +65,5 @@
     "gatsby": "^2.13.80",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
-  },
-  "gitHead": "4d272dbde806f86aa98b4d8ee901336eed6101ae"
+  }
 }

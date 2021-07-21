@@ -71,7 +71,8 @@ async function onCreateNode(
       slug = slug.replace(dirPattern, '');
     }
 
-    if (version !== defaultVersion) {
+    const isCurrentVersion = version === defaultVersion;
+    if (!isCurrentVersion) {
       slug = getVersionBasePath(version) + slug;
     }
 
@@ -97,6 +98,12 @@ async function onCreateNode(
       node,
       name: 'versionRef',
       value: versionRef
+    });
+
+    actions.createNodeField({
+      node,
+      name: 'isCurrentVersion',
+      value: isCurrentVersion
     });
 
     actions.createNodeField({
@@ -298,7 +305,7 @@ exports.createPages = async (
   try {
     defaultVersionNumber = parseFloat(defaultVersion, 10);
   } catch (error) {
-    // let it slide
+    // do nothing
   }
 
   // get the current git branch
@@ -312,6 +319,7 @@ exports.createPages = async (
     const {id, relativePath} = edge.node;
     const {fields} = getPageFromEdge(edge);
 
+    // determine if current page belongs to an older (or newer) version than the default
     let versionDifference = 0;
     if (defaultVersionNumber) {
       try {

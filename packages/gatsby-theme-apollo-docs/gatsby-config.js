@@ -2,9 +2,13 @@ const path = require('path');
 const remarkTypescript = require('remark-typescript');
 const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
 const {HEADER_HEIGHT} = require('./src/utils');
+const {transformer} = require('./algolia');
+const {algoliaSettings} = require('apollo-algolia-transform');
 
 module.exports = ({
   root,
+  baseUrl,
+  pathPrefix,
   siteName,
   pageTitle,
   description,
@@ -18,7 +22,11 @@ module.exports = ({
   ignore,
   checkLinksOptions,
   gatsbyRemarkPlugins = [],
-  remarkPlugins = []
+  remarkPlugins = [],
+  algoliaAppId,
+  algoliaWriteKey,
+  algoliaIndexName,
+  gaViewId
 }) => {
   const allGatsbyRemarkPlugins = [
     {
@@ -174,11 +182,89 @@ module.exports = ({
     });
   }
 
+  if (algoliaAppId && algoliaWriteKey && algoliaIndexName) {
+    plugins.push({
+      resolve: 'gatsby-plugin-algolia',
+      options: {
+        appId: algoliaAppId,
+        apiKey: algoliaWriteKey,
+        // only index when building for production on Netlify
+        skipIndexing: process.env.CONTEXT !== 'production',
+        queries: [
+          {
+            query: `
+              query AlgoliaQuery {
+                site {
+                  pathPrefix
+                  siteMetadata {
+                    siteUrl
+                    gaViewId
+                  }
+                }
+                allMarkdownRemark {
+                  nodes {
+                    ...NodeFragment
+                    htmlAst
+                    excerpt(pruneLength: 100)
+                    tableOfContents
+                    frontmatter {
+                      title
+                      description
+                    }
+                    fields {
+                      slug
+                      isCurrentVersion
+                      apiReference
+                      sidebarTitle
+                    }
+                  }
+                }
+                allMdx {
+                  nodes {
+                    ...NodeFragment
+                    mdxAST
+                    excerpt(pruneLength: 100)
+                    tableOfContents
+                    frontmatter {
+                      title
+                      description
+                    }
+                    fields {
+                      slug
+                      isCurrentVersion
+                      apiReference
+                      sidebarTitle
+                    }
+                  }
+                }
+              }
+
+              fragment NodeFragment on Node {
+                id
+                parent {
+                  ... on File {
+                    name
+                  }
+                }
+              }
+            `,
+            transformer,
+            indexName: algoliaIndexName,
+            settings: algoliaSettings.default
+          }
+        ]
+      }
+    });
+  }
+
   return {
+    pathPrefix,
     siteMetadata: {
       title: pageTitle || siteName,
       siteName,
-      description
+      description,
+      siteUrl: baseUrl + pathPrefix,
+      gaViewId
     },
     plugins
   };
