@@ -65,6 +65,5 @@
     "gatsby": "^2.13.80",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
-  },
-  "gitHead": "4d272dbde806f86aa98b4d8ee901336eed6101ae"
+  }
 }
