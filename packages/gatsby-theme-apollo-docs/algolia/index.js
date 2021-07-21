@@ -32,11 +32,9 @@ async function transformer({data}) {
 
   const allPages = allMarkdownRemark.nodes.concat(allMdx.nodes);
   const records = allPages.flatMap(page => {
-    const {id, fields, frontmatter, tableOfContents, htmlAst, mdxAST} = page;
+    const {id, fields, frontmatter, parent, tableOfContents, htmlAst, mdxAST} =
+      page;
     const {slug, sidebarTitle, isCurrentVersion} = fields;
-
-    // TODO: for auto-generated mobile docs, not all have frontmatter -- can either use the h1 or the last URL path before /index.html
-    const {title} = frontmatter;
 
     const url = siteUrl + slug;
     const docset = site.pathPrefix.replace(/^\/docs\//, '');
@@ -58,7 +56,9 @@ async function transformer({data}) {
       getHeading: mdxAST ? getMdxHeading : getMdHeading,
       tableOfContents,
       otherProperties: {
-        title,
+        // for auto-generated mobile docs, not all have frontmatter. if a title
+        // isn't set, use the name of the file
+        title: frontmatter.title || parent.name,
         type: 'docs',
         docset,
         slug,
