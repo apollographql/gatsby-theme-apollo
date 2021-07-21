@@ -193,7 +193,7 @@ module.exports = ({
         queries: [
           {
             query: `
-              {
+              query AlgoliaQuery {
                 site {
                   pathPrefix
                   siteMetadata {
@@ -203,7 +203,7 @@ module.exports = ({
                 }
                 allMarkdownRemark {
                   nodes {
-                    id
+                    ...NodeFragment
                     htmlAst
                     excerpt(pruneLength: 100)
                     tableOfContents
@@ -221,7 +221,7 @@ module.exports = ({
                 }
                 allMdx {
                   nodes {
-                    id
+                    ...NodeFragment
                     mdxAST
                     excerpt(pruneLength: 100)
                     tableOfContents
@@ -235,6 +235,15 @@ module.exports = ({
                       apiReference
                       sidebarTitle
                     }
+                  }
+                }
+              }
+
+              fragment NodeFragment on Node {
+                id
+                parent {
+                  ... on File {
+                    name
                   }
                 }
               }
