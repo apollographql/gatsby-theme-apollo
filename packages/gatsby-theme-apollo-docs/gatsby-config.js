@@ -25,8 +25,7 @@ module.exports = ({
   remarkPlugins = [],
   algoliaAppId,
   algoliaWriteKey,
-  algoliaIndexName,
-  gaViewId
+  algoliaIndexName
 }) => {
   const allGatsbyRemarkPlugins = [
     {
@@ -197,10 +196,14 @@ module.exports = ({
             query: `
               query AlgoliaQuery {
                 site {
-                  pathPrefix
                   siteMetadata {
                     siteUrl
+                  }
+                }
+                sitePlugin(name: {eq: "gatsby-theme-apollo-docs"}) {
+                  pluginOptions {
                     gaViewId
+                    docset: algoliaIndexName
                   }
                 }
                 allMarkdownRemark {
@@ -265,8 +268,7 @@ module.exports = ({
       title: pageTitle || siteName,
       siteName,
       description,
-      siteUrl: baseUrl + pathPrefix,
-      gaViewId
+      siteUrl: baseUrl + pathPrefix
     },
     plugins
   };

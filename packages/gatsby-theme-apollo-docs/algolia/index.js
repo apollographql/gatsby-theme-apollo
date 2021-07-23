@@ -21,8 +21,9 @@ function getMdHeading(child) {
 }
 
 async function transformer({data}) {
-  const {site, allMarkdownRemark, allMdx} = data;
-  const {siteUrl, gaViewId} = site.siteMetadata;
+  const {site, sitePlugin, allMarkdownRemark, allMdx} = data;
+  const {siteUrl} = site.siteMetadata;
+  const {gaViewId, docset} = sitePlugin.pluginOptions;
 
   let allGAData = {};
   if (process.env.NODE_ENV !== 'test') {
@@ -37,7 +38,6 @@ async function transformer({data}) {
     const {slug, sidebarTitle, isCurrentVersion} = fields;
 
     const url = siteUrl + slug;
-    const docset = site.pathPrefix.replace(/^\/docs\//, '');
 
     const categories = ['documentation'];
 
