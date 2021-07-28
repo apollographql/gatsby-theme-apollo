@@ -4120,18 +4120,18 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apollo-algolia-autocomplete@^1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/apollo-algolia-autocomplete/-/apollo-algolia-autocomplete-1.1.8.tgz#a2c7fe42f47f53eae7c962ce4ca9c00f24c43913"
-  integrity sha512-D14hYEeoX8ZdDYhHlhMx0o3hUua/QD9Zd2LJnuQi8IZyTL54Zhzfi4YfN5Pl8FB/grDAyGnW3V8BivHP+lOtHQ==
+apollo-algolia-autocomplete@^1.1.15:
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/apollo-algolia-autocomplete/-/apollo-algolia-autocomplete-1.1.15.tgz#f8bdd4bf27d1112de7dac5bc9ec7c501f790de24"
+  integrity sha512-vMqvugageLD7oA3Y2sLo96Upl2mOASky9ALKyOlE7oMlSa1nWrs1dYYQOoVQz/Llirvpk0MF2sNIWOwU/8jKww==
   dependencies:
     "@algolia/autocomplete-js" "1.1.0"
     algoliasearch "4.9.1"
 
-apollo-algolia-transform@^1.0.29:
-  version "1.0.29"
-  resolved "https://registry.yarnpkg.com/apollo-algolia-transform/-/apollo-algolia-transform-1.0.29.tgz#72162f3e522b45bc44af8a9f955379b19809b3e6"
-  integrity sha512-niL9b9v3SlAArlDbcas4MOx6TDUIq3XEPgLwTbXhUPu4olkeX9ab+PfC8A/3onvD/rBRXpw7/JK1y6wEcfq+Kg==
+apollo-algolia-transform@^1.0.31:
+  version "1.0.31"
+  resolved "https://registry.yarnpkg.com/apollo-algolia-transform/-/apollo-algolia-transform-1.0.31.tgz#20ef9a5ede0d6543c493630ddaa82d06b542923a"
+  integrity sha512-Aii+ehn9bG+ZIrEUDM9FQqk4jtBvhY/3OujROs2RQQR2P8c7cnoNULRekMXYqPRssf3Rt59QI3d0EFCQ9Qt7Vw==
   dependencies:
     googleapis "^72.0.0"
     lodash "^4.17.21"
