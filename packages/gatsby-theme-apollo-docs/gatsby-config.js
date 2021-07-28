@@ -255,7 +255,15 @@ module.exports = ({
             `,
             transformer,
             indexName: algoliaIndexName,
-            settings: algoliaSettings.default
+            settings: {
+              ...algoliaSettings,
+              attributesForFaceting: ['categories', 'docset', 'type'],
+              // put docs for current version at top, then by page views and index
+              customRanking: [
+                'desc(isCurrentVersion)',
+                ...algoliaSettings.customRanking
+              ]
+            }
           }
         ]
       }
