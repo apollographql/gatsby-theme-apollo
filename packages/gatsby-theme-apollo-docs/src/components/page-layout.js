@@ -126,6 +126,11 @@ export default function PageLayout(props) {
             siteName
           }
         }
+        sitePlugin {
+          pluginOptions {
+            algoliaIndexName
+          }
+        }
       }
     `
   );
@@ -166,9 +171,7 @@ export default function PageLayout(props) {
     navConfig = {},
     footerNavConfig,
     logoLink,
-    menuTitle,
-    algoliaAppId,
-    algoliaSearchKey
+    menuTitle
   } = props.pluginOptions;
 
   const {navItems, navCategories} = useMemo(() => {
@@ -276,9 +279,13 @@ export default function PageLayout(props) {
               <MenuButton onClick={openSidebar} />
               <MobileLogo width={32} fill="currentColor" />
             </MobileNav>
-            {algoliaAppId && algoliaSearchKey && (
+            {process.env.ALGOLIA_APP_ID && process.env.ALGOLIA_SEARCH_KEY && (
               <SearchContainer>
-                <Autocomplete appId={algoliaAppId} apiKey={algoliaSearchKey} />
+                <Autocomplete
+                  appId={process.env.ALGOLIA_APP_ID}
+                  apiKey={process.env.ALGOLIA_SEARCH_KEY}
+                  docset={data.sitePlugin.pluginOptions.algoliaIndexName}
+                />
               </SearchContainer>
             )}
             <HeaderButton />
