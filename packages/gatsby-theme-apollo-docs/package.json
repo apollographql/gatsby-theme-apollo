@@ -29,6 +29,7 @@
     "classnames": "^2.2.6",
     "gatsby-plugin-algolia": "^0.20.1",
     "gatsby-plugin-apollo-onetrust": "apollographql/gatsby-plugin-apollo-onetrust",
+    "gatsby-plugin-env-variables": "^2.1.0",
     "gatsby-plugin-google-analytics": "^2.2.5",
     "gatsby-plugin-google-gtag": "^2.8.0",
     "gatsby-plugin-google-tagmanager": "^2.11.0",

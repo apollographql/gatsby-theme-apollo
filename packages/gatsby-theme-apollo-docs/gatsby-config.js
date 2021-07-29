@@ -195,6 +195,13 @@ module.exports = ({
 
   if (algoliaAppId && algoliaWriteKey && algoliaIndexName) {
     plugins.push({
+      resolve: 'gatsby-plugin-env-variables',
+      options: {
+        allowList: ['ALGOLIA_SEARCH_KEY', 'ALGOLIA_APP_ID']
+      }
+    });
+
+    plugins.push({
       resolve: 'gatsby-plugin-algolia',
       options: {
         appId: algoliaAppId,
