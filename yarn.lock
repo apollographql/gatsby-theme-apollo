@@ -4120,18 +4120,18 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apollo-algolia-autocomplete@^1.1.15:
-  version "1.1.15"
-  resolved "https://registry.yarnpkg.com/apollo-algolia-autocomplete/-/apollo-algolia-autocomplete-1.1.15.tgz#f8bdd4bf27d1112de7dac5bc9ec7c501f790de24"
-  integrity sha512-vMqvugageLD7oA3Y2sLo96Upl2mOASky9ALKyOlE7oMlSa1nWrs1dYYQOoVQz/Llirvpk0MF2sNIWOwU/8jKww==
+apollo-algolia-autocomplete@^1.1.20:
+  version "1.1.20"
+  resolved "https://registry.yarnpkg.com/apollo-algolia-autocomplete/-/apollo-algolia-autocomplete-1.1.20.tgz#60b09b10525e0b3c39044461a19a40c376da31a3"
+  integrity sha512-QI0Jsxjfn8qJYF4hi/RvMLbvn+eojVmksbfKnjQcRiYloUtfZ70ByBc+Tpw+MsisOLWe44ir567eG8yZVuJL4Q==
   dependencies:
     "@algolia/autocomplete-js" "1.1.0"
     algoliasearch "4.9.1"
 
-apollo-algolia-transform@^1.0.31:
-  version "1.0.31"
-  resolved "https://registry.yarnpkg.com/apollo-algolia-transform/-/apollo-algolia-transform-1.0.31.tgz#20ef9a5ede0d6543c493630ddaa82d06b542923a"
-  integrity sha512-Aii+ehn9bG+ZIrEUDM9FQqk4jtBvhY/3OujROs2RQQR2P8c7cnoNULRekMXYqPRssf3Rt59QI3d0EFCQ9Qt7Vw==
+apollo-algolia-transform@^1.0.33:
+  version "1.0.33"
+  resolved "https://registry.yarnpkg.com/apollo-algolia-transform/-/apollo-algolia-transform-1.0.33.tgz#cc65caea48a389541f34aefc9d6a8604f96c3b58"
+  integrity sha512-2N32m5HZbO8SoAdUqLP4b2R/Vhs6tQMnpL3jgK/lI9a0SjTLV5MZWReiFul23hkVdCr7eWGr+hqImfeGDWHrAQ==
   dependencies:
     googleapis "^72.0.0"
     lodash "^4.17.21"
@@ -8830,6 +8830,11 @@ gatsby-plugin-emotion@^4.0.3:
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@emotion/babel-preset-css-prop" "^10.0.27"
+
+gatsby-plugin-env-variables@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-env-variables/-/gatsby-plugin-env-variables-2.1.0.tgz#6204113d214e8854cbc9f6e90c6650c7035e277c"
+  integrity sha512-TNApeosvOcDxOoxZuzJ3rK4rbR2Fvzvweszn22U+z7bVtZ09G8/MtZg14l3HPXQBwqWjsWJH+PrRP+Z+7W7N/A==
 
 gatsby-plugin-google-analytics@^2.2.5:
   version "2.11.0"
