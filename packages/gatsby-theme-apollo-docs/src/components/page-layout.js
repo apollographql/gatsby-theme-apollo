@@ -126,11 +126,6 @@ export default function PageLayout(props) {
             siteName
           }
         }
-        sitePlugin {
-          pluginOptions {
-            algoliaIndexName
-          }
-        }
       }
     `
   );
@@ -171,7 +166,8 @@ export default function PageLayout(props) {
     navConfig = {},
     footerNavConfig,
     logoLink,
-    menuTitle
+    menuTitle,
+    algoliaIndexName
   } = props.pluginOptions;
 
   const {navItems, navCategories} = useMemo(() => {
@@ -284,7 +280,7 @@ export default function PageLayout(props) {
                 <Autocomplete
                   appId={process.env.ALGOLIA_APP_ID}
                   apiKey={process.env.ALGOLIA_SEARCH_KEY}
-                  docset={data.sitePlugin.pluginOptions.algoliaIndexName}
+                  docset={algoliaIndexName}
                 />
               </SearchContainer>
             )}
