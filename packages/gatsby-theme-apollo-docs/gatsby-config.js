@@ -222,7 +222,6 @@ module.exports = ({
                   nodes {
                     ...NodeFragment
                     htmlAst
-                    excerpt(pruneLength: 100)
                     tableOfContents
                     frontmatter {
                       title
@@ -240,7 +239,6 @@ module.exports = ({
                   nodes {
                     ...NodeFragment
                     mdxAST
-                    excerpt(pruneLength: 100)
                     tableOfContents
                     frontmatter {
                       title

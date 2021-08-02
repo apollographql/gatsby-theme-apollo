@@ -4128,10 +4128,10 @@ apollo-algolia-autocomplete@^1.1.21:
     "@algolia/autocomplete-js" "1.1.0"
     algoliasearch "4.9.1"
 
-apollo-algolia-transform@^1.0.33:
-  version "1.0.33"
-  resolved "https://registry.yarnpkg.com/apollo-algolia-transform/-/apollo-algolia-transform-1.0.33.tgz#cc65caea48a389541f34aefc9d6a8604f96c3b58"
-  integrity sha512-2N32m5HZbO8SoAdUqLP4b2R/Vhs6tQMnpL3jgK/lI9a0SjTLV5MZWReiFul23hkVdCr7eWGr+hqImfeGDWHrAQ==
+apollo-algolia-transform@^1.0.34:
+  version "1.0.34"
+  resolved "https://registry.yarnpkg.com/apollo-algolia-transform/-/apollo-algolia-transform-1.0.34.tgz#06ed88882c61865a104dd0eccff500b9bff73cbb"
+  integrity sha512-BIRTdkcdECEhUb1t/aY9+Cn5tXhtljt+FXPenqyUlZ++zwA+sR3917q5jqfAOV44dp1BRNHcS7+uWgT6zXlz6Q==
   dependencies:
     googleapis "^72.0.0"
     lodash "^4.17.21"
