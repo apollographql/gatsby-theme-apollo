@@ -4120,10 +4120,10 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apollo-algolia-autocomplete@^1.1.20:
-  version "1.1.20"
-  resolved "https://registry.yarnpkg.com/apollo-algolia-autocomplete/-/apollo-algolia-autocomplete-1.1.20.tgz#60b09b10525e0b3c39044461a19a40c376da31a3"
-  integrity sha512-QI0Jsxjfn8qJYF4hi/RvMLbvn+eojVmksbfKnjQcRiYloUtfZ70ByBc+Tpw+MsisOLWe44ir567eG8yZVuJL4Q==
+apollo-algolia-autocomplete@^1.1.21:
+  version "1.1.21"
+  resolved "https://registry.yarnpkg.com/apollo-algolia-autocomplete/-/apollo-algolia-autocomplete-1.1.21.tgz#32f25cf0fec82177cd30951aa6c059dfb5062097"
+  integrity sha512-20gvnNt3y+IU1EY8ywwuY/54uImA7H/IxX3WBI1G1zW2XnyP51we1w7q5llZnzmCgRZJNmn8EGW1joqk4hj1nQ==
   dependencies:
     "@algolia/autocomplete-js" "1.1.0"
     algoliasearch "4.9.1"
@@ -8830,11 +8830,6 @@ gatsby-plugin-emotion@^4.0.3:
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@emotion/babel-preset-css-prop" "^10.0.27"
-
-gatsby-plugin-env-variables@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-env-variables/-/gatsby-plugin-env-variables-2.1.0.tgz#6204113d214e8854cbc9f6e90c6650c7035e277c"
-  integrity sha512-TNApeosvOcDxOoxZuzJ3rK4rbR2Fvzvweszn22U+z7bVtZ09G8/MtZg14l3HPXQBwqWjsWJH+PrRP+Z+7W7N/A==
 
 gatsby-plugin-google-analytics@^2.2.5:
   version "2.11.0"

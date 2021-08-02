@@ -167,6 +167,8 @@ export default function PageLayout(props) {
     footerNavConfig,
     logoLink,
     menuTitle,
+    algoliaAppId,
+    algoliaSearchKey,
     algoliaIndexName
   } = props.pluginOptions;
 
@@ -275,11 +277,11 @@ export default function PageLayout(props) {
               <MenuButton onClick={openSidebar} />
               <MobileLogo width={32} fill="currentColor" />
             </MobileNav>
-            {process.env.ALGOLIA_APP_ID && process.env.ALGOLIA_SEARCH_KEY && (
+            {algoliaAppId && algoliaSearchKey && (
               <SearchContainer>
                 <Autocomplete
-                  appId={process.env.ALGOLIA_APP_ID}
-                  apiKey={process.env.ALGOLIA_SEARCH_KEY}
+                  appId={algoliaAppId}
+                  apiKey={algoliaSearchKey}
                   docset={algoliaIndexName}
                 />
               </SearchContainer>
