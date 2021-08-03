@@ -89,11 +89,8 @@ module.exports = {
   siteName: 'Apollo Docs',
   pageTitle: 'Apollo GraphQL Docs',
   menuTitle: 'Apollo Platform',
-  gaTrackingId: [
-    'UA-74643563-13',
-    'G-0BGG5V2W2K' // unified ga property
-  ],
-  gtmContainerId: 'GTM-W35X9LM',
+  gaTrackingId: ['UA-74643563-13'],
+  gtmContainerId: 'GTM-M964NS9',
   algoliaApiKey: '768e823959d35bbd51e4b2439be13fb7',
   algoliaIndexName: 'apollodata',
   baseUrl: 'https://www.apollographql.com',
