@@ -63,7 +63,7 @@ module.exports = ({
             .node.tertiary rect,
             .node.tertiary circle,
             .node.tertiary polygon {
-              stroke: ${colors.tertiaryLight};
+              stroke: ${colors.tertiary};
             }
             .cluster rect {
               fill: none;
