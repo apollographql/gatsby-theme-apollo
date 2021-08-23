@@ -7,9 +7,8 @@ import remark from 'remark';
 import remark2react from 'remark-react';
 import styled from '@emotion/styled';
 import withProps from 'recompose/withProps';
-import {colors, smallCaps} from 'gatsby-theme-apollo-core';
-import { TableWrapper, StyledTable } from './template';
-
+import {StyledTable, TableWrapper} from './template';
+import {smallCaps} from 'gatsby-theme-apollo-core';
 
 const Header = styled.div({});
 
@@ -405,19 +404,31 @@ export class TypescriptApiBox extends Component {
                   <StyledTable className="field-table">
                     <thead>
                       <tr>
-                        <th>Name /<br/>Type</th>
+                        <th>
+                          Name /<br />
+                          Type
+                        </th>
                         <th>Description</th>
                       </tr>
                     </thead>
                     <tbody>
                       {group.members.map((member, index) => (
-                        <tr>
+                        <tr key={index}>
                           <td>
-                            <h6><StyledCode className="language-">{member.name}</StyledCode></h6>
-                            <p><StyledCode className="language-">{member.type}</StyledCode></p>
+                            <h6>
+                              <StyledCode className="language-">
+                                {member.name}
+                              </StyledCode>
+                            </h6>
+                            <p>
+                              <StyledCode className="language-">
+                                {member.type}
+                              </StyledCode>
+                            </p>
                           </td>
                           <td>
-                            {member.description && mdToReact(member.description)}
+                            {member.description &&
+                              mdToReact(member.description)}
                           </td>
                         </tr>
                       ))}
@@ -427,7 +438,7 @@ export class TypescriptApiBox extends Component {
               </Fragment>
             ))}
         </Body>
-        </>
+      </>
     );
   }
 }
