@@ -102,5 +102,6 @@ module.exports = {
   navConfig,
   footerNavConfig,
   ffWidgetId: '3131c43c-bfb5-44e6-9a72-b4094f7ec028',
-  shareImageConfig
+  shareImageConfig,
+  oneTrust: true
 };

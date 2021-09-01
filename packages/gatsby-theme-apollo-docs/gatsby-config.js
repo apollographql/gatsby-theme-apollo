@@ -18,7 +18,8 @@ module.exports = ({
   ignore,
   checkLinksOptions,
   gatsbyRemarkPlugins = [],
-  remarkPlugins = []
+  remarkPlugins = [],
+  oneTrust
 }) => {
   const allGatsbyRemarkPlugins = [
     {
@@ -170,6 +171,17 @@ module.exports = ({
       resolve: 'gatsby-plugin-google-tagmanager',
       options: {
         id: gtmContainerId
+      }
+    });
+  }
+
+  if (oneTrust) {
+    plugins.push({
+      resolve: 'gatsby-plugin-apollo-onetrust',
+      options: {
+        autoBlockSrc: process.env.OT_AUTOBLOCK_SRC,
+        otSDKStubSrc: process.env.OT_SDKSTUB_SRC,
+        dataDomainScript: process.env.OT_DATA_DOMAIN_SCRIPT
       }
     });
   }
