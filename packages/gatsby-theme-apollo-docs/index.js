@@ -11,3 +11,4 @@ export {
   NavItemTitle
 } from './src/components/docset-switcher';
 export {VideoFrame} from './src/components/video-frame';
+export {EmbeddableExplorer} from './src/components/embeddable-explorer';

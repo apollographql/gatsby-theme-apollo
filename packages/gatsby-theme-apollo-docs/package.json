@@ -46,7 +46,8 @@
     "remark-typescript": "^0.3.0",
     "simple-git": "^2.7.0",
     "source-sans-pro": "^3.6.0",
-    "striptags": "^3.1.1"
+    "striptags": "^3.1.1",
+    "subscriptions-transport-ws": "^0.9.19"
   },
   "devDependencies": {
     "gatsby": "^2.24.23",
