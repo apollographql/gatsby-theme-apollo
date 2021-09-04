@@ -1,0 +1,32 @@
+{
+  "name": "gatsby-theme-apollo-local-search",
+  "version": "3.0.2",
+  "main": "index.js",
+  "description": "Sets up your Gatsby website for use with Apollo and using local search",
+  "author": "Justin Spears <speajus@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apollographql/gatsby-theme-apollo.git",
+    "directory": "packages/gatsby-theme-apollo-local-search"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "apollo",
+    "apollo-client"
+  ],
+  "peerDependencies": {
+    "@apollo/client": ">=3.0.0-beta.1",
+    "gatsby": ">=2.13.80"
+  },
+  "devDependencies": {
+    "@apollo/client": "^3.0.0-beta.1",
+    "gatsby": "^2.19.49"
+  },
+  "dependencies": {
+    "gatsby-theme-apollo-core": "^3.0.16",
+    "react-use-flexsearch": "^0.1.1",
+    "gatsby-plugin-local-search": "^1.1.1"
+  }
+}
