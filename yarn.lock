@@ -8823,6 +8823,10 @@ gatsby-plugin-algolia@^0.20.1:
     deep-equal "^2.0.5"
     lodash.chunk "^4.2.0"
 
+gatsby-plugin-apollo-onetrust@apollographql/gatsby-plugin-apollo-onetrust:
+  version "0.0.0"
+  resolved "https://codeload.github.com/apollographql/gatsby-plugin-apollo-onetrust/tar.gz/050ec0782e34bfa5ef70215eacfa4ba0048b3b24"
+
 gatsby-plugin-emotion@^4.0.3:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-emotion/-/gatsby-plugin-emotion-4.5.0.tgz#f54dee45030a42321e3db04e5cfa969293df0f1a"
