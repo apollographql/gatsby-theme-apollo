@@ -27,25 +27,23 @@ async function executeOperation({
   headers,
   embeddedExplorerIFrame,
   operationId,
-  url,
+  url
 }) {
-  const response = await fetch(url,
-    {
-      method: "POST",
-      headers: getHeadersWithContentType(headers),
-      body: JSON.stringify({
-        query: operation,
-        variables,
-        operationName,
-      }),
-    }
-  );
-  await response.json().then((response) => {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: getHeadersWithContentType(headers),
+    body: JSON.stringify({
+      query: operation,
+      variables,
+      operationName
+    })
+  });
+  await response.json().then(response => {
     embeddedExplorerIFrame?.contentWindow?.postMessage(
       {
         name: EXPLORER_QUERY_MUTATION_RESPONSE,
         operationId,
-        response,
+        response
       },
       embeddedExplorerIFrame?.src
     );
@@ -59,17 +57,15 @@ async function executeSubscription({
   headers,
   embeddedExplorerIFrame,
   operationId,
-  url,
+  url
 }) {
   const getClient = () => {
     try {
-      return new SubscriptionClient(url,
-        {
-          reconnect: true,
-          lazy: true,
-          connectionParams: headers ?? {},
-        }
-      );
+      return new SubscriptionClient(url, {
+        reconnect: true,
+        lazy: true,
+        connectionParams: headers ?? {}
+      });
     } catch {
       return undefined;
     }
@@ -80,7 +76,7 @@ async function executeSubscription({
     ?.request({
       query: operation,
       operationName,
-      variables: variables ?? undefined,
+      variables: variables ?? undefined
     })
     .subscribe({
       next(response) {
@@ -88,21 +84,21 @@ async function executeSubscription({
           {
             name: EXPLORER_SUBSCRIPTION_RESPONSE,
             operationId,
-            response,
+            response
           },
           embeddedExplorerIFrame?.src
         );
-      },
+      }
     });
 
-  const checkForSubscriptionTermination = (event) => {
+  const checkForSubscriptionTermination = event => {
     if (event.data.name === EXPLORER_SUBSCRIPTION_TERMINATION) {
       client?.unsubscribeAll();
-      window.removeEventListener("message", checkForSubscriptionTermination);
+      window.removeEventListener('message', checkForSubscriptionTermination);
     }
   };
 
-  window.addEventListener("message", checkForSubscriptionTermination);
+  window.addEventListener('message', checkForSubscriptionTermination);
 }
 
 export function EmbeddableExplorer({
@@ -132,7 +128,8 @@ export function EmbeddableExplorer({
       ) {
         const embeddedExplorerIFrame =
           document.getElementById('embedded-explorer') ?? undefined;
-        const { operation, operationId, operationName, variables, headers } = event.data;
+        const {operation, operationId, operationName, variables, headers} =
+          event.data;
         if (isQueryOrMutation) {
           executeOperation({
             operation: event.data.operation,
