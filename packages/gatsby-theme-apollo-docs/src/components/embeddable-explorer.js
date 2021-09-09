@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useMemo} from 'react';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
 
-const SUBSCRIPTION_TERMINATION = 'ExplorerSubscriptionTermination';
+const EXPLORER_SUBSCRIPTION_TERMINATION = 'ExplorerSubscriptionTermination';
 const EXPLORER_QUERY_MUTATION_REQUEST = 'ExplorerRequest';
 const EXPLORER_SUBSCRIPTION_REQUEST = 'ExplorerSubscriptionRequest';
 const EXPLORER_QUERY_MUTATION_RESPONSE = 'ExplorerResponse';
@@ -41,7 +41,8 @@ async function executeOperation({
   await response.json().then(response => {
     embeddedExplorerIFrame?.contentWindow?.postMessage(
       {
-        name: `${EXPLORER_QUERY_MUTATION_RESPONSE}:${operationId}`,
+        name: EXPLORER_QUERY_MUTATION_RESPONSE,
+        operationId,
         response
       },
       embeddedExplorerIFrame?.src
@@ -81,7 +82,8 @@ async function executeSubscription({
       next(response) {
         embeddedExplorerIFrame?.contentWindow?.postMessage(
           {
-            name: `${EXPLORER_SUBSCRIPTION_RESPONSE}:${operationId}`,
+            name: EXPLORER_SUBSCRIPTION_RESPONSE,
+            operationId,
             response
           },
           embeddedExplorerIFrame?.src
@@ -90,7 +92,7 @@ async function executeSubscription({
     });
 
   const checkForSubscriptionTermination = event => {
-    if (event.data.name?.startsWith(SUBSCRIPTION_TERMINATION)) {
+    if (event.data.name === EXPLORER_SUBSCRIPTION_TERMINATION) {
       client?.unsubscribeAll();
       window.removeEventListener('message', checkForSubscriptionTermination);
     }
@@ -113,20 +115,21 @@ export function EmbeddableExplorer({
     const onPostMessageReceived = event => {
       const isQueryOrMutation =
         'name' in event.data &&
-        event.data.name?.startsWith(`${EXPLORER_QUERY_MUTATION_REQUEST}:`);
+        event.data.name === EXPLORER_QUERY_MUTATION_REQUEST;
       const isSubscription =
         'name' in event.data &&
-        event.data.name?.startsWith(`${EXPLORER_SUBSCRIPTION_REQUEST}:`);
+        event.data.name === EXPLORER_SUBSCRIPTION_REQUEST;
 
       if (
         (isQueryOrMutation || isSubscription) &&
         event.data.name &&
-        event.data.operation
+        event.data.operation &&
+        event.data.operationId
       ) {
-        const operationId = event.data.name.split(':')[1];
         const embeddedExplorerIFrame =
           document.getElementById('embedded-explorer') ?? undefined;
-        const {operation, operationName, variables, headers} = event.data;
+        const {operation, operationId, operationName, variables, headers} =
+          event.data;
         if (isQueryOrMutation) {
           executeOperation({
             operation: event.data.operation,
