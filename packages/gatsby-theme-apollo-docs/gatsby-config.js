@@ -2,9 +2,13 @@ const path = require('path');
 const remarkTypescript = require('remark-typescript');
 const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
 const {HEADER_HEIGHT} = require('./src/utils');
+const {transformer} = require('./algolia');
+const {algoliaSettings} = require('apollo-algolia-transform');
 
 module.exports = ({
   root,
+  baseUrl,
+  pathPrefix,
   siteName,
   pageTitle,
   description,
@@ -19,7 +23,10 @@ module.exports = ({
   checkLinksOptions,
   gatsbyRemarkPlugins = [],
   remarkPlugins = [],
-  oneTrust
+  oneTrust,
+  algoliaAppId,
+  algoliaWriteKey,
+  algoliaIndexName
 }) => {
   const allGatsbyRemarkPlugins = [
     {
@@ -186,11 +193,100 @@ module.exports = ({
     });
   }
 
+  if (algoliaAppId && algoliaWriteKey && algoliaIndexName) {
+    plugins.push({
+      resolve: 'gatsby-plugin-algolia',
+      options: {
+        appId: algoliaAppId,
+        apiKey: algoliaWriteKey,
+        // only index when building for production on Netlify
+        skipIndexing:
+          !['production', 'branch-deploy'].includes(process.env.CONTEXT) &&
+          process.env.SKIP_INDEXING !== 'false',
+        queries: [
+          {
+            query: `
+              query AlgoliaQuery {
+                site {
+                  siteMetadata {
+                    siteUrl
+                  }
+                }
+                sitePlugin(name: {eq: "gatsby-theme-apollo-docs"}) {
+                  pluginOptions {
+                    gaViewId
+                    docset: algoliaIndexName
+                  }
+                }
+                allMarkdownRemark {
+                  nodes {
+                    ...NodeFragment
+                    htmlAst
+                    tableOfContents
+                    frontmatter {
+                      title
+                      description
+                    }
+                    fields {
+                      slug
+                      isCurrentVersion
+                      apiReference
+                      sidebarTitle
+                    }
+                  }
+                }
+                allMdx {
+                  nodes {
+                    ...NodeFragment
+                    mdxAST
+                    tableOfContents
+                    frontmatter {
+                      title
+                      description
+                    }
+                    fields {
+                      slug
+                      isCurrentVersion
+                      apiReference
+                      sidebarTitle
+                    }
+                  }
+                }
+              }
+
+              fragment NodeFragment on Node {
+                id
+                parent {
+                  ... on File {
+                    name
+                  }
+                }
+              }
+            `,
+            transformer,
+            indexName: algoliaIndexName,
+            settings: {
+              ...algoliaSettings,
+              attributesForFaceting: ['categories', 'docset', 'type'],
+              // put docs for current version at top, then by page views and index
+              customRanking: [
+                'desc(isCurrentVersion)',
+                ...algoliaSettings.customRanking
+              ]
+            }
+          }
+        ]
+      }
+    });
+  }
+
   return {
+    pathPrefix,
     siteMetadata: {
       title: pageTitle || siteName,
       siteName,
-      description
+      description,
+      siteUrl: baseUrl + pathPrefix
     },
     plugins
   };

@@ -1,11 +1,12 @@
 import '../prism.less';
+import 'apollo-algolia-autocomplete/styles.css';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+import Autocomplete from 'apollo-algolia-autocomplete';
 import DocsetSwitcher from './docset-switcher';
 import Header from './header';
 import HeaderButton from './header-button';
 import PropTypes from 'prop-types';
 import React, {createContext, useMemo, useRef, useState} from 'react';
-import Search from './search';
 import styled from '@emotion/styled';
 import useLocalStorage from 'react-use/lib/useLocalStorage';
 import {Button} from '@apollo/space-kit/Button';
@@ -79,6 +80,14 @@ const Eyebrow = styled.div({
   },
   [breakpoints.md]: {
     padding: '8px 24px'
+  }
+});
+
+const SearchContainer = styled.div({
+  flexGrow: 1,
+  marginRight: 40,
+  [breakpoints.md]: {
+    marginRight: 0
   }
 });
 
@@ -157,9 +166,10 @@ export default function PageLayout(props) {
     navConfig = {},
     footerNavConfig,
     logoLink,
-    algoliaApiKey,
-    algoliaIndexName,
-    menuTitle
+    menuTitle,
+    algoliaAppId,
+    algoliaSearchKey,
+    algoliaIndexName
   } = props.pluginOptions;
 
   const {navItems, navCategories} = useMemo(() => {
@@ -267,12 +277,14 @@ export default function PageLayout(props) {
               <MenuButton onClick={openSidebar} />
               <MobileLogo width={32} fill="currentColor" />
             </MobileNav>
-            {algoliaApiKey && algoliaIndexName && (
-              <Search
-                siteName={siteName}
-                apiKey={algoliaApiKey}
-                indexName={algoliaIndexName}
-              />
+            {algoliaAppId && algoliaSearchKey && (
+              <SearchContainer>
+                <Autocomplete
+                  appId={algoliaAppId}
+                  apiKey={algoliaSearchKey}
+                  docset={algoliaIndexName}
+                />
+              </SearchContainer>
             )}
             <HeaderButton />
           </Header>

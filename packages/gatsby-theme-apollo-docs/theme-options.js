@@ -7,6 +7,7 @@ const navConfig = {
     omitLandingPage: true
   },
   'Apollo Client (React)': {
+    docset: 'react',
     category: 'Apollo Client',
     shortName: 'React / JS',
     url: 'https://www.apollographql.com/docs/react',
@@ -14,6 +15,7 @@ const navConfig = {
       "Manage the entirety of your React app's state and seamlessly execute GraphQL operations."
   },
   'Apollo Client (iOS)': {
+    docset: 'ios',
     category: 'Apollo Client',
     shortName: 'iOS',
     url: 'https://www.apollographql.com/docs/ios',
@@ -21,6 +23,7 @@ const navConfig = {
       "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations."
   },
   'Apollo Client (Android)': {
+    docset: 'android',
     category: 'Apollo Client',
     shortName: 'Android',
     url: 'https://www.apollographql.com/docs/android',
@@ -28,23 +31,27 @@ const navConfig = {
       "Manage the entirety of your Android app's state and seamlessly execute GraphQL operations."
   },
   'Apollo Server': {
+    docset: 'apollo-server',
     category: 'Backend',
     url: 'https://www.apollographql.com/docs/apollo-server',
     description:
       'Configure a production-ready GraphQL server to fetch and combine data from multiple sources.'
   },
   'Apollo Federation': {
+    docset: 'federation',
     category: 'Backend',
     url: 'https://www.apollographql.com/docs/federation',
     description: 'Implement a single data graph across multiple services.'
   },
   'Apollo Studio': {
+    docset: 'studio',
     category: 'Tools',
     url: 'https://www.apollographql.com/docs/graph-manager',
     description:
       'Build your graph with your team, evolve it safely, and keep it running smoothly.'
   },
   'Rover CLI': {
+    docset: 'rover',
     category: 'Tools',
     url: 'https://www.apollographql.com/docs/rover',
     description: 'Manage your Studio graphs and schemas from the command line.'
@@ -91,10 +98,12 @@ module.exports = {
   menuTitle: 'Apollo Platform',
   gaTrackingId: ['UA-74643563-13', 'G-0BGG5V2W2K'],
   gtmContainerId: 'GTM-M964NS9',
-  algoliaApiKey: '768e823959d35bbd51e4b2439be13fb7',
-  algoliaIndexName: 'apollodata',
   baseUrl: 'https://www.apollographql.com',
   twitterHandle: 'apollographql',
+  algoliaAppId: process.env.ALGOLIA_APP_ID,
+  algoliaWriteKey: process.env.ALGOLIA_WRITE_KEY,
+  algoliaSearchKey: process.env.ALGOLIA_SEARCH_KEY,
+  gaViewId: '163147389',
   youtubeUrl: 'https://www.youtube.com/channel/UC0pEW_GOrMJ23l8QcrGdKSw',
   logoLink: 'https://www.apollographql.com/docs/',
   baseDir: 'docs',
