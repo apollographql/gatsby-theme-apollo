@@ -105,10 +105,31 @@ export function EmbeddableExplorer({
   graphRef,
   graphEndpoint,
   graphSubscriptionEndpoint,
+  defaultOperation,
+  defaultVariables,
+  defaultHeaders,
+  postMessageOperations = true,
   styles,
 }) {
+  const additionalQueryParams =
+    `&postMessageOperations=${postMessageOperations ? "true" : "false"}` +
+    `${
+      defaultOperation &&
+      `&document=${window.encodeURIComponent(defaultOperation)}`
+    }` +
+    `${
+      defaultVariables &&
+      `&variables=${window.encodeURIComponent(defaultVariables)}`
+    }` +
+    `${
+      defaultHeaders && `&headers=${window.encodeURIComponent(defaultHeaders)}`
+    }`;
+
   const EMBEDDABLE_EXPLORER_URL = useMemo(() => {
-    return `https://explorer.embed.apollographql.com/?graphRef=${graphRef}&docsPanelState=closed`;
+    return (
+      `https://explorer.embed.apollographql.com/?graphRef=${graphRef}&docsPanelState=closed` +
+      additionalQueryParams
+    );
   }, [graphRef]);
 
   useEffect(() => {
