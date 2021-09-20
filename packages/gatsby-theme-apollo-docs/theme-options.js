@@ -12,7 +12,21 @@ const navConfig = {
     shortName: 'React / JS',
     url: 'https://www.apollographql.com/docs/react',
     description:
-      "Manage the entirety of your React app's state and seamlessly execute GraphQL operations."
+      "Manage the entirety of your React app's state and seamlessly execute GraphQL operations.",
+    topArticles: [
+      {
+        title: 'Get started',
+        url: 'https://www.apollographql.com/docs/react/get-started/'
+      },
+      {
+        title: 'Queries',
+        url: 'https://www.apollographql.com/docs/react/data/queries/'
+      },
+      {
+        title: 'Caching overview',
+        url: 'https://www.apollographql.com/docs/react/caching/overview/'
+      }
+    ]
   },
   'Apollo Client (iOS)': {
     docset: 'ios',
@@ -20,7 +34,21 @@ const navConfig = {
     shortName: 'iOS',
     url: 'https://www.apollographql.com/docs/ios',
     description:
-      "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations."
+      "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations.",
+    topArticles: [
+      {
+        title: 'Tutorial',
+        url: 'https://www.apollographql.com/docs/ios/tutorial/tutorial-introduction/'
+      },
+      {
+        title: 'Downloading a schema',
+        url: 'https://www.apollographql.com/docs/ios/downloading-schema/'
+      },
+      {
+        title: 'Fetching queries',
+        url: 'https://www.apollographql.com/docs/ios/fetching-queries/'
+      }
+    ]
   },
   'Apollo Client (Android)': {
     docset: 'android',
@@ -28,33 +56,103 @@ const navConfig = {
     shortName: 'Android',
     url: 'https://www.apollographql.com/docs/android',
     description:
-      "Manage the entirety of your Android app's state and seamlessly execute GraphQL operations."
+      "Manage the entirety of your Android app's state and seamlessly execute GraphQL operations.",
+    topArticles: [
+      {
+        title: 'Tutorial',
+        url: 'https://www.apollographql.com/docs/android/tutorial/00-introduction/'
+      },
+      {
+        title: 'Queries',
+        url: 'https://www.apollographql.com/docs/android/essentials/queries/'
+      },
+      {
+        title: 'Normalized cache',
+        url: 'https://www.apollographql.com/docs/android/essentials/normalized-cache/'
+      }
+    ]
   },
   'Apollo Server': {
     docset: 'apollo-server',
     category: 'Backend',
     url: 'https://www.apollographql.com/docs/apollo-server',
     description:
-      'Configure a production-ready GraphQL server to fetch and combine data from multiple sources.'
+      'Configure a production-ready GraphQL server to fetch and combine data from multiple sources.',
+    topArticles: [
+      {
+        title: 'Get started',
+        url: 'https://www.apollographql.com/docs/apollo-server/getting-started/'
+      },
+      {
+        title: 'Schema basics',
+        url: 'https://www.apollographql.com/docs/apollo-server/schema/schema/'
+      },
+      {
+        title: 'Resolvers',
+        url: 'https://www.apollographql.com/docs/apollo-server/data/resolvers/'
+      }
+    ]
   },
   'Apollo Federation': {
     docset: 'federation',
     category: 'Backend',
     url: 'https://www.apollographql.com/docs/federation',
-    description: 'Implement a single data graph across multiple services.'
+    description: 'Implement a single data graph across multiple services.',
+    topArticles: [
+      {
+        title: 'Introduction',
+        url: 'https://www.apollographql.com/docs/federation/'
+      },
+      {
+        title: 'Quickstart',
+        url: 'https://www.apollographql.com/docs/federation/quickstart/'
+      },
+      {
+        title: 'Enterprise guide',
+        url: 'https://www.apollographql.com/docs/federation/enterprise-guide/introduction/'
+      }
+    ]
   },
   'Apollo Studio': {
     docset: 'studio',
     category: 'Tools',
     url: 'https://www.apollographql.com/docs/graph-manager',
     description:
-      'Build your graph with your team, evolve it safely, and keep it running smoothly.'
+      'Build your graph with your team, evolve it safely, and keep it running smoothly.',
+    topArticles: [
+      {
+        title: 'Get started',
+        url: 'https://www.apollographql.com/docs/studio/getting-started/'
+      },
+      {
+        title: 'Metrics reporting',
+        url: 'https://www.apollographql.com/docs/studio/setup-analytics/'
+      },
+      {
+        title: 'Schema checks',
+        url: 'https://www.apollographql.com/docs/studio/schema-checks/'
+      }
+    ]
   },
   'Rover CLI': {
     docset: 'rover',
     category: 'Tools',
     url: 'https://www.apollographql.com/docs/rover',
-    description: 'Manage your Studio graphs and schemas from the command line.'
+    description: 'Manage your Studio graphs and schemas from the command line.',
+    topArticles: [
+      {
+        title: 'Install',
+        url: 'https://www.apollographql.com/docs/rover/getting-started'
+      },
+      {
+        title: 'Configure',
+        url: 'https://www.apollographql.com/docs/rover/configuring/'
+      },
+      {
+        title: 'Working with graphs',
+        url: 'https://www.apollographql.com/docs/rover/graphs/'
+      }
+    ]
   }
 };
 
