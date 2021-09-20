@@ -12,7 +12,7 @@ const navConfig = {
     shortName: 'React / JS',
     url: 'https://www.apollographql.com/docs/react',
     description:
-      "Manage the entirety of your React app's state and seamlessly execute GraphQL operations.",
+      "Manage your React app's state and seamlessly execute GraphQL operations.",
     topArticles: [
       {
         title: 'Get started',
@@ -34,7 +34,7 @@ const navConfig = {
     shortName: 'iOS',
     url: 'https://www.apollographql.com/docs/ios',
     description:
-      "Manage the entirety of your iOS app's state and seamlessly execute GraphQL operations.",
+      "Manage your iOS app's state and seamlessly execute GraphQL operations.",
     topArticles: [
       {
         title: 'Tutorial',
@@ -56,7 +56,7 @@ const navConfig = {
     shortName: 'Android',
     url: 'https://www.apollographql.com/docs/android',
     description:
-      "Manage the entirety of your Android app's state and seamlessly execute GraphQL operations.",
+      "Manage your Android app's state and seamlessly execute GraphQL operations.",
     topArticles: [
       {
         title: 'Tutorial',
@@ -97,7 +97,7 @@ const navConfig = {
     docset: 'federation',
     category: 'Backend',
     url: 'https://www.apollographql.com/docs/federation',
-    description: 'Implement a single data graph across multiple services.',
+    description: 'Implement a single unified graph across multiple subgraphs.',
     topArticles: [
       {
         title: 'Introduction',
