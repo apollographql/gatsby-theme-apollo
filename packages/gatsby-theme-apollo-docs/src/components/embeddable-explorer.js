@@ -111,6 +111,12 @@ export function EmbeddableExplorer({
   postMessageOperations = true,
   styles,
 }) {
+
+  // Don't render embedded explorer in SSR environments
+  if (typeof window === 'undefined') {
+    return (null);
+  }
+
   const additionalQueryParams =
     `&postMessageOperations=${postMessageOperations ? "true" : "false"}` +
     `${
