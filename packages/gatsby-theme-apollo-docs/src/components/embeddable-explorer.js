@@ -119,17 +119,9 @@ export function EmbeddableExplorer({
 
   const additionalQueryParams =
     `&postMessageOperations=${postMessageOperations ? "true" : "false"}` +
-    `${
-      defaultOperation &&
-      `&document=${window.encodeURIComponent(defaultOperation)}`
-    }` +
-    `${
-      defaultVariables &&
-      `&variables=${window.encodeURIComponent(defaultVariables)}`
-    }` +
-    `${
-      defaultHeaders && `&headers=${window.encodeURIComponent(defaultHeaders)}`
-    }`;
+    (defaultOperation ? `&document=${window.encodeURIComponent(defaultOperation)}` : '') +
+    (defaultVariables ?`& variables=${window.encodeURIComponent(defaultVariables)}` : '') +
+    (defaultHeaders ? `&headers=${window.encodeURIComponent(defaultHeaders)}` : '');
 
   const EMBEDDABLE_EXPLORER_URL = useMemo(() => {
     return (
