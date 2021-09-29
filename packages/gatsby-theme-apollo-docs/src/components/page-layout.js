@@ -169,7 +169,7 @@ export default function PageLayout(props) {
     menuTitle,
     algoliaAppId,
     algoliaSearchKey,
-    algoliaFilters
+    algoliaFilters = []
   } = props.pluginOptions;
 
   const {navItems, navCategories} = useMemo(() => {
@@ -282,10 +282,7 @@ export default function PageLayout(props) {
                 <Autocomplete
                   appId={algoliaAppId}
                   apiKey={algoliaSearchKey}
-                  optionalFilters={[
-                    algoliaFilters,
-                    'isCurrentVersion:true'
-                  ].filter(Boolean)} // filter out any undefined values
+                  optionalFilters={[...algoliaFilters, 'isCurrentVersion:true']}
                 />
               </SearchContainer>
             )}
