@@ -169,7 +169,6 @@ export default function PageLayout(props) {
     menuTitle,
     algoliaAppId,
     algoliaSearchKey,
-    algoliaIndexName,
     algoliaFilters
   } = props.pluginOptions;
 
@@ -283,7 +282,6 @@ export default function PageLayout(props) {
                 <Autocomplete
                   appId={algoliaAppId}
                   apiKey={algoliaSearchKey}
-                  docset={algoliaIndexName}
                   optionalFilters={[
                     algoliaFilters,
                     'isCurrentVersion:true'
