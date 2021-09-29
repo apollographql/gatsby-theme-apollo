@@ -108,7 +108,7 @@ export function EmbeddableExplorer({
   defaultOperation,
   defaultVariables,
   defaultHeaders,
-  postMessageOperations = true,
+  sendRequestsFrom = 'parent',
   styles,
 }) {
 
@@ -118,7 +118,7 @@ export function EmbeddableExplorer({
   }
 
   const additionalQueryParams =
-    `&postMessageOperations=${postMessageOperations ? "true" : "false"}` +
+    `&sendRequestsFrom=${sendRequestsFrom}` +
     (defaultOperation ? `&document=${window.encodeURIComponent(defaultOperation)}` : '') +
     (defaultVariables ?`& variables=${window.encodeURIComponent(defaultVariables)}` : '') +
     (defaultHeaders ? `&headers=${window.encodeURIComponent(defaultHeaders)}` : '');
