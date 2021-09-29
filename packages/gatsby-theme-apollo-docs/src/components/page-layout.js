@@ -169,7 +169,8 @@ export default function PageLayout(props) {
     menuTitle,
     algoliaAppId,
     algoliaSearchKey,
-    algoliaIndexName
+    algoliaIndexName,
+    algoliaFilters
   } = props.pluginOptions;
 
   const {navItems, navCategories} = useMemo(() => {
@@ -283,6 +284,10 @@ export default function PageLayout(props) {
                   appId={algoliaAppId}
                   apiKey={algoliaSearchKey}
                   docset={algoliaIndexName}
+                  optionalFilters={[
+                    algoliaFilters,
+                    'isCurrentVersion:true'
+                  ].filter(Boolean)} // filter out any undefined values
                 />
               </SearchContainer>
             )}
