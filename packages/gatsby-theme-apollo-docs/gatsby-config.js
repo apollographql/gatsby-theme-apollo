@@ -40,19 +40,19 @@ module.exports = ({
         ignoreFileExtensions: []
       }
     },
+    'gatsby-remark-rewrite-relative-links',
+    {
+      resolve: 'gatsby-remark-check-links',
+      options: checkLinksOptions
+    },
+    ...gatsbyRemarkPlugins,
     'gatsby-remark-code-titles',
     {
       resolve: 'gatsby-remark-prismjs',
       options: {
         showLineNumbers: true
       }
-    },
-    'gatsby-remark-rewrite-relative-links',
-    {
-      resolve: 'gatsby-remark-check-links',
-      options: checkLinksOptions
-    },
-    ...gatsbyRemarkPlugins
+    }
   ];
 
   const plugins = [
