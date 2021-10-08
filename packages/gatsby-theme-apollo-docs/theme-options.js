@@ -1,3 +1,5 @@
+const {colors} = require('gatsby-theme-apollo-core/src/utils/colors');
+
 const navConfig = {
   'Apollo Basics': {
     category: 'Core',
@@ -190,6 +192,69 @@ const shareImageConfig = {
   imagePublicID: 'apollo-docs-template2_dohzxt'
 };
 
+const mermaidOptions = {
+  themeCSS: `
+    .node rect,
+    .node circle,
+    .node polygon,
+    .node path {
+      stroke-width: 2px;
+      stroke: ${colors.primary};
+      fill: ${colors.background};
+    }
+    .node.secondary rect,
+    .node.secondary circle,
+    .node.secondary polygon,
+    .node.tertiary rect,
+    .node.tertiary circle,
+    .node.tertiary polygon {
+      fill: white;
+    }
+    .node.secondary rect,
+    .node.secondary circle,
+    .node.secondary polygon {
+      stroke: ${colors.secondary};
+    }
+    .cluster rect,
+    .node.tertiary rect,
+    .node.tertiary circle,
+    .node.tertiary polygon {
+      stroke: ${colors.tertiary};
+    }
+    .cluster rect {
+      fill: none;
+      stroke-width: 2px;
+    }
+    .label, .edgeLabel {
+      background-color: white;
+      line-height: 1.3;
+    }
+    .edgeLabel rect {
+      background: none;
+      fill: none;
+    }
+    .messageText, .noteText, .loopText {
+      font-size: 12px;
+      stroke: none;
+    }
+    g rect, polygon.labelBox {
+      stroke-width: 2px;
+    }
+    g rect.actor {
+      stroke: ${colors.tertiary};
+      fill: white;
+    }
+    g rect.note {
+      stroke: ${colors.secondary};
+      fill: white;
+    }
+    g line.loopLine, polygon.labelBox {
+      stroke: ${colors.primary};
+      fill: white;
+    }
+  `
+};
+
 module.exports = {
   siteName: 'Apollo Docs',
   pageTitle: 'Apollo GraphQL Docs',
@@ -210,5 +275,6 @@ module.exports = {
   footerNavConfig,
   ffWidgetId: '3131c43c-bfb5-44e6-9a72-b4094f7ec028',
   shareImageConfig,
-  oneTrust: true
+  oneTrust: true,
+  mermaidOptions
 };
