@@ -1,5 +1,6 @@
 export {TypescriptApiBox} from './src/components/typescript-api-box';
 export {MultiCodeBlock} from './src/components/multi-code-block';
+export {CodeColumns} from './src/components/code-columns';
 export {
   ExpansionPanel,
   ExpansionPanelList,

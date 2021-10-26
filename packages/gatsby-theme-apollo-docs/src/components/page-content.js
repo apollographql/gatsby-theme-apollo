@@ -67,7 +67,21 @@ const BodyContent = styled.div({
     maxWidth: '100%'
   },
   '.mermaid svg': {
-    maxWidth: '100%'
+    maxWidth: '100%',
+    filter: 'drop-shadow(2px 2px 2px #ddd)'
+  },
+  '.three-columns': {
+    '.line-numbers-rows': {
+      display: 'none'
+    },
+    '.gatsby-highlight pre[class*="language-"].line-numbers': {
+      paddingLeft: 0,
+      lineHeight: 1.3,
+      code: {
+        fontSize: '14px',
+        lineHeight: 1
+      }
+    }
   }
 });
 
