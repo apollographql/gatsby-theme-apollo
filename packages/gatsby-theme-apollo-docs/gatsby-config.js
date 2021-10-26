@@ -26,7 +26,8 @@ module.exports = ({
   oneTrust,
   algoliaAppId,
   algoliaWriteKey,
-  algoliaIndexName
+  algoliaIndexName,
+  remarkTypescriptOptions
 }) => {
   const allGatsbyRemarkPlugins = [
     {
@@ -144,7 +145,13 @@ module.exports = ({
       options: {
         gatsbyRemarkPlugins: allGatsbyRemarkPlugins,
         remarkPlugins: [
-          [remarkTypescript, {wrapperComponent: 'MultiCodeBlock'}],
+          [
+            remarkTypescript,
+            {
+              wrapperComponent: 'MultiCodeBlock',
+              ...remarkTypescriptOptions
+            }
+          ],
           ...remarkPlugins
         ]
       }
