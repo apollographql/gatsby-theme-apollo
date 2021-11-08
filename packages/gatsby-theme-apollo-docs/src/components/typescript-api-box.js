@@ -254,7 +254,9 @@ export class TypescriptApiBox extends Component {
       }
 
       if (declaration.indexSignature) {
-        const signature = declaration.indexSignature[0];
+        const signature = Array.isArray(declaration.indexSignature)
+          ? declaration.indexSignature[0]
+          : declaration.indexSignature;
         return (
           this._indexParameterString(signature) + ':' + this._type(signature)
         );
