@@ -9281,41 +9281,6 @@ gatsby-telemetry@^1.10.2:
     node-fetch "^2.6.1"
     uuid "3.4.0"
 
-gatsby-theme-apollo-docs@^4.3.2:
-  version "4.7.13"
-  resolved "https://registry.yarnpkg.com/gatsby-theme-apollo-docs/-/gatsby-theme-apollo-docs-4.7.13.tgz#417fcba6c162a3dc60814a4312c79fde00446a17"
-  integrity sha512-WoIH2vjrjn4RzJZftJnQCWnzAG6dk86blhrV1OGWVV151Oy44MLBM+dXfBl2dAWjwj+KAASzd2DufJBCbLqUNw==
-  dependencies:
-    "@jlengstorf/get-share-image" "^0.8.0"
-    "@mdx-js/mdx" "^1.1.0"
-    "@mdx-js/react" "^1.0.27"
-    classnames "^2.2.6"
-    gatsby-plugin-google-analytics "^2.2.5"
-    gatsby-plugin-google-gtag "^2.8.0"
-    gatsby-plugin-google-tagmanager "^2.11.0"
-    gatsby-plugin-mdx "^1.0.23"
-    gatsby-remark-autolink-headers "^2.3.11"
-    gatsby-remark-check-links "^2.1.0"
-    gatsby-remark-code-titles "^1.1.0"
-    gatsby-remark-copy-linked-files "^2.0.12"
-    gatsby-remark-mermaid "^1.2.0"
-    gatsby-remark-prismjs "^3.2.8"
-    gatsby-remark-rewrite-relative-links "^1.0.8"
-    gatsby-source-filesystem "^2.0.29"
-    gatsby-source-git "^1.0.1"
-    gatsby-theme-apollo-core "^3.0.32"
-    gatsby-transformer-remark "^2.6.30"
-    js-yaml "^3.13.1"
-    prismjs "^1.15.0"
-    recompose "^0.30.0"
-    rehype-react "^3.1.0"
-    remark "^10.0.1"
-    remark-react "^5.0.1"
-    remark-typescript "^0.3.0"
-    simple-git "^2.7.0"
-    source-sans-pro "^3.6.0"
-    striptags "^3.1.1"
-
 gatsby-transformer-remark@^2.6.30:
   version "2.16.1"
   resolved "https://registry.yarnpkg.com/gatsby-transformer-remark/-/gatsby-transformer-remark-2.16.1.tgz#43f092ccd982c4971acff8c1d9339beea40236bb"
@@ -16237,16 +16202,6 @@ remark-stringify@^8.1.0:
     stringify-entities "^3.0.0"
     unherit "^1.0.4"
     xtend "^4.0.1"
-
-remark-typescript@^0.3.0:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/remark-typescript/-/remark-typescript-0.3.1.tgz#72528d84876a8c0b6af89f9db2a6be816ce387b3"
-  integrity sha512-UH3VrAD6HB3JBrPrdKDHmhSb2frDT0OfDTE4P8MI807KWNHkhuA+dKjld9+mYbq+PViy86nUZstpGkHWp5Y6gA==
-  dependencies:
-    "@babel/core" "^7.5.5"
-    "@babel/preset-typescript" "^7.3.3"
-    prettier "^1.18.2"
-    unist-util-visit "^1.4.1"
 
 remark-typescript@^0.4.0:
   version "0.4.0"

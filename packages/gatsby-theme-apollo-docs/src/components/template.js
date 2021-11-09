@@ -152,7 +152,7 @@ export default function Template(props) {
   const {file, site} = props.data;
   const {frontmatter, headings, fields} =
     file.childMarkdownRemark || file.childMdx;
-  const {title, description} = site.siteMetadata;
+  const {title, description, siteUrl} = site.siteMetadata;
   const {
     sidebarContents,
     githubUrl,
@@ -174,6 +174,7 @@ export default function Template(props) {
         siteName={title}
         image={fields.image}
         twitterHandle={twitterHandle}
+        canonical={siteUrl + props.path}
       />
       <Global
         styles={{
@@ -223,6 +224,7 @@ export default function Template(props) {
 
 Template.propTypes = {
   data: PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired,
   pageContext: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired
 };
@@ -234,6 +236,7 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         description
+        siteUrl
       }
     }
     file(id: {eq: $id}) {
