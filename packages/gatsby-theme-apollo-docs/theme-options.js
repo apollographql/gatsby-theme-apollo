@@ -117,7 +117,7 @@ const navConfig = {
     docset: 'router',
     category: 'Backend',
     url: 'https://www.apollographql.com/docs/router',
-    description: 'Power your federated graph with a high-performance graph router written in Rust.',
+    description: 'Optimize your federated graph with a high-performance graph router written in Rust.',
     omitLandingPage: true
   },
   'Apollo Studio': {
