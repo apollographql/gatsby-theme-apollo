@@ -293,7 +293,7 @@ module.exports = ({
       title: pageTitle || siteName,
       siteName,
       description,
-      siteUrl: path.join(baseUrl, pathPrefix || '')
+      siteUrl: new URL(pathPrefix || '', baseUrl).href
     },
     plugins
   };
