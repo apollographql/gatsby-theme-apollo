@@ -9,7 +9,7 @@ const navConfig = {
   'Apollo Client (React)': {
     docset: 'react',
     category: 'Apollo Client',
-    shortName: 'React / JS',
+    shortName: 'JS / React',
     url: 'https://www.apollographql.com/docs/react',
     description:
       "Manage your React app's state and seamlessly execute GraphQL operations.",
@@ -50,25 +50,25 @@ const navConfig = {
       }
     ]
   },
-  'Apollo Client (Android)': {
-    docset: 'android',
+  'Apollo Client (Kotlin)': {
+    docset: 'kotlin',
     category: 'Apollo Client',
-    shortName: 'Android',
-    url: 'https://www.apollographql.com/docs/android',
+    shortName: 'Kotlin / Android',
+    url: 'https://www.apollographql.com/docs/kotlin',
     description:
-      "Manage your Android app's state and seamlessly execute GraphQL operations.",
+      "Manage your Kotlin app's state and seamlessly execute GraphQL operations.",
     topArticles: [
       {
         title: 'Tutorial',
-        url: 'https://www.apollographql.com/docs/android/tutorial/00-introduction/'
+        url: 'https://www.apollographql.com/docs/kotlin/tutorial/00-introduction/'
       },
       {
         title: 'Queries',
-        url: 'https://www.apollographql.com/docs/android/essentials/queries/'
+        url: 'https://www.apollographql.com/docs/kotlin/essentials/queries/'
       },
       {
         title: 'Normalized cache',
-        url: 'https://www.apollographql.com/docs/android/essentials/normalized-cache/'
+        url: 'https://www.apollographql.com/docs/kotlin/essentials/normalized-cache/'
       }
     ]
   },
