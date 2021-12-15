@@ -9,8 +9,9 @@ const Heading = styled.h1({
   }
 });
 
-const Subheading = styled.h3({
-  color: colors.text2
+const Subheading = styled.h2({
+  color: colors.text2,
+  fontSize: '1.4427rem'
 });
 
 export default function PageHeader(props) {
