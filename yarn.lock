@@ -4218,10 +4218,10 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apollo-algolia-autocomplete@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/apollo-algolia-autocomplete/-/apollo-algolia-autocomplete-1.3.2.tgz#cd45ac78135d3acf352ab867af5a357719cdc30e"
-  integrity sha512-Psy/AputEE4LZLAYbrWGmw/vgrgqFwWexMYi0fCTNLWsPK53oUljeudoIYLN6fvFZSpyNktma35cO3CVL9v/lA==
+apollo-algolia-autocomplete@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/apollo-algolia-autocomplete/-/apollo-algolia-autocomplete-1.3.3.tgz#ca6205062f0fbf2cd5880cfd89a2d0005a856b82"
+  integrity sha512-qjhoJDBi0N4d8RsE1T5c/ToHxLYB6XA9+81DtH9lbPziB6NjIadLTVmrpUnF22a1mTQdjEZytADDE12EJ/5fXw==
   dependencies:
     "@algolia/autocomplete-js" "1.1.0"
     "@algolia/autocomplete-plugin-algolia-insights" "^1.3.0"
