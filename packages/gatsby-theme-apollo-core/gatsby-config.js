@@ -9,7 +9,9 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-less',
       options: {
-        modifyVars: mapKeys(colors, (value, key) => `color-${key}`)
+        lessOptions: {
+          modifyVars: mapKeys(colors, (value, key) => `color-${key}`)
+        }
       }
     }
   ]

@@ -7,8 +7,8 @@
     "build": "gatsby build"
   },
   "dependencies": {
-    "gatsby": "^2.23.18",
-    "gatsby-theme-apollo-docs": "^5.3.2",
+    "gatsby": "^3.0.0",
+    "gatsby-theme-apollo-docs": "^5.3.12",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }
