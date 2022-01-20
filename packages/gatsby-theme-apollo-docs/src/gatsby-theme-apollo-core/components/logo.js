@@ -9,7 +9,6 @@ const Wrapper = styled.div({
 });
 
 const StyledApolloIcon = styled(ApolloIcon)({
-  height: '1em',
   marginRight: '0.2857142857em'
 });
 
@@ -21,7 +20,8 @@ const StyledDocsIcon = styled(DocsIcon)({
 export default function Logo() {
   return (
     <Wrapper>
-      <StyledApolloIcon />
+      {/* having the height in `StyledApolloIcon` gets overridden by a different class on the icon that sets height: 293px; */}
+      <StyledApolloIcon style={{height: '1em'}} />
       <StyledDocsIcon />
     </Wrapper>
   );
