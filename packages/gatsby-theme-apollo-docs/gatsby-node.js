@@ -5,6 +5,14 @@ const {createFilePath} = require('gatsby-source-filesystem');
 const {getVersionBasePath} = require('./src/utils');
 const {default: getShareImage} = require('@jlengstorf/get-share-image');
 
+exports.onCreateWebpackConfig = ({actions}) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: {path: require.resolve('path-browserify')}
+    }
+  });
+};
+
 function getConfigPaths(baseDir) {
   return [
     path.join(baseDir, 'gatsby-config.js'), // new gatsby config
