@@ -9880,7 +9880,7 @@ gatsby-recipes@^0.25.0:
     xstate "^4.9.1"
     yoga-layout-prebuilt "^1.9.6"
 
-gatsby-remark-autolink-headers@^4.0.0:
+gatsby-remark-autolink-headers@^4.2.0:
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/gatsby-remark-autolink-headers/-/gatsby-remark-autolink-headers-4.11.0.tgz#829d51672a033a765017c439ce80d991c075e7af"
   integrity sha512-wklhIRpVQfv9xMPoSVKDl/DRLBzxKWr13PRQgw602zVmj/IdMzgVarJgU8aCzlyb3+JztlptnKE1U/htFs8HGQ==
