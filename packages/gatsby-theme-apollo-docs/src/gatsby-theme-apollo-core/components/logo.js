@@ -20,7 +20,7 @@ const StyledDocsIcon = styled(DocsIcon)({
 export default function Logo() {
   return (
     <Wrapper>
-      {/* having the height in `StyledApolloIcon` gets overridden by a different class on the icon that sets height: 293px; */}
+      {/* having the height in `StyledApolloIcon` gets overridden by a 293px from emotion */}
       <StyledApolloIcon style={{height: '1em'}} />
       <StyledDocsIcon />
     </Wrapper>

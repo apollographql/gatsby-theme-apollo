@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import {IconProceed} from '@apollo/space-kit/icons/IconProceed';
 import {breakpoints} from 'gatsby-theme-apollo-core';
 import {colors} from '@apollo/space-kit/colors';
+import {size} from 'polished';
 
 const Container = styled.div({
   display: 'flex',
@@ -28,8 +29,7 @@ const StyledLink = styled.a({
   }
 });
 
-const StyledIcon = styled(IconProceed)({
-  height: '0.75em',
+const StyledIcon = styled(IconProceed)(size('0.75em'), {
   marginLeft: '0.5em'
 });
 

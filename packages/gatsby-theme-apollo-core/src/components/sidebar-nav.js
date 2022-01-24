@@ -139,7 +139,8 @@ function NavItems(props) {
             {page.anchor ? (
               <a href={page.path} target="_blank" rel="noopener noreferrer">
                 {pageTitle}
-                <StyledOutlinkIcon />
+                {/* `size(14) style is being overriden by a 25px height from emotion */}
+                <StyledOutlinkIcon style={{height: '14px'}} />
               </a>
             ) : (
               <Link
