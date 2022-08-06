@@ -1,3 +1,5 @@
+> ⚠️ These packages are no longer being maintained. Feel free to continue using them, but we won't be supporting them moving forward.
+
 <div align="center">
   <img height="80" src="https://i.imgur.com/RcWoDL4.png">
   <h1 align="center">Apollo Gatsby Themes</h1>
