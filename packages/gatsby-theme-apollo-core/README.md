@@ -1,3 +1,5 @@
+> ⚠️ This package is no longer being maintained. Feel free to continue using it, but we won't be supporting it moving forward.
+
 # gatsby-theme-apollo-core
 
 This is the base theme for building Apollo-branded Gatsby sites. It contains a small amount of configuration, and a handful of components that make it easy to build consistent-looking UIs.

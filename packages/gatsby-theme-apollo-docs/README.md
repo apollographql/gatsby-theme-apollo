@@ -1,3 +1,5 @@
+> ⚠️ This package is no longer being maintained. Feel free to continue using it, but we won't be supporting it moving forward.
+
 # gatsby-theme-apollo-docs
 
 This is an entirely configuration-based Gatsby theme that generates a documentation website based on a series of Markdown or MDX files. It also exports a series of [components](#components) that can be used within MDX files.

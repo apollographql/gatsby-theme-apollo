@@ -1,3 +1,5 @@
+> ⚠️ Package no longer supported. Use [gatsby-plugin-apollo](https://github.com/trevorblades/gatsby-plugin-apollo) instead. It supports the same component shadowing API that this package uses, and also offers an even simpler config-based way of setting your site up with Apollo.
+
 # gatsby-theme-apollo
 
 A Gatsby theme that sets up your website for use with [Apollo Client](https://www.apollographql.com/docs/react/v3.0-beta). 
